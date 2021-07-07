@@ -1,3 +1,8 @@
+#Ignore symlimks
+bitrix
+images
+upload
+
 /images/
 
 # Исключаем настройки PHPStorm, мы в нём работаем
