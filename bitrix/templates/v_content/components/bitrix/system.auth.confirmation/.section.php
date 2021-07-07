@@ -1,3 +1,0 @@
-<?
-$sSectionName="system.auth.confirmation";
-?>
