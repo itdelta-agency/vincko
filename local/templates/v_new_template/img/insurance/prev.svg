@@ -1,0 +1,17 @@
+<svg width="48" height="48" xmlns="http://www.w3.org/2000/svg">
+    <!-- Created with SVG Editor - http://github.com/mzalive/SVG Editor/ -->
+    <defs>
+        <linearGradient id="paint0_linear" x1="0.99984" y1="0.99999" x2="-1.57608" y2="0.87309">
+            <stop stop-color="white"/>
+        </linearGradient>
+    </defs>
+    <g>
+        <title>background</title>
+        <rect x="-1" y="-1" width="50" height="50" id="canvas_background" fill="none"/>
+    </g>
+    <g>
+        <title>Layer 1</title>
+        <ellipse ry="24" rx="24" id="svg_1" cy="24" cx="24" stroke-width="0" stroke="#000" fill="#005dff"/>
+        <path transform="rotate(-180, 23.1497, 24.1439)" d="m27.60366,24.97383l-7.24136,7.22103c-0.46064,0.4596 -1.20749,0.4596 -1.6679,0c-0.46045,-0.4591 -0.46045,-1.2039 0,-1.663l6.40749,-6.38956l-6.40731,-6.38931c-0.46045,-0.45936 -0.46045,-1.20403 0,-1.6632c0.46046,-0.45936 1.20727,-0.45936 1.6679,0l7.24137,7.22117c0.23023,0.2297 0.34521,0.53043 0.34521,0.83131c0,0.30102 -0.11521,0.60197 -0.3454,0.83156z" fill="url(#paint0_linear)" id="svg_2"/>
+    </g>
+</svg>
