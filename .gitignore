@@ -5,11 +5,11 @@
 
 # Исключаем папку /bitrix кроме некоторых подпапок
 #!/bitrix
-/bitrix/*
+/bitrix/
 
 # оставляем печатные формы интернет-магазина
 #!/bitrix/admin/
-/bitrix/admin/*
+#/bitrix/admin/*
 #!/bitrix/admin/reports/
 
 # оставляем нестандартные компоненты
@@ -18,9 +18,9 @@
 
 # сохраняем весь php_interface за редкими исключениями
 #!/bitrix/php_interface/
-/bitrix/php_interface/dbconn.ph*
-/bitrix/php_interface/after_connect*
-/bitrix/php_interface/logs/
+#/bitrix/php_interface/dbconn.ph*
+#/bitrix/php_interface/after_connect*
+#/bitrix/php_interface/logs/
 
 # сохраняем шаблоны сайта
 #!/bitrix/templates/
