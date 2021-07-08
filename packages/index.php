@@ -4,7 +4,7 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 Готовые решения
 <?$APPLICATION->IncludeComponent(
     "it-delta:iblock.content",
-    "",
+    "tasks",
     Array(
         "ACTIVE_DATE" => "N",
         "ADD_CACHE_STRING" => "",
@@ -21,4 +21,7 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
         "SORT_ORDER2" => "ASC"
     )
 );?>
+
+<div class="current-packages"></div>
+
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>
