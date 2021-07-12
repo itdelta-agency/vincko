@@ -2,39 +2,68 @@
     <div class="footer__top">
         <div class="footer__top-logo">
             <a href="/">
-                <picture>
-                    <source type="image/webp" srcset="img/footer/footer__logo.webp">
-                    <source type="image/png" srcset="img/footer/footer__logo.png">
-                    <img src="img/footer/footer__logo.png" alt="logo__img" loading="lazy">
-                </picture>
+                <? $APPLICATION->IncludeComponent(
+                    "bitrix:main.include",
+                    "",
+                    array(
+                        "AREA_FILE_SHOW" => "file",
+                        "AREA_FILE_SUFFIX" => "inc",
+                        "EDIT_TEMPLATE" => "",
+                        "PATH" => "/include/logo_footer.php"
+                    )
+                ); ?>
             </a>
         </div>
-        <div class="footer__top-service">
-            <span>Служба заботы о клиентах</span>
-            <a href="tel:88000000000">8 800 000 00 00</a>
-        </div>
+        <? $APPLICATION->IncludeComponent(
+            "bitrix:main.include",
+            "",
+            array(
+                "AREA_FILE_SHOW" => "file",
+                "AREA_FILE_SUFFIX" => "inc",
+                "EDIT_TEMPLATE" => "",
+                "PATH" => "/include/top-service_footer.php"
+            )
+        ); ?>
     </div>
     <div class="footer__bottom">
-        <nav class="footer__bottom-navigation">
-            <ul>
-                <li><a href="">Пакеты охранных услуг</a></li>
-                <li><a href="">О компании vincko</a></li>
-                <li><a href="">Рейтинг охранных компаний</a></li>
-                <li><a href="">Политика конфиденциальности</a></li>
-                <li><a href="">Комплекты оборудования</a></li>
-                <li><a href="">Пользовательское соглашение</a></li>
-                <li><a href="">Хиты продаж</a></li>
-                <li><a href="">Публичная оферта</a></li>
-            </ul>
-        </nav>
-        <div class="footer__bottom-btn">
-            <button>заявка на партнерство</button>
-            <span>Для охранных и монтажных компаний, производителей оборудования и других юридических лиц</span>
-        </div>
+        <?$APPLICATION->IncludeComponent(
+            "bitrix:menu",
+            "desc_bottom",
+            Array(
+                "ALLOW_MULTI_SELECT" => "N",
+                "CHILD_MENU_TYPE" => "left",
+                "DELAY" => "N",
+                "MAX_LEVEL" => "1",
+                "MENU_CACHE_GET_VARS" => array(""),
+                "MENU_CACHE_TIME" => "3600",
+                "MENU_CACHE_TYPE" => "N",
+                "MENU_CACHE_USE_GROUPS" => "Y",
+                "ROOT_MENU_TYPE" => "desc_bottom",
+                "USE_EXT" => "N"
+            )
+        );?>
+
+        <? $APPLICATION->IncludeComponent(
+            "bitrix:main.include",
+            "",
+            array(
+                "AREA_FILE_SHOW" => "file",
+                "AREA_FILE_SUFFIX" => "inc",
+                "EDIT_TEMPLATE" => "",
+                "PATH" => "/include/bottom_footer.php"
+            )
+        ); ?>
     </div>
-    <div class="footer__signature">
-        <span>2021 Vincko. Все права защищены.</span>
-    </div>
+    <? $APPLICATION->IncludeComponent(
+        "bitrix:main.include",
+        "",
+        array(
+            "AREA_FILE_SHOW" => "file",
+            "AREA_FILE_SUFFIX" => "inc",
+            "EDIT_TEMPLATE" => "",
+            "PATH" => "/include/footer_signature.php"
+        )
+    ); ?>
 </footer>
 
 <script src="<?=SITE_TEMPLATE_PATH?>/libs/jquery.js"></script>
@@ -48,3 +77,4 @@
 </body>
 
 </html>
+
