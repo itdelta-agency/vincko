@@ -279,33 +279,26 @@ $Asset = Asset::getInstance();
             </div>
         </div>
     </div>
-    <div class="header__bottom">
-        <div class="container">
-            <div class="header__bottom-form">
-                <form>
-                    <span class="text">Я хочу охранять</span>
-                    <div class="header__bottom-form-select">
-                        <select name="header__select_town" id="header__select_town-js">
-                            <option value="1">Коммерческая недвижимость</option>
-                            <option value="2">Коммерческая недвижимость</option>
-                            <option value="3">Коммерческая недвижимость</option>
-                        </select>
-                    </div>
-                    <span class="text">где</span>
-                    <div class="header__bottom-form-select location">
-                        <select name="header__select_location" id="header__select_location-js">
-                            <option value="1">Петропавловск-Камчатский</option>
-                            <option value="2">Петропавловск-Камчатский</option>
-                            <option value="3">Петропавловск-Камчатский</option>
-                        </select>
-                    </div>
-                    <div class="header__bottom-form-btn">
-                        <input type="submit" value="НАЙТИ КОМПАНИЮ">
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+    <?$APPLICATION->IncludeComponent(
+        "it-delta:iblock.content",
+        "header_filter",
+        Array(
+            "ACTIVE_DATE" => "N",
+            "ADD_CACHE_STRING" => "",
+            "CACHE_TIME" => "0",
+            "CACHE_TYPE" => "A",
+            "IBLOCK_ID" => "20",
+            "ESTATE_IB_ID" =>"19",
+            "IBLOCK_TYPE" => "references",
+            "PAGE_ELEMENT_COUNT" => "10",
+            "RAND_ELEMENTS" => "N",
+            "SORT_BY1" => "ACTIVE_FROM",
+            "SORT_BY2" => "SORT",
+            "SORT_ORDER1" => "DESC",
+            "SORT_ORDER2" => "ASC"
+        )
+    );?>
+
 </header>
 <div class="header__wall"></div>
 
