@@ -1,10 +1,7 @@
 <?
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 
-$packages = MainService::getPackagesIds();
-echo '<pre>';
-print_r($packages);
-echo '</pre>';
+$packages = returnResultCache(86400, 'packagesIds', 'MainService::getPackagesIds');
 
 if(!empty($packages))
 {
