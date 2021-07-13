@@ -1,4 +1,4 @@
-var Itd = {
+var TaskManager = {
     viewSotulion: function (data) {
         var strLoadingText = "Loading ..."
         $.ajax({

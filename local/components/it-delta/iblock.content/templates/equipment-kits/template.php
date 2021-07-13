@@ -32,6 +32,7 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) die();
 </style>
 <div class="equipmnet-kits">
     <?php foreach ($arResult['SECTIONS'] as $section):?>
+    <?if(!empty($section['EQUIPMENT-KITS'])):?>
     <div class="equipmnet-kits__item">
         <div class="equipmnet-kits-title"><?=$section['NAME']?></div>
             <div class="equipmnet-kits-variants">
@@ -45,5 +46,6 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) die();
             </div>
 
     </div>
+    <?endif;?>
     <?php endforeach;?>
 </div>

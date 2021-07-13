@@ -32,6 +32,7 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) die();
 </style>
 <div class="packages-container">
     <?php foreach ($arResult['SECTIONS'] as $section):?>
+    <?if(!empty($section['ITEMS'])):?>
     <div class="packages-container__item">
         <img class="packages-image" src="<?=$section['PICTURE_SRC']?>" alt="">
         <div class="packages-title"><?=$section['NAME']?></div>
@@ -47,5 +48,6 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) die();
             </div>
 
     </div>
+    <?endif;?>
     <?php endforeach;?>
 </div>

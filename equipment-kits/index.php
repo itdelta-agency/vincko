@@ -1,8 +1,17 @@
 <?
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
-?>
-Комплекты охранного оборудования
-<?$APPLICATION->IncludeComponent(
+
+$packages = MainService::getPackagesIds();
+echo '<pre>';
+print_r($packages);
+echo '</pre>';
+
+if(!empty($packages))
+{
+    $packagesFilter = array(
+        "ID"=>$packages
+    );
+    $APPLICATION->IncludeComponent(
     "it-delta:iblock.content",
     "equipment-kits",
     Array(
@@ -10,7 +19,7 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
         "ADD_CACHE_STRING" => "",
         "CACHE_TIME" => "0",
         "CACHE_TYPE" => "A",
-        "FILTER_NAME" => "arrFilter1",
+        "FILTER_NAME" => "packagesFilter",
         "IBLOCK_ID" => "12",
         "EQUIPMENT-KITS_IBLOCK_ID"=>"11",
         "IBLOCK_TYPE" => "references",
@@ -21,6 +30,13 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
         "SORT_ORDER1" => "DESC",
         "SORT_ORDER2" => "ASC"
     )
-);?>
+);
+}
+
+
+?>
+Комплекты охранного оборудования
+
+
 
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>
