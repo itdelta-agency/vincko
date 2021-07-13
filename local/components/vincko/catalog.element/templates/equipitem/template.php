@@ -206,6 +206,12 @@ if (!empty($arParams['LABEL_PROP_POSITION']))
 	</div>
 </div>
 <?endif;?>
+<?php
+
+//echo "<pre style='height: 500px; overflow: scroll; background: wheat; padding: 10px'>";
+//print_r($arResult);
+//echo "</pre>";
+?>
 
 <?
 unset($actualItem, $itemIds, $jsParams);
