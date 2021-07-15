@@ -75,11 +75,10 @@ class RegisterHandler
     function OnBeforeUserChangePasswordHandler(&$arFields)
     {
         if ((isset($arFields['PASSWORD']))) {
-
-
+            $password = self::rand_string(8);
+            $arFields["PASSWORD"] = $password;
+            $arFields["CONFIRM_PASSWORD"]=$password;
             self::singleton(true, $arFields);
-
-
         }
         return $arFields;
     }
@@ -88,10 +87,6 @@ class RegisterHandler
     {
         if ($arFields["RESULT"]) {
             $arParams = self::singleton();
-            echo '<pre>';
-            print_r($arParams);
-            print_r($arFields);
-            echo '</pre>';
             $fields = array(
                 'USER_PHONE' => $arParams['PHONE_NUMBER'],
                 'USER_PASSWORD' => $arParams['PASSWORD'],
@@ -104,8 +99,6 @@ class RegisterHandler
         }
         return $arFields;
     }
-
-
 }
 
 
