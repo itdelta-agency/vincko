@@ -72,7 +72,7 @@
   border: 3px solid #005dff;
   padding: 5px 0 16px
 }
-.ready-des2__choice input:checked + .ready-des2__choice-item > div {
+.ready-des2__choice input:checked + .ready-des2__choice-item > span {
   padding-left: 32px;
   padding-right: 32px
 }
@@ -87,7 +87,7 @@
   flex-direction: column;
   padding: 7px 0 18px
 }
-.ready-des2__choice-item > div {
+.ready-des2__choice-item > span {
   padding-left: 32px;
   padding-right: 32px
 }

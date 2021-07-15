@@ -46,7 +46,9 @@ for($index = 0; $index < $itemSize; $index++)
 			</div>';
 	}
 }
-
+$strReturn .= '<div>
+				<a  href="' . $_SERVER['REQUEST_URI'] . '" title="' . $APPLICATION->ShowTitle() . '" itemprop="item">' . $APPLICATION->ShowTitle() . '</a>
+			</div>';
 $strReturn .= '</div>';
 
 return $strReturn;

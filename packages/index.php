@@ -1,7 +1,7 @@
 <?
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 ?>
-Готовые решения
+
 <?$APPLICATION->IncludeComponent(
     "it-delta:iblock.content",
     "tasks",

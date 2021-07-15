@@ -15,7 +15,7 @@ jQuery(document).ready(function ($) {
         item.classList.remove("active");
       });
       this.classList.add("active");
-      tabName = this.getAttribute("datat-tab-name");
+      tabName = this.getAttribute("data-tab-name");
       selectTabContent(tabName);
     }
 

@@ -42,7 +42,7 @@
   right: 0
 }
 .polzunok__number {
-  margin-top: 20px;
+  margin-top: 22 px;
   display: block;
   color: #93b6ff;
   width: 5ch;
@@ -98,6 +98,7 @@
 .installment .price__result {
   display: none
 }
+.installment .price__result .h4,
 .installment .price__result h4 {
   font-weight: 600;
   font-size: 16px;
@@ -233,6 +234,7 @@
   position: relative!important;
   bottom: -8px
 }
+.installment__calculator-info .h4,
 .installment__calculator-info h4 {
   font-weight: 600;
   font-size: 16px;
@@ -303,6 +305,9 @@
   background: rgba(255,255,255,.5);
   position: absolute;
   left: 0
+}
+.installment__rules--active .installment__rules-wall {
+  display: none
 }
 .installment__rules p {
   font-weight: 500;

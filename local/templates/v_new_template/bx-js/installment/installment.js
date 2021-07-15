@@ -41,7 +41,7 @@ $(document).ready(function () {
       var id = "#form-3";
       var top = $(id).position().top;
       $('html').scrollTop(top);
-      $('.installment__rules-wall').hide();
+      $('.installment__rules').addClass("installment__rules--active");
     });
     $(".polzunok-1").slider({
       min: 0,

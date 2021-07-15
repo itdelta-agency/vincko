@@ -388,6 +388,7 @@
   margin-bottom: 30px
 }
 .presents__tabs-tablinks {
+  position: relative;
   display: flex;
   flex-wrap: wrap;
   border-bottom: 1px solid #d1dbe3
@@ -519,7 +520,7 @@
   background: linear-gradient(-90deg,#fff 50.16%,rgba(255,255,255,0) 100%)
 }
 .presents__tabs-tabs__content .tabs__content_slider .slick-slide {
-  min-height: 526px;
+  min-height: 584px;
   position: relative
 }
 .presents__tabs-tabs__content .tabs__content_slider .slick-slide.slick-current.slick-active.slick-center {
@@ -534,9 +535,11 @@
 .presents__tabs-tabs__content .tabs__content_slider .slick-slide.slick-current.slick-active.slick-center .item__top__content {
   opacity: 1
 }
-.presents__tabs-tabs__content .tabs__content_slider .slick-slide.slick-current.slick-active.slick-center .item:hover .item__bottom {
-  -webkit-animation: .3s forwards bock;
-  animation: .3s forwards bock
+.presents__tabs-tabs__content .tabs__content_slider .slick-slide.slick-current.slick-active.slick-center .item .item__bottom {
+  display: block;
+  opacity: 1;
+  height: auto;
+  padding: 24px 0
 }
 .presents__tabs-tabs__content .tabs__content_slider .slick-slide.prev-slide .item {
   transform: translate(164px,0) scale(.9)
@@ -680,7 +683,7 @@
   max-width: 180px
 }
 .presents__tabs-tabs__content.tab-2 .tabs__content_slider .slick-slide {
-  min-height: 526px;
+  min-height: 531px;
   position: relative
 }
 .presents__tabs-tabs__content.tab-2 .tabs__content_slider .slick-slide.slick-current.slick-center {
@@ -695,9 +698,11 @@
 .presents__tabs-tabs__content.tab-2 .tabs__content_slider .slick-slide.slick-current.slick-center .item__top__content {
   opacity: 1
 }
-.presents__tabs-tabs__content.tab-2 .tabs__content_slider .slick-slide.slick-current.slick-center .item:hover .item__bottom {
-  -webkit-animation: .3s forwards bock;
-  animation: .3s forwards bock
+.presents__tabs-tabs__content.tab-2 .tabs__content_slider .slick-slide.slick-current.slick-center .item .item__bottom {
+  display: block;
+  opacity: 1;
+  height: auto;
+  padding: 24px 0
 }
 .presents__tabs-tabs__content.tab-2 .tabs__content_slider .slick-slide.prev-slide .item {
   transform: translate(164px,0) scale(.9)
@@ -786,9 +791,11 @@
   height: 0;
   overflow: hidden
 }
-.presents__tabs-tabs__content.tab-3 .tabs__content_slider .item:hover .item__bottom {
-  -webkit-animation: .3s forwards bock;
-  animation: .3s forwards bock
+.presents__tabs-tabs__content.tab-3 .tabs__content_slider .item .item__bottom {
+  display: block;
+  opacity: 1;
+  height: auto;
+  padding: 24px 0
 }
 .presents__tabs .slick-next,
 .presents__tabs .slick-prev {
@@ -848,6 +855,9 @@
 }
 .loyality__calculator_head h2 {
   margin-bottom: 21px
+}
+.loyality__calculator_head h2 span {
+  display: block
 }
 .loyality__calculator_head p {
   max-width: 655px

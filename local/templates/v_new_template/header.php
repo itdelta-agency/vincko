@@ -301,7 +301,15 @@ $Asset = Asset::getInstance();
 
 </header>
 <div class="header__wall"></div>
-
+<?$APPLICATION->IncludeComponent(
+    "vincko:breadcrumb",
+    "vincko",
+    Array(
+        "PATH" => "",
+        "SITE_ID" => "v1",
+        "START_FROM" => "0"
+    )
+);?>
 
 
 

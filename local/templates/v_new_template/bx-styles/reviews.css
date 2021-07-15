@@ -473,22 +473,22 @@
   transition: .3s ease-in-out;
   cursor: pointer
 }
-.reviews__form-top--hidden .center__not_selected label > input:checked + p .text::after,
-.reviews__form-top--hidden .center__selected label > input:checked + p .text::after,
-.reviews__form-top--hidden .center__top_in label > input:checked + p .text::after {
+.reviews__form-top--hidden .center__not_selected label > input:checked + span .text::after,
+.reviews__form-top--hidden .center__selected label > input:checked + span .text::after,
+.reviews__form-top--hidden .center__top_in label > input:checked + span .text::after {
   background-color: #005dff;
   background-image: url(../img/reviews/pseudo__checked.png);
   background-position: center;
   background-repeat: no-repeat
 }
-.reviews__form-top--hidden .center__not_selected label > input:checked + p .text::before,
-.reviews__form-top--hidden .center__selected label > input:checked + p .text::before,
-.reviews__form-top--hidden .center__top_in label > input:checked + p .text::before {
+.reviews__form-top--hidden .center__not_selected label > input:checked + span .text::before,
+.reviews__form-top--hidden .center__selected label > input:checked + span .text::before,
+.reviews__form-top--hidden .center__top_in label > input:checked + span .text::before {
   z-index: 0
 }
-.reviews__form-top--hidden .center__not_selected label p,
-.reviews__form-top--hidden .center__selected label p,
-.reviews__form-top--hidden .center__top_in label p {
+.reviews__form-top--hidden .center__not_selected label > span,
+.reviews__form-top--hidden .center__selected label > span,
+.reviews__form-top--hidden .center__top_in label > span {
   background: rgba(147,182,255,.2);
   height: 32px;
   display: flex;
@@ -496,9 +496,9 @@
   border-radius: 3px;
   padding-left: 10px
 }
-.reviews__form-top--hidden .center__not_selected label p .text,
-.reviews__form-top--hidden .center__selected label p .text,
-.reviews__form-top--hidden .center__top_in label p .text {
+.reviews__form-top--hidden .center__not_selected label > span .text,
+.reviews__form-top--hidden .center__selected label > span .text,
+.reviews__form-top--hidden .center__top_in label > span .text {
   width: 100%;
   max-width: 190px;
   display: inline-block;
@@ -506,12 +506,12 @@
   text-overflow: ellipsis;
   white-space: nowrap
 }
-.reviews__form-top--hidden .center__not_selected label p .text::after,
-.reviews__form-top--hidden .center__not_selected label p .text::before,
-.reviews__form-top--hidden .center__selected label p .text::after,
-.reviews__form-top--hidden .center__selected label p .text::before,
-.reviews__form-top--hidden .center__top_in label p .text::after,
-.reviews__form-top--hidden .center__top_in label p .text::before {
+.reviews__form-top--hidden .center__not_selected label > span .text::after,
+.reviews__form-top--hidden .center__not_selected label > span .text::before,
+.reviews__form-top--hidden .center__selected label > span .text::after,
+.reviews__form-top--hidden .center__selected label > span .text::before,
+.reviews__form-top--hidden .center__top_in label > span .text::after,
+.reviews__form-top--hidden .center__top_in label > span .text::before {
   content: "";
   position: absolute;
   left: 16px;
@@ -522,19 +522,19 @@
   border: 1px solid #dde8ff;
   background-color: #fff
 }
-.reviews__form-top--hidden .center__not_selected label p .text::before,
-.reviews__form-top--hidden .center__selected label p .text::before,
-.reviews__form-top--hidden .center__top_in label p .text::before {
+.reviews__form-top--hidden .center__not_selected label > span .text::before,
+.reviews__form-top--hidden .center__selected label > span .text::before,
+.reviews__form-top--hidden .center__top_in label > span .text::before {
   z-index: 1
 }
-.reviews__form-top--hidden .center__not_selected label p .icon,
-.reviews__form-top--hidden .center__selected label p .icon,
-.reviews__form-top--hidden .center__top_in label p .icon {
+.reviews__form-top--hidden .center__not_selected label > span .icon,
+.reviews__form-top--hidden .center__selected label > span .icon,
+.reviews__form-top--hidden .center__top_in label > span .icon {
   margin-left: auto
 }
-.reviews__form-top--hidden .center__not_selected label p .raiting__number,
-.reviews__form-top--hidden .center__selected label p .raiting__number,
-.reviews__form-top--hidden .center__top_in label p .raiting__number {
+.reviews__form-top--hidden .center__not_selected label > span .raiting__number,
+.reviews__form-top--hidden .center__selected label > span .raiting__number,
+.reviews__form-top--hidden .center__top_in label > span .raiting__number {
   font-size: 14px;
   margin-left: 6px;
   min-width: 25px;
@@ -2302,12 +2302,12 @@
   .reviews__form-top--hidden .center__top_in label {
     padding-left: 40px
   }
-  .reviews__form-top--hidden .center__not_selected label p .text::after,
-  .reviews__form-top--hidden .center__not_selected label p .text::before,
-  .reviews__form-top--hidden .center__selected label p .text::after,
-  .reviews__form-top--hidden .center__selected label p .text::before,
-  .reviews__form-top--hidden .center__top_in label p .text::after,
-  .reviews__form-top--hidden .center__top_in label p .text::before {
+  .reviews__form-top--hidden .center__not_selected label > span .text::after,
+  .reviews__form-top--hidden .center__not_selected label > span .text::before,
+  .reviews__form-top--hidden .center__selected label > span .text::after,
+  .reviews__form-top--hidden .center__selected label > span .text::before,
+  .reviews__form-top--hidden .center__top_in label > span .text::after,
+  .reviews__form-top--hidden .center__top_in label > span .text::before {
     left: 0
   }
   .reviews__form-top--hidden .center__overflow {

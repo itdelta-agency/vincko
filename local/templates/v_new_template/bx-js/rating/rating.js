@@ -185,4 +185,81 @@ jQuery(document).ready(function () {
           $(this).toggle($(this).text().toLowerCase().IndexOf($value) > -1);
       });
     }); */
+
+  var swiper = new Swiper(".mySwiper", {
+    observer: true,
+    observeParents: true,
+    navigation: {
+      nextEl: ".swiper-button-next",
+      prevEl: ".swiper-button-prev"
+    }
+  });
+  $(function () {
+    var $range = $(".js-range-slider"),
+        $input = $(".js-input"),
+        instance,
+        min = 1,
+        max = 12;
+    $range.ionRangeSlider({
+      skin: "big",
+      type: "single",
+      min: min,
+      max: max,
+      from: 1,
+      onStart: function onStart(data) {
+        $input.prop("value", data.from);
+      },
+      onChange: function onChange(data) {
+        $input.prop("value", data.from);
+      }
+    });
+    instance = $range.data("ionRangeSlider");
+    $input.on("change keyup", function () {
+      var val = $(this).prop("value"); // validate
+
+      if (val < min) {
+        val = min;
+      } else if (val > max) {
+        val = max;
+      }
+
+      instance.update({
+        from: val
+      });
+    });
+  });
+  $(function () {
+    var $range = $(".js-range-slider2"),
+        $input = $(".js-input2"),
+        instance,
+        min = 1,
+        max = 3;
+    $range.ionRangeSlider({
+      skin: "big",
+      type: "single",
+      min: min,
+      max: max,
+      from: 1,
+      onStart: function onStart(data) {
+        $input.prop("value", data.from);
+      },
+      onChange: function onChange(data) {
+        $input.prop("value", data.from);
+      }
+    });
+    instance = $range.data("ionRangeSlider");
+    $input.on("change keyup", function () {
+      var val = $(this).prop("value"); // validate
+
+      if (val < min) {
+        val = min;
+      } else if (val > max) {
+        val = max;
+      }
+
+      instance.update({
+        from: val
+      });
+    });
+  });
 });

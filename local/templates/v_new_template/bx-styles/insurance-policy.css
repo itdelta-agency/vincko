@@ -1,4 +1,16 @@
 @charset "UTF-8";
+.insurance-policy h2.installment__page-title {
+  padding-bottom: 0
+}
+.insurance-policy .installment__right-column {
+  margin-top: 56px
+}
+.insurance-policy .installment__right-column .short-ins .no-stroke svg path {
+  stroke: none!important
+}
+.insurance-policy .installment__right-column .short-ins .no-fill svg path {
+  fill: none!important
+}
 .insurance-policy .installment__right-column .short-ins__item {
   max-width: 362px;
   border: 1px solid #d1dbe3;
@@ -8,7 +20,7 @@
 }
 .insurance-policy .installment__right-column .short-ins__item .products__head img {
   width: auto;
-  margin: 32px
+  margin: 32px 32px 48px
 }
 .insurance-policy .installment__right-column .short-ins__item .products__title {
   font-size: 24px;
@@ -32,9 +44,28 @@
   font-weight: 700;
   color: #005dff
 }
+.insurance-policy .installment__right-column .short-ins__item .short-rd__price {
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+  margin-top: 48px
+}
+.insurance-policy .installment__right-column .short-ins__item .short-rd__cost {
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 40px;
+  letter-spacing: 0
+}
+.insurance-policy .installment__right-column .short-ins__item .short-rd__time {
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 32px;
+  letter-spacing: 0;
+  color: #818181
+}
 .insurance-policy .installment__right-column .short-ins__item .short-rd__footer .short-rd-another {
   align-items: center;
-  margin: 24px 0 32px;
+  margin: 14px 0 32px;
   font-weight: 700;
   opacity: .54;
   color: #000

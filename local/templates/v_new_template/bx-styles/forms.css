@@ -129,6 +129,7 @@
 .form__section:last-child {
   border-bottom: 1px solid #d1dbe3
 }
+.form__section .h4,
 .form__section h4 {
   margin: 16px 0
 }
@@ -399,6 +400,7 @@
   display: none
 }
 @media screen and (max-width:767px) {
+  .form .h4,
   .form > h4 {
     max-width: 50vw
   }

@@ -189,14 +189,14 @@
 .input-block ul li.active {
   opacity: 1
 }
-#pseudo__range-review {
+.smile-input {
   width: 298px;
   cursor: pointer;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none
 }
-#pseudo__range-review::-webkit-slider-thumb {
+.smile-input::-webkit-slider-thumb {
   width: 18px;
   height: 18px;
   margin: -7px 0 0;
@@ -209,7 +209,7 @@
   box-shadow: 0 0 4px 4px #fff;
   border-radius: 50%
 }
-#pseudo__range-review::-moz-range-thumb {
+.smile-input::-moz-range-thumb {
   width: 18px;
   height: 18px;
   margin: -7px 0 0;
@@ -222,13 +222,13 @@
   box-shadow: 0 0 4px 4px #fff;
   border-radius: 50%
 }
-#pseudo__range-review::-moz-range-track {
+.smile-input::-moz-range-track {
   width: 100%;
   height: 5px;
   background: linear-gradient(90deg,#ff5757 0,#ffc85c 49.48%,#31cb40 100%);
   border-radius: 5px
 }
-#pseudo__range-review::-webkit-slider-runnable-track {
+.smile-input::-webkit-slider-runnable-track {
   width: 100%;
   height: 5px;
   background: linear-gradient(90deg,#ff5757 0,#ffc85c 49.48%,#31cb40 100%);
@@ -422,14 +422,14 @@
 .review.step-2 .review__bottom.step-2 .review__bottom-item ul li.active {
   color: #005dff
 }
-.review.step-2 .review__bottom.step-2 .review__bottom-item #pseudo__range-review {
+.review.step-2 .review__bottom.step-2 .review__bottom-item .smile-input {
   width: 298px;
   cursor: pointer;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none
 }
-.review.step-2 .review__bottom.step-2 .review__bottom-item #pseudo__range-review::-webkit-slider-thumb {
+.review.step-2 .review__bottom.step-2 .review__bottom-item .smile-input::-webkit-slider-thumb {
   width: 18px;
   height: 18px;
   margin: -7px 0 0;
@@ -441,7 +441,7 @@
   box-shadow: 0 4px 60px 4px rgba(0,0,0,.05);
   border-radius: 50%
 }
-.review.step-2 .review__bottom.step-2 .review__bottom-item #pseudo__range-review::-moz-range-thumb {
+.review.step-2 .review__bottom.step-2 .review__bottom-item .smile-input::-moz-range-thumb {
   width: 18px;
   height: 18px;
   margin: -7px 0 0;
@@ -453,13 +453,13 @@
   box-shadow: 0 4px 60px 4px rgba(0,0,0,.05);
   border-radius: 50%
 }
-.review.step-2 .review__bottom.step-2 .review__bottom-item #pseudo__range-review::-moz-range-track {
+.review.step-2 .review__bottom.step-2 .review__bottom-item .smile-input::-moz-range-track {
   width: 100%;
   height: 5px;
   background: url(../img/review/step-2-line.svg)!important;
   border-radius: 5px
 }
-.review.step-2 .review__bottom.step-2 .review__bottom-item #pseudo__range-review::-webkit-slider-runnable-track {
+.review.step-2 .review__bottom.step-2 .review__bottom-item .smile-input::-webkit-slider-runnable-track {
   width: 100%;
   height: 5px;
   background: url(../img/review/step-2-line.svg)!important;
@@ -706,14 +706,14 @@
 .review.step-3 .review__bottom.step-3 .step-3-item.active .content .content-wrapper .right .list-q .q.active .active-block ul li.active {
   color: #005dff
 }
-.review.step-3 .review__bottom.step-3 .step-3-item.active .content .content-wrapper .right .list-q .q.active .active-block #pseudo__range-review {
+.review.step-3 .review__bottom.step-3 .step-3-item.active .content .content-wrapper .right .list-q .q.active .active-block .smile-input {
   width: 298px;
   cursor: pointer;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none
 }
-.review.step-3 .review__bottom.step-3 .step-3-item.active .content .content-wrapper .right .list-q .q.active .active-block #pseudo__range-review::-webkit-slider-thumb {
+.review.step-3 .review__bottom.step-3 .step-3-item.active .content .content-wrapper .right .list-q .q.active .active-block .smile-input::-webkit-slider-thumb {
   width: 18px;
   height: 18px;
   margin: -7px 0 0;
@@ -726,7 +726,7 @@
   box-shadow: 0 0 4px 4px #fff;
   border-radius: 50%
 }
-.review.step-3 .review__bottom.step-3 .step-3-item.active .content .content-wrapper .right .list-q .q.active .active-block #pseudo__range-review::-moz-range-thumb {
+.review.step-3 .review__bottom.step-3 .step-3-item.active .content .content-wrapper .right .list-q .q.active .active-block .smile-input::-moz-range-thumb {
   width: 18px;
   height: 18px;
   margin: -7px 0 0;
@@ -739,13 +739,13 @@
   box-shadow: 0 0 4px 4px #fff;
   border-radius: 50%
 }
-.review.step-3 .review__bottom.step-3 .step-3-item.active .content .content-wrapper .right .list-q .q.active .active-block #pseudo__range-review::-moz-range-track {
+.review.step-3 .review__bottom.step-3 .step-3-item.active .content .content-wrapper .right .list-q .q.active .active-block .smile-input::-moz-range-track {
   width: 100%;
   height: 5px;
   background: url(../img/review/step-3-line.svg);
   border-radius: 5px
 }
-.review.step-3 .review__bottom.step-3 .step-3-item.active .content .content-wrapper .right .list-q .q.active .active-block #pseudo__range-review::-webkit-slider-runnable-track {
+.review.step-3 .review__bottom.step-3 .step-3-item.active .content .content-wrapper .right .list-q .q.active .active-block .smile-input::-webkit-slider-runnable-track {
   width: 100%;
   height: 5px;
   background: url(../img/review/step-3-line.svg);
@@ -1032,13 +1032,13 @@
     margin-right: 10px;
     font-size: 10px
   }
-  .review.step-3 .review__bottom.step-3 .step-3-item.active .content .content-wrapper .right .list-q .q.active .active-block #pseudo__range-review {
+  .review.step-3 .review__bottom.step-3 .step-3-item.active .content .content-wrapper .right .list-q .q.active .active-block .smile-input {
     width: 200px
   }
-  .review.step-3 .review__bottom.step-3 .step-3-item.active .content .content-wrapper .right .list-q .q.active .active-block #pseudo__range-review::-moz-range-track {
+  .review.step-3 .review__bottom.step-3 .step-3-item.active .content .content-wrapper .right .list-q .q.active .active-block .smile-input::-moz-range-track {
     background: url(../img/review/step-3-line-mb.svg)
   }
-  .review.step-3 .review__bottom.step-3 .step-3-item.active .content .content-wrapper .right .list-q .q.active .active-block #pseudo__range-review::-webkit-slider-runnable-track {
+  .review.step-3 .review__bottom.step-3 .step-3-item.active .content .content-wrapper .right .list-q .q.active .active-block .smile-input::-webkit-slider-runnable-track {
     background: url(../img/review/step-3-line-mb.svg)
   }
 }
@@ -1103,13 +1103,13 @@
   .review__bottom-step-1-left p {
     margin-left: 10px
   }
-  .review.step-2 .review__bottom.step-2 .review__bottom-item #pseudo__range-review {
+  .review.step-2 .review__bottom.step-2 .review__bottom-item .smile-input {
     width: 265px
   }
-  .review.step-2 .review__bottom.step-2 .review__bottom-item #pseudo__range-review::-moz-range-track {
+  .review.step-2 .review__bottom.step-2 .review__bottom-item .smile-input::-moz-range-track {
     background: url(../img/review/step-2-line-mb.svg)!important
   }
-  .review.step-2 .review__bottom.step-2 .review__bottom-item #pseudo__range-review::-webkit-slider-runnable-track {
+  .review.step-2 .review__bottom.step-2 .review__bottom-item .smile-input::-webkit-slider-runnable-track {
     background: url(../img/review/step-2-line-mb.svg)!important
   }
   .review.step-2 .review__bottom.step-2 .review__bottom-item p {
@@ -1120,7 +1120,7 @@
   .input-block ul li {
     margin-right: 20px
   }
-  #pseudo__range-review {
+  .smile-input {
     width: 265px
   }
 }

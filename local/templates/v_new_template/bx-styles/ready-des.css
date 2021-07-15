@@ -1,4 +1,9 @@
 @charset "UTF-8";
+.li-fit-content {
+  width: -webkit-fit-content!important;
+  width: fit-content!important;
+  width: -moz-fit-content!important
+}
 a:hover {
   cursor: pointer
 }
@@ -53,6 +58,7 @@ a:hover {
 .title__block ul span {
   width: 50px;
   height: 50px;
+  display: block;
   font-size: 40px;
   text-align: center;
   color: #93b6ff;

@@ -1,7 +1,6 @@
 <?
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 ?>
-Комплекты охранного оборудования
 <?$APPLICATION->IncludeComponent(
     "it-delta:iblock.content",
     "equipment-kits",

@@ -71,11 +71,7 @@ a {
   transition: .3s ease-in-out;
   background-color: transparent
 }
-a:hover,
-h1 span,
-h2 span,
-h3 span,
-h4 span {
+a:hover {
   color: #005dff
 }
 :focus {
@@ -83,6 +79,10 @@ h4 span {
   outline-width: 0!important;
   outline-color: none!important
 }
+.h2,
+.h3,
+.h4,
+.h5,
 h1,
 h2,
 h3,
@@ -93,9 +93,18 @@ h6 {
   padding: 0;
   font-family: Gilroy-Bold
 }
+.h2,
 h1,
 h2 {
   font-size: 32px
+}
+.h3 span,
+.h4 span,
+h1 span,
+h2 span,
+h3 span,
+h4 span {
+  color: #005dff
 }
 button,
 input,
@@ -188,7 +197,7 @@ p a {
   border-radius: 5px;
   padding: 11.5px 0!important;
   background: #005dff!important;
-  border: 3px solid #005dff;
+  border: 2px solid #005dff;
   font-weight: 700;
   font-size: 14px;
   line-height: 17px;
@@ -363,6 +372,7 @@ template {
   .container {
     padding: 0 10px
   }
+  .h2,
   h1,
   h2 {
     font-size: 22px!important

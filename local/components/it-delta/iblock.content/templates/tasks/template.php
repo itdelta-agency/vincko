@@ -30,6 +30,9 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();
 
 <div class="tasks-container">
     <?php foreach ($arResult['ITEMS'] as $item):
+//        echo "<pre>";
+//    print_r($item);
+//    echo "</pre>";
         $params = $item['PROPERTIES']['PACKAGES']['VALUE']; ?>
         <a href="#0" onclick='return Itd.viewSotulion(<?= json_encode($params) ?>)'>
             <div class="tasks-container__item">
