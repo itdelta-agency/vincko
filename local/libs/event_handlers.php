@@ -3,7 +3,7 @@
 CModule::AddAutoloadClasses(
     '',
     array(
-        'MainService' => '/local/classes/service/MainService.php',
+        'MainService' => '/local/libs/service/MainService.php',
     )
 );
 //функция для кеширования данных
