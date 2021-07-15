@@ -34,7 +34,7 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();
 //    print_r($item);
 //    echo "</pre>";
         $params = $item['PROPERTIES']['PACKAGES']['VALUE']; ?>
-        <a href="#0" onclick='return Itd.viewSotulion(<?= json_encode($params) ?>)'>
+        <a href="#0" onclick='return TaskManager.viewSotulion(<?= json_encode($params) ?>)'>
             <div class="tasks-container__item">
                 <img class="tasks-image" src="<?= $item['PREVIEW_PICTURE']['SRC'] ?>" alt="">
                 <div class="task-title"><?= $item['NAME'] ?></div>

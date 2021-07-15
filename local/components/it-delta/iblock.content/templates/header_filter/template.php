@@ -21,7 +21,7 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) die();
 <div class="header__bottom">
     <div class="container">
         <div class="header__bottom-form">
-            <form id="b-header_filter">
+            <form id="b-header_filter" method="post">
                 <span class="text">Я хочу охранять</span>
                 <div class="header__bottom-form-select">
                     <select name="selected_estate" id="header__select_town-js">
@@ -39,7 +39,7 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) die();
                     </select>
                 </div>
                 <div class="header__bottom-form-btn">
-                    <input onclick='return Itd.filter()' type="submit" value="НАЙТИ КОМПАНИЮ">
+                    <input onclick='return HeaderFilter.setFilter()' type="submit" value="НАЙТИ КОМПАНИЮ">
 
                 </div>
             </form>

@@ -16,6 +16,7 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();
 //print_r($arResult);
 //echo '</pre>';
 ?>
+
 <main class="container complect-obor">
     <section class="safe__pay rating-top">
         <div class="safe__pay_left">
@@ -52,6 +53,7 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();
 
     <div class="equipmnet-kits">
         <?php foreach ($arResult['SECTIONS'] as $section): ?>
+        <?if(!empty($section['EQUIPMENT-KITS'])):?>
             <section class="ready-pack ready-pack--global">
                 <div class="ready-pack__head">
                     <div class="ready-pack__title">
@@ -250,10 +252,9 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();
                     </div>
                 </div>
             </section>
+        <?endif;?>
         <?php endforeach; ?>
     </div>
-
-
 
 
     <div class="ready-pack__items">
@@ -1799,3 +1800,4 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();
 
     </section>
 </main>
+
