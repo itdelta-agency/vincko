@@ -3,17 +3,18 @@
 class MainService
 {
     //получает id всех готовых решений по id города и id объекта охраны
-    function getPackagesIds()
+    function getPackagesIds($params)
     {
         if(CModule::IncludeModule("iblock")) {
-            if (isset($_COOKIE["selected_city"]) && isset($_COOKIE["selected_estate"]))
+            $cookie = $params['COOKIE'];
+            if (isset($cookie["selected_city"]) && isset($cookie["selected_estate"]))
             {
-                $city_id = $_COOKIE['selected_city'];
-                $estate_id = $_COOKIE['selected_estate'];
+                $city_id = $cookie['selected_city'];
+                $estate_id = $cookie['selected_estate'];
             }
 
             $res = CIBlockElement::GetList(array("SORT"=>"ASC"),
-                array('IBLOCK_ID'=>9, 'ACTIVE'=>'Y',
+                array('IBLOCK_ID'=>$params['IBLOCK_ID'], 'ACTIVE'=>'Y',
                     "PROPERTY_CITY_ID"=>$city_id, "PROPERTY_CH_TYPE" => $estate_id),
                 false,
                 false,
