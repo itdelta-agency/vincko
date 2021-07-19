@@ -98,7 +98,7 @@ $APPLICATION->SetTitle("Комплекты оборудования");
         "SHOW_DEACTIVATED" => "N",
         "SHOW_DISCOUNT_PERCENT" => "N",
         "SHOW_MAX_QUANTITY" => "N",
-        "SHOW_OLD_PRICE" => "N",
+        "SHOW_OLD_PRICE" => "Y",
         "SHOW_PRICE_COUNT" => "1",
         "SHOW_SLIDER" => "N",
         "STRICT_SECTION_CHECK" => "N",

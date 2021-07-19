@@ -1,5 +1,5 @@
 <? if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) die();
-$this->addExternalJS("/local/js/custom.js");
+$this->addExternalJS("/local/js/equipitem.js");
 if($_GET['itd']=='y')
 {
     echo '<pre>';
@@ -7,7 +7,6 @@ if($_GET['itd']=='y')
     echo '</pre>';
     die();
 }
-$this->addExternalJS("<?=__DIR__?>/custom.js");
 
 use \Bitrix\Main\Localization\Loc;
 
@@ -161,8 +160,8 @@ if (!empty($arParams['LABEL_PROP_POSITION'])) {
         <div class="container up-top-slider-bg">
             <div class="top-slider-bg ">
                 <picture>
-                    <source srcset="<?=$arResult['PREVIEW_PICTURE']['SRC']?>">
-                    <img src="<?=$arResult['PREVIEW_PICTURE']['SRC']?>" alt="<?=$arResult['NAME']?>">
+                    <source srcset="<?=$arResult['PREVIEW_PICTURE_RESIZED']['src']?>">
+                    <img src="<?=$arResult['PREVIEW_PICTURE_RESIZED']['src']?>" alt="<?=$arResult['NAME']?>">
                 </picture>
             </div>
         </div>
@@ -171,8 +170,7 @@ if (!empty($arParams['LABEL_PROP_POSITION'])) {
                 <div class="solutions-card__circles">
                     <?$i=0;?>
                     <?foreach ($arResult['PACKAGES_CLASSES'] as $key => $class ):?>
-                        <a href="/equipment-kits/<?=$arResult['FIRST_LIST_COMPLECTS_SLUGS'][$key]['SLUG']?>/?N=1">
-                    <div class="solutions-card__circles_item <?=$arResult['CURRENT_PACKAGE_CLASS'] == $key ? 'show' : 'hide'?>">
+                    <div onclick="location.href='/equipment-kits/<?=$arResult['FIRST_LIST_COMPLECTS_SLUGS'][$key]['SLUG']?>/'" class="solutions-card__circles_item <?=$arResult['CURRENT_PACKAGE_CLASS'] == $key ? 'show' : 'hide'?>">
                         <div class="solutions-card__circles_item-icon">
                             <?if($i==0):?>
                             <img src="<?=SITE_TEMPLATE_PATH?>/img/solutions/solutions-card__circles_item-icon1.svg" alt="img">
@@ -187,7 +185,6 @@ if (!empty($arParams['LABEL_PROP_POSITION'])) {
                         </div>
                         <?$i++;?>
                     </div>
-                        </a>
                     <?endforeach;?>
                     <div class="solutions__subscribe">
                         <a href="#subscribe">
@@ -238,10 +235,10 @@ if (!empty($arParams['LABEL_PROP_POSITION'])) {
                                     Всего
                                 </div>
                                 <div class="solutions__bottom_column-oldprice">
-                                    50 630 ₽
+                                    <?= $arResult["PRICES"]["BASE"]["PRINT_VALUE"] ?>
                                 </div>
                                 <div class="solutions__bottom_column-newprice">
-                                    <?= $arResult["PRICES"]["BASE"]["PRINT_VALUE"] ?>
+                                    <?= $arResult["PRICES"]["BASE"]["PRINT_DISCOUNT_VALUE"] ?>
                                 </div>
 
                             </div>
@@ -274,14 +271,14 @@ if (!empty($arParams['LABEL_PROP_POSITION'])) {
                         <li>
 
                             <picture>
-                                <source srcset="../img/cartochka/fire.svg">
+                                <source srcset="<?=SITE_TEMPLATE_PATH?>/img/cartochka/fire.svg">
                                 <img src="<?=SITE_TEMPLATE_PATH?>/img/cartochka/fire.svg" alt="fire">
                             </picture>
                             <p>Сообщает о появлении дыма и резких скачках температуры</p>
                         </li>
                         <li>
                             <picture>
-                                <source srcset="../img/cartochka/flooding-house.svg">
+                                <source srcset="<?=SITE_TEMPLATE_PATH?>/img/cartochka/flooding-house.svg">
                                 <img src="<?=SITE_TEMPLATE_PATH?>/img/cartochka/flooding-house.svg" alt="flooding-house">
                             </picture>
                             <p>Определяет за миллисекунды первые признаки затопления</p>
@@ -290,14 +287,14 @@ if (!empty($arParams['LABEL_PROP_POSITION'])) {
                     <ul class="complect__slider-wrapper-item-about-bottom">
                         <li>
                             <picture>
-                                <source srcset="../img/cartochka/gallery.svg">
+                                <source srcset="<?=SITE_TEMPLATE_PATH?>/img/cartochka/gallery.svg">
                                 <img src="<?=SITE_TEMPLATE_PATH?>/img/cartochka/gallery.svg" alt="gallery">
                             </picture>
                             <p>Присылает анимированную серию фотографий</p>
                         </li>
                         <li>
                             <picture>
-                                <source srcset="../img/cartochka/phone.svg">
+                                <source srcset="<?=SITE_TEMPLATE_PATH?>/img/cartochka/phone.svg">
                                 <img src="<?=SITE_TEMPLATE_PATH?>/img/cartochka/phone.svg" alt="phone">
                             </picture>
                             <p>Передает тревоги на смартфон владельца и пульт охраны</p>
@@ -313,14 +310,14 @@ if (!empty($arParams['LABEL_PROP_POSITION'])) {
                         <li>
 
                             <picture>
-                                <source srcset="../img/cartochka/fire.svg">
+                                <source srcset="<?=SITE_TEMPLATE_PATH?>/img/cartochka/fire.svg">
                                 <img src="<?=SITE_TEMPLATE_PATH?>/img/cartochka/fire.svg" alt="fire">
                             </picture>
                             <p>Сообщает о появлении дыма и резких скачках температуры</p>
                         </li>
                         <li>
                             <picture>
-                                <source srcset="../img/cartochka/flooding-house.svg">
+                                <source srcset="<?=SITE_TEMPLATE_PATH?>/img/cartochka/flooding-house.svg">
                                 <img src="<?=SITE_TEMPLATE_PATH?>/img/cartochka/flooding-house.svg" alt="flooding-house">
                             </picture>
                             <p>Определяет за миллисекунды первые признаки затопления</p>
@@ -330,14 +327,14 @@ if (!empty($arParams['LABEL_PROP_POSITION'])) {
                         <li>
 
                             <picture>
-                                <source srcset="../img/cartochka/gallery.svg">
+                                <source srcset="<?=SITE_TEMPLATE_PATH?>/img/cartochka/gallery.svg">
                                 <img src="<?=SITE_TEMPLATE_PATH?>/img/cartochka/gallery.svg" alt="gallery">
                             </picture>
                             <p>Присылает анимированную серию фотографий</p>
                         </li>
                         <li>
                             <picture>
-                                <source srcset="../img/cartochka/phone.svg">
+                                <source srcset="<?=SITE_TEMPLATE_PATH?>/img/cartochka/phone.svg">
                                 <img src="<?=SITE_TEMPLATE_PATH?>/img/cartochka/phone.svg" alt="phone">
                             </picture>
                             <p>Передает тревоги на смартфон владельца и пульт охраны</p>
@@ -357,7 +354,7 @@ if (!empty($arParams['LABEL_PROP_POSITION'])) {
                     Комплект можно купить в рамках Готового решения <br> <span><?=$arResult['PACKAGE_GROUP']['NAME']?></span>
                 </p>
 
-                <a class="gotovoe__reshenie-button c-button" href="#">
+                <a class="gotovoe__reshenie-button c-button" href="/packages/<?=$arResult['PACKAGE_GROUP']['CODE']?>">
                     <span>К готовому решению</span>
                 </a>
             </section>
@@ -382,9 +379,9 @@ if (!empty($arParams['LABEL_PROP_POSITION'])) {
                     <? foreach ($arResult["EQUIP_COMPLECT"] as $key => $ec): ?>
                         <div class="slide" data-slider-info="<?= $key ?>">
                             <div class="slide-box">
-                                <div class="modal-btn">
+                                <div class="modal-btn" data-key="<?=$key?>">
                                     <picture>
-                                        <source srcset="../img/cartochka/slide-modal.svg">
+                                        <source srcset="<?=SITE_TEMPLATE_PATH?>/img/cartochka/slide-modal.svg">
                                         <img src="<?= SITE_TEMPLATE_PATH ?>/img/cartochka/slide-modal.svg" alt="slide-modal">
                                     </picture>
                                 </div>
@@ -488,9 +485,8 @@ if (!empty($arParams['LABEL_PROP_POSITION'])) {
         <div id="solutions__center" class="solutions__center">
             <div class="container rating-center">
                 <div class="solutions__center_title">
-
                     Вы можете купить комплект в рамках готового решения <br>
-                    <span>Все под контролем</span>
+                    <span><?=$arResult['PACKAGE_GROUP']['NAME']?></span>
                 </div>
                 <div class="solutions__center_wrapper">
                     <!--no-subscribe no-circles  -->
@@ -514,12 +510,10 @@ if (!empty($arParams['LABEL_PROP_POSITION'])) {
                             <div class="solutions-card__center ">
                                 <div class="solutions-card__top">
                                     <div class="solutions-card__top_img">
-                                        <img src="<?=SITE_TEMPLATE_PATH?>/img/solutions/solutions-card__top_img1.png" alt="img">
+                                        <img src="<?=$arResult['PREVIEW_PICTURE_RESIZED_SMALL']['src']?>" alt="img">
                                     </div>
                                     <div class="solutions-card__top_text">
-                                        <div class="h4 solutions-card__top_text-title">
-                                            Livi Smart Security PLUS
-                                        </div>
+                                        <div class="h4 solutions-card__top_text-title"><?= $arResult['NAME'] ?></div>
                                         <div class="solutions-card__top_text-subtitle">
                                             <div class="solutions-card__subscribe">
                                                 <a href="#subscribe" class="solutions-card__subscribe-in">Подписка включена
@@ -660,91 +654,37 @@ if (!empty($arParams['LABEL_PROP_POSITION'])) {
                                     </div>
                                 </div>
                                 <div class="solutions-card__circles">
-                                    <div class="solutions-card__circles_item show">
-                                        <div class="solutions-card__circles_item-icon">
-                                            <img src="<?=SITE_TEMPLATE_PATH?>/img/solutions/solutions-card__circles_item-icon1.svg" alt="img">
-                                        </div>
-                                        <div class="solutions-card__circles_item-text">
-                                            Комфорт
-                                        </div>
-                                    </div>
-                                    <div class="solutions-card__circles_item hide">
-                                        <div class="solutions-card__circles_item-icon">
-                                            <img src="<?=SITE_TEMPLATE_PATH?>/img/solutions/solutions-card__circles_item-icon2.svg" alt="img">
-                                        </div>
-                                        <div class="solutions-card__circles_item-text">
-                                            Бизнес
-                                        </div>
-                                    </div>
-                                    <div class="solutions-card__circles_item hide">
-                                        <div class="solutions-card__circles_item-icon">
-                                            <img src="<?=SITE_TEMPLATE_PATH?>/img/solutions/solutions-card__circles_item-icon3.svg" alt="img">
-                                        </div>
-                                        <div class="solutions-card__circles_item-text">
-                                            Премиум
-                                        </div>
-                                    </div>
+                                    <?$i=0;?>
+                                    <?foreach ($arResult['PACKAGES_CLASSES'] as $key => $class ):?>
 
+                                            <div onclick="location.href='/equipment-kits/<?=$arResult['FIRST_LIST_COMPLECTS_SLUGS'][$key]['SLUG']?>/#solutions__center'" class="solutions-card__circles_item <?=$arResult['CURRENT_PACKAGE_CLASS'] == $key ? 'show' : 'hide'?>">
+                                                <div class="solutions-card__circles_item-icon">
+                                                    <?if($i==0):?>
+                                                        <img src="<?=SITE_TEMPLATE_PATH?>/img/solutions/solutions-card__circles_item-icon1.svg" alt="img">
+                                                    <?elseif($i==1):?>
+                                                        <img src="<?=SITE_TEMPLATE_PATH?>/img/solutions/solutions-card__circles_item-icon2.svg" alt="img">
+                                                    <?else:?>
+                                                        <img src="<?=SITE_TEMPLATE_PATH?>/img/solutions/solutions-card__circles_item-icon3.svg" alt="img">
+                                                    <?endif;?>
+                                                </div>
+                                                <div class="solutions-card__circles_item-text">
+                                                    <?=$class['NAME']?>
+                                                </div>
+                                                <?$i++;?>
+                                            </div>
+                                    <?endforeach;?>
                                 </div>
                                 <div class="solutions-card__info">
-
-                                    <div class="solutions-card__info_item">
-                                        <div class="solutions-card__info_item-icon">
-                                            <img src="<?=SITE_TEMPLATE_PATH?>/img/solutions/solutions-card__info_item-icon1.svg" alt="img">
-                                        </div>
-                                        <div class="solutions-card__info_item-text">
-                                            Автоматизирует безопасность сценариями
-                                        </div>
-                                    </div>
-                                    <div class="solutions-card__info_item">
-                                        <div class="solutions-card__info_item-icon">
-                                            <img src="<?=SITE_TEMPLATE_PATH?>/img/solutions/solutions-card__info_item-icon2.svg" alt="img">
-                                        </div>
-                                        <div class="solutions-card__info_item-text">
-                                            Присылает анимированную серию фотографий
-                                        </div>
-                                    </div>
-                                    <div class="solutions-card__info_item">
-                                        <div class="solutions-card__info_item-icon">
-                                            <img src="<?=SITE_TEMPLATE_PATH?>/img/solutions/solutions-card__info_item-icon3.svg" alt="img">
-                                        </div>
-                                        <div class="solutions-card__info_item-text">
-                                            Всегда онлайн благодаря трем каналам связи
-                                        </div>
-                                    </div>
-                                    <div class="solutions-card__info_item">
-                                        <div class="solutions-card__info_item-icon">
-                                            <img src="<?=SITE_TEMPLATE_PATH?>/img/solutions/solutions-card__info_item-icon4.svg" alt="img">
-                                        </div>
-                                        <div class="solutions-card__info_item-text">
-                                            Подключается к пульту охранной компании
-                                        </div>
-                                    </div>
-                                    <div class="solutions-card__info_item">
-                                        <div class="solutions-card__info_item-icon">
-                                            <img src="<?=SITE_TEMPLATE_PATH?>/img/solutions/solutions-card__info_item-icon5.svg" alt="img">
-                                        </div>
-                                        <div class="solutions-card__info_item-text">
-                                            Всегда онлайн благодаря трем каналам связи
-                                        </div>
-                                    </div>
-                                    <div class="solutions-card__info_item">
-                                        <div class="solutions-card__info_item-icon">
-                                            <img src="<?=SITE_TEMPLATE_PATH?>/img/solutions/solutions-card__info_item-icon6.svg" alt="img">
-                                        </div>
-                                        <div class="solutions-card__info_item-text">
-                                            Подключается к пульту охранной компании
-                                        </div>
-                                    </div>
-                                    <div class="solutions-card__info_item">
-                                        <div class="solutions-card__info_item-icon">
-                                            <img src="<?=SITE_TEMPLATE_PATH?>/img/solutions/solutions-card__info_item-icon7.svg" alt="img">
-                                        </div>
-                                        <div class="solutions-card__info_item-text">
-                                            Подключается к пульту охранной компании
-                                        </div>
-                                    </div>
-
+                                    <? if (!empty($arResult["DISPLAY_PROPERTIES"]["CO_CHARACTERISTICS_REF"]["LINK_ELEMENT_VALUE"])): ?>
+                                            <? foreach ($arResult["DISPLAY_PROPERTIES"]["CO_CHARACTERISTICS_REF"]["LINK_ELEMENT_VALUE"] as $k => $val): ?>
+                                            <div class="solutions-card__info_item">
+                                                <div class="solutions-card__info_item-icon">
+                                                    <img src="<?= $val['PREVIEW_PICTURE']['SRC'] ?>" alt="<?= $val['NAME'] ?>">
+                                                </div>
+                                                <div class="solutions-card__info_item-text"><?= $val['NAME'] ?></div>
+                                            </div>
+                                            <? endforeach; ?>
+                                    <? endif; ?>
                                     <div class="solutions-card__info-bottom">
                                         <div class="solutions-card__info-tech">
                                             <a href="#gotovoe__reshenie-main">Технические характеристики</a>
@@ -774,7 +714,7 @@ if (!empty($arParams['LABEL_PROP_POSITION'])) {
                                     Всего <span>32 000 ₽</span>
                                 </p>
                                 <div class="solutions-card__substrate_bottom-price">
-                                    5 000 ₽
+                                    <?= $arResult["PRICES"]["BASE"]["PRINT_DISCOUNT_VALUE"] ?>
                                 </div>
                                 <div class="solutions-card__substrate_bottom-icon">
                                     <img src="<?=SITE_TEMPLATE_PATH?>/img/solutions/present-icon.svg" alt="img">
@@ -1567,6 +1507,7 @@ if (!empty($arParams['LABEL_PROP_POSITION'])) {
                 </div>
             </div>
         </div>
+
         <div class="solutions__bottom">
             <div class="container">
                 <div class="solutions__bottom_title">
@@ -1776,86 +1717,94 @@ if (!empty($arParams['LABEL_PROP_POSITION'])) {
             <div class="title">DoorProtect Protector Protection</div>
             <div class="close">
                 <picture>
-                    <source srcset="../img/cartochka/close-modal.svg">
+                    <source srcset="<?=SITE_TEMPLATE_PATH?>/img/cartochka/close-modal.svg">
                     <img src="<?=SITE_TEMPLATE_PATH?>/img/cartochka/close-modal.svg" alt="close-modal">
                 </picture>
             </div>
             <div class="modal-slider">
                 <picture>
-                    <source srcset="../img/cartochka/modal-slide.png">
+                    <source srcset="<?=SITE_TEMPLATE_PATH?>/img/cartochka/modal-slide.png">
                     <img src="<?=SITE_TEMPLATE_PATH?>/img/cartochka/modal-slide.png" alt="modal-slide">
                 </picture>
                 <picture>
-                    <source srcset="../img/cartochka/modal-slide.png">
+                    <source srcset="<?=SITE_TEMPLATE_PATH?>/img/cartochka/modal-slide.png">
                     <img src="<?=SITE_TEMPLATE_PATH?>/img/cartochka/modal-slide.png" alt="modal-slide">
                 </picture>
                 <picture>
-                    <source srcset="../img/cartochka/modal-slide.png">
+                    <source srcset="<?=SITE_TEMPLATE_PATH?>/img/cartochka/modal-slide.png">
                     <img src="<?=SITE_TEMPLATE_PATH?>/img/cartochka/modal-slide.png" alt="modal-slide">
                 </picture>
                 <picture>
-                    <source srcset="../img/cartochka/modal-slide.png">
+                    <source srcset="<?=SITE_TEMPLATE_PATH?>/img/cartochka/modal-slide.png">
                     <img src="<?=SITE_TEMPLATE_PATH?>/img/cartochka/modal-slide.png" alt="modal-slide">
                 </picture>
                 <picture>
-                    <source srcset="../img/cartochka/modal-slide.png">
+                    <source srcset="<?=SITE_TEMPLATE_PATH?>/img/cartochka/modal-slide.png">
                     <img src="<?=SITE_TEMPLATE_PATH?>/img/cartochka/modal-slide.png" alt="modal-slide">
                 </picture>
                 <picture>
-                    <source srcset="../img/cartochka/modal-slide.png">
+                    <source srcset="<?=SITE_TEMPLATE_PATH?>/img/cartochka/modal-slide.png">
                     <img src="<?=SITE_TEMPLATE_PATH?>/img/cartochka/modal-slide.png" alt="modal-slide">
                 </picture>
                 <picture>
-                    <source srcset="../img/cartochka/modal-slide.png">
+                    <source srcset="<?=SITE_TEMPLATE_PATH?>/img/cartochka/modal-slide.png">
                     <img src="<?=SITE_TEMPLATE_PATH?>/img/cartochka/modal-slide.png" alt="modal-slide">
                 </picture>
             </div>
             <div class="modal-bottom">
                 <div class="item active">
                     <picture>
-                        <source srcset="../img/cartochka/modal-bottom.png">
+                        <source srcset="<?=SITE_TEMPLATE_PATH?>/img/cartochka/modal-bottom.png">
                         <img src="<?=SITE_TEMPLATE_PATH?>/img/cartochka/modal-bottom.png" alt="modal-bottom">
                     </picture>
                 </div>
                 <div class="item">
                     <picture>
-                        <source srcset="../img/cartochka/modal-bottom.png">
+                        <source srcset="<?=SITE_TEMPLATE_PATH?>/img/cartochka/modal-bottom.png">
                         <img src="<?=SITE_TEMPLATE_PATH?>/img/cartochka/modal-bottom.png" alt="modal-bottom">
                     </picture>
                 </div>
                 <div class="item">
                     <picture>
-                        <source srcset="../img/cartochka/modal-bottom.png">
+                        <source srcset="<?=SITE_TEMPLATE_PATH?>/img/cartochka/modal-bottom.png">
                         <img src="<?=SITE_TEMPLATE_PATH?>/img/cartochka/modal-bottom.png" alt="modal-bottom">
                     </picture>
                 </div>
                 <div class="item">
                     <picture>
-                        <source srcset="../img/cartochka/modal-bottom.png">
+                        <source srcset="<?=SITE_TEMPLATE_PATH?>/img/cartochka/modal-bottom.png">
                         <img src="<?=SITE_TEMPLATE_PATH?>/img/cartochka/modal-bottom.png" alt="modal-bottom">
                     </picture>
                 </div>
                 <div class="item">
                     <picture>
-                        <source srcset="../img/cartochka/modal-bottom.png">
+                        <source srcset="<?=SITE_TEMPLATE_PATH?>/img/cartochka/modal-bottom.png">
                         <img src="<?=SITE_TEMPLATE_PATH?>/img/cartochka/modal-bottom.png" alt="modal-bottom">
                     </picture>
                 </div>
                 <div class="item">
                     <picture>
-                        <source srcset="../img/cartochka/modal-bottom.png">
+                        <source srcset="<?=SITE_TEMPLATE_PATH?>/img/cartochka/modal-bottom.png">
                         <img src="<?=SITE_TEMPLATE_PATH?>/img/cartochka/modal-bottom.png" alt="modal-bottom">
                     </picture>
                 </div>
                 <div class="item">
                     <picture>
-                        <source srcset="../img/cartochka/modal-bottom.png">
+                        <source srcset="<?=SITE_TEMPLATE_PATH?>/img/cartochka/modal-bottom.png">
                         <img src="<?=SITE_TEMPLATE_PATH?>/img/cartochka/modal-bottom.png" alt="modal-bottom">
                     </picture>
                 </div>
             </div>
         </div>
     </div>
+<!--        <form id="b-order-form" action="/order/" method="POST">-->
+<!--            <input type="hidden" value="873" name="order-id[complect_id]">-->
+<!--            <input type="hidden" value="856" name="order-id[guard_id]">-->
+<!--            <input type="hidden" value="781" name="order-id[insurance_id]">-->
+<!--            <input type="submit" value="Купить">-->
+<!--        </form>-->
+
+
     </main>
 
 
