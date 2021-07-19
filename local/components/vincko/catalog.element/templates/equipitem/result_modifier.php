@@ -129,6 +129,7 @@ if (!empty($arEquipSet)) {
             "NAME" => $arFields["NAME"],
             "PREVIEW_TEXT" => $arFields["PREVIEW_TEXT"],
             "PREVIEW_PICTURE" => $picEnd["src"],
+            "PREVIEW_PICTURE_MINI" => $picEnd["src"],
             "EQUIPMENT_PICTURES" => $equipmentPictures,
             "CHARACTERISTICS"=>$characteristicsIds,
             "SENSOR_ADVANTAGES"=>$arFields['PROPERTY_SENSOR_ADVANTAGES_VALUE'],
@@ -162,3 +163,6 @@ if (isset($arResult["DISPLAY_PROPERTIES"]["CO_CHARACTERISTICS_REF"]["LINK_ELEMEN
         $arResult["DISPLAY_PROPERTIES"]["CO_CHARACTERISTICS_REF"]["LINK_ELEMENT_VALUE"][$key]['PREVIEW_PICTURE'] = CFile::GetFileArray($item['PREVIEW_PICTURE']);
     }
 }
+$arResult['PREVIEW_PICTURE_RESIZED'] = CFile::ResizeImageGet($arResult['PREVIEW_PICTURE'] , array("width" => 360, "height" => 290), BX_RESIZE_IMAGE_PROPORTIONAL_ALT, false);
+$arResult['PREVIEW_PICTURE_RESIZED_SMALL'] = CFile::ResizeImageGet($arResult['PREVIEW_PICTURE'] , array("width" => 110, "height" => 100), BX_RESIZE_IMAGE_PROPORTIONAL, false);
+
