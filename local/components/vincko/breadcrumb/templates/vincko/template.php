@@ -1,5 +1,5 @@
 <?php
-if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
+if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();
 
 /**
  * @global CMain $APPLICATION
@@ -8,8 +8,8 @@ if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
 global $APPLICATION;
 
 //delayed function must return a string
-if(empty($arResult))
-	return "";
+if (empty($arResult))
+    return "";
 
 $strReturn = '';
 
@@ -20,33 +20,25 @@ if(!is_array($css) || !in_array("/bitrix/css/main/font-awesome.css", $css))
 	$strReturn .= '<link href="'.CUtil::GetAdditionalFileURL("/bitrix/css/main/font-awesome.css").'" type="text/css" rel="stylesheet" />'."\n";
 }*/
 
-$strReturn .= '<div class="breadcrumb" itemprop="http://schema.org/breadcrumb" itemscope itemtype="http://schema.org/BreadcrumbList">';
+$strReturn .= '<div class="container"><div class="breadcumbs" itemprop="http://schema.org/breadcrumb" itemscope itemtype="http://schema.org/BreadcrumbList"><nav><ul>';
 
 $itemSize = count($arResult);
-for($index = 0; $index < $itemSize; $index++)
-{
-	$title = htmlspecialcharsex($arResult[$index]["TITLE"]);
-	$arrow = ($index > 0? '<i class="breadcrumb-separator">/</i>' : '');
+for ($index = 0; $index < $itemSize; $index++) {
+    $title = htmlspecialcharsex($arResult[$index]["TITLE"]);
 
-	if($arResult[$index]["LINK"] <> "" && $index != $itemSize-1)
-	{
-		$strReturn .= '
-			<div class="breadcrumb-item" id="bx_breadcrumb_'.$index.'" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-				'.$arrow.'
-				<a href="'.$arResult[$index]["LINK"].'" title="'.$title.'" itemprop="item">'.$title.'</a>
-				<meta itemprop="position" content="'.($index + 1).'" />
-			</div>';
-	}
-	else
-	{
-		$strReturn .= '
-			<div class="breadcrumb-item">
-				'.$arrow.'
-				<span>'.$title.'</span>
-			</div>';
-	}
+    if ($arResult[$index]["LINK"] <> "" && $index != $itemSize) {
+        $strReturn .= '
+				<li id="bx_breadcrumb_' . $index . '" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+				<a href="' . $arResult[$index]["LINK"] . '" title="' . $title . '" itemprop="item">' . $title . '</a>
+				<meta itemprop="position" content="' . ($index + 1) . '" />
+			    </li>';
+    } else {
+        $strReturn .= '
+			<li>
+				<a  href="' . $arResult[$index]["LINK"] . '" title="' . $title . '" itemprop="item">' . $title . '</a>
+			</li>';
+    }
 }
 
-$strReturn .= '</div>';
-
+$strReturn .= '</ul></nav></div></div>';
 return $strReturn;

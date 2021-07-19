@@ -1,6 +1,6 @@
 <?
 $arTemplate = array(
-	"NAME" => "Чистый шаблон сайта",
+	"NAME" => "vincko_new",
 	"DESCRIPTION" => "",
 	"SORT" => "",
 );

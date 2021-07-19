@@ -64,8 +64,8 @@ if($arResult["PHONE_REGISTRATION"])
 	?>
 	<?endif?>
 				<div class="login__form-block">
-					<label class="login__form-label" for="user-password"><?=GetMessage("AUTH_NEW_PASSWORD_REQ")?></label>
-					<input type="password" name="USER_PASSWORD" id="user-password" maxlength="255" value="<?=$arResult["USER_PASSWORD"]?>" class="login__form-input bx-auth-input" autocomplete="new-password" />
+					<?/*<label class="login__form-label" for="user-password"><?=GetMessage("AUTH_NEW_PASSWORD_REQ")?></label>*/?>
+					<input type="hidden" name="USER_PASSWORD" id="user-password" maxlength="255" value="12345678" class="login__form-input bx-auth-input" autocomplete="new-password" />
 				</div>
 	<?if($arResult["SECURE_AUTH"]):?>
 				<div class="login__form-block">
@@ -83,8 +83,8 @@ if($arResult["PHONE_REGISTRATION"])
 				</div>
 	<?endif?>
 				<div class="login__form-block">
-					<label class="login__form-label" for="user-confirm-password"><?=GetMessage("AUTH_NEW_PASSWORD_CONFIRM")?></label>
-					<input type="password" name="USER_CONFIRM_PASSWORD" id="user-confirm-password" maxlength="255" value="<?=$arResult["USER_CONFIRM_PASSWORD"]?>" class="login__form-input bx-auth-input" autocomplete="new-password" />
+					<?/*<label class="login__form-label" for="user-confirm-password"><?=GetMessage("AUTH_NEW_PASSWORD_CONFIRM")?></label>*/?>
+					<input type="hidden" name="USER_CONFIRM_PASSWORD" id="user-confirm-password" maxlength="255" value="12345678" class="login__form-input bx-auth-input" autocomplete="new-password" />
 				</div>
 			<?if($arResult["USE_CAPTCHA"]):?>
 				<div class="login__form-block">

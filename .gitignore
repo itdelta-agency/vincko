@@ -11,6 +11,7 @@ upload
 # Исключаем папку /bitrix кроме некоторых подпапок
 #!/bitrix
 /bitrix/
+!/local/templates/*/components/bitrix/
 
 # оставляем печатные формы интернет-магазина
 #!/bitrix/admin/
