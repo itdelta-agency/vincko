@@ -8,51 +8,46 @@ CModule::IncludeModule('form');
 $request = Application::getInstance()->getContext()->getRequest();
 
 
-	$error = CForm::Check(1, $_REQUEST, false, "Y", "Y");
-	dump($error);
-	$arFieldLogicRequired = [
-		"ACTUAL_ADDRESS" =>
-			[
-				"REQUEST_FIELD"  => "form_checkbox_ACTUAL_ADDRESS",
-				"NOT_VALUE"      => "Y",
-				"REQUIRED_FIELD" => [
-					"ACTUAL_CITY",
-					"ACTUAL_STREET",
-					"ACTUAL_HOUSE",
-					"ACTUAL_DATE",
-					"ACTUAL_INDEX",
-				]
-			],
-		"POLICY_ADDRESS" =>
-			[
-				"REQUEST_FIELD"  => "form_radio_POLICY_ADDRESS",
-				"NOT_VALUE"      => "30",
-				"REQUIRED_FIELD" => [
-					"POLICY_CITY",
-					"POLICY_HOUSE",
-					"POLICY_STREET",
-					"POLICY_HOUSING",
-					"POLICY_DATE",
-					"POLICY_INDEX"
-				]
+if ($request->isAjaxRequest()) {
 
+
+	$error = CForm::Check(1, $_REQUEST, false, "Y", "Y");
+
+	$arFieldLogicRequired = [
+		"form_checkbox_ACTUAL_ADDRESS" =>
+			[
+				"ACTUAL_CITY",
+				"ACTUAL_STREET",
+				"ACTUAL_HOUSE",
+				"ACTUAL_DATE",
+				"ACTUAL_INDEX",
+			],
+		"form_radio_POLICY_ADDRESS"    =>
+			[
+				"POLICY_CITY",
+				"POLICY_HOUSE",
+				"POLICY_STREET",
+				"POLICY_HOUSING",
+				"POLICY_DATE",
+				"POLICY_INDEX"
 			]
 	];
-	foreach ($arFieldLogicRequired as $logicField => $logicValue) {
-		if ($request->get($logicValue["REQUEST_FIELD"]) != $logicValue["VALUE"]) {
-			continue;
+	if (!empty($request->get('form_checkbox_ACTUAL_ADDRESS'))) {
+		foreach ($arFieldLogicRequired["form_checkbox_ACTUAL_ADDRESS"] as $requiredField) {
+			unset($error[$requiredField]);
 		}
-		foreach ($logicValue["REQUIRED_FIELD"] as $requiredField) {
-			if (!empty($error[$requiredField])) {
-				unset($error[$requiredField]);
-			}
-		}
-
 	}
-	if(count($error)>0){
+	if ($request->get("form_radio_POLICY_ADDRESS") != 30) {
+		foreach ($arFieldLogicRequired["form_radio_POLICY_ADDRESS"] as $requiredField) {
+			unset($error[$requiredField]);
+		}
+	}
+
+
+	if (count($error) > 0) {
 		echo json_encode($error);
 	}
-if ($request->isAjaxRequest()) {}
+}
 
 require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/main/include/epilog_after.php");
 ?>

@@ -37,7 +37,7 @@ if (!CModule::IncludeModule("sale")) {
 	</style>
 	<?= $arResult["FORM_HEADER"] ?>
 
-	<input type="hidden" name="POLICY_ID" value="<?= $arResult["POLICY_ID"] ?>"/>
+	<input type="hidden" name="form_hidden_<?=$arResult["QUESTIONS"]["POLICY_ID"]["STRUCTURE"][0]["ID"]?>" value="<?= $arResult["POLICY_ID"] ?>"/>
 	<section class="installment insurance-policy">
 		<div class="installment__left-column">
 			<h2 class="installment__page-title"><?= $arParams["TITLE"] ?></h2>

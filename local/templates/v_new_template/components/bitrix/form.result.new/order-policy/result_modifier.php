@@ -13,6 +13,7 @@ if (empty($arResult["POLICY_ID"])) {
 	LocalRedirect($arParams["BACK_LINK"]);
 }
 
+
 // если полис не выбран, то перекидываем пользователя на выборку
 // отредактируем некоторые поля
 foreach ($arResult["QUESTIONS"] as $FIELD_SID => $arQuestion) {
@@ -23,12 +24,14 @@ foreach ($arResult["QUESTIONS"] as $FIELD_SID => $arQuestion) {
 		switch ($arQuestion['STRUCTURE'][0]['FIELD_TYPE']) {
 			case "radio":
 				$arResult["QUESTIONS"][$FIELD_SID]["HTML_CODE"] = "";
-
+				$i = 0;
 				foreach ($arQuestion['STRUCTURE'] as $arAnsw) {
-					$arResult["QUESTIONS"][$FIELD_SID]["HTML_CODE"] .= '<input type="radio"  id="' . $arAnsw["ID"] . '" name="form_radio_' . $FIELD_SID . '" value="' . $arAnsw["ID"] . '">
+
+					$arResult["QUESTIONS"][$FIELD_SID]["HTML_CODE"] .= '<input type="radio"  id="' . $arAnsw["ID"] . '" name="form_radio_' . $FIELD_SID . '" value="' . $arAnsw["ID"] . '" '.($i == 0?" checked":"").'>
 																	<label for="' . $arAnsw["ID"] . '"></label>
 																	<label for="' . $arAnsw["ID"] . '">' . $arAnsw["MESSAGE"] . '</label>
 																	' . ($FIELD_SID == 'POLICY_ADDRESS' ? '<br />' : '');
+					$i++;
 				}
 				break;
 			case "date":
@@ -46,6 +49,9 @@ foreach ($arResult["QUESTIONS"] as $FIELD_SID => $arQuestion) {
 				break;
 
 		}
+
+
+
 	}
 }
 
