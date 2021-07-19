@@ -9,5 +9,5 @@ $arComponentParameters = array(
 			"TYPE" => "STRING",
 			"DEFAULT" => 'Доступные страховые полисы',
 		)
-	),
+	)
 );

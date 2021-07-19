@@ -81,7 +81,7 @@ $this->setFrameMode(true);
 				<div class="products__footer">
 					<div class="products__footer-up">
 						<div class="products__cost"><?= $arPolicy["PRICE"] ?>/год</div>
-						<form method="POST" action="/strahovanie/?action=BUY&id=<?= $arPolicy["ID"] ?>">
+						<form method="POST" action="<?=$arParams["BASKET_URL"]?>">
 							<input type="hidden" name="POLICY_ID" value="<?= $arPolicy["ID"] ?>">
 							<button class="products__order"><?= GetMessage('T_INSURANCE_ORDER') ?></button>
 						</form>
