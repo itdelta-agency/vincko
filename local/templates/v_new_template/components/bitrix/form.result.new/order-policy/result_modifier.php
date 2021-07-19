@@ -1,6 +1,7 @@
 <? if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) die();
 
 use Vincko\Policy;
+use \Vincko\Order;
 
 // получим передаваемые значения
 $request = \Bitrix\Main\Application::getInstance()->getContext()->getRequest();
@@ -24,7 +25,7 @@ foreach ($arResult["QUESTIONS"] as $FIELD_SID => $arQuestion) {
 				$arResult["QUESTIONS"][$FIELD_SID]["HTML_CODE"] = "";
 
 				foreach ($arQuestion['STRUCTURE'] as $arAnsw) {
-					$arResult["QUESTIONS"][$FIELD_SID]["HTML_CODE"] .= '<input type="radio" class="js-check-valid-field" data-field="'.$FIELD_SID.'" id="' . $arAnsw["ID"] . '" name="form_radio_' . $FIELD_SID . '" value="' . $arAnsw["ID"] . '">
+					$arResult["QUESTIONS"][$FIELD_SID]["HTML_CODE"] .= '<input type="radio"  id="' . $arAnsw["ID"] . '" name="form_radio_' . $FIELD_SID . '" value="' . $arAnsw["ID"] . '">
 																	<label for="' . $arAnsw["ID"] . '"></label>
 																	<label for="' . $arAnsw["ID"] . '">' . $arAnsw["MESSAGE"] . '</label>
 																	' . ($FIELD_SID == 'POLICY_ADDRESS' ? '<br />' : '');
@@ -92,5 +93,6 @@ $arAllPaymentOptions = Policy::getPaymentOptions($arOffer["PROPERTY_PAYMENT_OPTI
 //соберем массив полиса
 $arResult["POLICY"] = Policy::formatPolicy($arOffer, $arAllPaymentOptions, $arInsurance);
 
-$arResult["PAYMENT"] = Policy::getPaymentSystem();
+$arResult["PAYMENT"] = Order::getPaymentSystem();
+
 ?>

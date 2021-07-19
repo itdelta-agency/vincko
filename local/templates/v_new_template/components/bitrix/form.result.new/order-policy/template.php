@@ -13,10 +13,34 @@ if (!CModule::IncludeModule("sale")) {
 <? if ($arResult["isFormNote"] == "Y"): ?>
 	<? include(Bitrix\Main\Application::getDocumentRoot() . $templateFolder . '/success.php'); ?>
 <? else: ?>
+	<style>
+		.error_message{display:none}
+        .error_message {
+            color: red
+        }
+
+        .error::-webkit-input-placeholder { /* WebKit browsers */
+            color: red;
+        }
+
+        .error:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+            color: red;
+        }
+
+        .error::-moz-placeholder { /* Mozilla Firefox 19+ */
+            color: red;
+        }
+
+        .error:-ms-input-placeholder { /* Internet Explorer 10+ */
+            color: red;
+        }
+	</style>
 	<?= $arResult["FORM_HEADER"] ?>
+
 	<input type="hidden" name="POLICY_ID" value="<?= $arResult["POLICY_ID"] ?>"/>
 	<section class="installment insurance-policy">
 		<div class="installment__left-column">
+			<h2 class="installment__page-title"><?= $arParams["TITLE"] ?></h2>
 			<a href="#short-rd" class="to-short-rd"><?= Loc::getMessage("FORM_POLICY_MORE") ?></a>
 
 			<? // поскольку верстка не стандартная не стоит городить логику, чтобы потом не было трудностей с правкой, а просто отобразим как есть ?>
@@ -25,12 +49,14 @@ if (!CModule::IncludeModule("sale")) {
 					<div class="h4"><?= Loc::getMessage("FORM_POLICY_STEP_ABOUT") ?></div>
 					<div class="close-btn close-btn_hide"><?= Loc::getMessage("FORM_POLICY_EXPAND") ?></div>
 
-					<div class="form__content">
 
+					<div class="form__content">
 						<div class="form__section">
+							<div class="error_message"><p><?= Loc::getMessage("FORM_POLICY_ERROR_MSG") ?></p></div>
 							<div class="h4"><?= Loc::getMessage("FORM_POLICY_INFORMATION") ?></div>
 							<div class="form__section__content sex">
-								<span><?= Loc::getMessage("FORM_POLICY_GENDER") ?></span>
+								<span class="js-check-valid-field"
+									  data-field="GENDER"><?= Loc::getMessage("FORM_POLICY_GENDER") ?></span>
 								<?= $arResult["QUESTIONS"]["GENDER"]["HTML_CODE"] ?>
 							</div>
 							<div class="form__section__content name">
@@ -98,8 +124,8 @@ if (!CModule::IncludeModule("sale")) {
 
 					</div>
 					<div class="form__bottom">
-						<button class="blue-button js-check-form-valid">
-							<span><?= Loc::getMessage("FORM_POLICY_NEXT") ?></span></button>
+						<div class="blue-button js-check-form-valid">
+							<span><?= Loc::getMessage("FORM_POLICY_NEXT") ?></span></div>
 						<?= Loc::getMessage("FORM_POLICY_STEP_AGREEMENT") ?>
 					</div>
 				</div>

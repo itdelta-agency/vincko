@@ -2,6 +2,7 @@
 require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/header.php");
 $APPLICATION->SetTitle("Оформление страхового полиса");
 ?>
+<main class="container main">
 <?$APPLICATION->IncludeComponent(
 	"bitrix:form.result.new",
 	"order-policy",
@@ -22,9 +23,12 @@ $APPLICATION->SetTitle("Оформление страхового полиса")
 		),
 		"WEB_FORM_ID"            => "1",
 		"PAY_TO_LIST" => "/order/",
-		"BACK_LINK" => "/strahovanie/"
+		"BACK_LINK" => "/strahovanie/",
+		"TITLE" => "Страховой полис"
+
 
 
 	)
 );?>
+</main>
 <?require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/footer.php");?>

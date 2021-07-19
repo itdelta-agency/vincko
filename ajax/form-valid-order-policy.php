@@ -6,9 +6,10 @@ use Bitrix\Main\Application;
 CModule::IncludeModule('form');
 
 $request = Application::getInstance()->getContext()->getRequest();
-if ($request->isAjaxRequest()) {
+
 
 	$error = CForm::Check(1, $_REQUEST, false, "Y", "Y");
+	dump($error);
 	$arFieldLogicRequired = [
 		"ACTUAL_ADDRESS" =>
 			[
@@ -48,7 +49,10 @@ if ($request->isAjaxRequest()) {
 		}
 
 	}
-}
+	if(count($error)>0){
+		echo json_encode($error);
+	}
+if ($request->isAjaxRequest()) {}
 
 require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/main/include/epilog_after.php");
 ?>

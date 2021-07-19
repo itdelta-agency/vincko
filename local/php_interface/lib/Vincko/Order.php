@@ -10,7 +10,9 @@ class Order
 
 	// получим варианты оплаты
 	public static function getPaymentSystem(){
-		$obPaySystem = CSalePaySystemAction::GetList(
+		\CModule::IncludeModule("main");
+		\CModule::IncludeModule("sale");
+		$obPaySystem = \CSalePaySystemAction::GetList(
 			["SORT" => "ASC"],
 			["ACTIVE" => "Y"],
 			false,
@@ -22,7 +24,7 @@ class Order
 			]
 		);
 		while ($arPaySystemTmp = $obPaySystem->Fetch()) {
-			$arPayIcon = CFile::GetFileArray($arPaySystemTmp["LOGOTIP"]);
+			$arPayIcon = \CFile::GetFileArray($arPaySystemTmp["LOGOTIP"]);
 			$arPaySystem[$arPaySystemTmp["ID"]] = $arPaySystemTmp;
 			$arPaySystem[$arPaySystemTmp["ID"]]["ICON"] = $arPayIcon["SRC"];
 		}

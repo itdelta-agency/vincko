@@ -51,6 +51,7 @@ $Asset = Asset::getInstance();
     <link href="<?= SITE_TEMPLATE_PATH ?>/libs/swiper/swiper.min.css" rel="stylesheet">
     <link rel="stylesheet" href="<?= SITE_TEMPLATE_PATH ?>/styles/main.css">
 
+    <? $Asset->addJs("https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"); ?>
     <? $Asset->addJs(SITE_TEMPLATE_PATH . "/js/custom.js"); ?>
     <? $Asset->addCss(SITE_TEMPLATE_PATH . "/css/custom.css"); ?>
 

@@ -13,9 +13,13 @@
 
 $this->setFrameMode(true);
 ?>
+
 <? if (!empty($arResult["POLICIES"])): ?>
 	<div class="products">
 		<h2 class="title"><?= $arParams["TITLE_POLICY"] ?></h2>
+		<div class="products__main-info">
+
+		</div>
 		<? foreach ($arResult["POLICIES"] as $arPolicy) : ?>
 			<div class="products__item">
 				<picture class="products__head">
