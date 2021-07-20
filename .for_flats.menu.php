@@ -6,6 +6,13 @@ $aMenuLinks = Array(
 		Array(), 
 		Array(), 
 		"" 
+	),
+	Array(
+		"Комплекты оборудования", 
+		"/equipment-kits/", 
+		Array(), 
+		Array(), 
+		"" 
 	)
 );
 ?>

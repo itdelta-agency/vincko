@@ -148,7 +148,7 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();
                                             </div>
 
                                             <div class="ready-pack__bottom-result">
-                                                <?= number_format($item['CATALOG_PRICE_1'], 0, ',', ' ') ?> ₽
+                                                <?= empty($item['DISCOUNT_PRICE']) ? number_format($item['CATALOG_PRICE_1'], 0, ',', ' ') : number_format($item['DISCOUNT_PRICE'], 0, ',', ' ') ?> ₽
 
                                                 <span class="ready-pack__bottom-or">
                                     или
