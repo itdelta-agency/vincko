@@ -70,6 +70,8 @@ $res = CIBlockElement::GetList(
 while($arFields = $res->Fetch())
 {
     $arResult['PACKAGES_CLASSES'][$arFields['ID']] = $arFields;
+    $detailPicture = CFile::ResizeImageGet($arFields["DETAIL_PICTURE"], array("width" => 40, "height" => 40), BX_RESIZE_IMAGE_PROPORTIONAL_ALT, false);
+    $arResult['PACKAGES_CLASSES'][$arFields['ID']]['ICON'] = $detailPicture;
 }
 foreach ($arResult['PACKAGE_GROUP']['PACKAGES'] as $package) {
 
