@@ -168,22 +168,14 @@ if (!empty($arParams['LABEL_PROP_POSITION'])) {
         <section class="complect__slider">
             <div class="complect__slider-wrapper">
                 <div class="solutions-card__circles">
-                    <?$i=0;?>
                     <?foreach ($arResult['PACKAGES_CLASSES'] as $key => $class ):?>
                     <div onclick="location.href='/equipment-kits/<?=$arResult['FIRST_LIST_COMPLECTS_SLUGS'][$key]['SLUG']?>/'" class="solutions-card__circles_item <?=$arResult['CURRENT_PACKAGE_CLASS'] == $key ? 'show' : 'hide'?>">
                         <div class="solutions-card__circles_item-icon">
-                            <?if($i==0):?>
-                            <img src="<?=SITE_TEMPLATE_PATH?>/img/solutions/solutions-card__circles_item-icon1.svg" alt="img">
-                            <?elseif($i==1):?>
-                            <img src="<?=SITE_TEMPLATE_PATH?>/img/solutions/solutions-card__circles_item-icon2.svg" alt="img">
-                            <?else:?>
-                            <img src="<?=SITE_TEMPLATE_PATH?>/img/solutions/solutions-card__circles_item-icon3.svg" alt="img">
-                    <?endif;?>
+                            <img src="<?=$class['ICON']['src']?>" alt="<?=$class['NAME']?>">
                         </div>
                         <div class="solutions-card__circles_item-text">
                             <?=$class['NAME']?>
                         </div>
-                        <?$i++;?>
                     </div>
                     <?endforeach;?>
                     <div class="solutions__subscribe">
@@ -654,23 +646,15 @@ if (!empty($arParams['LABEL_PROP_POSITION'])) {
                                     </div>
                                 </div>
                                 <div class="solutions-card__circles">
-                                    <?$i=0;?>
                                     <?foreach ($arResult['PACKAGES_CLASSES'] as $key => $class ):?>
 
                                             <div onclick="location.href='/equipment-kits/<?=$arResult['FIRST_LIST_COMPLECTS_SLUGS'][$key]['SLUG']?>/#solutions__center'" class="solutions-card__circles_item <?=$arResult['CURRENT_PACKAGE_CLASS'] == $key ? 'show' : 'hide'?>">
                                                 <div class="solutions-card__circles_item-icon">
-                                                    <?if($i==0):?>
-                                                        <img src="<?=SITE_TEMPLATE_PATH?>/img/solutions/solutions-card__circles_item-icon1.svg" alt="img">
-                                                    <?elseif($i==1):?>
-                                                        <img src="<?=SITE_TEMPLATE_PATH?>/img/solutions/solutions-card__circles_item-icon2.svg" alt="img">
-                                                    <?else:?>
-                                                        <img src="<?=SITE_TEMPLATE_PATH?>/img/solutions/solutions-card__circles_item-icon3.svg" alt="img">
-                                                    <?endif;?>
+                                                    <img src="<?=$class['ICON']['src']?>" alt="<?=$class['NAME']?>">
                                                 </div>
                                                 <div class="solutions-card__circles_item-text">
                                                     <?=$class['NAME']?>
                                                 </div>
-                                                <?$i++;?>
                                             </div>
                                     <?endforeach;?>
                                 </div>
