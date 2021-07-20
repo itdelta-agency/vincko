@@ -18,11 +18,35 @@ $characteristicsIblockId = 37;
 /*
  * получим готовые решения
  */
+if (!function_exists('getPricesInfoByProductId'))
+{
+    function getPricesInfoByProductId($productID) {
+        global $USER;
+        $quantity = 1;
+        $renewal = 'N';
+        $arPrice = CCatalogProduct::GetOptimalPrice(
+            $productID,
+            $quantity,
+            $USER->GetUserGroupArray(),
+            $renewal
+        );
 
+        if (!$arPrice || count($arPrice) <= 0) {
+            if ($nearestQuantity = CCatalogProduct::GetNearestQuantityPrice($productID, $quantity, $USER->GetUserGroupArray()))
+            {
+                $quantity = $nearestQuantity;
+                $arPrice = CCatalogProduct::GetOptimalPrice($productID, $quantity, $USER->GetUserGroupArray(), $renewal);
+            }
+        }
+        return $arPrice;
+    }}
 
 $res = CIBlockElement::GetList(
     Array("SORT"=>"ASC"),
-    Array("ACTIVE"=>"Y","IBLOCK_ID"=>$packagesIblockId,"=PROPERTY_P_COMPLECT"=>$arResult['ID'])
+    Array("ACTIVE"=>"Y","IBLOCK_ID"=>$packagesIblockId,"=PROPERTY_P_COMPLECT"=>$arResult['ID']),
+    false,
+    false,
+    Array("ID","PROPERTY_CO_CLASS_REF","PROPERTY_P_COMPLECT","IBLOCK_SECTION_ID")
 );
 
 while($arFields = $res->Fetch())
@@ -63,6 +87,24 @@ while($arFields = $res->Fetch())
     $arResult['FIRST_LIST_COMPLECTS'][$arFields['ID']] = $arFields;
 }
 
+
+$res = CIBlockElement::GetList(
+    Array("SORT"=>"ASC"),
+    Array("ACTIVE"=>"Y","IBLOCK_ID"=>$complectsIblockId,"ID"=>$arResult['COMPLECT_PARENT_PACKAGE']['PROPERTY_P_COMPLECT_VALUE']),
+    false,
+    false,
+    Array('*','CATALOG_GROUP_1')
+);
+
+while($arFields = $res->Fetch())
+{
+    $arResult['ALL_LIST_COMPLECTS_IN_PACKAGE'][$arFields['ID']] = $arFields;
+    $arResult['ALL_LIST_COMPLECTS_IN_PACKAGE'][$arFields['ID']]['PRICES_INFO'] = getPricesInfoByProductId($arFields['ID']);
+
+}
+
+
+
 $res = CIBlockElement::GetList(
     Array("SORT"=>"ASC"),
     Array("ACTIVE"=>"Y","IBLOCK_ID"=>$classesIblockId)
@@ -88,6 +130,7 @@ foreach ($arResult['PACKAGE_GROUP']['PACKAGES'] as $package) {
         "SLUG" => $slug
     );
 }
+
 /*
  * получить оборудование комплекта
  */
