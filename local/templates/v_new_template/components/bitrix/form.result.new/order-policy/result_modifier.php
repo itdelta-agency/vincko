@@ -6,13 +6,22 @@ use \Vincko\Order;
 // получим передаваемые значения
 $request = \Bitrix\Main\Application::getInstance()->getContext()->getRequest();
 
-$arResult["POLICY_ID"] = $request->getPost('POLICY_ID');
+
+$arResult["POLICY_ID"] = ($request->getPost('POLICY_ID') ?? $arResult["arrVALUES"]["form_hidden_" . $arResult["QUESTIONS"]["POLICY_ID"]["STRUCTURE"][0]["ID"]]);
 
 // если ID полиса нет то перебрасываем на выбор полиса
-if (empty($arResult["POLICY_ID"])) {
-	LocalRedirect($arParams["BACK_LINK"]);
+if (empty($arResult["POLICY_ID"]) && $arResult["isFormNote"] != "Y") {
+	//LocalRedirect($arParams["BACK_LINK"]);
 }
+if($arResult["isFormNote"] == "Y"){
+	$arOrder = \CFormResult::GetDataByID(
+		$request->get("RESULT_ID"),
+		array("ORDER_ID"),
+		$arOrderResult,
+		$arOrderAnswer);
+	$arResult["ORDER_ID"] = $arOrder["ORDER_ID"][0]["USER_TEXT"];
 
+}
 
 // если полис не выбран, то перекидываем пользователя на выборку
 // отредактируем некоторые поля
@@ -24,10 +33,10 @@ foreach ($arResult["QUESTIONS"] as $FIELD_SID => $arQuestion) {
 		switch ($arQuestion['STRUCTURE'][0]['FIELD_TYPE']) {
 			case "radio":
 				$arResult["QUESTIONS"][$FIELD_SID]["HTML_CODE"] = "";
+				$name = "form_radio_" . $FIELD_SID;
 				$i = 0;
 				foreach ($arQuestion['STRUCTURE'] as $arAnsw) {
-
-					$arResult["QUESTIONS"][$FIELD_SID]["HTML_CODE"] .= '<input type="radio"  id="' . $arAnsw["ID"] . '" name="form_radio_' . $FIELD_SID . '" value="' . $arAnsw["ID"] . '" '.($i == 0?" checked":"").'>
+					$arResult["QUESTIONS"][$FIELD_SID]["HTML_CODE"] .= '<input type="radio"  id="' . $arAnsw["ID"] . '" name="' . $name . '" value="' . $arAnsw["ID"] . '" ' . ($i == 0 ? " checked" : "") . '>
 																	<label for="' . $arAnsw["ID"] . '"></label>
 																	<label for="' . $arAnsw["ID"] . '">' . $arAnsw["MESSAGE"] . '</label>
 																	' . ($FIELD_SID == 'POLICY_ADDRESS' ? '<br />' : '');
@@ -35,21 +44,24 @@ foreach ($arResult["QUESTIONS"] as $FIELD_SID => $arQuestion) {
 				}
 				break;
 			case "date":
-				$arResult["QUESTIONS"][$FIELD_SID]["HTML_CODE"] = '<input class="date js-check-valid-field" data-field="'.$FIELD_SID.'" type="text" name="form_date_'.$idAnsw.'" placeholder="' . $arQuestion["CAPTION"] . '" onfocus="(this.type=\'date\')" onblur="(this.type=\'text\')">';
+				$name = "form_date_" . $idAnsw;
+				$arResult["QUESTIONS"][$FIELD_SID]["HTML_CODE"] = '<input' . ($arResult["arrVALUES"][$name] ? ' value="' . $arResult["arrVALUES"][$name] . '"' : '') . ' class="date js-check-valid-field' . (!empty($arResult['FORM_ERRORS'][$FIELD_SID]) ? ' error' : '') . '" data-field="' . $FIELD_SID . '" type="text" name="' . $name . '" placeholder="' . $arQuestion["CAPTION"] . '" onfocus="(this.type=\'date\')" onblur="(this.type=\'text\')">';
 				break;
 			case "email":
-				$arResult["QUESTIONS"][$FIELD_SID]["HTML_CODE"] = '<input class="js-check-valid-field" data-field="'.$FIELD_SID.'" type="text" name="form_email_'.$idAnsw.'" placeholder="' . $arQuestion["CAPTION"] . '" value="">';
+				$name = "form_email_" . $idAnsw;
+				$arResult["QUESTIONS"][$FIELD_SID]["HTML_CODE"] = '<input' . ($arResult["arrVALUES"][$name] ? ' value="' . $arResult["arrVALUES"][$name] . '"' : '') . ' class="js-check-valid-field' . (!empty($arResult['FORM_ERRORS'][$FIELD_SID]) ? ' error' : '') . '" data-field="' . $FIELD_SID . '" type="text" name="' . $name . '" placeholder="' . $arQuestion["CAPTION"] . '" value="">';
 				break;
 			case "text":
-				$arResult["QUESTIONS"][$FIELD_SID]["HTML_CODE"] = '<input class="js-check-valid-field" data-field="'.$FIELD_SID.'" type="text" name="form_text_'.$idAnsw.'" placeholder="' . $arQuestion["CAPTION"] . '" value="">';
+				$name = "form_text_" . $idAnsw;
+				$arResult["QUESTIONS"][$FIELD_SID]["HTML_CODE"] = '<input' . ($arResult["arrVALUES"][$name] ? ' value="' . $arResult["arrVALUES"][$name] . '"' : '') . ' class="js-check-valid-field' . (!empty($arResult['FORM_ERRORS'][$FIELD_SID]) ? ' error' : '') . '" data-field="' . $FIELD_SID . '" type="text" name="' . $name . '" placeholder="' . $arQuestion["CAPTION"] . '" value="">';
 				break;
 			case "checkbox":
-				$arResult["QUESTIONS"][$FIELD_SID]["HTML_CODE"] = '<input class="js-check-valid-field" data-field="'.$FIELD_SID.'" type="checkbox" name="form_checkbox_' . $FIELD_SID . '[]" id="' . $idAnsw . '" value="' . $idAnsw . '">
+				$name = "form_checkbox_" . $FIELD_SID . "[]";
+				$arResult["QUESTIONS"][$FIELD_SID]["HTML_CODE"] = '<input' . ($arResult["arrVALUES"][$name] ? ' value="' . $arResult["arrVALUES"][$name] . '"' : '') . ' class="js-check-valid-field' . (!empty($arResult['FORM_ERRORS'][$FIELD_SID]) ? ' error' : '') . '" data-field="' . $FIELD_SID . '" type="checkbox" name="' . $name . '" id="' . $idAnsw . '" value="' . $idAnsw . '">
 				                                					<label for="' . $idAnsw . '">' . $arQuestion["CAPTION"] . '</label>';
 				break;
 
 		}
-
 
 
 	}

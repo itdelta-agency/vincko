@@ -1,15 +1,30 @@
 <?php
+
 namespace Vincko;
 
 use Vincko\Order;
+use Bitrix\Main\Application;
+use Bitrix\Main\Loader;
+
 class Events
 {
 	// событие после добавления результата формы
+	public static function onBeforeResultAdd($formId, &$arFields, &$arrVALUES)
+	{
+		switch ($formId) {
+			case 1 :
+				$arrVALUES = \Vincko\Order::validOrderPolicy($formId, $arrVALUES);
+				break;
+		}
+	}
+
+	// событие после добавления результата формы
 	public static function afterResultAdd($formId, $resultId)
 	{
+		\Bitrix\Main\Loader::includeModule('form');
 		$arAnswers = \CFormResult::GetDataByID($resultId, [], $arResult, $arAnswers2);
 
-		switch ($formId){
+		switch ($formId) {
 			case 1 :
 
 				// сформируем необходимый мыссив для передачи в заказ
@@ -19,7 +34,7 @@ class Events
 					]
 				];
 
-				foreach($arAnswers as  $arValue){
+				foreach ($arAnswers as $arValue) {
 					$arPolicyField["PROPS"][] = [
 						"NAME"  => $arValue[0]["TITLE"],
 						"CODE"  => $arValue[0]["SID"],
@@ -27,20 +42,21 @@ class Events
 					];
 				}
 
-				$request = Application::getInstance()->getContext()->getRequest();
+				$request = \Bitrix\Main\Application::getInstance()->getContext()->getRequest();
 
 				$arPayment = $request["PAYMENT"];
 
 				if ($orderId = Order::createOrderPolicy($arPolicyField, $arPayment, 1, false)) {
-					\CFormResult::SetField($resultId, "ORDER_ID", $orderId);
+					\CFormResult::SetField($resultId, "ORDER_ID", ["40"=>$orderId]);
 				}
 		}
 	}
 
+
 	// событие оплаты заказа
 	public static function OnSaleOrderPaid($order)
 	{
-		if(!$order->isPaid() || $order->isPaid()==false) {
+		if (!$order->isPaid() || $order->isPaid() == false) {
 			return false;
 		}
 		Order::orderPolicyPay($orderId);

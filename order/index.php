@@ -1,9 +1,12 @@
 <?
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 $APPLICATION->SetTitle("Оформление заказа");
-?><?$APPLICATION->IncludeComponent(
-	"vincko:sale.order.ajax", 
-	"vincko", 
+?>
+	<main class="container main">
+
+<?$APPLICATION->IncludeComponent(
+	"bitrix:sale.order.ajax",
+	"",
 	array(
 		"ACTION_VARIABLE" => "soa-action",
 		"ADDITIONAL_PICT_PROP_10" => "-",
@@ -129,4 +132,6 @@ $APPLICATION->SetTitle("Оформление заказа");
 		)
 	),
 	false
-);?><?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>
+);?>
+	</main>
+<?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>

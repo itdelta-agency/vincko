@@ -9,44 +9,18 @@ $request = Application::getInstance()->getContext()->getRequest();
 
 
 if ($request->isAjaxRequest()) {
+// обработаем поля
+	$arrVALUES = \Vincko\Order::validOrderPolicy($request->get("WEB_FORM_ID"), $_REQUEST);
 
+	$error = CForm::Check(1, $arrVALUES, false, "Y", "Y");
 
-	$error = CForm::Check(1, $_REQUEST, false, "Y", "Y");
-
-	$arFieldLogicRequired = [
-		"form_checkbox_ACTUAL_ADDRESS" =>
-			[
-				"ACTUAL_CITY",
-				"ACTUAL_STREET",
-				"ACTUAL_HOUSE",
-				"ACTUAL_DATE",
-				"ACTUAL_INDEX",
-			],
-		"form_radio_POLICY_ADDRESS"    =>
-			[
-				"POLICY_CITY",
-				"POLICY_HOUSE",
-				"POLICY_STREET",
-				"POLICY_HOUSING",
-				"POLICY_DATE",
-				"POLICY_INDEX"
-			]
-	];
-	if (!empty($request->get('form_checkbox_ACTUAL_ADDRESS'))) {
-		foreach ($arFieldLogicRequired["form_checkbox_ACTUAL_ADDRESS"] as $requiredField) {
-			unset($error[$requiredField]);
-		}
-	}
-	if ($request->get("form_radio_POLICY_ADDRESS") != 30) {
-		foreach ($arFieldLogicRequired["form_radio_POLICY_ADDRESS"] as $requiredField) {
-			unset($error[$requiredField]);
-		}
-	}
-
-
-	if (count($error) > 0) {
-		echo json_encode($error);
-	}
+	$result =
+		[
+			"value" => $arrVALUES,
+			"count" => count($error),
+			"error" => $error,
+		];
+	echo json_encode($result);
 }
 
 require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/main/include/epilog_after.php");

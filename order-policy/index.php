@@ -15,7 +15,6 @@ $APPLICATION->SetTitle("Оформление страхового полиса")
 		"IGNORE_CUSTOM_TEMPLATE" => "N",
 		"LIST_URL"               => "",
 		"SEF_MODE"               => "N",
-		"SUCCESS_URL"            => "/order-policy/payment/",
 		"USE_EXTENDED_ERRORS"    => "Y",
 		"VARIABLE_ALIASES"       => array(
 			"RESULT_ID"   => "RESULT_ID",

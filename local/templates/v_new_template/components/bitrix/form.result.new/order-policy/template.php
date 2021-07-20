@@ -10,7 +10,9 @@ if (!CModule::IncludeModule("sale")) {
 	return;
 }
 ?>
+
 <? if ($arResult["isFormNote"] == "Y"): ?>
+
 	<? include(Bitrix\Main\Application::getDocumentRoot() . $templateFolder . '/success.php'); ?>
 <? else: ?>
 	<style>
@@ -34,6 +36,14 @@ if (!CModule::IncludeModule("sale")) {
         .error:-ms-input-placeholder { /* Internet Explorer 10+ */
             color: red;
         }
+		.products__payment-photo{float: left;  margin: 5px;}
+		.products__payment-name{margin: 5px}
+		.products__payment-item label{float: left;
+            margin: 5px;}
+		.products__payment-item{
+            padding: 10px 0;
+            overflow: hidden;
+        }
 	</style>
 	<?= $arResult["FORM_HEADER"] ?>
 
@@ -45,14 +55,14 @@ if (!CModule::IncludeModule("sale")) {
 
 			<? // поскольку верстка не стандартная не стоит городить логику, чтобы потом не было трудностей с правкой, а просто отобразим как есть ?>
 			<div class="forms">
-				<div class="form" id="form-1">
+				<div class="form open" id="form-1">
 					<div class="h4"><?= Loc::getMessage("FORM_POLICY_STEP_ABOUT") ?></div>
 					<div class="close-btn close-btn_hide"><?= Loc::getMessage("FORM_POLICY_EXPAND") ?></div>
 
 
 					<div class="form__content">
 						<div class="form__section">
-							<div class="error_message"><p><?= Loc::getMessage("FORM_POLICY_ERROR_MSG") ?></p></div>
+							<div class="error_message"<?=(!empty($arResult['FORM_ERRORS'])?" style='display:block'":"")?>><p><?= Loc::getMessage("FORM_POLICY_ERROR_MSG") ?></p></div>
 							<div class="h4"><?= Loc::getMessage("FORM_POLICY_INFORMATION") ?></div>
 							<div class="form__section__content sex">
 								<span class="js-check-valid-field"
@@ -107,7 +117,7 @@ if (!CModule::IncludeModule("sale")) {
 								<p><?= Loc::getMessage("FORM_POLICY_ACTUAL_NOT_REGISTRATION") ?></p>
 							</div>
 							<div class="h4"><?= Loc::getMessage("FORM_POLICY_ADDRESS") ?></div>
-							<div class="form__section__content address-installment">
+							<div class="form__section__content address-installment js-check-address-installment-other">
 								<?= $arResult["QUESTIONS"]["POLICY_ADDRESS"]["HTML_CODE"] ?>
 								<p><?= Loc::getMessage("FORM_POLICY_ADDRESS_NOT_POLICY") ?></p>
 								<div class="address-registration address-installment-other">
@@ -145,16 +155,16 @@ if (!CModule::IncludeModule("sale")) {
 										<div class="products__payment-item">
 											<input type="radio" id="<?= $arPayment["ID"] ?>" name="PAYMENT"
 												   value="<?= $arPayment["ID"] ?>"/>
-											<label for="<?= $arPayment["ID"] ?>">
+											<label for="<?= $arPayment["ID"] ?>"></label>
 												<div class="products__payment-photo">
 													<picture>
-														<img src="<?= $arPayment["ICON"] ?>">
+														<img src="<?= $arPayment["ICON"] ?>" width="20px">
 													</picture>
 												</div>
 												<div class="products__payment-name">
 													<?= $arPayment["NAME"] ?>
 												</div>
-											</label>
+
 										</div>
 									<? endforeach; ?>
 								</div>

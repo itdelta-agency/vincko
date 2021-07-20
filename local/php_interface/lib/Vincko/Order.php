@@ -50,7 +50,7 @@ class Order
 			$item->setField('CURRENCY', 'RUB');
 			$item->setField('PRODUCT_PROVIDER_CLASS', '\Bitrix\Catalog\Product\CatalogProvider');
 
-			$arSetProps = $arField;
+			$arSetProps = $arField["PROPS"];
 
 			$item->getPropertyCollection()->setProperty($arSetProps);
 
@@ -61,23 +61,21 @@ class Order
 				$userId,
 				\Bitrix\Currency\CurrencyManager::getBaseCurrency()
 			);
-			dump($arSetProps);
+
 			$order->setPersonTypeId(1);
 			$order->setBasket($basket);
-		/*	$paymentCollection = $order->getPaymentCollection();
+			$paymentCollection = $order->getPaymentCollection();
 			$payment = $paymentCollection->createItem(
 				\Bitrix\Sale\PaySystem\Manager::getObjectById($paymentID)
 			);
 
 			$payment->setField("SUM", $order->getPrice());
 			$payment->setField("CURRENCY", $order->getCurrency());
-*/
-			$order->save();
 
+			$order->save();
 			return $order->getId();
 		}
 	}
-
 
 	//событие когда заказ со страховкой оплачены
 	public static function orderPolicyPay($orderID)
@@ -131,5 +129,72 @@ class Order
 
 
 
+	}
+
+	//  предварительная обработка полей, передаваемых в форме
+	public static function validOrderPolicy($formId, $arrVALUES){
+		$arFieldLogicRequired = [
+			"form_checkbox_ACTUAL_ADDRESS" =>
+				[
+					"form_text_22" => "form_text_14",
+					"form_text_23" => "form_text_15",
+					"form_text_24" => "form_text_16",
+					"form_text_25" => "form_text_17",
+					"form_text_38" => "form_text_18",
+					"form_date_26" => "form_date_19",
+					"form_text_27" => "form_text_20",
+				],
+			"form_radio_POLICY_ADDRESS"    =>
+				[
+					"form_text_31" => [
+						"form_text_14", "form_text_22"
+					],
+					"form_text_33" => [
+						"form_text_15", "form_text_23"
+					],
+					"form_text_32" => [
+						"form_text_16", "form_text_24"
+					],
+					"form_text_34" => [
+						"form_text_17", "form_text_25"
+					],
+					"form_text_39" => [
+						"form_text_18", "form_text_38"
+					],
+					"form_date_35" => [
+						"form_date_19", "form_date_26"
+					],
+					"form_text_36" => [
+						"form_text_20", "form_text_27"
+					],
+				]
+		];
+
+		if (!empty($arrVALUES['form_checkbox_ACTUAL_ADDRESS'])) {
+			foreach ($arFieldLogicRequired['form_checkbox_ACTUAL_ADDRESS'] as $fieldName => $fieldValue) {
+				$arrVALUES[$fieldName] = $arrVALUES[$fieldValue];
+			}
+		}
+		if ($arrVALUES["form_radio_POLICY_ADDRESS"] != 30) {
+
+			foreach ($arFieldLogicRequired['form_radio_POLICY_ADDRESS'] as $fieldName => $fieldValue) {
+				if ($arrVALUES["form_radio_POLICY_ADDRESS"] == 28) {
+					$arrVALUES[$fieldName] = $arrVALUES[$fieldValue[0]];
+
+				} else {
+					$arrVALUES[$fieldName] = $arrVALUES[$fieldValue[1]];
+				}
+			}
+		}
+
+		foreach ($arrVALUES as $fieldName => $fieldValue) {
+			if (stripos($fieldName, "date")) {
+				$date = new \DateTime($fieldValue);
+				$arrVALUES[$fieldName] = $date->format("d.m.Y");
+			} else {
+				$arrVALUES[$fieldName] = $fieldValue;
+			}
+		}
+		return $arrVALUES;
 	}
 }
