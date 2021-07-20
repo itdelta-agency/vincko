@@ -18,11 +18,35 @@ $characteristicsIblockId = 37;
 /*
  * получим готовые решения
  */
+if (!function_exists('getPricesInfoByProductId'))
+{
+    function getPricesInfoByProductId($productID) {
+        global $USER;
+        $quantity = 1;
+        $renewal = 'N';
+        $arPrice = CCatalogProduct::GetOptimalPrice(
+            $productID,
+            $quantity,
+            $USER->GetUserGroupArray(),
+            $renewal
+        );
 
+        if (!$arPrice || count($arPrice) <= 0) {
+            if ($nearestQuantity = CCatalogProduct::GetNearestQuantityPrice($productID, $quantity, $USER->GetUserGroupArray()))
+            {
+                $quantity = $nearestQuantity;
+                $arPrice = CCatalogProduct::GetOptimalPrice($productID, $quantity, $USER->GetUserGroupArray(), $renewal);
+            }
+        }
+        return $arPrice;
+    }}
 
 $res = CIBlockElement::GetList(
     Array("SORT"=>"ASC"),
-    Array("ACTIVE"=>"Y","IBLOCK_ID"=>$packagesIblockId,"=PROPERTY_P_COMPLECT"=>$arResult['ID'])
+    Array("ACTIVE"=>"Y","IBLOCK_ID"=>$packagesIblockId,"=PROPERTY_P_COMPLECT"=>$arResult['ID']),
+    false,
+    false,
+    Array("ID","PROPERTY_CO_CLASS_REF","PROPERTY_P_COMPLECT","IBLOCK_SECTION_ID")
 );
 
 while($arFields = $res->Fetch())
@@ -63,6 +87,24 @@ while($arFields = $res->Fetch())
     $arResult['FIRST_LIST_COMPLECTS'][$arFields['ID']] = $arFields;
 }
 
+
+$res = CIBlockElement::GetList(
+    Array("SORT"=>"ASC"),
+    Array("ACTIVE"=>"Y","IBLOCK_ID"=>$complectsIblockId,"ID"=>$arResult['COMPLECT_PARENT_PACKAGE']['PROPERTY_P_COMPLECT_VALUE']),
+    false,
+    false,
+    Array('*','CATALOG_GROUP_1')
+);
+
+while($arFields = $res->Fetch())
+{
+    $arResult['ALL_LIST_COMPLECTS_IN_PACKAGE'][$arFields['ID']] = $arFields;
+    $arResult['ALL_LIST_COMPLECTS_IN_PACKAGE'][$arFields['ID']]['PRICES_INFO'] = getPricesInfoByProductId($arFields['ID']);
+
+}
+
+
+
 $res = CIBlockElement::GetList(
     Array("SORT"=>"ASC"),
     Array("ACTIVE"=>"Y","IBLOCK_ID"=>$classesIblockId)
@@ -70,6 +112,8 @@ $res = CIBlockElement::GetList(
 while($arFields = $res->Fetch())
 {
     $arResult['PACKAGES_CLASSES'][$arFields['ID']] = $arFields;
+    $detailPicture = CFile::ResizeImageGet($arFields["DETAIL_PICTURE"], array("width" => 40, "height" => 40), BX_RESIZE_IMAGE_PROPORTIONAL_ALT, false);
+    $arResult['PACKAGES_CLASSES'][$arFields['ID']]['ICON'] = $detailPicture;
 }
 foreach ($arResult['PACKAGE_GROUP']['PACKAGES'] as $package) {
 
@@ -86,6 +130,7 @@ foreach ($arResult['PACKAGE_GROUP']['PACKAGES'] as $package) {
         "SLUG" => $slug
     );
 }
+
 /*
  * получить оборудование комплекта
  */
@@ -129,6 +174,7 @@ if (!empty($arEquipSet)) {
             "NAME" => $arFields["NAME"],
             "PREVIEW_TEXT" => $arFields["PREVIEW_TEXT"],
             "PREVIEW_PICTURE" => $picEnd["src"],
+            "PREVIEW_PICTURE_MINI" => $picEnd["src"],
             "EQUIPMENT_PICTURES" => $equipmentPictures,
             "CHARACTERISTICS"=>$characteristicsIds,
             "SENSOR_ADVANTAGES"=>$arFields['PROPERTY_SENSOR_ADVANTAGES_VALUE'],
@@ -162,3 +208,6 @@ if (isset($arResult["DISPLAY_PROPERTIES"]["CO_CHARACTERISTICS_REF"]["LINK_ELEMEN
         $arResult["DISPLAY_PROPERTIES"]["CO_CHARACTERISTICS_REF"]["LINK_ELEMENT_VALUE"][$key]['PREVIEW_PICTURE'] = CFile::GetFileArray($item['PREVIEW_PICTURE']);
     }
 }
+$arResult['PREVIEW_PICTURE_RESIZED'] = CFile::ResizeImageGet($arResult['PREVIEW_PICTURE'] , array("width" => 360, "height" => 290), BX_RESIZE_IMAGE_PROPORTIONAL_ALT, false);
+$arResult['PREVIEW_PICTURE_RESIZED_SMALL'] = CFile::ResizeImageGet($arResult['PREVIEW_PICTURE'] , array("width" => 110, "height" => 100), BX_RESIZE_IMAGE_PROPORTIONAL, false);
+

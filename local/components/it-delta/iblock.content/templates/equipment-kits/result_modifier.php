@@ -5,7 +5,7 @@ $arrClassFetch = CIBlockElement::GetList(
     array("IBLOCK_ID" => "36"),
     false,
     false,
-    array("ID", "NAME", "PREVIEW_PICTURE")
+    array("ID", "NAME", "PREVIEW_PICTURE", "SORT")
 );
 while ($class = $arrClassFetch->GetNext()) {
     $arrClass[$class['ID']] = $class;
@@ -45,6 +45,7 @@ while ($sectRes = $dbResSect->GetNext()) {
     //получаем путь картинки раздела
     $sectRes['PICTURE_SRC'] = CFile::GetPath($sectRes["PICTURE"]);
     $arSections[$sectRes['ID']] = $sectRes;
+    $arrWithoutImage = null;
 }
 
 
@@ -52,6 +53,7 @@ foreach ($arResult["ITEMS"] as $key => $arItem) {
     $arSections[$arItem['IBLOCK_SECTION_ID']]['ITEMS'][] = $arItem;
 
     $arSections[$arItem['IBLOCK_SECTION_ID']]['CLASS_INFO'] = $arrClass[$arItem['PROPERTIES']['CO_CLASS_REF']['VALUE']];
+
 }
 
 
@@ -78,6 +80,11 @@ $dbResEquipmentKits = CIBlockElement::GetList(
 
 $arCharacteristic = array();
 while ($equipmentKitsRes = $dbResEquipmentKits->GetNext()) {
+    $arDiscounts = CCatalogDiscount::GetDiscountByProduct(
+        $equipmentKitsRes['ID'],
+    );
+    !empty($arDiscounts) ? $equipmentKitsRes["DISCOUNT_PRICE"] = $equipmentKitsRes['CATALOG_PRICE_1'] - ($equipmentKitsRes['CATALOG_PRICE_1'] *$arDiscounts[0]['VALUE'] / 100): '' ;
+
     //получаем путь картинки
     $equipmentKitsRes['DETAIL_URL'] = $equipmentKitsRes['CODE'];
 
@@ -120,10 +127,9 @@ foreach ($arSections as $key => $arSection) {
             }
         }
     }
+
 }
-//echo "<pre>";
-//print_r($arSections);
-//echo "</pre>";
+
 $arResult["SECTIONS"] = $arSections;
 
 

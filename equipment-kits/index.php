@@ -22,15 +22,15 @@ if(!empty($packages))
         "ADD_CACHE_STRING" => "",
         "CACHE_TIME" => "0",
         "CACHE_TYPE" => "A",
+        "EQUIPMENT-KITS_IBLOCK_ID" => "11",
         "FILTER_NAME" => "packagesFilter",
         "IBLOCK_ID" => "12",
-        "EQUIPMENT-KITS_IBLOCK_ID"=>"11",
         "IBLOCK_TYPE" => "references",
         "PAGE_ELEMENT_COUNT" => "10",
         "RAND_ELEMENTS" => "N",
-        "SORT_BY1" => "ACTIVE_FROM",
-        "SORT_BY2" => "SORT",
-        "SORT_ORDER1" => "DESC",
+        "SORT_BY1" => "SORT",
+        "SORT_BY2" => "NAME",
+        "SORT_ORDER1" => "ASC",
         "SORT_ORDER2" => "ASC"
     )
 );
