@@ -229,15 +229,15 @@ if ($(window).width() <= '767') {
     arrows: true,
     centerPadding: '60px',
     slidesToShow: 5,
-    prevArrow: '<div class="arrow-prev arrow"><img src="../img/cartochka/prew.svg"></div>',
-    nextArrow: '<div class="arrow-next arrow"><img src="../img/cartochka/next.svg"></div>',
+    prevArrow: '<div class="arrow-prev arrow"><img src="/upload/images/arrows/prev.svg"></div>',
+    nextArrow: '<div class="arrow-next arrow"><img src="/upload/images/arrows/next.svg"></div>',
     infinity: true
   });
   $('.slide-box-slider-item').slick({
     arrows: true,
     slidesToShow: 1,
-    prevArrow: '<div class="arrow-prev-mini arrow-mini"><img src="../img/cartochka/arrow-prev-mini.svg"></div>',
-    nextArrow: '<div class="arrow-next-mini arrow-mini"><img src="../img/cartochka/arrow-next-mini.svg"></div>'
+    prevArrow: '<div class="arrow-prev-mini arrow-mini"><img src="/upload/images/arrows/arrow-prev-mini.svg"></div>',
+    nextArrow: '<div class="arrow-next-mini arrow-mini"><img src="/upload/images/arrows/arrow-next-mini.svg"></div>'
   });
   var activeSlide = document.querySelector('.slick-slide.slick-center'),
       infoBlocks = document.querySelectorAll('.info'),
@@ -303,8 +303,8 @@ if ($(window).width() <= '767') {
   closeOpenBlock('.slider__under-block-2', '.close-btn-2'); // modal
 
   $('.modal-slider').slick({
-    prevArrow: '<div class="modal-arrow arrow-prev-mini arrow-mini"><img src="../img/cartochka/modal-prev.svg"></div>',
-    nextArrow: '<div class="modal-arrow arrow-next-mini arrow-mini"><img src="../img/cartochka/modal-next.svg"></div>'
+    prevArrow: '<div class="modal-arrow arrow-prev-mini arrow-mini"><img src="/upload/images/arrows/modal-prev.svg"></div>',
+    nextArrow: '<div class="modal-arrow arrow-next-mini arrow-mini"><img src="/upload/images/arrows/modal-next.svg"></div>'
   });
   var slide = document.querySelectorAll('.modal-slider .slick-slide'),
       slideBottom = document.querySelectorAll('.modal-bottom .item'),
@@ -1622,6 +1622,7 @@ for (var i = 0; i < btns_modals.length; i++) {
 
   var _loop = function _loop(_i) {
     openBtns[_i].addEventListener("click", function () {
+    console.log('ture');
       items[_i].classList.remove("close");
     });
 

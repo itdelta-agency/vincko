@@ -53,7 +53,15 @@ $Asset = Asset::getInstance();
 
     <? $Asset->addJs(SITE_TEMPLATE_PATH . "/js/custom.js"); ?>
     <? $Asset->addCss(SITE_TEMPLATE_PATH . "/css/custom.css"); ?>
-
+<?
+$currentCity = CIBlockElement::GetList(
+    Array("SORT"=>"ASC"),
+    Array("ACTIVE"=>"Y","IBLOCK_ID"=>'20', 'ID'=>$_COOKIE['selected_city']),
+    false,
+    false,
+    array('NAME','ID')
+)->GetNext()['NAME'];
+?>
 </head>
 
 <body>
@@ -253,8 +261,8 @@ $Asset = Asset::getInstance();
                               fill="#005DFF"/>
                     </svg>
 
-                    <a href="">
-                        Петропавловск-Камчатский
+                    <a >
+                        <?=$currentCity?>
                     </a>
                 </div>
 
