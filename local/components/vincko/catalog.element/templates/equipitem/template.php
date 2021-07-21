@@ -1,6 +1,9 @@
 <? if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) die();
 $this->addExternalJS("/local/js/equipitem.js");
-if ($_GET['itd'] == 'y') {
+
+if($_GET['itd']=='y')
+{
+
     echo '<pre>';
     print_r($arResult);
     echo '</pre>';
@@ -236,12 +239,18 @@ if (!empty($arParams['LABEL_PROP_POSITION'])) {
                                     <div class="solutions__bottom_column-title">
                                         Всего
                                     </div>
-                                    <div class="solutions__bottom_column-oldprice">
-                                        <?= $arResult["PRICES"]["BASE"]["PRINT_VALUE"] ?>
-                                    </div>
-                                    <div class="solutions__bottom_column-newprice">
-                                        <?= $arResult["PRICES"]["BASE"]["PRINT_DISCOUNT_VALUE"] ?>
-                                    </div>
+                                    <?if ((int)($arResult["PRICES"]["BASE"]["PRINT_DISCOUNT_VALUE"])!= (int)($arResult["PRICES"]["BASE"]["PRINT_VALUE"])):?>
+                                        <div class="solutions__bottom_column-oldprice">
+                                            <?= $arResult["PRICES"]["BASE"]["PRINT_VALUE"] ?>
+                                        </div>
+                                        <div class="solutions__bottom_column-newprice">
+                                            <?= $arResult["PRICES"]["BASE"]["PRINT_DISCOUNT_VALUE"] ?>
+                                        </div>
+                                    <?else:?>
+                                        <div class="solutions__bottom_column-newprice">
+                                            <?= $arResult["PRICES"]["BASE"]["PRINT_VALUE"] ?>
+                                        </div>
+                                    <?endif;?>
 
                                 </div>
                                 <div class="solutions__bottom_column">
@@ -546,123 +555,49 @@ if (!empty($arParams['LABEL_PROP_POSITION'])) {
                                                         </svg>
                                                     </a>
 
-                                                </div>
-                                                <div class="select">
-                                                    <form action="#">
-                                                        <input class="select__input" type="hidden"
-                                                               name="solutions-card__top-select">
-                                                        <div class="select__head">Выбрать другой комплект</div>
-                                                        <div class="select__list" style="display: none;">
-                                                            <div class="select__input-search">
-                                                                <div class="select__input-search_icon">
-                                                                    <img src="<?= SITE_TEMPLATE_PATH ?>/img/solutions/search-icon.svg"
-                                                                         alt="img">
-                                                                </div>
-                                                                <input type="text" placeholder="Поиск" name="search">
-                                                            </div>
-                                                            <div class="select__list-item">
-                                                                <!-- Топ-3 -->
-                                                                <div class="select__list-item_title">Топ-3</div>
-                                                                <div class="select__item">
-                                                                    <div class="select__item_text color-black">
-                                                                        ООО “Беркут Дефенд Ко...
-                                                                    </div>
-                                                                    <div class="select__item_num">1</div>
-                                                                    <span class="select__item_bg"
-                                                                          style="width: 100%;"></span>
-                                                                </div>
-                                                                <div class="select__item">
-                                                                    <div class="select__item_text">
-                                                                        Сальса Чача Классно
-                                                                    </div>
-                                                                    <div class="select__item_num">2</div>
-                                                                    <span class="select__item_bg"
-                                                                          style="width: 90%;"></span>
-                                                                </div>
-                                                                <div class="select__item">
-                                                                    <div class="select__item_text">
-                                                                        ООО “Семиголов”
-                                                                    </div>
-                                                                    <div class="select__item_num">2</div>
-                                                                    <span class="select__item_bg"
-                                                                          style="width: 80%;"></span>
-                                                                </div>
 
-
-                                                                <!-- Все компании -->
-                                                                <div class="select__list-item_title color-grey">Все
-                                                                    компании
-                                                                </div>
-                                                                <div class="select__item">
-                                                                    <div class="select__item_text">
-                                                                        Сальса Чача Классно
-                                                                    </div>
-                                                                    <div class="select__item_num">4</div>
-                                                                    <span class="select__item_bg"
-                                                                          style="width: 70%;"></span>
-                                                                </div>
-                                                                <div class="select__item">
-                                                                    <div class="select__item_text">
-                                                                        Сальса Чача Классно
-                                                                    </div>
-                                                                    <div class="select__item_num">5</div>
-                                                                    <span class="select__item_bg"
-                                                                          style="width: 65%;"></span>
-                                                                </div>
-                                                                <div class="select__item">
-                                                                    <div class="select__item_text">
-                                                                        Сальса Чача Классно
-                                                                    </div>
-                                                                    <div class="select__item_num">6</div>
-                                                                    <span class="select__item_bg"
-                                                                          style="width: 45%;"></span>
-                                                                </div>
-                                                                <div class="select__item">
-                                                                    <div class="select__item_text">
-                                                                        Сальса Чача Классно
-                                                                    </div>
-                                                                    <div class="select__item_num">5</div>
-                                                                    <span class="select__item_bg"
-                                                                          style="width: 65%;"></span>
-                                                                </div>
-                                                                <div class="select__item">
-                                                                    <div class="select__item_text">
-                                                                        Сальса Чача Классно
-                                                                    </div>
-                                                                    <div class="select__item_num">6</div>
-                                                                    <span class="select__item_bg"
-                                                                          style="width: 45%;"></span>
-                                                                </div>
-                                                                <div class="select__item">
-                                                                    <div class="select__item_text">
-                                                                        Сальса Чача Классно
-                                                                    </div>
-                                                                    <div class="select__item_num">7</div>
-                                                                    <span class="select__item_bg"
-                                                                          style="width: 45%;"></span>
-                                                                </div>
-                                                                <div class="select__item">
-                                                                    <div class="select__item_text">
-                                                                        Сальса Чача Классно
-                                                                    </div>
-                                                                    <div class="select__item_num">8</div>
-                                                                    <span class="select__item_bg"
-                                                                          style="width: 65%;"></span>
-                                                                </div>
-                                                                <div class="select__item">
-                                                                    <div class="select__item_text">
-                                                                        Сальса Чача Классно
-                                                                    </div>
-                                                                    <div class="select__item_num">9</div>
-                                                                    <span class="select__item_bg"
-                                                                          style="width: 45%;"></span>
+                                            </div>
+                                        <? if (count($arResult['ALL_LIST_COMPLECTS_IN_PACKAGE'])>1):?>
+                                            <div class="select">
+                                                <form action="#">
+                                                    <input class="select__input" type="hidden" name="solutions-card__top-select">
+                                                    <div class="select__head">Выбрать другой комплект</div>
+                                                    <div class="select__list" style="display: none;">
+                                                        <div class="select__list-item">
+                                                            <!-- Выбрано -->
+                                                            <div class="select__list-item_title">Выбрано</div>
+                                                            <div class="select__list-item_policy">
+                                                                <div class="select__list-item_policy-top">
+                                                                <span class="font-weight policy-title">
+                                                                    Комплект “ <span class="font-weight"><?=$arResult['NAME']?></span> ”
+                                                                </span>
+                                                                    <span>
+                                                                    <?=$arResult['PRICES']['BASE']['DISCOUNT_VALUE']?> руб
+                                                                </span>
                                                                 </div>
                                                             </div>
-                                                            <div class="box-shadow"></div>
+
+
+                                                            <!-- Все комплекты -->
+                                                            <div class="select__list-item_title color-grey">Все комплекты</div>
+                                                            <? foreach ($arResult['ALL_LIST_COMPLECTS_IN_PACKAGE'] as $key => $item):?>
+                                                            <?if($key==$arResult['ID']){continue;}?>
+                                                                <div class="select__list-item_policy">
+                                                                <div class="select__list-item_policy-top">
+                                                                <span onclick="location.href='/equipment-kits/<?=$item['CODE']?>/#solutions__center'" class="policy-title">Комплект“<span class="p"><?=$item['NAME']?></span>”</span>
+                                                                    <span class="opacity"><?=$item['PRICES_INFO']['RESULT_PRICE']['DISCOUNT_PRICE']?> руб</span>
+                                                                </div>
+                                                            </div>
+                                                            <?endforeach;?>
+
                                                         </div>
                                                     </form>
                                                 </div>
                                             </div>
+
+                                        <?endif;?>
+                                        </div>
+
 
                                         </div>
                                     </div>

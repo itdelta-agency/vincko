@@ -20,9 +20,10 @@ class MainService
                 false,
                 array('ID','PROPERTY_CH_PACKETS'));
 
-            while($el = $res->GetNext())
+            $arElements = array();
+            while($arFields = $res->Fetch())
             {
-                $arElements[$el['ID']] = $el;
+                $arElements[$arFields['ID']] = $arFields;
             }
 
             $packagesIds = array();
