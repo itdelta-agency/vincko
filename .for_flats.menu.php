@@ -2,7 +2,7 @@
 $aMenuLinks = Array(
 	Array(
 		"Готовые решения", 
-		"", 
+		"/packages/",
 		Array(), 
 		Array(), 
 		"" 
