@@ -3,23 +3,10 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 $APPLICATION->SetTitle("Комплекты оборудования");
 ?>
 
-<?
-$params = array(
-    'IBLOCK_ID'=>9,
-    'COOKIE'=>$_COOKIE
-);
-
-$packages = MainService::getPackagesIds($params);
-
-if(!empty($packages)) {
-    $packagesFilter = array(
-        "ID" => $packages
-    );
-    $APPLICATION->IncludeComponent(
+<?$APPLICATION->IncludeComponent(
         "vincko:catalog.element",
         "equipitem",
         array(
-            "PACKAGES_FILTER_NAME" => "packagesFilter",
             "ACTION_VARIABLE" => "action",
             "ADD_DETAIL_TO_SLIDER" => "N",
             "ADD_ELEMENT_CHAIN" => "Y",
@@ -129,6 +116,6 @@ if(!empty($packages)) {
             "USE_VOTE_RATING" => "N"
         )
     );
-}
+
 ?>
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>
