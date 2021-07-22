@@ -41,18 +41,30 @@ $Asset = Asset::getInstance();
           href="<?= SITE_TEMPLATE_PATH ?>/img/favicons/apple-touch-icon-180x180.png">
     <link rel="apple-touch-icon" sizes="1024x1024"
           href="<?= SITE_TEMPLATE_PATH ?>/img/favicons/apple-touch-icon-1024x1024.png">
+    
+    <? $Asset->addCss(SITE_TEMPLATE_PATH . "/libs/slick/slick.css"); ?>
+    <? $Asset->addCss(SITE_TEMPLATE_PATH . "/libs/slick/slick-theme.css"); ?>
+    <? $Asset->addCss(SITE_TEMPLATE_PATH . "/libs/select/styles/choices.css"); ?>
+    <? $Asset->addCss(SITE_TEMPLATE_PATH . "/libs/funcy_box/jquery.fancybox.css"); ?>
+    <? $Asset->addCss(SITE_TEMPLATE_PATH . "/libs/range/component.css"); ?>
+    <? $Asset->addCss(SITE_TEMPLATE_PATH . "/libs/range/ion.rangeSlider.min.css"); ?>
+    <? $Asset->addCss(SITE_TEMPLATE_PATH . "/libs/swiper/swiper.min.css"); ?>
+    <? $Asset->addCss(SITE_TEMPLATE_PATH . "/styles/main.css"); ?>
 
-    <link href="<?= SITE_TEMPLATE_PATH ?>/libs/slick/slick.css" rel="stylesheet">
-    <link href="<?= SITE_TEMPLATE_PATH ?>/libs/slick/slick-theme.css" rel="stylesheet">
-    <link href="<?= SITE_TEMPLATE_PATH ?>/libs/select/styles/choices.css" rel="stylesheet">
-    <link href="<?= SITE_TEMPLATE_PATH ?>/libs/funcy_box/jquery.fancybox.css" rel="stylesheet">
-    <link href="<?= SITE_TEMPLATE_PATH ?>/libs/range/component.css" rel="stylesheet">
-    <link href="<?= SITE_TEMPLATE_PATH ?>/libs/range/ion.rangeSlider.min.css" rel="stylesheet">
-    <link href="<?= SITE_TEMPLATE_PATH ?>/libs/swiper/swiper.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="<?= SITE_TEMPLATE_PATH ?>/styles/main.css">
+    <? $Asset->addCss(SITE_TEMPLATE_PATH . "/css/custom.css"); ?>
+
+
+    <? $Asset->addJs(SITE_TEMPLATE_PATH . "/libs/jquery.js"); ?>
+    <? $Asset->addJs(SITE_TEMPLATE_PATH . "/libs/slick/slick.js"); ?>
+    <? $Asset->addJs(SITE_TEMPLATE_PATH . "/libs/select/scripts/choices.js"); ?>
+    <? $Asset->addJs(SITE_TEMPLATE_PATH . "/libs/funcy_box/jquery.fancybox.js"); ?>
+    <? $Asset->addJs(SITE_TEMPLATE_PATH . "/libs/range/ion.rangeSlider.min.js"); ?>
+    <? $Asset->addJs(SITE_TEMPLATE_PATH . "/libs/swiper/swiper.min.js"); ?>
+    <? $Asset->addJs(SITE_TEMPLATE_PATH . "/js/main.js"); ?>
 
     <? $Asset->addJs(SITE_TEMPLATE_PATH . "/js/custom.js"); ?>
-    <? $Asset->addCss(SITE_TEMPLATE_PATH . "/css/custom.css"); ?>
+
+
 <?
 $currentCity = CIBlockElement::GetList(
     Array("SORT"=>"ASC"),

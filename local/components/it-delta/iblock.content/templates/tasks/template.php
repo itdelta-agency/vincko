@@ -40,7 +40,7 @@ $currentCity = CIBlockElement::GetList(
                 <div class="ready-des2__title-right">
                     Для охраны дома <br>
                     или коммерческой недвижимости<br>
-                    заполните <a href="">индивидуальную заявку</a>
+                    заполните <a href="/zayavka/">индивидуальную заявку</a>
                 </div>
             </div>
             <div class="ready-des2__title-info">
