@@ -17,7 +17,7 @@ $insuranceIblockId = 14;
 $companyCityAndSubscriptionFeeIblockId = 25;
 $insurancePaymentOptionsIblockId = 35;
 $classesIblockId = 36;
-$characteristicsIblockId = 37;
+$equipmentCharacteristicsIblockId = 41;
 
 // получает информацию по ценам с учетом скидок
 if (!function_exists('getPricesInfoByProductId')) {
@@ -290,7 +290,7 @@ if (!empty($arEquipSet)) {
 }
 
 //получаем характеристики для оборудования
-$res = \CIBlockElement::GetList(array(), array("IBLOCK_ID" => $characteristicsIblockId, "ID" => $equipItemsCharacteristicsIds, "ACTIVE" => "Y"), false,
+$res = \CIBlockElement::GetList(array(), array("IBLOCK_ID" => $equipmentCharacteristicsIblockId, "ID" => $equipItemsCharacteristicsIds, "ACTIVE" => "Y"), false,
     false, array("ID", "NAME", "PREVIEW_TEXT", "PREVIEW_PICTURE"));
 while ($arFields = $res->Fetch()) {
     $picEnd = CFile::ResizeImageGet($arFields["PREVIEW_PICTURE"], array("width" => 90, "height" => 110), BX_RESIZE_IMAGE_PROPORTIONAL_ALT, false);

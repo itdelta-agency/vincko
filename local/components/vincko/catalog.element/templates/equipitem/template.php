@@ -1,6 +1,6 @@
 <? if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) die();
 $this->addExternalJS("/local/js/equipitem.js");
-
+$this->addExternalJS(SITE_TEMPLATE_PATH."/js/basket.js");
 if ($_GET['itd'] == 'y') {
     echo '<pre>';
     print_r($_COOKIE);
@@ -1200,7 +1200,8 @@ if (!empty($arParams['LABEL_PROP_POSITION'])) {
                     <?endif;?>
         </div>
 <?if(!$arResult['HIDE_BASKET_BLOCK']):?>
-        <div class="solutions__bottom">
+    <div id="b-vincko-basket-component"></div>
+        <?/*<div class="solutions__bottom">
             <div class="container">
                 <div class="solutions__bottom_title">
                     Итого, в ваше Готовое решение входит:
@@ -1286,7 +1287,7 @@ if (!empty($arParams['LABEL_PROP_POSITION'])) {
                     </div>
                 </div>
             </div>
-        </div>
+        </div>*/?>
 <?endif;?>
         </div>
 <?if(!$arResult['HIDE_BASKET_BLOCK']):?>
@@ -1447,20 +1448,48 @@ if (!empty($arParams['LABEL_PROP_POSITION'])) {
                     </div>
                 </div>
             </div>
-
         <? endforeach; ?>
-
-
-        <!--        <form id="b-order-form" action="/order/" method="POST">-->
-        <!--            <input type="hidden" value="873" name="order-id[complect_id]">-->
-        <!--            <input type="hidden" value="856" name="order-id[guard_id]">-->
-        <!--            <input type="hidden" value="781" name="order-id[insurance_id]">-->
-        <!--            <input type="submit" value="Купить">-->
-        <!--        </form>-->
-
-
     </main>
 
 
 <?
 unset($actualItem, $itemIds, $jsParams);
+$data = [
+    'items' => [0=>[
+                'id' => 111,
+                'title' => '22222'
+            ],
+        ],
+    'sum' => 20000
+    ];
+
+?>
+
+<script>
+     const data = JSON.parse('<?=json_encode($data)?>');
+     console.log(data);
+    // const data1 = {
+    //     items: [{
+    //         id: null,
+    //         title: '',
+    //         name1: 'Премиум',
+    //         name2: 'AJAX SmartHome'
+    //     },
+    //     {
+    //         id: null,
+    //         title: 'Охранная компания',
+    //         name1: '12 месяев обслуживания111',
+    //         name2: 'ООО “Зубряков Охрана Компания Ва'
+    //     }],
+    //     sum: '10 000'
+    // };
+
+    $( document ).ready(function() {
+        var itd_basket = new basket({
+            target: document.getElementById('b-vincko-basket-component'),
+            props: data,
+        });
+
+    });
+
+</script>
