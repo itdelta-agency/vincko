@@ -14,6 +14,7 @@ class Order
 	{
 		\CModule::IncludeModule("main");
 		\CModule::IncludeModule("sale");
+
 		$obPaySystem = \CSalePaySystemAction::GetList(
 			["SORT" => "ASC"],
 			["ACTIVE" => "Y"],
@@ -81,8 +82,9 @@ class Order
 	public static function orderPolicyPay($orderID)
 	{
 		\Bitrix\Main\Loader::includeModule("sale");
+		\Bitrix\Main\Loader::includeModule("form");
 
-		$policyInfo = static::getPolicyFromOrder($orderID);
+		$policyData = static::getPolicyFromOrder($orderID);
 
 		// получим товар
 		$product = \CIBlockElement::GetList(
@@ -99,17 +101,18 @@ class Order
 				"PROPERTY_CURRENT",
 			]
 		)->GetNext();
-		$objDateTime = new \Bitrix\Main\Type\DateTime();
-		$date_form = $objDateTime->add("15 day");
-		$date_by = $objDateTime->add("1 years");
+		$objDateForm = new \Bitrix\Main\Type\DateTime();
+		$date_form = $objDateForm->add("15 day");
+		$objDateBy = new \Bitrix\Main\Type\DateTime();
+		$date_by = $objDateBy->add("1 years");
 
-		$result =  $policyInfo["ORIGINAL_PROP"];
+		$result = $policyData["ORIGINAL_PROP"];
 
 		// серию
 		$result[] = [
 			"NAME"  => "Серия полиса",
 			"CODE"  => "SERIAL_NUMBER",
-			"VALUE" => date("Y")
+			"VALUE" => date("y")
 		];
 		// добавляем дату начала действия полиса
 		$result[] = [
@@ -143,14 +146,31 @@ class Order
 		$result[] = [
 			"NAME"  => "Номер",
 			"CODE"  => "NUMBER",
-			"VALUE" => $current
+			"VALUE" => str_pad($current,7,"0",STR_PAD_LEFT)
 		];
 
 		$arFields["PROPS"] = $result;
 
 		// обновляем  корзину
-		\CSaleBasket::Update($policyInfo["ID"], $arFields);
+		\CSaleBasket::Update($policyData["ID"], $arFields);
 
+		$arAnswers = \CFormResult::GetDataByID($policyData["PROP"]["RESULT_ID"], [], $arResult, $arAnswers2);
+
+		$arEmails = [$policyData["EMAIL"],\CUser::GetEmail(), $arAnswers["EMAIL"][0]["USER_TEXT"]];
+		$emails = implode(",",array_unique($arEmails));
+		$eventField = [
+			"EMAIL"      => htmlspecialchars($emails),
+			"ORDER_USER" => htmlspecialchars($policyData["PROP"]["FULL_NAME"]),
+			"ORDER_ID"   => $orderID,
+		];
+		// отправляем на почту ссылку
+		\Bitrix\Main\Mail\Event::send(//Воспользоваться акцией ПОСЕТИТЕЛЬ
+			[
+				"EVENT_NAME" => "POLICY_PAY",
+				"LID"        => "s1",
+				"C_FIELDS"   => $eventField,
+			]
+		);
 	}
 
 	// получает из заказа товар полис
@@ -158,6 +178,14 @@ class Order
 	{
 		\Bitrix\Main\Loader::includeModule("sale");
 
+		// получим заказ
+		$obOrder = \CSaleOrderPropsValue::GetOrderProps($orderID);
+
+		while ($arOrder = $obOrder->fetch()) {
+			if ($arOrder['IS_EMAIL'] == 'Y' && check_email($arOrder['VALUE'])) {
+				$order["EMAIL"] = $arOrder['VALUE'];
+			}
+		}
 		// получим массив
 		$obBasket = \CSaleBasket::GetList(
 			[],
@@ -192,6 +220,7 @@ class Order
 
 			//TODO предполагаем что в заказе может быть только одна страховка
 			$policy = [
+				"EMAIL"         => $order["EMAIL"],
 				"ID"            => $basketID,
 				"PROP"          => $arField,
 				"ORIGINAL_PROP" => $prop[$basketID]
@@ -201,11 +230,11 @@ class Order
 	}
 
 	// оплачен ли заказ
-	public static function getOrderPay($orderID)
+	public static function getOrder($orderID)
 	{
-
+		\CModule::IncludeModule("sale");
 		$order = \Bitrix\Sale\Order::load($orderID);
-		return $order->isPaid();
+		return $order;
 	}
 
 	//  предварительная обработка полей, передаваемых в форме

@@ -44,6 +44,8 @@ upload
 /awstats/
 /webstat/
 .DS_Store
+
+
 .Spotlight-V100
 .Trashes
 Thumbs.db
@@ -58,7 +60,7 @@ ehthumbs.db
 
 # архивы, включая многотомные
 *.zip
-*.zip*  
+*.zip*
 *.tar
 *.tar*
 *.enc

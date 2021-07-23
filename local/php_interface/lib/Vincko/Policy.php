@@ -39,7 +39,7 @@ class Policy
 	{
 		\Bitrix\Main\Loader::includeModule("iblock");
 
-		 $arInsurance = CIBlockElement::GetList(
+		$arInsurance = CIBlockElement::GetList(
 			[],
 			[
 				"IBLOCK_ID" => static::IBLOCK_POLICY,
@@ -69,8 +69,8 @@ class Policy
 			]
 		)->Fetch();
 		 $doc = \CFile::GetFileArray($arInsuranceTemplate["PROPERTY_FILE_VALUE"]);*/
-		 $result = $arInsurance;
-		 $result["TEMPLATE"] = $arInsuranceTemplate["PROPERTY_FILE_VALUE"];
+		$result = $arInsurance;
+		$result["TEMPLATE"] = $arInsuranceTemplate["PROPERTY_FILE_VALUE"];
 		return $result;
 	}
 
@@ -165,20 +165,21 @@ class Policy
 
 		// формируем массив
 		$arPolicy = [
-			"ID"             => $arOffer["ID"],
-			"NAME"           => $arOffer["NAME"],
-			"IMG"            => $arOferImg["SRC"],
-			"MAX_PRICE_TEXT" => $arOffer["PROPERTIES"]["MAX_PRICE_TEXT"]["~VALUE"]["TEXT"],
-			"MAX_PRICE"      => CurrencyFormat($arOffer["PROPERTIES"]["MAX_PRICE"]["VALUE"], 'RUB'),
-			"PRICE"          => CurrencyFormat($arOferPrice["PRICE"], 'RUB')
+			"ID"                 => $arOffer["ID"],
+			"NAME"               => $arOffer["NAME"],
+			"IMG"                => $arOferImg["SRC"],
+			"MAX_PRICE_TEXT"     => $arOffer["PROPERTIES"]["MAX_PRICE_TEXT"]["~VALUE"]["TEXT"],
+			"MAX_PRICE"          => CurrencyFormat($arOffer["PROPERTIES"]["MAX_PRICE"]["VALUE"], 'RUB'),
+			"MAX_PRICE_ORIGINAL" => $arOffer["PROPERTIES"]["MAX_PRICE"]["VALUE"],
+			"PRICE"              => CurrencyFormat($arOferPrice["PRICE"], 'RUB')
 		];
 
 		// если нужна информация о родителе
 		if (!empty($arInsurance)) {
-			$arPolicy["INSURANCE"]=[
-				"NAME"=> $arInsurance["NAME"],
-				"TEMPLATE"=> $arInsurance["TEMPLATE"]
-			] ;
+			$arPolicy["INSURANCE"] = [
+				"NAME"     => $arInsurance["NAME"],
+				"TEMPLATE" => $arInsurance["PROPERTY_TEMPLATE_VALUE"]
+			];
 		}
 
 		// Варианты выплат

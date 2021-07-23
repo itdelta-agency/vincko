@@ -78,7 +78,7 @@ class Events
 					$arPolicyField["PROPS"][] = [
 						"NAME"  => "Адрес регистрации Страхователя",
 						"CODE"  => "REGISTRATION_ADDRESS",
-						"VALUE" => $arField["REGISTRATION_CITY"] . ", " . $arField["REGISTRATION_STREET"] . ", " . $arField["REGISTRATION_HOUSE"] . ($arField["REGISTRATION_HOUSING"] ? ", " . $arField["REGISTRATION_HOUSING"] : "") . ($arField["REGISTRATION_APARTMENT"] ? ", " . $arField["REGISTRATION_APARTMENT"] : "")
+						"VALUE" => "г. ".$arField["REGISTRATION_CITY"] . ", ул." . $arField["REGISTRATION_STREET"] . ", д." . $arField["REGISTRATION_HOUSE"] . ($arField["REGISTRATION_HOUSING"] ? ", корпус" . $arField["REGISTRATION_HOUSING"] : "") . ($arField["REGISTRATION_APARTMENT"] ? ", кв. " . $arField["REGISTRATION_APARTMENT"] : "")
 					];
 
 					$arPolicyField["PROPS"][] = [
@@ -96,7 +96,7 @@ class Events
 					$arPolicyField["PROPS"][] = [
 						"NAME"  => "Адрес объекта страхования",
 						"CODE"  => "OBJECT_ADDRESS",
-						"VALUE" => $arField["POLICY_CITY"] . ", " . $arField["POLICY_STREET"] . " " . $arField["POLICY_HOUSE"] . ($arField["POLICY_HOUSING"] ? ", " . $arField["POLICY_HOUSING"] : "") . ($arField["POLICY_APARTMENT"] ? ", " . $arField["POLICY_APARTMENT"] : "")
+						"VALUE" => "г. ".$arField["POLICY_CITY"] . ", ул." . $arField["POLICY_STREET"] . ", д." . $arField["POLICY_HOUSE"] . ($arField["POLICY_HOUSING"] ? ", корпус" .  $arField["POLICY_HOUSING"] : "") . ($arField["POLICY_APARTMENT"] ? ", кв. " . $arField["POLICY_APARTMENT"] : "")
 					];
 
 					$arPolicyField["PROPS"][] = [
@@ -126,7 +126,7 @@ class Events
 					$arPolicyField["PROPS"][] = [
 						"NAME"  => "Страховая премия по договору",
 						"CODE"  => "SUM_5",
-						"VALUE" => $arPolicy["MAX_PRICE"]
+						"VALUE" => $arPolicy["MAX_PRICE_ORIGINAL"]
 					];
 
 					$request = \Bitrix\Main\Application::getInstance()->getContext()->getRequest();
@@ -145,10 +145,12 @@ class Events
 	// событие оплаты заказа
 	public static function OnSaleOrderPaid($order)
 	{
+
 		if (!$order->isPaid() || $order->isPaid() == false) {
 			return false;
 		}
-		Order::orderPolicyPay($orderId);
+		dump($order->isPaid());
+		Order::orderPolicyPay($order->getId());
 
 	}
 

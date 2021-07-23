@@ -33,22 +33,30 @@ class PolicyPdf extends CBitrixComponent
 		$orderID = $request->get("ORDER_ID");
 
 		if (empty($orderID)) {
-			$this->errors[] = "Заказ не найден";
+			$this->errors = "Заказ не найден";
 			return false;
 		}
 
-		$this->orderPay = \Vincko\Order::getOrderPay($orderID);
+		$this->order = \Vincko\Order::getOrder($orderID);
+		$this->orderPay = $this->order->isPaid();
+
 		$this->policyData = \Vincko\Order::getPolicyFromOrder($orderID)["PROP"];
 	}
 
 	// проверка: действительно ли в заказе есть страховка и заказ оплачен?
 	public function checkOrder()
 	{
+
 		if (empty($this->orderPay)) {
-			$this->errors[] = "Заказ не оплачен";
+			$this->errors = "Заказ не оплачен";
 		}
+
 		if (empty($this->policyData)) {
-			$this->errors[] = "В заказе нет страховки";
+			$this->errors = "В заказе нет страховки";
+		}
+
+		if (empty($this->policyData) || $this->order->getUserId() !== $GLOBALS["USER"]->GetID()){
+			$this->errors = "Заказ не существует";
 		}
 
 	}
@@ -59,7 +67,7 @@ class PolicyPdf extends CBitrixComponent
 		foreach ($this->policyInfo["DATA"] as $pageID => $field) {
 			foreach ($field as $fieldName => $fieldValue) {
 				if (!isset($this->policyData[$fieldName])) {
-					$this->errors[] = "Не хватает данных для генерации страховки " . $fieldName;
+					$this->errorsAdmin[] = "Не хватает данных для генерации страховки " . $fieldName;
 				}
 			}
 		}
