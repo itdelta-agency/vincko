@@ -66,12 +66,7 @@
     ); ?>
 </footer>
 
-<script src="<?=SITE_TEMPLATE_PATH?>/libs/jquery.js"></script>
-<script src="<?=SITE_TEMPLATE_PATH?>/libs/slick/slick.js"></script>
-<script src="<?=SITE_TEMPLATE_PATH?>/libs/select/scripts/choices.js"></script>
-<script src="<?=SITE_TEMPLATE_PATH?>/libs/funcy_box/jquery.fancybox.js"></script>
-<script src="<?=SITE_TEMPLATE_PATH?>/libs/range/ion.rangeSlider.min.js"></script>
-<script src="<?=SITE_TEMPLATE_PATH?>/libs/swiper/swiper.min.js"></script>
+
 <script src="<?=SITE_TEMPLATE_PATH?>/js/main.js"></script>
 
 </body>

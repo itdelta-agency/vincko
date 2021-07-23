@@ -37,4 +37,29 @@ class MainService
             return $packagesIds;
         }
     }
+
+    //получает id всех охранных компаний и абонентских плат по id города и id Готового решения
+    function getSecureCompanyAndSubscriptionFeeListByPackageId($params)
+    {
+        if(CModule::IncludeModule("iblock")) {
+            $cookie = $params['COOKIE'];
+            $res = CIBlockElement::GetList(array("SORT"=>"ASC"),
+                array('IBLOCK_ID'=>$params['IBLOCK_ID'], 'ACTIVE'=>'Y',
+                    'PROPERTY_CPA_PACKET'=>$params['PACKAGE_ID']),
+                false,
+                false,
+                array('ID','PROPERTY_CPA_CHOP','PROPERTY_CPA_CHOP.PROPERTY_CITY_ID', 'PROPERTY_CPA_ABONPLATA'));
+
+            while($arFields = $res->Fetch())
+            {
+                if($arFields['PROPERTY_CPA_CHOP_PROPERTY_CITY_ID_VALUE']==$cookie['selected_city'])
+                $arElements[$arFields['ID']] = $arFields;
+            }
+
+           return $arElements;
+        }
+    }
+
+
+
 }

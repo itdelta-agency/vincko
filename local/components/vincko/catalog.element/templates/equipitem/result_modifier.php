@@ -8,19 +8,21 @@
 $component = $this->getComponent();
 $arParams = $component->applyTemplateModifications();
 
-
+// id инфоблоков
+$companyCityIblockId = 9;
 $equipmentIblockId = 10;
 $complectsIblockId = 11;
 $packagesIblockId = 12;
+$insuranceIblockId = 14;
+$companyCityAndSubscriptionFeeIblockId = 25;
+$insurancePaymentOptionsIblockId = 35;
 $classesIblockId = 36;
 $characteristicsIblockId = 37;
 
-/*
- * получим готовые решения
- */
-if (!function_exists('getPricesInfoByProductId'))
-{
-    function getPricesInfoByProductId($productID) {
+// получает информацию по ценам с учетом скидок
+if (!function_exists('getPricesInfoByProductId')) {
+    function getPricesInfoByProductId($productID)
+    {
         global $USER;
         $quantity = 1;
         $renewal = 'N';
@@ -30,98 +32,199 @@ if (!function_exists('getPricesInfoByProductId'))
             $USER->GetUserGroupArray(),
             $renewal
         );
+        $final_price = 0;
+        if(isset($arPrice['PRICE'])) {
 
-        if (!$arPrice || count($arPrice) <= 0) {
-            if ($nearestQuantity = CCatalogProduct::GetNearestQuantityPrice($productID, $quantity, $USER->GetUserGroupArray()))
-            {
-                $quantity = $nearestQuantity;
-                $arPrice = CCatalogProduct::GetOptimalPrice($productID, $quantity, $USER->GetUserGroupArray(), $renewal);
+            $final_price = $arPrice['PRICE']['PRICE'];
+            $currency_code = $arPrice['PRICE']['CURRENCY'];
+
+            // Ищем скидки и высчитываем стоимость с учетом найденных
+            $arDiscounts = CCatalogDiscount::GetDiscountByProduct($productID, $USER->GetUserGroupArray(), $renewal);
+            if (is_array($arDiscounts) && sizeof($arDiscounts) > 0) {
+                $final_price = CCatalogProduct::CountPriceWithDiscount($final_price, $currency_code, $arDiscounts);
             }
         }
-        return $arPrice;
-    }}
+        return $final_price;
+    }
+}
 
-$res = CIBlockElement::GetList(
-    Array("SORT"=>"ASC"),
-    Array("ACTIVE"=>"Y","IBLOCK_ID"=>$packagesIblockId,"=PROPERTY_P_COMPLECT"=>$arResult['ID']),
-    false,
-    false,
-    Array("ID","PROPERTY_CO_CLASS_REF","PROPERTY_P_COMPLECT","IBLOCK_SECTION_ID")
+$params = array(
+    'IBLOCK_ID'=>9,
+    'COOKIE'=>$_COOKIE
 );
 
-while($arFields = $res->Fetch())
-{
+$packages = MainService::getPackagesIds($params);
+
+if(!$packages)
+    $arResult['HIDE_BASKET_BLOCK'] = true;
+//получаем готовое решение, которое содержит текущий комплект в выбранном городе
+$res = CIBlockElement::GetList(
+    array("SORT" => "ASC"),
+    array("ACTIVE" => "Y", "IBLOCK_ID" => $packagesIblockId, $arParams['PACKAGES_FILTER_NAME'],"=PROPERTY_P_COMPLECT" => $arResult['ID']),
+    false,
+    false,
+    array("ID", "PROPERTY_CO_CLASS_REF", "PROPERTY_P_COMPLECT", "IBLOCK_SECTION_ID")
+);
+
+while ($arFields = $res->Fetch()) {
     $arResult['COMPLECT_PARENT_PACKAGE'] = $arFields;
 }
-
-$parentPackageId = $arResult['COMPLECT_PARENT_PACKAGE']['IBLOCK_SECTION_ID'];
-$res = CIBlockSection::GetByID($parentPackageId);
-while($arFields = $res->Fetch())
-{
+//получаем группу готового решения
+$parentPackageGroupId = $arResult['COMPLECT_PARENT_PACKAGE']['IBLOCK_SECTION_ID'];
+$res = CIBlockSection::GetByID($parentPackageGroupId);
+while ($arFields = $res->Fetch()) {
     $arResult['PACKAGE_GROUP'] = $arFields;
 }
+//получаем все готовые решения из группы
 $res = CIBlockElement::GetList(
-    Array("SORT"=>"ASC"),
-    Array("ACTIVE"=>"Y","IBLOCK_ID"=>$packagesIblockId,"=IBLOCK_SECTION_ID"=>$parentPackageId),
+    array("SORT" => "ASC"),
+    array("ACTIVE" => "Y", "IBLOCK_ID" => $packagesIblockId, "=IBLOCK_SECTION_ID" => $parentPackageGroupId),
     false,
     false,
-    Array("ID","PROPERTY_CO_CLASS_REF","PROPERTY_P_COMPLECT")
+    array("ID", "PROPERTY_CO_CLASS_REF", "PROPERTY_P_COMPLECT")
 );
 $complectFirstIds = array();
-while($arFields = $res->Fetch())
-{
+while ($arFields = $res->Fetch()) {
     $complectsIds = $arFields["PROPERTY_P_COMPLECT_VALUE"];
     if (is_array($complectsIds)) {
         array_push($complectFirstIds, $complectsIds[0]);
     }
     $arResult['PACKAGE_GROUP']['PACKAGES'][$arFields['ID']] = $arFields;
 }
-
+//получаем первые в списке комплекты в каждом готовом решении из группы
 $res = CIBlockElement::GetList(
-    Array("SORT"=>"ASC"),
-    Array("ACTIVE"=>"Y","IBLOCK_ID"=>$complectsIblockId,"ID"=>$complectFirstIds)
+    array("SORT" => "ASC"),
+    array("ACTIVE" => "Y", "IBLOCK_ID" => $complectsIblockId, "ID" => $complectFirstIds)
 );
-
-while($arFields = $res->Fetch())
-{
+while ($arFields = $res->Fetch()) {
     $arResult['FIRST_LIST_COMPLECTS'][$arFields['ID']] = $arFields;
 }
-
-
+//получаем все комлекты в текущем готовом решении
 $res = CIBlockElement::GetList(
-    Array("SORT"=>"ASC"),
-    Array("ACTIVE"=>"Y","IBLOCK_ID"=>$complectsIblockId,"ID"=>$arResult['COMPLECT_PARENT_PACKAGE']['PROPERTY_P_COMPLECT_VALUE']),
+    array("SORT" => "ASC"),
+    array("ACTIVE" => "Y", "IBLOCK_ID" => $complectsIblockId, "ID" => $arResult['COMPLECT_PARENT_PACKAGE']['PROPERTY_P_COMPLECT_VALUE']),
     false,
     false,
-    Array('*','CATALOG_GROUP_1')
+    array('*', 'CATALOG_GROUP_1')
 );
-
-while($arFields = $res->Fetch())
-{
+while ($arFields = $res->Fetch()) {
     $arResult['ALL_LIST_COMPLECTS_IN_PACKAGE'][$arFields['ID']] = $arFields;
-    $arResult['ALL_LIST_COMPLECTS_IN_PACKAGE'][$arFields['ID']]['PRICES_INFO'] = getPricesInfoByProductId($arFields['ID']);
+    $arResult['ALL_LIST_COMPLECTS_IN_PACKAGE'][$arFields['ID']]['FINAL_PRICE'] = getPricesInfoByProductId($arFields['ID']);
 
 }
 
 
-
-$res = CIBlockElement::GetList(
-    Array("SORT"=>"ASC"),
-    Array("ACTIVE"=>"Y","IBLOCK_ID"=>$classesIblockId)
+$params = array(
+    'IBLOCK_ID' => $companyCityAndSubscriptionFeeIblockId,
+    'PACKAGE_ID' => $arResult['COMPLECT_PARENT_PACKAGE']['ID'],
+    'COMPANY_CITY_IBLOCK_ID' => $companyCityIblockId,
+    'COOKIE' => $_COOKIE
 );
-while($arFields = $res->Fetch())
-{
+//получаем все элементы, которые содержат id абонентской платы в выбранном городе
+$arElements = MainService::getSecureCompanyAndSubscriptionFeeListByPackageId($params);
+$secureCompanyIds = array_column($arElements, 'PROPERTY_CPA_CHOP_VALUE');
+$subscriptionFeeIds = array_column($arElements, 'PROPERTY_CPA_ABONPLATA_VALUE');
+//получаем варианты абонплаты
+$arSKU = CCatalogSKU::getOffersList(
+    $subscriptionFeeIds,
+    0,
+    array('ACTIVE' => 'Y'),
+    array('ID', 'NAME', 'CODE','CATALOG_GROUP_1','PROPERTY_APTP_MESYAC'),
+    array()
+);
+
+//получаем все элементы ИБ Компания-Город
+$res = CIBlockElement::GetList(
+    array("SORT" => "ASC"),
+    array("ACTIVE" => "Y", "IBLOCK_ID" => $companyCityIblockId, "ID" =>$secureCompanyIds)
+
+);
+while ($arFields = $res->Fetch()) {
+
+     $arResult['ALL_LIST_COMPANY_CITY'][$arFields['ID']] = $arFields;
+
+}
+
+foreach ($arElements as $element) {
+
+    if ($arSKU[$element['PROPERTY_CPA_ABONPLATA_VALUE']]) {
+        $arResult['ALL_LIST_COMPANY_CITY'][$element['PROPERTY_CPA_CHOP_VALUE']]['SUBSCRIPTION_FEE'] = $arSKU[$element['PROPERTY_CPA_ABONPLATA_VALUE']];
+    }
+}
+foreach ($arResult['ALL_LIST_COMPANY_CITY'] as $item) {
+    foreach ($item['SUBSCRIPTION_FEE'] as $el) {
+        $arResult['ALL_LIST_COMPANY_CITY'][$item['ID']]['SUBSCRIPTION_FEE'][$el['ID']]['FINAL_PRICE'] = getPricesInfoByProductId($el['ID']);
+    }
+}
+//получаем все страховки с вариантами
+$res = CIBlockElement::GetList(
+    array("SORT" => "ASC"),
+    array("ACTIVE" => "Y", "IBLOCK_ID" => $insuranceIblockId)
+
+);
+
+$SKU_Ids = array();
+while ($arFields = $res->Fetch()) {
+
+    $arResult['ALL_INSURANCE_LIST'][$arFields['ID']] = $arFields;
+    $SKU_Ids[] = $arFields['ID'];
+}
+
+$arSKU = CCatalogSKU::getOffersList(
+    $SKU_Ids,
+    0,
+    array('ACTIVE' => 'Y'),
+    array('ID', 'NAME', 'CODE','CATALOG_GROUP_1','PROPERTY_ILL','PROPERTY_MAX_PRICE',
+    'PROPERTY_PAYMENT_OPTIONS','PROPERTY_PAYMENT_PRICE','PROPERTY_MAX_PRICE_TEXT'),
+    array()
+);
+
+foreach ($arResult['ALL_INSURANCE_LIST'] as $item) {
+
+    if ($arSKU[$item['ID']]) {
+        $arResult['ALL_INSURANCE_LIST'][$item['ID']]['ITEMS'] = $arSKU[$item['ID']];
+    }
+
+}
+
+foreach ($arResult['ALL_INSURANCE_LIST'] as $item) {
+    foreach ($item['ITEMS'] as $el) {
+
+        $arResult['ALL_INSURANCE_LIST'][$item['ID']]['ITEMS'][$el['ID']]['PICTURE'] = CFile::ResizeImageGet($el['PROPERTY_ILL_VALUE'], array("width" => 90, "height" => 110), BX_RESIZE_IMAGE_PROPORTIONAL_ALT, false);
+        $arResult['ALL_INSURANCE_LIST'][$item['ID']]['ITEMS'][$el['ID']]['FINAL_PRICE'] = getPricesInfoByProductId($el['ID']);
+
+    }
+}
+
+//получаем весь справочник выплат по основным пунктам
+$res = CIBlockElement::GetList(
+    array("SORT" => "ASC"),
+    array("ACTIVE" => "Y", "IBLOCK_ID" => $insurancePaymentOptionsIblockId),
+    false,
+    false,
+    array("*","ID","PROPERTY_TEXT","PROPERTY_ICON")
+);
+while ($arFields = $res->Fetch()) {
+
+    $arResult['ALL_INSURANCE_PAYMENT_OPTIONS_LIST'][$arFields['ID']] = $arFields;
+}
+//получаем весь справочник классов
+$res = CIBlockElement::GetList(
+    array("SORT" => "ASC"),
+    array("ACTIVE" => "Y", "IBLOCK_ID" => $classesIblockId)
+);
+while ($arFields = $res->Fetch()) {
     $arResult['PACKAGES_CLASSES'][$arFields['ID']] = $arFields;
     $detailPicture = CFile::ResizeImageGet($arFields["DETAIL_PICTURE"], array("width" => 40, "height" => 40), BX_RESIZE_IMAGE_PROPORTIONAL_ALT, false);
     $arResult['PACKAGES_CLASSES'][$arFields['ID']]['ICON'] = $detailPicture;
 }
+//сформируем ссылки на первые в списке комплекты в каждом классе готовых решений
 foreach ($arResult['PACKAGE_GROUP']['PACKAGES'] as $package) {
 
     $classId = $package['PROPERTY_CO_CLASS_REF_VALUE'];
     $complectId = $package['PROPERTY_P_COMPLECT_VALUE'][0];
     $slug = $arResult['FIRST_LIST_COMPLECTS'][$complectId]['CODE'];
-    if(in_array($arResult['ID'],$package['PROPERTY_P_COMPLECT_VALUE']))
-    {
+    if (in_array($arResult['ID'], $package['PROPERTY_P_COMPLECT_VALUE'])) {
         $arResult['CURRENT_PACKAGE_CLASS'] = $classId;
         $slug = $arResult['CODE'];
     }
@@ -132,13 +235,11 @@ foreach ($arResult['PACKAGE_GROUP']['PACKAGES'] as $package) {
 }
 
 /*
- * получить оборудование комплекта
+ * получить состав комплекта
  */
 
 $arEquipSet = CCatalogProductSet::getAllSetsByProduct($arResult["ID"], CCatalogProductSet::TYPE_SET);
 if (!empty($arEquipSet)) {
-    $equipSet = reset($arEquipSet);
-    $equipSetID = key($arEquipSet);
     $arResult["EQUIP_COMPLECT"] = array();
     $itemIds = array();
     $equipItemsCharacteristicsIds = array();
@@ -148,9 +249,9 @@ if (!empty($arEquipSet)) {
     //получаем состав комплекта - все его оборудование
     $arSelect = array("ID", "NAME", "PREVIEW_TEXT", "PREVIEW_PICTURE",
         "PROPERTY_EQUIPMENT_PICTURES", "PROPERTY_CO_CHARACTERISTICS_REF"
-        ,"PROPERTY_SENSOR_ADVANTAGES", "PROPERTY_PRINCIPLE_OF_OPERATION","PROPERTY_FEATURES_OF_THE","PROPERTY_CLASSIFICATION",
+    , "PROPERTY_SENSOR_ADVANTAGES", "PROPERTY_PRINCIPLE_OF_OPERATION", "PROPERTY_FEATURES_OF_THE", "PROPERTY_CLASSIFICATION",
         "PROPERTY_TYPE_OF_INSTALLATION",
-        "PROPERTY_CONNECTED_DEVICES","PROPERTY_CCTV");
+        "PROPERTY_CONNECTED_DEVICES", "PROPERTY_CCTV");
     $res = \CIBlockElement::GetList(array(), array("IBLOCK_ID" => $equipmentIblockId, "ID" => $itemIds, "ACTIVE" => "Y"), false,
         false, $arSelect);
     while ($arFields = $res->Fetch()) { // получаем сразу массив данных а не объект
@@ -176,14 +277,14 @@ if (!empty($arEquipSet)) {
             "PREVIEW_PICTURE" => $picEnd["src"],
             "PREVIEW_PICTURE_MINI" => $picEnd["src"],
             "EQUIPMENT_PICTURES" => $equipmentPictures,
-            "CHARACTERISTICS"=>$characteristicsIds,
-            "SENSOR_ADVANTAGES"=>$arFields['PROPERTY_SENSOR_ADVANTAGES_VALUE'],
-            "PRINCIPLE_OF_OPERATION"=>$arFields['PROPERTY_PRINCIPLE_OF_OPERATION_VALUE'],
-            "FEATURES_OF_THE"=>$arFields['PROPERTY_FEATURES_OF_THE_VALUE'],
-            "CLASSIFICATION"=>$arFields['PROPERTY_CLASSIFICATION_VALUE'],
-            "TYPE_OF_INSTALLATION"=>$arFields['PROPERTY_TYPE_OF_INSTALLATION_VALUE'],
-            "CONNECTED_DEVICES"=>$arFields['PROPERTY_CONNECTED_DEVICES_VALUE'],
-            "CCTV"=>$arFields['PROPERTY_CCTV_VALUE'],
+            "CHARACTERISTICS" => $characteristicsIds,
+            "SENSOR_ADVANTAGES" => $arFields['PROPERTY_SENSOR_ADVANTAGES_VALUE'],
+            "PRINCIPLE_OF_OPERATION" => $arFields['PROPERTY_PRINCIPLE_OF_OPERATION_VALUE'],
+            "FEATURES_OF_THE" => $arFields['PROPERTY_FEATURES_OF_THE_VALUE'],
+            "CLASSIFICATION" => $arFields['PROPERTY_CLASSIFICATION_VALUE'],
+            "TYPE_OF_INSTALLATION" => $arFields['PROPERTY_TYPE_OF_INSTALLATION_VALUE'],
+            "CONNECTED_DEVICES" => $arFields['PROPERTY_CONNECTED_DEVICES_VALUE'],
+            "CCTV" => $arFields['PROPERTY_CCTV_VALUE'],
         );
     }
 }
@@ -208,6 +309,9 @@ if (isset($arResult["DISPLAY_PROPERTIES"]["CO_CHARACTERISTICS_REF"]["LINK_ELEMEN
         $arResult["DISPLAY_PROPERTIES"]["CO_CHARACTERISTICS_REF"]["LINK_ELEMENT_VALUE"][$key]['PREVIEW_PICTURE'] = CFile::GetFileArray($item['PREVIEW_PICTURE']);
     }
 }
-$arResult['PREVIEW_PICTURE_RESIZED'] = CFile::ResizeImageGet($arResult['PREVIEW_PICTURE'] , array("width" => 360, "height" => 290), BX_RESIZE_IMAGE_PROPORTIONAL_ALT, false);
-$arResult['PREVIEW_PICTURE_RESIZED_SMALL'] = CFile::ResizeImageGet($arResult['PREVIEW_PICTURE'] , array("width" => 110, "height" => 100), BX_RESIZE_IMAGE_PROPORTIONAL, false);
+//изображение комплекта
+$arResult['PREVIEW_PICTURE_RESIZED'] = CFile::ResizeImageGet($arResult['PREVIEW_PICTURE'], array("width" => 360, "height" => 290), BX_RESIZE_IMAGE_PROPORTIONAL_ALT, false);
+$arResult['PREVIEW_PICTURE_RESIZED_SMALL'] = CFile::ResizeImageGet($arResult['PREVIEW_PICTURE'], array("width" => 110, "height" => 100), BX_RESIZE_IMAGE_PROPORTIONAL, false);
+
+
 

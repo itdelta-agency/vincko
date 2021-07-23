@@ -51,10 +51,25 @@ $Asset = Asset::getInstance();
     <link href="<?= SITE_TEMPLATE_PATH ?>/libs/swiper/swiper.min.css" rel="stylesheet">
     <link rel="stylesheet" href="<?= SITE_TEMPLATE_PATH ?>/styles/main.css">
 
+    <script src="<?=SITE_TEMPLATE_PATH?>/libs/jquery.js"></script>
+    <script src="<?=SITE_TEMPLATE_PATH?>/libs/slick/slick.js"></script>
+    <script src="<?=SITE_TEMPLATE_PATH?>/libs/select/scripts/choices.js"></script>
+    <script src="<?=SITE_TEMPLATE_PATH?>/libs/funcy_box/jquery.fancybox.js"></script>
+    <script src="<?=SITE_TEMPLATE_PATH?>/libs/range/ion.rangeSlider.min.js"></script>
+    <script src="<?=SITE_TEMPLATE_PATH?>/libs/swiper/swiper.min.js"></script>
+
     <? $Asset->addJs("https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"); ?>
     <? $Asset->addJs(SITE_TEMPLATE_PATH . "/js/custom.js"); ?>
     <? $Asset->addCss(SITE_TEMPLATE_PATH . "/css/custom.css"); ?>
-
+<?
+$currentCity = CIBlockElement::GetList(
+    Array("SORT"=>"ASC"),
+    Array("ACTIVE"=>"Y","IBLOCK_ID"=>'20', 'ID'=>$_COOKIE['selected_city']),
+    false,
+    false,
+    array('NAME','ID')
+)->GetNext()['NAME'];
+?>
 </head>
 
 <body>
@@ -254,8 +269,8 @@ $Asset = Asset::getInstance();
                               fill="#005DFF"/>
                     </svg>
 
-                    <a href="">
-                        Петропавловск-Камчатский
+                    <a >
+                        <?=$currentCity?>
                     </a>
                 </div>
 
