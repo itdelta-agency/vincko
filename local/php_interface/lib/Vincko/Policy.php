@@ -10,6 +10,8 @@ class Policy
 {
 	// ИД  инфоблока товаров (страховых компаний)
 	const IBLOCK_POLICY = 14;
+	// ИД  инфоблока c шаблонами
+	const IBLOCK_POLICY_TEMPLATE = 40;
 	// ИД  инфоблока товарных предложений(страховых полисов)
 	const IBLOCK_POLICY_OFFER = 24;
 	// ИД  инфоблока вариантов выплаты по основным пунктам страховки
@@ -33,12 +35,52 @@ class Policy
 			: null;
 	}
 
+	public static function getInsurance($insuranceID)
+	{
+		\Bitrix\Main\Loader::includeModule("iblock");
+
+		 $arInsurance = CIBlockElement::GetList(
+			[],
+			[
+				"IBLOCK_ID" => static::IBLOCK_POLICY,
+				"ID"        => $insuranceID
+			],
+			false,
+			[],
+			[
+				"IBLOCK_ID",
+				"ID",
+				"NAME",
+				"PROPERTY_TEMPLATE"
+			]
+		)->Fetch();
+		/*$arInsuranceTemplate = CIBlockElement::GetList(
+			[],
+			[
+				"IBLOCK_ID" => static::IBLOCK_POLICY_TEMPLATE,
+				"ID"        => $arInsurance["PROPERTY_TEMPLATE_VALUE"]
+			],
+			false,
+			[],
+			[
+				"IBLOCK_ID",
+				"ID",
+				"PROPERTY_FILE"
+			]
+		)->Fetch();
+		 $doc = \CFile::GetFileArray($arInsuranceTemplate["PROPERTY_FILE_VALUE"]);*/
+		 $result = $arInsurance;
+		 $result["TEMPLATE"] = $arInsuranceTemplate["PROPERTY_FILE_VALUE"];
+		return $result;
+	}
+
 	/**
 	 * @param array $ids
 	 * @return array
 	 * @throws LoaderException
 	 */
-	public static function getList($ids)
+	public
+	static function getList($ids)
 	{
 		\Bitrix\Main\Loader::includeModule("iblock");
 
@@ -60,9 +102,9 @@ class Policy
 			$props = $arPolicy->GetProperties();
 
 			$policy[$fields["ID"]] = [
-				"ID"    => $fields["ID"],
-				"NAME"  => $fields["NAME"],
-				"PROPS" => $props,
+				"ID"         => $fields["ID"],
+				"NAME"       => $fields["NAME"],
+				"PROPERTIES" => $props,
 			];
 
 		}
@@ -75,7 +117,8 @@ class Policy
 	 * @param array $ids
 	 * @return array
 	 */
-	public static function getPaymentOptions($ids = [])
+	public
+	static function getPaymentOptions($ids = [])
 	{
 
 
@@ -111,7 +154,8 @@ class Policy
 	 * @param array $ids
 	 * @return array
 	 */
-	public static function formatPolicy($arOffer, $arPaymentOptions, $arInsurance = [])
+	public
+	static function formatPolicy($arOffer, $arPaymentOptions, $arInsurance = [])
 	{
 		// цена ТП
 		$arOferPrice = \CPrice::GetBasePrice($arOffer["ID"]);
@@ -121,16 +165,20 @@ class Policy
 
 		// формируем массив
 		$arPolicy = [
-			"ID"        => $arOffer["ID"],
-			"NAME"      => $arOffer["NAME"],
-			"IMG"       => $arOferImg["SRC"],
-			"MAX_PRICE" => CurrencyFormat($arOffer["PROPERTIES"]["MAX_PRICE"]["VALUE"], 'RUB'),
-			"PRICE"     => CurrencyFormat($arOferPrice["PRICE"], 'RUB')
+			"ID"             => $arOffer["ID"],
+			"NAME"           => $arOffer["NAME"],
+			"IMG"            => $arOferImg["SRC"],
+			"MAX_PRICE_TEXT" => $arOffer["PROPERTIES"]["MAX_PRICE_TEXT"]["~VALUE"]["TEXT"],
+			"MAX_PRICE"      => CurrencyFormat($arOffer["PROPERTIES"]["MAX_PRICE"]["VALUE"], 'RUB'),
+			"PRICE"          => CurrencyFormat($arOferPrice["PRICE"], 'RUB')
 		];
 
 		// если нужна информация о родителе
-		if(!empty($arInsurance["NAME"])){
-			$arPolicy["INSURANCE_NAME"] = $arInsurance["NAME"];
+		if (!empty($arInsurance)) {
+			$arPolicy["INSURANCE"]=[
+				"NAME"=> $arInsurance["NAME"],
+				"TEMPLATE"=> $arInsurance["TEMPLATE"]
+			] ;
 		}
 
 		// Варианты выплат
@@ -141,7 +189,7 @@ class Policy
 				$arItemPaymentOptions = $arPaymentOptions[$paymentOptionsValue];
 				$paymentOptions = $arItemPaymentOptions;
 				$paymentOptions["PRICE"] = $arOffer["PROPERTIES"]["PAYMENT_PRICE"]["VALUE"][$paymentOptionsID];
-				$arPolicy["PAYMENT_OPTIONS"][] = $paymentOptions;
+				$arPolicy["PAYMENT_OPTIONS"][$paymentOptionsValue] = $paymentOptions;
 			}
 		}
 

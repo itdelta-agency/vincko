@@ -1,6 +1,6 @@
 <?
 use Bitrix\Main\IO\File;
-
+require_once('vendor/autoload.php');
 spl_autoload_register(function($class) {
 	$cachePath = __DIR__. '/__autoload.cache.php';
 	$classCache = include $cachePath;

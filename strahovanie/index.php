@@ -1,5 +1,7 @@
 <? require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/header.php"); ?>
-
+<?
+//Vincko\Order::orderPolicyPay(117);
+?>
 	<main class="main">
 		<div class="container">
 
