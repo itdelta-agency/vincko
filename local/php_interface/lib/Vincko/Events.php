@@ -27,27 +27,116 @@ class Events
 		switch ($formId) {
 			case 1 :
 
-				// сформируем необходимый мыссив для передачи в заказ
-				$arPolicyField = [
-					"POLICY" => [
-						"ID" => $arAnswers["POLICY_ID"][0]["USER_TEXT"]
-					]
-				];
-
+				// TODO пока ограничиваем набор полей для страховки
+				// в дальнейшем развитии этот набор нужно будет генерировать после оплаты полиса
+				// в соответсвии с актуальным шаблоном страховки
 				foreach ($arAnswers as $arValue) {
-					$arPolicyField["PROPS"][] = [
-						"NAME"  => $arValue[0]["TITLE"],
-						"CODE"  => $arValue[0]["SID"],
-						"VALUE" => $arValue[0]["USER_TEXT"]
-					];
+					$arField[$arValue[0]["SID"]] = $arValue[0]["USER_TEXT"];
 				}
+				if ($arOffer = Policy::getById($arField["POLICY_ID"])) {
+					// получим информацию о страховой(товаре) предлагающей полис
+					$arInsurance = Policy::getInsurance($arOffer["PROPERTIES"]["CML2_LINK"]["VALUE"]);
 
-				$request = \Bitrix\Main\Application::getInstance()->getContext()->getRequest();
+					// получим варианты выплаты по основным пунктам страховки
+					$arAllPaymentOptions = Policy::getPaymentOptions($arOffer["PROPERTIES"]["PAYMENT_OPTIONS"]["VALUE"]);
 
-				$arPayment = $request["PAYMENT"];
+					$arPolicy = Policy::formatPolicy($arOffer, $arAllPaymentOptions, $arInsurance);
 
-				if ($orderId = Order::createOrderPolicy($arPolicyField, $arPayment, 1, false)) {
-					\CFormResult::SetField($resultId, "ORDER_ID", ["40"=>$orderId]);
+					$arPolicyField["POLICY"]["ID"] = $arField["POLICY_ID"];
+
+					// сформируем необходимый мыссив для передачи в заказ
+					$arPolicyField["PROPS"][] = [
+						"NAME"  => "Идентификатор страховки",
+						"CODE"  => "POLICY_ID",
+						"VALUE" => $arField["POLICY_ID"]
+					];
+
+					$arPolicyField["PROPS"][] = [
+						"NAME"  => "Шаблон страховки",
+						"CODE"  => "DOCUMENT_ID",
+						"VALUE" => $arPolicy["INSURANCE"]["TEMPLATE"]
+					];
+
+					$arPolicyField["PROPS"][] = [
+						"NAME"  => "Идентификатор результата формы",
+						"CODE"  => "RESULT_ID",
+						"VALUE" => $resultId
+					];
+
+					$arPolicyField["PROPS"][] = [
+						"NAME"  => "Фамилия Имя Отчество",
+						"CODE"  => "FULL_NAME",
+						"VALUE" => $arField["SURNAME"] . " " . $arField["NAME"] . " " . $arField["PATRONYMIC"]
+					];
+
+					$arPolicyField["PROPS"][] = [
+						"NAME"  => "Паспортные данные и ИНН (при наличии)",
+						"CODE"  => "DOCUMENT",
+						"VALUE" => $arField["PASSPORT"] . " выдан " . $arField["PASSPORT_ISSUED"] . " от " . $arField["PASSPORT_DATE"] . " " . $arField["PASSPORT_CODE"] . ", " . $arField["INN"]
+					];
+
+					$arPolicyField["PROPS"][] = [
+						"NAME"  => "Адрес регистрации Страхователя",
+						"CODE"  => "REGISTRATION_ADDRESS",
+						"VALUE" => $arField["REGISTRATION_CITY"] . ", " . $arField["REGISTRATION_STREET"] . ", " . $arField["REGISTRATION_HOUSE"] . ($arField["REGISTRATION_HOUSING"] ? ", " . $arField["REGISTRATION_HOUSING"] : "") . ($arField["REGISTRATION_APARTMENT"] ? ", " . $arField["REGISTRATION_APARTMENT"] : "")
+					];
+
+					$arPolicyField["PROPS"][] = [
+						"NAME"  => "Телефон/e-mail",
+						"CODE"  => "CONTACTS",
+						"VALUE" => $arField["PHONE"] . "/" . $arField["EMAIL"]
+					];
+
+					$arPolicyField["PROPS"][] = [
+						"NAME"  => "Дата рождения",
+						"CODE"  => "DATE_OF_BIRTH",
+						"VALUE" => $arField["DATE_OF_BIRTH"]
+					];
+
+					$arPolicyField["PROPS"][] = [
+						"NAME"  => "Адрес объекта страхования",
+						"CODE"  => "OBJECT_ADDRESS",
+						"VALUE" => $arField["POLICY_CITY"] . ", " . $arField["POLICY_STREET"] . " " . $arField["POLICY_HOUSE"] . ($arField["POLICY_HOUSING"] ? ", " . $arField["POLICY_HOUSING"] : "") . ($arField["POLICY_APARTMENT"] ? ", " . $arField["POLICY_APARTMENT"] : "")
+					];
+
+					$arPolicyField["PROPS"][] = [
+						"NAME"  => "Сумма по конструктивным элементам ж.п.",
+						"CODE"  => "SUM_1",
+						"VALUE" => $arPolicy["PAYMENT_OPTIONS"]["950"]["PRICE"]
+					];
+
+					$arPolicyField["PROPS"][] = [
+						"NAME"  => "Сумма по внутренней отделке и инженерному оборудованию ж.п.",
+						"CODE"  => "SUM_2",
+						"VALUE" => $arPolicy["PAYMENT_OPTIONS"]["954"]["PRICE"]
+					];
+
+					$arPolicyField["PROPS"][] = [
+						"NAME"  => "Сумма по движимому (домашнему) имуществу ж.п.",
+						"CODE"  => "SUM_3",
+						"VALUE" => $arPolicy["PAYMENT_OPTIONS"]["985"]["PRICE"]
+					];
+
+					$arPolicyField["PROPS"][] = [
+						"NAME"  => "Сумма по гражданской ответственности",
+						"CODE"  => "SUM_4",
+						"VALUE" => $arPolicy["PAYMENT_OPTIONS"]["986"]["PRICE"]
+					];
+
+					$arPolicyField["PROPS"][] = [
+						"NAME"  => "Страховая премия по договору",
+						"CODE"  => "SUM_5",
+						"VALUE" => $arPolicy["MAX_PRICE"]
+					];
+
+					$request = \Bitrix\Main\Application::getInstance()->getContext()->getRequest();
+
+					$arPayment = $request["PAYMENT"];
+
+					if ($orderId = Order::createOrderPolicy($arPolicyField, $arPayment, 1, false)) {
+						// TODO 40 - это ИД ответа на вопрос ORDER_ID в форме заказа полиса
+						\CFormResult::SetField($resultId, "ORDER_ID", ["40" => $orderId]);
+					}
 				}
 		}
 	}

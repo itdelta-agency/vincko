@@ -34,6 +34,7 @@ upload
 # исключаем логи
 /local/php_interface/logs/
 /local/logs/
+/local/php_interface/lib/vendor/
 
 # исключаем загружаемые файлы
 /upload/

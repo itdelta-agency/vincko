@@ -22,70 +22,21 @@ $this->setFrameMode(true);
 		</div>
 		<? foreach ($arResult["POLICIES"] as $arPolicy) : ?>
 			<div class="products__item">
-				<picture class="products__head">
-					<img src="<?= $arPolicy["IMG"] ?>" alt="<?= $arPolicy["NAME"] ?>"/>
-				</picture>
-				<div class="products__name">
-					<div class="products__gray"><?= $arResult["NAME"] ?></div>
-					<h3 class="products__title">«<?= $arPolicy["NAME"] ?>»</h3>
-				</div>
-				<? if ($arPolicy["MAX_PRICE"] > 0): ?>
-					<div class="products__max-payment">
-						<div class="products__container">
-							<div class="products__gray"><?= GetMessage('T_INSURANCE_MAX_PAY') ?></div>
-							<div class="products__info">
-								<div class="products__info-sign">
-									<picture><img src="../img/insurance/product-info.svg" alt="info"></picture>
-								</div>
-								<div class="products__text-container">
-									<div class="products__info-text">
 
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="products__title h3">
-							<?= $arPolicy["MAX_PRICE"] ?>
-						</div>
-					</div>
-				<? endif; ?>
-				<? if (!empty($arPolicy["PAYMENT_OPTIONS"])): ?>
-					<div class="products__payment">
-						<div class="products__gray">
-							<?= GetMessage('T_INSURANCE_OPTIONS_PAY') ?>
-						</div>
+				<? $APPLICATION->IncludeComponent(
+					'bitrix:main.include', '',
+					[
+						'AREA_FILE_SHOW' => 'file',
+						'EDIT_TEMPLATE'  => '',
+						'PATH'           => '/include/policy_template.php',
+						'POLICY'         => $arPolicy,
+					]
+				); ?>
 
-						<? foreach ($arPolicy["PAYMENT_OPTIONS"] as $arPaymentOptions): ?>
-							<div class="products__payment-item<?= ($arPaymentOptions["PRICE"] > 0 ? " products__payment-item_active" : "") ?>">
-								<div class="no-stroke products__payment-photo">
-									<?= $arPaymentOptions["ICON"] ?>
-								</div>
-								<div class="products__payment-name">
-									<?= $arPaymentOptions["NAME"] ?>
-								</div>
-								<div class="products__payment-cost">
-									<?= ($arPaymentOptions["PRICE"] > 0 ?
-										CurrencyFormat($arPaymentOptions["PRICE"], 'RUB')
-										: "нет") ?>
-								</div>
-								<div class="products__info">
-									<div class="products__info-sign">
-										<picture><img src="../img/insurance/product-info.svg" alt="info"></picture>
-									</div>
-									<div class="products__text-container">
-										<div class="products__info-text">
-											<?= $arPaymentOptions["TEXT"] ?>
-										</div>
-									</div>
-								</div>
-							</div>
-						<? endforeach; ?>
-					</div>
-				<? endif; ?>
 				<div class="products__footer">
 					<div class="products__footer-up">
 						<div class="products__cost"><?= $arPolicy["PRICE"] ?>/год</div>
-						<form method="POST" action="<?=$arParams["BASKET_URL"]?>">
+						<form method="POST" action="<?= $arParams["BASKET_URL"] ?>">
 							<input type="hidden" name="POLICY_ID" value="<?= $arPolicy["ID"] ?>">
 							<button class="products__order"><?= GetMessage('T_INSURANCE_ORDER') ?></button>
 						</form>

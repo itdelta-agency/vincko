@@ -20,7 +20,9 @@ if ($request->isAjaxRequest()) {
 			"count" => count($error),
 			"error" => $error,
 		];
+
 	echo json_encode($result);
+
 }
 
 require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/main/include/epilog_after.php");

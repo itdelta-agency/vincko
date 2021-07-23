@@ -10,14 +10,25 @@ if (!CModule::IncludeModule("sale")) {
 	return;
 }
 ?>
-
+<? if (!$USER->IsAuthorized()): ?>
+	<? $APPLICATION->IncludeComponent(
+		"bitrix:system.auth.authorize",
+		"",
+		array()
+	); ?>
+<? else: ?>
 <? if ($arResult["isFormNote"] == "Y"): ?>
 
 	<? include(Bitrix\Main\Application::getDocumentRoot() . $templateFolder . '/success.php'); ?>
+
 <? else: ?>
+
 	<style>
-		.error_message{display:none}
         .error_message {
+            display: none
+        }
+
+        .error_message,.error {
             color: red
         }
 
@@ -36,18 +47,53 @@ if (!CModule::IncludeModule("sale")) {
         .error:-ms-input-placeholder { /* Internet Explorer 10+ */
             color: red;
         }
-		.products__payment-photo{float: left;  margin: 5px;}
-		.products__payment-name{margin: 5px}
-		.products__payment-item label{float: left;
-            margin: 5px;}
-		.products__payment-item{
+
+        .products__payment-photo {
+            float: left;
+            margin: 5px;
+        }
+
+        .products__payment-name {
+            margin: 5px
+        }
+
+        .products__payment-item label {
+            float: left;
+            margin: 5px;
+        }
+
+        .products__payment-item {
             padding: 10px 0;
             overflow: hidden;
         }
 	</style>
-	<?= $arResult["FORM_HEADER"] ?>
 
-	<input type="hidden" name="form_hidden_<?=$arResult["QUESTIONS"]["POLICY_ID"]["STRUCTURE"][0]["ID"]?>" value="<?= $arResult["POLICY_ID"] ?>"/>
+	<?= $arResult["FORM_HEADER"] ?>
+		<? // УБРАТЬ БЛОК ПРИ ПЕРЕНОСЕ НА БОЙ ?>
+		<div id="test" style="cursor:pointer">Заполнить тестовыми данными</div>
+	<script>
+		$(document).ready(function () {
+			$("#test").click(function (){
+				$(".js-check-valid-field").each(function(i){
+					var name = $(this).attr("name");
+					if(name!== undefined) {
+						if (name.indexOf("text")!=-1) {
+							$(this).val($(this).attr("placeholder"));
+						} else if (name.indexOf("date")!=-1) {
+							$(this).val("2020-07-21");
+						} else if (name.indexOf("email")!=-1) {
+							$(this).val("test@test.ru");
+						}
+					}
+				});
+			});
+
+		})
+	</script>
+		<?// УБРАТЬ БЛОК ПРИ ПЕРЕНОСЕ НА БОЙ?>
+
+		<input type="hidden" name="form_hidden_<?= $arResult["QUESTIONS"]["POLICY_ID"]["STRUCTURE"][0]["ID"] ?>"
+		   value="<?= $arResult["POLICY_ID"] ?>"/>
 	<section class="installment insurance-policy">
 		<div class="installment__left-column">
 			<h2 class="installment__page-title"><?= $arParams["TITLE"] ?></h2>
@@ -59,10 +105,10 @@ if (!CModule::IncludeModule("sale")) {
 					<div class="h4"><?= Loc::getMessage("FORM_POLICY_STEP_ABOUT") ?></div>
 					<div class="close-btn close-btn_hide"><?= Loc::getMessage("FORM_POLICY_EXPAND") ?></div>
 
-
 					<div class="form__content">
 						<div class="form__section">
-							<div class="error_message"<?=(!empty($arResult['FORM_ERRORS'])?" style='display:block'":"")?>><p><?= Loc::getMessage("FORM_POLICY_ERROR_MSG") ?></p></div>
+							<div class="error_message"<?= (!empty($arResult['FORM_ERRORS']) ? " style='display:block'" : "") ?>>
+								<p><?= Loc::getMessage("FORM_POLICY_ERROR_MSG") ?></p></div>
 							<div class="h4"><?= Loc::getMessage("FORM_POLICY_INFORMATION") ?></div>
 							<div class="form__section__content sex">
 								<span class="js-check-valid-field"
@@ -81,12 +127,12 @@ if (!CModule::IncludeModule("sale")) {
 						</div>
 						<div class="form__section">
 							<div class="h4"><?= Loc::getMessage("FORM_POLICY_PASSPORT") ?></div>
-
 							<div class="form__section__content passport">
 								<?= $arResult["QUESTIONS"]["PASSPORT"]["HTML_CODE"] ?>
 								<?= $arResult["QUESTIONS"]["PASSPORT_DATE"]["HTML_CODE"] ?><br/>
 								<?= $arResult["QUESTIONS"]["PASSPORT_ISSUED"]["HTML_CODE"] ?>
 								<?= $arResult["QUESTIONS"]["PASSPORT_CODE"]["HTML_CODE"] ?>
+								<?= $arResult["QUESTIONS"]["INN"]["HTML_CODE"] ?>
 							</div>
 						</div>
 						<div class="form__section">
@@ -156,14 +202,14 @@ if (!CModule::IncludeModule("sale")) {
 											<input type="radio" id="<?= $arPayment["ID"] ?>" name="PAYMENT"
 												   value="<?= $arPayment["ID"] ?>"/>
 											<label for="<?= $arPayment["ID"] ?>"></label>
-												<div class="products__payment-photo">
-													<picture>
-														<img src="<?= $arPayment["ICON"] ?>" width="20px">
-													</picture>
-												</div>
-												<div class="products__payment-name">
-													<?= $arPayment["NAME"] ?>
-												</div>
+											<div class="products__payment-photo">
+												<picture>
+													<img src="<?= $arPayment["ICON"] ?>" width="20px">
+												</picture>
+											</div>
+											<div class="products__payment-name">
+												<?= $arPayment["NAME"] ?>
+											</div>
 
 										</div>
 									<? endforeach; ?>
@@ -181,46 +227,16 @@ if (!CModule::IncludeModule("sale")) {
 		<div class="installment__right-column">
 			<section class="short-ins ">
 				<div id="short-rd" class="short-ins__item products__item hidden">
-					<picture class="products__head">
-						<img src="<?= $arResult["POLICY"]["IMG"] ?>" alt="<?= $arResult["POLICY"]["NAME"] ?>"/>
-					</picture>
 
-					<div class="products__name">
-						<div class="products__gray"><?= $arResult["POLICY"]["NAME"] ?></div>
-						<div class="h3 products__title">«<?= $arResult["POLICY"]["NAME"] ?>»</div>
-					</div>
-
-					<? if ($arResult["POLICY"]["MAX_PRICE"] > 0): ?>
-						<div class="products__max-payment">
-							<div class="products__container">
-								<div class="products__gray"><?= Loc::getMessage("FORM_POLICY_PAYMENT_MAX") ?></div>
-								<div class="h3 products__title"><?= $arResult["POLICY"]["MAX_PRICE"] ?></div>
-							</div>
-						</div>
-					<? endif; ?>
-					<? if (!empty($arResult["POLICY"]["PAYMENT_OPTIONS"])): ?>
-						<div class="products__payment">
-							<div class="products__gray">
-								<?= Loc::getMessage("FORM_POLICY_PAYMENTS") ?>
-							</div>
-							<? foreach ($arResult["POLICY"]["PAYMENT_OPTIONS"] as $arPaymentOptions): ?>
-								<div class="products__payment-item<?= ($arPaymentOptions["PRICE"] > 0 ? " products__payment-item_active" : "") ?>">
-									<div class=" products__payment-photo">
-										<picture>
-											<img src="<?= $arPaymentOptions["IMG"] ?>"
-												 alt="<?= $arPaymentOptions["NAME"] ?>"/>
-										</picture>
-									</div>
-									<div class="products__payment-name"><?= $arPaymentOptions["NAME"] ?></div>
-									<div class="products__payment-cost">
-										<?= ($arPaymentOptions["PRICE"] > 0 ?
-											CurrencyFormat($arPaymentOptions["PRICE"], 'RUB')
-											: "нет") ?>
-									</div>
-								</div>
-							<? endforeach; ?>
-						</div>
-					<? endif; ?>
+					<? $APPLICATION->IncludeComponent(
+						'bitrix:main.include', '',
+						[
+							'AREA_FILE_SHOW' => 'file',
+							'EDIT_TEMPLATE'  => '',
+							'PATH'           => '/include/policy_template.php',
+							'POLICY'         => $arResult["POLICY"],
+						]
+					); ?>
 
 					<div class="short-rd__footer">
 						<a href="<?= $arParams["BACK_LINK"] ?>" class="short-rd-another">
@@ -237,9 +253,8 @@ if (!CModule::IncludeModule("sale")) {
 				</div>
 			</section>
 
-			<div class="installment__rules installment__rules--active">
+			<div class="installment__rules installment__rules--active<?=(!empty($arResult["FORM_ERRORS"]["AGREEMENT"]) ? " error" : "")?> js-check-valid-field" data-field="AGREEMENT" >
 				<? $APPLICATION->IncludeFile('/include/order_policy_agreement.php'); ?>
-
 				<?= $arResult["QUESTIONS"]["AGREEMENT"]["HTML_CODE"] ?>
 				<button type="submit" class="button yellow-button" name="web_form_apply"
 						value="1"><?= $arResult["arForm"]["BUTTON"] ?></button>
@@ -249,4 +264,5 @@ if (!CModule::IncludeModule("sale")) {
 
 	</section>
 	<?= $arResult["FORM_FOOTER"] ?>
+<? endif; ?>
 <? endif; ?>

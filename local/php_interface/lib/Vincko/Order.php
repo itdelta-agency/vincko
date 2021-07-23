@@ -4,12 +4,14 @@ namespace Vincko;
 
 class Order
 {
-	const REQUIRED_FIELD_POLICY = [
-		"PASPORT"
-	];
+// ИД  инфоблока товаров (страховых компаний)
+	const IBLOCK_POLICY = 14;
+	// ИД  инфоблока товарных предложений(страховых полисов)
+	const IBLOCK_POLICY_OFFER = 24;
 
 	// получим варианты оплаты
-	public static function getPaymentSystem(){
+	public static function getPaymentSystem()
+	{
 		\CModule::IncludeModule("main");
 		\CModule::IncludeModule("sale");
 		$obPaySystem = \CSalePaySystemAction::GetList(
@@ -42,46 +44,121 @@ class Order
 			: \CSaleUser::GetAnonymousUserID();
 
 		// получаем информацию о продукте
-		if ($policy = Policy::getById($arField["POLICY"]["ID"])) {
-			$basket = \Bitrix\Sale\Basket::create(\Bitrix\Main\Context::getCurrent()->getSite());
+		$basket = \Bitrix\Sale\Basket::create(\Bitrix\Main\Context::getCurrent()->getSite());
 
-			$item = $basket->createItem('catalog', $policy["ID"]);
-			$item->setField('QUANTITY', 1);
-			$item->setField('CURRENCY', 'RUB');
-			$item->setField('PRODUCT_PROVIDER_CLASS', '\Bitrix\Catalog\Product\CatalogProvider');
+		$item = $basket->createItem('catalog', $arField["POLICY"]["ID"]);
+		$item->setField('QUANTITY', 1);
+		$item->setField('CURRENCY', 'RUB');
+		$item->setField('PRODUCT_PROVIDER_CLASS', '\Bitrix\Catalog\Product\CatalogProvider');
 
-			$arSetProps = $arField["PROPS"];
+		$arSetProps = $arField["PROPS"];
 
-			$item->getPropertyCollection()->setProperty($arSetProps);
+		$item->getPropertyCollection()->setProperty($arSetProps);
 
-			$basket->refresh();
+		$basket->refresh();
 
-			$order = \Bitrix\Sale\Order::create(
-				\Bitrix\Main\Context::getCurrent()->getSite(),
-				$userId,
-				\Bitrix\Currency\CurrencyManager::getBaseCurrency()
-			);
+		$order = \Bitrix\Sale\Order::create(
+			\Bitrix\Main\Context::getCurrent()->getSite(),
+			$userId,
+			\Bitrix\Currency\CurrencyManager::getBaseCurrency()
+		);
 
-			$order->setPersonTypeId(1);
-			$order->setBasket($basket);
-			$paymentCollection = $order->getPaymentCollection();
-			$payment = $paymentCollection->createItem(
-				\Bitrix\Sale\PaySystem\Manager::getObjectById($paymentID)
-			);
+		$order->setPersonTypeId(1);
+		$order->setBasket($basket);
+		$paymentCollection = $order->getPaymentCollection();
+		$payment = $paymentCollection->createItem(
+			\Bitrix\Sale\PaySystem\Manager::getObjectById($paymentID)
+		);
 
-			$payment->setField("SUM", $order->getPrice());
-			$payment->setField("CURRENCY", $order->getCurrency());
+		$payment->setField("SUM", $order->getPrice());
+		$payment->setField("CURRENCY", $order->getCurrency());
 
-			$order->save();
-			return $order->getId();
-		}
+		$order->save();
+		return $order->getId();
 	}
 
 	//событие когда заказ со страховкой оплачены
 	public static function orderPolicyPay($orderID)
 	{
-		\CModule::IncludeModule("sale"); // подключение модуля продаж
+		\Bitrix\Main\Loader::includeModule("sale");
 
+		$policyInfo = static::getPolicyFromOrder($orderID);
+
+		// получим товар
+		$product = \CIBlockElement::GetList(
+			[],
+			[
+				"IBLOCK_ID" => static::IBLOCK_POLICY,
+				"ID"        => $productID,
+			],
+			false,
+			false,
+			[
+				"ID",
+				"PROPERTY_TEMPLATE",
+				"PROPERTY_CURRENT",
+			]
+		)->GetNext();
+		$objDateTime = new \Bitrix\Main\Type\DateTime();
+		$date_form = $objDateTime->add("15 day");
+		$date_by = $objDateTime->add("1 years");
+
+		$result =  $policyInfo["ORIGINAL_PROP"];
+
+		// серию
+		$result[] = [
+			"NAME"  => "Серия полиса",
+			"CODE"  => "SERIAL_NUMBER",
+			"VALUE" => date("Y")
+		];
+		// добавляем дату начала действия полиса
+		$result[] = [
+			"NAME"  => "Дата начала действия полиса",
+			"CODE"  => "DATE_FROM",
+			"VALUE" => $date_form->format("d.m.Y")
+		];
+		// добавляем дату начала срока действия полиса
+		$result[] = [
+			"NAME"  => "Дата начала срока действия полиса",
+			"CODE"  => "DATE_TERM_FROM",
+			"VALUE" => $date_form->format("d.m.Y")
+		];
+		// добавляем дату завершения срока полиса
+		$result[] = [
+			"NAME"  => "Дата завершения срока действия полиса",
+			"CODE"  => "DATE_TERM_BY",
+			"VALUE" => $date_by->format("d.m.Y")
+		];
+
+
+		// номер
+		// прибавим и сохраним
+		$current = $product["PROPERTY_CURRENT_VALUE"] + 1;
+		\CIBlockElement::SetPropertyValuesEx(
+			$product["ID"],
+			static::IBLOCK_POLICY,
+			['CURRENT' => $current]
+		);
+
+		$result[] = [
+			"NAME"  => "Номер",
+			"CODE"  => "NUMBER",
+			"VALUE" => $current
+		];
+
+		$arFields["PROPS"] = $result;
+
+		// обновляем  корзину
+		\CSaleBasket::Update($policyInfo["ID"], $arFields);
+
+	}
+
+	// получает из заказа товар полис
+	public static function getPolicyFromOrder($orderID)
+	{
+		\Bitrix\Main\Loader::includeModule("sale");
+
+		// получим массив
 		$obBasket = \CSaleBasket::GetList(
 			[],
 			[
@@ -91,9 +168,11 @@ class Order
 			false,
 			[]
 		);
+
 		while ($arBasket = $obBasket->Fetch()) {
 			$arBasketIds[] = $arBasket["ID"];
 		}
+
 		$obBasketProductProp = \CSaleBasket::GetPropsList(
 			[],
 			[
@@ -102,37 +181,36 @@ class Order
 		);
 		while ($arBasketProductProp = $obBasketProductProp->Fetch()) {
 			$arProduct[$arBasketProductProp["BASKET_ID"]][$arBasketProductProp["CODE"]] = $arBasketProductProp["VALUE"];
+			$prop[$arBasketProductProp["BASKET_ID"]][] = $arBasketProductProp;
 		}
-		$error = "";
-		foreach ( $arProduct as $arField) {
+
+		foreach ($arProduct as $basketID => $arField) {
 			//рассматриваем только полисы
-			if(empty($arField["POLICY_ID"])){
+			if (empty($arField["POLICY_ID"])) {
 				continue;
 			}
 
-			// заполнены ли все поля для полиса
-			$requiredFields =  static::REQUIRED_FIELD_POLICY;
-
-			foreach ($requiredFields as $nameField ) {
-				if(empty($arField[$nameField])){
-					$error .= "нет поля ".$nameField." у ".$arField["POLICY_ID"];
-					continue 2;
-				}
-
-			}
-
-			dump($arField);
-
+			//TODO предполагаем что в заказе может быть только одна страховка
+			$policy = [
+				"ID"            => $basketID,
+				"PROP"          => $arField,
+				"ORIGINAL_PROP" => $prop[$basketID]
+			];
 		}
+		return $policy;
+	}
 
+	// оплачен ли заказ
+	public static function getOrderPay($orderID)
+	{
 
-
-
-
+		$order = \Bitrix\Sale\Order::load($orderID);
+		return $order->isPaid();
 	}
 
 	//  предварительная обработка полей, передаваемых в форме
-	public static function validOrderPolicy($formId, $arrVALUES){
+	public static function validOrderPolicy($formId, $arrVALUES)
+	{
 		$arFieldLogicRequired = [
 			"form_checkbox_ACTUAL_ADDRESS" =>
 				[
@@ -188,7 +266,7 @@ class Order
 		}
 
 		foreach ($arrVALUES as $fieldName => $fieldValue) {
-			if (stripos($fieldName, "date")) {
+			if (stripos($fieldName, "date") && !empty($fieldValue)) {
 				$date = new \DateTime($fieldValue);
 				$arrVALUES[$fieldName] = $date->format("d.m.Y");
 			} else {

@@ -11,8 +11,9 @@ $arResult["POLICY_ID"] = ($request->getPost('POLICY_ID') ?? $arResult["arrVALUES
 
 // если ID полиса нет то перебрасываем на выбор полиса
 if (empty($arResult["POLICY_ID"]) && $arResult["isFormNote"] != "Y") {
-	//LocalRedirect($arParams["BACK_LINK"]);
+	LocalRedirect($arParams["BACK_LINK"]);
 }
+
 if($arResult["isFormNote"] == "Y"){
 	$arOrder = \CFormResult::GetDataByID(
 		$request->get("RESULT_ID"),
@@ -23,7 +24,6 @@ if($arResult["isFormNote"] == "Y"){
 
 }
 
-// если полис не выбран, то перекидываем пользователя на выборку
 // отредактируем некоторые поля
 foreach ($arResult["QUESTIONS"] as $FIELD_SID => $arQuestion) {
 	if ($arQuestion['STRUCTURE'][0]['FIELD_TYPE'] != 'hidden') {
@@ -67,46 +67,14 @@ foreach ($arResult["QUESTIONS"] as $FIELD_SID => $arQuestion) {
 	}
 }
 
-
 // получим информацию о полисе(торговом предложении)
-$arOffer = CIBlockElement::GetList(
-	[],
-	[
-		"IBLOCK_ID" => 24,
-		"ID"        => $arResult["POLICY_ID"]
-	],
-	false,
-	[],
-	[
-		"IBLOCK_ID",
-		"ID",
-		"NAME",
-		"PROPERTY_ILL",
-		"PROPERTY_MAX_PRICE",
-		"PROPERTY_PAYMENT_OPTIONS",
-		"PROPERTY_PAYMENT_PRICE",
-		"PROPERTY_CML2_LINK"
-	]
-)->GetNext();
+$arOffer = Policy::getById($arResult["POLICY_ID"]);
 
 // получим информацию о страховой(товаре) предлагающей полис
-$arInsurance = CIBlockElement::GetList(
-	[],
-	[
-		"IBLOCK_ID" => 14,
-		"ID"        => $arOffer["PROPERTY_CML2_LINK_VALUE"]
-	],
-	false,
-	[],
-	[
-		"IBLOCK_ID",
-		"ID",
-		"NAME"
-	]
-)->GetNext();
+$arInsurance = Policy::getInsurance($arOffer["PROPERTIES"]["CML2_LINK"]["VALUE"]);
 
 // получим варианты выплаты по основным пунктам страховки
-$arAllPaymentOptions = Policy::getPaymentOptions($arOffer["PROPERTY_PAYMENT_OPTIONS_VALUE"]);
+$arAllPaymentOptions = Policy::getPaymentOptions($arOffer["PROPERTIES"]["PAYMENT_OPTIONS"]["VALUE"]);
 
 //соберем массив полиса
 $arResult["POLICY"] = Policy::formatPolicy($arOffer, $arAllPaymentOptions, $arInsurance);
