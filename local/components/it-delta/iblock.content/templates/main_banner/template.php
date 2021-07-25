@@ -22,26 +22,19 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) die();
                     <?=$params["PREVIEW_TEXT"]?>
                 </div>
                 <div class="slider__item-left--button">
-                    <a href="<?=$params["PROPERTIES"]["S_LINK"]["VALUE"]?>" class="button">узнать больше</a>
+                    <a href="<?=$params["PROPERTIES"]["S_LINK"]["VALUE"]?>" class="button"><?=$params["PROPERTIES"]["S_BUTTON_TEXT"]["VALUE"]?></a>
                 </div>
             </div>
 
             <div class="slider__item-right">
-                <img src="<?=$params["PREVIEW_PICTURE"]["SRC"]?>" alt="img">
-                <!-- <picture>
-                    <source type="image/webp" srcset="../img/first__page/slider_top.webp">
-                    <source type="image/png" srcset="../img/first__page/slider_top.png">
-                    <img src="../img/first__page/slider_top.png" alt="img">
-                </picture> -->
+                <picture>
+                    <source type="image/webp" srcset="<?=CFile::GetPath($params["PROPERTIES"]["PREVIEW_PICTURE_WEBP"]["VALUE"])?>">
+                    <source type="image/png" srcset="<?=$params["PREVIEW_PICTURE"]["SRC"]?>">
+                    <img src="<?=$params["PREVIEW_PICTURE"]["SRC"]?>" alt="img">
+                </picture>
             </div>
 
         </div>
         <? endforeach; ?>
     </div>
 </section>
-
-<?php
-// echo '<pre>';
-// print_r($arResult);
-// echo '</pre>';
-?>
