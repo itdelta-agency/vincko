@@ -135,7 +135,7 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) die();
 </section>
 
 <?php
-echo '<pre>';
-print_r($arResult);
-echo '</pre>';
+// echo '<pre>';
+// print_r($arResult);
+// echo '</pre>';
 ?>
