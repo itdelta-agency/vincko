@@ -136,26 +136,89 @@ $APPLICATION->SetPageProperty("NOT_SHOW_NAV_CHAIN", "Y");
     );?>
 
     <?$APPLICATION->IncludeComponent(
-	"it-delta:iblock.content", 
-	"main_manufacturer", 
-	array(
-		"ACTIVE_DATE" => "N",
-		"ADD_CACHE_STRING" => "",
-		"CACHE_TIME" => "0",
-		"CACHE_TYPE" => "A",
-		"COMPONENT_TEMPLATE" => "main_manufacturer",
-		"FILTER_NAME" => "arrFilter1",
-		"IBLOCK_ID" => "18",
-		"IBLOCK_TYPE" => "references",
-		"PAGE_ELEMENT_COUNT" => "10",
-		"RAND_ELEMENTS" => "N",
-		"SORT_BY1" => "SORT",
-		"SORT_BY2" => "SORT",
-		"SORT_ORDER1" => "ASC",
-		"SORT_ORDER2" => "ASC"
-	),
-	false
-);?>
+        "it-delta:iblock.content", 
+        "main_manufacturer", 
+        array(
+            "ACTIVE_DATE" => "N",
+            "ADD_CACHE_STRING" => "",
+            "CACHE_TIME" => "0",
+            "CACHE_TYPE" => "A",
+            "COMPONENT_TEMPLATE" => "main_manufacturer",
+            "FILTER_NAME" => "arrFilter1",
+            "IBLOCK_ID" => "18",
+            "IBLOCK_TYPE" => "references",
+            "PAGE_ELEMENT_COUNT" => "10",
+            "RAND_ELEMENTS" => "N",
+            "SORT_BY1" => "SORT",
+            "SORT_BY2" => "SORT",
+            "SORT_ORDER1" => "ASC",
+            "SORT_ORDER2" => "ASC"
+        ),
+        false
+    );?>
+
+    <?$APPLICATION->IncludeComponent(
+        "bitrix:main.include",
+        "",
+        Array(
+            "AREA_FILE_SHOW" => "file",
+            "AREA_FILE_SUFFIX" => "",
+            "EDIT_TEMPLATE" => "",
+            "PATH" => SITE_DIR."include/main_payments.php"
+        )
+    );?>
+
+    <?$APPLICATION->IncludeComponent(
+        "it-delta:iblock.content",
+        "main_vidoe_reviews",
+        Array(
+            "ACTIVE_DATE" => "N",
+            "ADD_CACHE_STRING" => "",
+            "CACHE_TIME" => "0",
+            "CACHE_TYPE" => "A",
+            "FILTER_NAME" => "arrFilter1",
+            "IBLOCK_ID" => "45",
+            "IBLOCK_TYPE" => "reviews",
+            "PAGE_ELEMENT_COUNT" => "4",
+            "RAND_ELEMENTS" => "N",
+            "SORT_BY1" => "SORT",
+            "SORT_BY2" => "SORT",
+            "SORT_ORDER1" => "ASC",
+            "SORT_ORDER2" => "ASC"
+        )
+    );?>
+
+    <?$APPLICATION->IncludeComponent(
+        "it-delta:iblock.content",
+        "main_useful_know",
+        Array(
+            "ACTIVE_DATE" => "N",
+            "ADD_CACHE_STRING" => "",
+            "CACHE_TIME" => "0",
+            "CACHE_TYPE" => "A",
+            "FILTER_NAME" => "arrFilter1",
+            "IBLOCK_ID" => "28",
+            "IBLOCK_TYPE" => "Articles",
+            "PAGE_ELEMENT_COUNT" => "10",
+            "RAND_ELEMENTS" => "N",
+            "SORT_BY1" => "SORT",
+            "SORT_BY2" => "SORT",
+            "SORT_ORDER1" => "ASC",
+            "SORT_ORDER2" => "ASC"
+        )
+    );?>
+
+    <?$APPLICATION->IncludeComponent(
+        "bitrix:main.include",
+        "",
+        Array(
+            "AREA_FILE_SHOW" => "file",
+            "AREA_FILE_SUFFIX" => "",
+            "EDIT_TEMPLATE" => "",
+            "PATH" => SITE_DIR."include/main_contacts.php"
+        )
+    );?>
+
 </main>
 
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>

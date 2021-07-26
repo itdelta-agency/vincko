@@ -17,32 +17,29 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) die();
     <div class="container">
         <h2><span>Производители</span> оборудования</h2>
         <div class="equipment__manufacturers_items equipment__manufacturers_slider-js">
-
+            <? foreach($arResult["ITEMS"] as $item): ?>
             <div class="equipment__manufacturers_item">
                 <div class="item__content">
                     <div class="item__top">
                         <div class="item__top_img">
                             <picture>
-                                <source type="image/webp" srcset="../img/first__page/nord.webp">
-                                <source type="image/png" srcset="../img/first__page/nord.png">
-                                <img src="../img/first__page/nord.png" alt="img" loading="lazy">
+                                <source type="image/webp" srcset="<?=$item["PREVIEW_PICTURE"]["SRC"]?>">
+                                <source type="image/png" srcset="<?=$item["PREVIEW_PICTURE"]["SRC"]?>">
+                                <img src="<?=$item["PREVIEW_PICTURE"]["SRC"]?>" alt="img" loading="lazy">
                             </picture>
                         </div>
                         <div class="item__top_about">
-                            <span>Компания производит все что производит и может производить даже больше, чем
-                                производит
-                                сейчас, но и сейчас производит достаточно много, что позволяет производителю
-                                оставаться
-                                производительным.</span>
+                            <span><?=$item["PROPERTIES"]["TEXT_ABOUT_COMPANY"]["~VALUE"]["TEXT"]?></span>
                         </div>
                     </div>
                     <div class="item__review">
                         <div class="item__review_name">
-                            <span>Иванов Иван Иванович</span>
+                            <span><?=$item["PROPERTIES"]["APPLYING"]["VALUE"]?></span>
                         </div>
                         <div class="item__review_position">
-                            <span>Коммерческий директор компании C.Nord</span>
+                            <span><?=$item["PROPERTIES"]["POSITION_APPLICANT"]["VALUE"]?></span>
                         </div>
+                        <? if($item["PROPERTIES"]["TEXT_APPLICANT"]["~VALUE"]["TEXT"]): ?>
                         <div class="item__review_text">
                             <span class="icon">
                                 <svg width="15" height="10" viewBox="0 0 15 10" fill="none"
@@ -52,25 +49,22 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) die();
                                         fill="#005DFF" />
                                 </svg>
                             </span>
-                            <p>Я знаю тебя много лет, но ты никогда не обращался ко мне за советом или помощью. Я не
-                                могу вспомнить, когда ты в последний раз приглашал меня в свой дом на чашку кофе,
-                                хотя
-                                моя жена — крёстная твоего единственного ребёнка. Будем сейчас откровенны: ты
-                                никогда не
-                                искал моей дружбы, и ты боялся быть у меня в долгу.</p>
+                            <p><?=$item["PROPERTIES"]["TEXT_APPLICANT"]["~VALUE"]["TEXT"]?></p>
                         </div>
+                        <? endif; ?>
                     </div>
                 </div>
+                <? if($item["PROPERTIES"]["TEXT_APPLICANT"]["~VALUE"]["TEXT"]): ?>
                 <div class="item__video">
                     <div class="item__video_img">
                         <div class="item__video_img--pseudo"></div>
                         <picture>
-                            <source type="image/webp" srcset="../img/first__page/video_pseudo.webp">
-                            <source type="image/png" srcset="../img/first__page/video_pseudo.png">
-                            <img src="../img/first__page/video_pseudo.png" alt="img" loading="lazy">
+                            <source type="image/webp" srcset="<?=CFile::GetPath($item["PROPERTIES"]["PHOTO_FOR_VIDEO"]["VALUE"])?>">
+                            <source type="image/png" srcset="<?=CFile::GetPath($item["PROPERTIES"]["PHOTO_FOR_VIDEO"]["VALUE"])?>">
+                            <img src="<?=CFile::GetPath($item["PROPERTIES"]["PHOTO_FOR_VIDEO"]["VALUE"])?>" alt="img" loading="lazy">
                         </picture>
                     </div>
-                    <a data-fancybox href="https://youtu.be/gxXqe5ZFQHo">
+                    <a data-fancybox href="<?=$item["PROPERTIES"]["LINK_FOR_VIDEO"]["VALUE"]?>">
                         <div class="item__video_btn">
                             <span class="item__video_btn--btn_circle">
                                 <span class="item__video_btn--btn_icon">
@@ -88,54 +82,9 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) die();
                         <span>Видеообращение к покупателям</span>
                     </div>
                 </div>
+                <? endif; ?>
             </div>
-
-            <!-- <div class="equipment__manufacturers_item">
-                <div class="item__content">
-                    <div class="item__top">
-                        <div class="item__top_img">
-                            <picture>
-                                <source type="image/webp" srcset="../img/first__page/livicom.webp">
-                                <source type="image/png" srcset="../img/first__page/livicom.png">
-                                <img src="../img/first__page/livicom.png" alt="img" loading="lazy">
-                            </picture>
-                        </div>
-                        <div class="item__top_about">
-                            <span>Компания производит все что производит и может производить даже больше, чем
-                                производит
-                                сейчас, но и сейчас производит достаточно много, что позволяет производителю
-                                оставаться
-                                производительным.</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="equipment__manufacturers_item">
-                <div class="item__content">
-                    <div class="item__top">
-                        <div class="item__top_img">
-                            <picture>
-                                <source type="image/webp" srcset="../img/first__page/ajax.webp">
-                                <source type="image/png" srcset="../img/first__page/ajax.png">
-                                <img src="../img/first__page/ajax.png" alt="img" loading="lazy">
-                            </picture>
-                        </div>
-                        <div class="item__top_about">
-                            <span>Компания производит все что производит и может производить даже больше, чем
-                                производит
-                                сейчас, но и сейчас производит достаточно много, что позволяет производителю
-                                оставаться
-                                производительным.</span>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
+            <? endforeach; ?>
         </div>
     </div>
 </section>
-
-<?php
-// echo '<pre>';
-// print_r($arResult);
-// echo '</pre>';
-?>

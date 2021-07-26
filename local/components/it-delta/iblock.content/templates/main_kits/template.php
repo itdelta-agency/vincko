@@ -31,7 +31,6 @@ $cities = CIBlockElement::GetList(
         </div>
         <div class="group__pack group__pack_slider-js">
             <? foreach($arResult['SECTIONS'] as $section): ?>
-            <? if(!empty($section['EQUIPMENT-KITS'])): ?>
             <? foreach ($section['EQUIPMENT-KITS'] as $item): ?>
             <div class="pack">
                 <div class="pack__predloj">
@@ -122,7 +121,6 @@ $cities = CIBlockElement::GetList(
                 </div>
             </div>
             <? endforeach; ?>
-            <? endif; ?>
             <? endforeach; ?>
         </div>
     </div>
@@ -130,6 +128,6 @@ $cities = CIBlockElement::GetList(
 
 <?php
 // echo '<pre>';
-// print_r($arResult);
+// print_r($arResult["ITEMS"]);
 // echo '</pre>';
 ?>
