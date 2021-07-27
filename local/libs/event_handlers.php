@@ -1,4 +1,5 @@
 <?php
+define('NEED_AUTH','Y');
 //подключение классов
 CModule::AddAutoloadClasses(
     '',
