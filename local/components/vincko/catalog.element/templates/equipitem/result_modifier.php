@@ -58,7 +58,7 @@ $res = CIBlockElement::GetList(
     array("ACTIVE" => "Y", "IBLOCK_ID" => $packagesIblockId, $arParams['PACKAGES_FILTER_NAME'],"=PROPERTY_P_COMPLECT" => $arResult['ID']),
     false,
     false,
-    array("ID", "PROPERTY_CO_CLASS_REF", "PROPERTY_P_COMPLECT", "IBLOCK_SECTION_ID")
+    array("ID", "*", "PROPERTY_CO_CLASS_REF", "PROPERTY_P_COMPLECT", "IBLOCK_SECTION_ID")
 );
 
 while ($arFields = $res->Fetch()) {

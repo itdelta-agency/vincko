@@ -372,7 +372,7 @@ if (!empty($arParams['LABEL_PROP_POSITION'])) {
                 </p>
 
                 <a class="gotovoe__reshenie-button c-button"
-                   href="/packages/<?= $arResult['PACKAGE_GROUP']['CODE'] ?>">
+                   href="/packages/<?= $arResult['COMPLECT_PARENT_PACKAGE']['CODE'] ?>/">
                     <span>К готовому решению</span>
                 </a>
             </section>
