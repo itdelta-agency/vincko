@@ -152,3 +152,4 @@ $arUrlRewrite = array(
             'PATH' => '/packages/detail.php',
             'SORT' => 100,
         ),
+);
