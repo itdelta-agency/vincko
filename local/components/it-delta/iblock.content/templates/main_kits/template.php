@@ -27,7 +27,7 @@ $cities = CIBlockElement::GetList(
         <div class="first__page_ready-des--head container">
             <h2><span>Популярные</span> готовые решения<br>
                 охранных услуг</h2>
-            <a href="equipment-kits/" class="button">Смотреть все предложения</a>
+            <a href="packages/" class="button">Смотреть все предложения</a>
         </div>
         <div class="group__pack group__pack_slider-js">
             <? foreach($arResult['SECTIONS'] as $section): ?>
@@ -40,7 +40,7 @@ $cities = CIBlockElement::GetList(
                             <img src="<?=$item['CLASS_INFO']['PREVIEW_PICTURE']?>" alt="img" loading="lazy">
                         </picture>
                         <div class="title__text">
-                            <h3>Спокойствие</h3>
+                            <h3><?=$section["NAME"]?></h3>
                             <h2><?=$item['CLASS_INFO']['NAME']?></h2>
                         </div>
                     </div>
@@ -125,9 +125,3 @@ $cities = CIBlockElement::GetList(
         </div>
     </div>
 </section>
-
-<?php
-// echo '<pre>';
-// print_r($arResult["ITEMS"]);
-// echo '</pre>';
-?>
