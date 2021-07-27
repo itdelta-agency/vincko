@@ -17,118 +17,28 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) die();
     <div class="container">
         <h2>Откройте для себя <span>vincko:</span></h2>
         <ul class="open__for-items">
+            <? foreach($arResult["ITEMS"] as $elementId => $params): ?>
             <li class="open__for-item">
-                <a href="">
+                <a href="<?=$params["PROPERTIES"]["S_LINK"]["VALUE"]?>">
                     <p class="top">
                         <span class="icon">
                             <picture>
-                                <source type="image/webp" srcset="../img/first__page/open_for_you/icon1.webp">
-                                <source type="image/png" srcset="../img/first__page/open_for_you/icon1.png">
-                                <img src="../img/first__page/open_for_you/icon1.png" alt="alt" loading="lazy">
+                                <source type="image/webp" srcset="<?=CFile::GetPath($params["PROPERTIES"]["PREVIEW_PICTURE_WEBP"]["VALUE"])?>">
+                                <source type="image/png" srcset="<?=$params["PREVIEW_PICTURE"]["SRC"]?>">
+                                <img src="<?=$params["PREVIEW_PICTURE"]["SRC"]?>" alt="alt" loading="lazy">
                             </picture>
                         </span>
-                        <span class="text">Онлайн магазин<br> услуг охраны</span>
-                        <span class="link">Открыть</span>
+                        <span class="text"><?=$params["PROPERTIES"]["TITLE_BLOCK"]["~VALUE"]["TEXT"]?></span>
+                        <span class="link"><?=$params["PROPERTIES"]["S_BUTTON_TEXT"]["VALUE"]?></span>
                     </p>
-                </a>
-            </li>
-            <li class="open__for-item">
-                <a href="">
-                    <p class="top">
-                        <span class="icon">
-                            <picture>
-                                <source type="image/webp" srcset="../img/first__page/open_for_you/icon2.webp">
-                                <source type="image/png" srcset="../img/first__page/open_for_you/icon2.png">
-                                <img src="../img/first__page/open_for_you/icon2.png" alt="alt" loading="lazy">
-                            </picture>
-                        </span>
-                        <span class="text">Страхование<br> недвижимости</span>
-                        <span class="link">Узнать</span>
-                    </p>
-                </a>
-            </li>
-            <li class="open__for-item">
-                <a href="">
-                    <p class="top">
-                        <span class="icon">
-                            <picture>
-                                <source type="image/webp" srcset="../img/first__page/open_for_you/icon3.webp">
-                                <source type="image/png" srcset="../img/first__page/open_for_you/icon3.png">
-                                <img src="../img/first__page/open_for_you/icon3.png" alt="alt" loading="lazy">
-                            </picture>
-                        </span>
-                        <span class="text">Подарки и покупки<br> за бонусы</span>
-                        <span class="link">Получить</span>
-                    </p>
-                </a>
-            </li>
-            <li class="open__for-item">
-                <a href="">
-                    <p class="top">
-                        <span class="icon">
-                            <picture>
-                                <source type="image/webp" srcset="../img/first__page/open_for_you/icon4.webp">
-                                <source type="image/png" srcset="../img/first__page/open_for_you/icon4.png">
-                                <img src="../img/first__page/open_for_you/icon4.png" alt="alt" loading="lazy">
-                            </picture>
-                        </span>
-                        <span class="text">Гарантии <span>vincko:</span><br>
-                            при заказе охранных услуг</span>
-                        <span class="link">Узнать</span>
-                    </p>
+                    <? if($params["PREVIEW_TEXT"]): ?>
                     <p class="text__adout">
-                        При покупке услуг охранных компаний через платформу <span>vincko:</span> интересы всех
-                        сторон
-                        защищены нашими гарантиями. Узнайте какими.
+                        <?=$params["PREVIEW_TEXT"]?>
                     </p>
+                    <?endif;?>
                 </a>
             </li>
-            <li class="open__for-item">
-                <a href="">
-                    <p class="top">
-                        <span class="icon">
-                            <picture>
-                                <source type="image/webp" srcset="../img/first__page/open_for_you/icon5.webp">
-                                <source type="image/png" srcset="../img/first__page/open_for_you/icon5.png">
-                                <img src="../img/first__page/open_for_you/icon5.png" alt="alt" loading="lazy">
-                            </picture>
-                        </span>
-                        <span class="text">Реальные отзывы<br>
-                            об охранных компаниях</span>
-                        <span class="link">Читать</span>
-                    </p>
-                    <p class="text__adout">
-                        Мы собрали отзывы клиентов охранных компаний из разных источников. Читайте, делитесь мнением
-                        и
-                        делайте выбор.
-                    </p>
-                </a>
-            </li>
-            <li class="open__for-item">
-                <a href="">
-                    <p class="top">
-                        <span class="icon">
-                            <picture>
-                                <source type="image/webp" srcset="../img/first__page/open_for_you/icon6.webp">
-                                <source type="image/png" srcset="../img/first__page/open_for_you/icon6.png">
-                                <img src="../img/first__page/open_for_you/icon6.png" alt="alt" loading="lazy">
-                            </picture>
-                        </span>
-                        <span class="text">Честный рейтинг<br> охранных компаний</span>
-                        <span class="link">Смотреть</span>
-                    </p>
-                    <p class="text__adout">
-                        На основе клиентских оценок охранных компаний формируется Репутационный рейтинг. Смотрите и
-                        выбирайте лучшее комфортно.
-                    </p>
-                </a>
-            </li>
+            <? endforeach; ?>
         </ul>
     </div>
 </section>
-
-<?php
-echo '<pre>';
-print_r($arResult);
-echo '</pre>';
-?>
