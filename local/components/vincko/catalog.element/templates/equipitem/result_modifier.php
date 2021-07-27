@@ -17,7 +17,7 @@ $insuranceIblockId = 14;
 $companyCityAndSubscriptionFeeIblockId = 25;
 $insurancePaymentOptionsIblockId = 35;
 $classesIblockId = 36;
-$characteristicsIblockId = 37;
+$equipmentCharacteristicsIblockId = 41;
 
 // получает информацию по ценам с учетом скидок
 if (!function_exists('getPricesInfoByProductId')) {
@@ -32,19 +32,14 @@ if (!function_exists('getPricesInfoByProductId')) {
             $USER->GetUserGroupArray(),
             $renewal
         );
-        $final_price = 0;
-        if(isset($arPrice['PRICE'])) {
-
-            $final_price = $arPrice['PRICE']['PRICE'];
-            $currency_code = $arPrice['PRICE']['CURRENCY'];
-
-            // Ищем скидки и высчитываем стоимость с учетом найденных
-            $arDiscounts = CCatalogDiscount::GetDiscountByProduct($productID, $USER->GetUserGroupArray(), $renewal);
-            if (is_array($arDiscounts) && sizeof($arDiscounts) > 0) {
-                $final_price = CCatalogProduct::CountPriceWithDiscount($final_price, $currency_code, $arDiscounts);
+        if (!$arPrice || count($arPrice) <= 0) {
+            if ($nearestQuantity = CCatalogProduct::GetNearestQuantityPrice($productID, $quantity, $USER->GetUserGroupArray()))
+            {
+                $quantity = $nearestQuantity;
+                $arPrice = CCatalogProduct::GetOptimalPrice($productID, $quantity, $USER->GetUserGroupArray(), $renewal);
             }
         }
-        return $final_price;
+        return $arPrice;
     }
 }
 
@@ -109,7 +104,7 @@ $res = CIBlockElement::GetList(
 );
 while ($arFields = $res->Fetch()) {
     $arResult['ALL_LIST_COMPLECTS_IN_PACKAGE'][$arFields['ID']] = $arFields;
-    $arResult['ALL_LIST_COMPLECTS_IN_PACKAGE'][$arFields['ID']]['FINAL_PRICE'] = getPricesInfoByProductId($arFields['ID']);
+    $arResult['ALL_LIST_COMPLECTS_IN_PACKAGE'][$arFields['ID']]['PRICES_INFO'] = getPricesInfoByProductId($arFields['ID']);
 
 }
 
@@ -153,7 +148,7 @@ foreach ($arElements as $element) {
 }
 foreach ($arResult['ALL_LIST_COMPANY_CITY'] as $item) {
     foreach ($item['SUBSCRIPTION_FEE'] as $el) {
-        $arResult['ALL_LIST_COMPANY_CITY'][$item['ID']]['SUBSCRIPTION_FEE'][$el['ID']]['FINAL_PRICE'] = getPricesInfoByProductId($el['ID']);
+        $arResult['ALL_LIST_COMPANY_CITY'][$item['ID']]['SUBSCRIPTION_FEE'][$el['ID']]['PRICES_INFO'] = getPricesInfoByProductId($el['ID']);
     }
 }
 //получаем все страховки с вариантами
@@ -191,7 +186,7 @@ foreach ($arResult['ALL_INSURANCE_LIST'] as $item) {
     foreach ($item['ITEMS'] as $el) {
 
         $arResult['ALL_INSURANCE_LIST'][$item['ID']]['ITEMS'][$el['ID']]['PICTURE'] = CFile::ResizeImageGet($el['PROPERTY_ILL_VALUE'], array("width" => 90, "height" => 110), BX_RESIZE_IMAGE_PROPORTIONAL_ALT, false);
-        $arResult['ALL_INSURANCE_LIST'][$item['ID']]['ITEMS'][$el['ID']]['FINAL_PRICE'] = getPricesInfoByProductId($el['ID']);
+        $arResult['ALL_INSURANCE_LIST'][$item['ID']]['ITEMS'][$el['ID']]['PRICES_INFO'] = getPricesInfoByProductId($el['ID']);
 
     }
 }
@@ -290,7 +285,7 @@ if (!empty($arEquipSet)) {
 }
 
 //получаем характеристики для оборудования
-$res = \CIBlockElement::GetList(array(), array("IBLOCK_ID" => $characteristicsIblockId, "ID" => $equipItemsCharacteristicsIds, "ACTIVE" => "Y"), false,
+$res = \CIBlockElement::GetList(array(), array("IBLOCK_ID" => $equipmentCharacteristicsIblockId, "ID" => $equipItemsCharacteristicsIds, "ACTIVE" => "Y"), false,
     false, array("ID", "NAME", "PREVIEW_TEXT", "PREVIEW_PICTURE"));
 while ($arFields = $res->Fetch()) {
     $picEnd = CFile::ResizeImageGet($arFields["PREVIEW_PICTURE"], array("width" => 90, "height" => 110), BX_RESIZE_IMAGE_PROPORTIONAL_ALT, false);
