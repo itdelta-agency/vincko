@@ -162,30 +162,38 @@ jQuery(document).ready(function () {
   $('.searchForm__modal_closed').on('click', function () {
     $('.searchForm__modal').fadeOut(100);
   });
-  setInterval(function () {
-    var $bottomModalItem = $('.bottomChekItem');
-    var $topModalItem = $('.topChekItem');
-    $bottomModalItem.on('click', function () {
-      $(this).prependTo('.searchForm__modal_topChek').removeClass('bottomChekItem').addClass('topChekItem');
-      $('.searchForm__modal_topChek').addClass('active');
-    });
-    $topModalItem.on('click', function () {
-      $(this).prependTo('.searchForm__modal_bottomChek').removeClass('topChekItem').addClass('bottomChekItem');
-      console.log('true');
-    });
-    var $test = $('.searchForm__modal_topChek').find('.topChekItem');
+  var $bottomModalItem = $('.bottomChekItem');
+  var $topModalItem = $('.topChekItem');
+  $bottomModalItem.on('click', function () {
+    $(this).clone().prependTo('.searchForm__modal_topChek').removeClass('bottomChekItem').addClass('topChekItem');
+    $('.searchForm__modal_topChek').addClass('active');
+  });
+  $topModalItem.on('click', function () {
+    $(this).prependTo('.searchForm__modal_bottomChek').removeClass('topChekItem').addClass('bottomChekItem');
+    console.log('true');
+  });
+  var $test = $('.searchForm__modal_topChek').find('.topChekItem');
 
-    if ($test.length <= 0) {
-      $('.searchForm__modal_topChek').removeClass('active');
+  if ($test.length <= 0) {
+    $('.searchForm__modal_topChek').removeClass('active');
+  }
+
+  $(document).mouseup(function (e) {
+    var div = $(".searchForm__modal");
+
+    if (!div.is(e.target) && div.has(e.target).length === 0) {
+      $(div).fadeOut();
     }
-  }, 1);
-  /* $("#filterCity").on("keyup", function () {
-        let $value = $(this).val().toLowerCase();
-        $(".searchForm__modal_item").filter(function () {
-          $(this).toggle($(this).text().toLowerCase().IndexOf($value) > -1);
-      });
-    }); */
+  });
+  $(document).mouseup(function (e) {
+    var div = $(".itemRating-open");
+    var div2 = $(".rating-center__item-wrapper");
 
+    if (!div.is(e.target) && div.has(e.target).length === 0) {
+      $(div).removeClass('show');
+      $(div2).removeClass('item-rating-active');
+    }
+  });
   var swiper = new Swiper(".mySwiper", {
     observer: true,
     observeParents: true,

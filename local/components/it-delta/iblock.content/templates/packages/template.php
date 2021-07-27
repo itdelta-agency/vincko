@@ -16,10 +16,12 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();
 //print_r($arResult);
 //echo '</pre>';
 ?>
-
+<!--<pre>-->
+<!--    --><?//print_r($arResult)?>
+<!--</pre>-->
 <?php foreach ($arResult['SECTIONS'] as $section): ?>
     <? if (!empty($section['EQUIPMENT-KITS'])): ?>
-
+        <?php $checkEquip = 1?>
         <div class="ready-des2__show-item close">
             <div class="ready-des2__show-header">
                 <div class="ready-des2__show-header-left">
@@ -120,7 +122,7 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();
                                                 </div>
 
                                                 <div class="ready-pack__short-content ready-pack__short-content-h">
-                                                    ООО Собака Съела Товар
+                                                    <?=$item['CLASS_INFO']['COMPANY_NAME']?>
                                                 </div>
                                             </div>
                                             <div class="ready-pack__short-item">
@@ -227,9 +229,23 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();
             </div>
 
         </div>
-    <? endif; ?>
-<?php endforeach; ?>
-
+<?endif; endforeach; ?>
+<?php if ($checkEquip != 1):?>
+    <div class="ready-des2__show-item close">
+        <div class="ready-des2__show-header">
+            <div class="ready-des2__show-header-left">
+                <picture class="ready-des2__show-photo">
+                    <img src="https://st2.depositphotos.com/1526816/6758/v/600/depositphotos_67585141-stock-illustration-oops.jpg" alt="photo">
+                </picture>
+            </div>
+            <div class="ready-des2__show-header-right">
+                <div class="ready-des2__show-title">
+                    <div class="ready-des2__show-title-up">Данная компания не предоставляет услуги по поставленной задаче в выбранном городе</div>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php endif;?>
 <!--<div class="ready-des2__show-item close">-->
 <!--    --><?php //foreach ($section['ITEMS'] as $item): ?>
 <!--        <div class="packages-variants__item">-->

@@ -9,7 +9,7 @@ $Asset = Asset::getInstance();
 
 <head>
     <title><?= $APPLICATION->ShowTitle(); ?></title>
-    <?= $APPLICATION->ShowHead(); ?>
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Vinco - отзывы</title>
@@ -42,6 +42,7 @@ $Asset = Asset::getInstance();
     <link rel="apple-touch-icon" sizes="1024x1024"
           href="<?= SITE_TEMPLATE_PATH ?>/img/favicons/apple-touch-icon-1024x1024.png">
 
+
     <link href="<?= SITE_TEMPLATE_PATH ?>/libs/slick/slick.css" rel="stylesheet">
     <link href="<?= SITE_TEMPLATE_PATH ?>/libs/slick/slick-theme.css" rel="stylesheet">
     <link href="<?= SITE_TEMPLATE_PATH ?>/libs/select/styles/choices.css" rel="stylesheet">
@@ -51,24 +52,25 @@ $Asset = Asset::getInstance();
     <link href="<?= SITE_TEMPLATE_PATH ?>/libs/swiper/swiper.min.css" rel="stylesheet">
     <link rel="stylesheet" href="<?= SITE_TEMPLATE_PATH ?>/styles/main.css">
 
-    <script src="<?=SITE_TEMPLATE_PATH?>/libs/jquery.js"></script>
-    <script src="<?=SITE_TEMPLATE_PATH?>/libs/slick/slick.js"></script>
-    <script src="<?=SITE_TEMPLATE_PATH?>/libs/select/scripts/choices.js"></script>
-    <script src="<?=SITE_TEMPLATE_PATH?>/libs/funcy_box/jquery.fancybox.js"></script>
-    <script src="<?=SITE_TEMPLATE_PATH?>/libs/range/ion.rangeSlider.min.js"></script>
-    <script src="<?=SITE_TEMPLATE_PATH?>/libs/swiper/swiper.min.js"></script>
 
-    <? $Asset->addJs(SITE_TEMPLATE_PATH . "/js/custom.js"); ?>
+    <script src="<?= SITE_TEMPLATE_PATH ?>/libs/jquery.js"></script>
+    <script src="<?= SITE_TEMPLATE_PATH ?>/libs/slick/slick.js"></script>
+    <script src="<?= SITE_TEMPLATE_PATH ?>/libs/select/scripts/choices.js"></script>
+    <script src="<?= SITE_TEMPLATE_PATH ?>/libs/funcy_box/jquery.fancybox.js"></script>
+    <script src="<?= SITE_TEMPLATE_PATH ?>/libs/range/ion.rangeSlider.min.js"></script>
+    <script src="<?= SITE_TEMPLATE_PATH ?>/libs/swiper/swiper.min.js"></script>
+    
     <? $Asset->addCss(SITE_TEMPLATE_PATH . "/css/custom.css"); ?>
-<?
-$currentCity = CIBlockElement::GetList(
-    Array("SORT"=>"ASC"),
-    Array("ACTIVE"=>"Y","IBLOCK_ID"=>'20', 'ID'=>$_COOKIE['selected_city']),
-    false,
-    false,
-    array('NAME','ID')
-)->GetNext()['NAME'];
-?>
+    <?
+    $currentCity = CIBlockElement::GetList(
+        array("SORT" => "ASC"),
+        array("ACTIVE" => "Y", "IBLOCK_ID" => '20', 'ID' => $_COOKIE['selected_city']),
+        false,
+        false,
+        array('NAME', 'ID')
+    )->GetNext()['NAME'];
+    ?>
+    <?= $APPLICATION->ShowHead(); ?>
 </head>
 
 <body>
@@ -103,16 +105,39 @@ $currentCity = CIBlockElement::GetList(
                 </a>
             </div>
             <div class="header__top-info">
-                <? $APPLICATION->IncludeComponent(
-                    "bitrix:main.include",
-                    "",
-                    array(
-                        "AREA_FILE_SHOW" => "file",
-                        "AREA_FILE_SUFFIX" => "inc",
-                        "EDIT_TEMPLATE" => "",
-                        "PATH" => "/include/contact_header.php"
-                    )
-                ); ?>
+                <ul>
+                    <li class="tel"><a href="tel:+7861205-01-31">
+            <span class="icon">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M2.41333 5.19333C3.37333 7.08 4.92 8.62 6.80667 9.58667L8.27333 8.12C8.45333 7.94 8.72 7.88 8.95333 7.96C9.7 8.20667 10.5067 8.34 11.3333 8.34C11.7 8.34 12 8.64 12 9.00667V11.3333C12 11.7 11.7 12 11.3333 12C5.07333 12 0 6.92667 0 0.666667C0 0.3 0.3 0 0.666667 0H3C3.36667 0 3.66667 0.3 3.66667 0.666667C3.66667 1.5 3.8 2.3 4.04667 3.04667C4.12 3.28 4.06667 3.54 3.88 3.72667L2.41333 5.19333Z"
+                          fill="black"/>
+                </svg>
+            </span>
+                            <span class="text"><? $APPLICATION->IncludeComponent(
+                                    "bitrix:main.include",
+                                    "",
+                                    array(
+                                        "AREA_FILE_SHOW" => "file",
+                                        "AREA_FILE_SUFFIX" => "inc",
+                                        "EDIT_TEMPLATE" => "",
+                                        "PATH" => "/include/contact_header.php"
+                                    )
+                                ); ?></span>
+                        </a>
+                    </li>
+                    <li class="location" data-modal-target="#header__top-info">
+                        <a href="">
+            <span class="icon">
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9 1.5C6.0975 1.5 3.75 3.8475 3.75 6.75C3.75 10.6875 9 16.5 9 16.5C9 16.5 14.25 10.6875 14.25 6.75C14.25 3.8475 11.9025 1.5 9 1.5ZM9 8.625C8.50272 8.625 8.02581 8.42746 7.67418 8.07583C7.32254 7.7242 7.125 7.24728 7.125 6.75C7.125 6.25272 7.32254 5.77581 7.67418 5.42418C8.02581 5.07254 8.50272 4.875 9 4.875C9.49728 4.875 9.9742 5.07254 10.3258 5.42418C10.6775 5.77581 10.875 6.25272 10.875 6.75C10.875 7.24728 10.6775 7.7242 10.3258 8.07583C9.9742 8.42746 9.49728 8.625 9 8.625Z"
+                          fill="black"/>
+                </svg>
+            </span>
+                            <span class="text"><?= $currentCity ?></span>
+                        </a>
+                    </li>
+                </ul>
+
 
             </div>
         </div>
@@ -160,15 +185,15 @@ $currentCity = CIBlockElement::GetList(
             )
         ); ?>
 
-        <?$APPLICATION->IncludeComponent(
+        <? $APPLICATION->IncludeComponent(
             "vincko:main.auth.form",
             "vincko",
-            Array(
+            array(
                 "AUTH_FORGOT_PASSWORD_URL" => "/personal/recovery/",
                 "AUTH_REGISTER_URL" => "/personal/private/",
                 "AUTH_SUCCESS_URL" => "/personal/"
             )
-        );?>
+        ); ?>
 
 
     </div>
@@ -176,26 +201,26 @@ $currentCity = CIBlockElement::GetList(
         <div class="container">
             <div class="header__submenu-up">
 
-                    <?$APPLICATION->IncludeComponent(
-                        "bitrix:menu",
-                        "main_section",
-                        Array(
-                            "ALLOW_MULTI_SELECT" => "N",
-                            "CHILD_MENU_TYPE" => "left",
-                            "DELAY" => "N",
-                            "MAX_LEVEL" => "1",
-                            "MENU_CACHE_GET_VARS" => array(""),
-                            "MENU_CACHE_TIME" => "3600",
-                            "MENU_CACHE_TYPE" => "N",
-                            "MENU_CACHE_USE_GROUPS" => "Y",
-                            "ROOT_MENU_TYPE" => "main_section",
-                            "USE_EXT" => "N"
-                        )
-                    );?>
-                <?$APPLICATION->IncludeComponent(
+                <? $APPLICATION->IncludeComponent(
+                    "bitrix:menu",
+                    "main_section",
+                    array(
+                        "ALLOW_MULTI_SELECT" => "N",
+                        "CHILD_MENU_TYPE" => "left",
+                        "DELAY" => "N",
+                        "MAX_LEVEL" => "1",
+                        "MENU_CACHE_GET_VARS" => array(""),
+                        "MENU_CACHE_TIME" => "3600",
+                        "MENU_CACHE_TYPE" => "N",
+                        "MENU_CACHE_USE_GROUPS" => "Y",
+                        "ROOT_MENU_TYPE" => "main_section",
+                        "USE_EXT" => "N"
+                    )
+                ); ?>
+                <? $APPLICATION->IncludeComponent(
                     "bitrix:menu",
                     "for_flats",
-                    Array(
+                    array(
                         "ALLOW_MULTI_SELECT" => "N",
                         "CHILD_MENU_TYPE" => "left",
                         "DELAY" => "N",
@@ -207,11 +232,11 @@ $currentCity = CIBlockElement::GetList(
                         "ROOT_MENU_TYPE" => "for_flats",
                         "USE_EXT" => "N"
                     )
-                );?>
-                <?$APPLICATION->IncludeComponent(
+                ); ?>
+                <? $APPLICATION->IncludeComponent(
                     "bitrix:menu",
                     "advantages",
-                    Array(
+                    array(
                         "ALLOW_MULTI_SELECT" => "N",
                         "CHILD_MENU_TYPE" => "left",
                         "DELAY" => "N",
@@ -223,12 +248,12 @@ $currentCity = CIBlockElement::GetList(
                         "ROOT_MENU_TYPE" => "advantages",
                         "USE_EXT" => "N"
                     )
-                );?>
+                ); ?>
 
-                <?$APPLICATION->IncludeComponent(
+                <? $APPLICATION->IncludeComponent(
                     "bitrix:menu",
                     "for_house",
-                    Array(
+                    array(
                         "ALLOW_MULTI_SELECT" => "N",
                         "CHILD_MENU_TYPE" => "left",
                         "DELAY" => "N",
@@ -240,11 +265,11 @@ $currentCity = CIBlockElement::GetList(
                         "ROOT_MENU_TYPE" => "for_house",
                         "USE_EXT" => "N"
                     )
-                );?>
-                <?$APPLICATION->IncludeComponent(
+                ); ?>
+                <? $APPLICATION->IncludeComponent(
                     "bitrix:menu",
                     "for_property",
-                    Array(
+                    array(
                         "ALLOW_MULTI_SELECT" => "N",
                         "CHILD_MENU_TYPE" => "left",
                         "DELAY" => "N",
@@ -256,7 +281,7 @@ $currentCity = CIBlockElement::GetList(
                         "ROOT_MENU_TYPE" => "for_property",
                         "USE_EXT" => "N"
                     )
-                );?>
+                ); ?>
 
 
             </div>
@@ -268,8 +293,8 @@ $currentCity = CIBlockElement::GetList(
                               fill="#005DFF"/>
                     </svg>
 
-                    <a >
-                        <?=$currentCity?>
+                    <a>
+                        <?= $currentCity ?>
                     </a>
                 </div>
 
@@ -294,16 +319,16 @@ $currentCity = CIBlockElement::GetList(
             </div>
         </div>
     </div>
-    <?$APPLICATION->IncludeComponent(
+    <? $APPLICATION->IncludeComponent(
         "it-delta:iblock.content",
         "header_filter",
-        Array(
+        array(
             "ACTIVE_DATE" => "N",
             "ADD_CACHE_STRING" => "",
             "CACHE_TIME" => "0",
             "CACHE_TYPE" => "A",
             "IBLOCK_ID" => "20",
-            "ESTATE_IB_ID" =>"19",
+            "ESTATE_IB_ID" => "19",
             "IBLOCK_TYPE" => "references",
             "PAGE_ELEMENT_COUNT" => "10",
             "RAND_ELEMENTS" => "N",
@@ -312,19 +337,19 @@ $currentCity = CIBlockElement::GetList(
             "SORT_ORDER1" => "DESC",
             "SORT_ORDER2" => "ASC"
         )
-    );?>
+    ); ?>
 
 </header>
 <div class="header__wall"></div>
-<?$APPLICATION->IncludeComponent(
+<? $APPLICATION->IncludeComponent(
     "vincko:breadcrumb",
     "vincko",
-    Array(
+    array(
         "PATH" => "",
         "SITE_ID" => "v1",
         "START_FROM" => "0"
     )
-);?>
+); ?>
 
 
 

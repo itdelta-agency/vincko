@@ -66,8 +66,10 @@
     ); ?>
 </footer>
 
-
+<script src="<?=SITE_TEMPLATE_PATH?>/js/site.js"></script>
 <script src="<?=SITE_TEMPLATE_PATH?>/js/main.js"></script>
+<script src="<?=SITE_TEMPLATE_PATH?>/js/custom.js"></script>
+
 
 </body>
 
