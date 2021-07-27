@@ -144,4 +144,12 @@ $arUrlRewrite = array(
             'PATH' => '/equipment-kits/detail.php',
             'SORT' => 100,
         ),
+    19 =>
+        array(
+            'CONDITION' => '#^/packages/([0-9a-zA-Z_-]+)/.*#',
+            'RULE' => 'ELEMENT_CODE=$1',
+            'ID' => '',
+            'PATH' => '/packages/detail.php',
+            'SORT' => 100,
+        ),
 );
