@@ -1060,7 +1060,7 @@ jQuery(document).ready(function ($) {
     }]
   });
   $('.group__pack_slider-js').slick({
-    arrows: false,
+    arrows: true,
     dots: false,
     infinite: false,
     slidesToShow: 3,
