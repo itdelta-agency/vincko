@@ -1,6 +1,6 @@
 <? if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) die();
-$this->addExternalJS("/local/js/equipitem.js");
-
+$this->addExternalJS(SITE_TEMPLATE_PATH . "/js/equipitem.js");
+$this->addExternalJS(SITE_TEMPLATE_PATH . "/js/basket.js");
 if ($_GET['itd'] == 'y') {
     echo '<pre>';
     print_r($_COOKIE);
@@ -156,350 +156,352 @@ if (!empty($arParams['LABEL_PROP_POSITION'])) {
     }
 }
 ?>
-    <main class="complect main ">
-        <div class="container">
-            <div class="container up-top-slider-bg">
-                <div class="top-slider-bg ">
-                    <picture>
-                        <source srcset="<?= $arResult['PREVIEW_PICTURE_RESIZED']['src'] ?>">
-                        <img src="<?= $arResult['PREVIEW_PICTURE_RESIZED']['src'] ?>" alt="<?= $arResult['NAME'] ?>">
-                    </picture>
+<main class="complect main ">
+    <div class="container">
+        <div class="container up-top-slider-bg">
+            <div class="top-slider-bg ">
+                <picture>
+                    <source srcset="<?= $arResult['PREVIEW_PICTURE_RESIZED']['src'] ?>">
+                    <img src="<?= $arResult['PREVIEW_PICTURE_RESIZED']['src'] ?>" alt="<?= $arResult['NAME'] ?>">
+                </picture>
+            </div>
+        </div>
+        <section class="complect__slider">
+            <div class="complect__slider-wrapper">
+                <div class="solutions-card__circles">
+                    <? foreach ($arResult['PACKAGES_CLASSES'] as $key => $class): ?>
+                        <div onclick="location.href='/equipment-kits/<?= $arResult['FIRST_LIST_COMPLECTS_SLUGS'][$key]['SLUG'] ?>/'"
+                             class="solutions-card__circles_item <?= $arResult['CURRENT_PACKAGE_CLASS'] == $key ? 'show' : 'hide' ?>">
+                            <div class="solutions-card__circles_item-icon">
+                                <img src="<?= $class['ICON']['src'] ?>" alt="<?= $class['NAME'] ?>">
+                            </div>
+                            <div class="solutions-card__circles_item-text">
+                                <?= $class['NAME'] ?>
+                            </div>
+                        </div>
+                    <? endforeach; ?>
+                    <div class="solutions__subscribe">
+                        <a href="#subscribe">
+                            Подписка
+                            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9.00033 0.666626C4.40033 0.666626 0.666992 4.39996 0.666992 8.99996C0.666992 13.6 4.40033 17.3333 9.00033 17.3333C13.6003 17.3333 17.3337 13.6 17.3337 8.99996C17.3337 4.39996 13.6003 0.666626 9.00033 0.666626ZM9.75866 14.125C9.70042 14.1821 9.62671 14.2208 9.54665 14.2364C9.4666 14.252 9.38372 14.2438 9.30831 14.2127C9.23289 14.1817 9.16824 14.1292 9.12239 14.0617C9.07653 13.9943 9.05147 13.9148 9.05033 13.8333V13.1666H9.00033C7.93366 13.1666 6.86699 12.7583 6.05033 11.95C5.48452 11.3828 5.09403 10.6646 4.92556 9.88139C4.75709 9.09815 4.81776 8.28296 5.10033 7.53329C5.25866 7.10829 5.81699 6.99996 6.13366 7.32496C6.31699 7.50829 6.35866 7.77496 6.27533 8.00829C5.89199 9.04163 6.10866 10.2416 6.94199 11.075C7.52533 11.6583 8.29199 11.9333 9.05866 11.9166V11.1333C9.05866 10.7583 9.50866 10.575 9.76699 10.8416L11.117 12.1916C11.2837 12.3583 11.2837 12.6166 11.117 12.7833L9.75866 14.125ZM11.867 10.6833C11.7809 10.5946 11.7218 10.4833 11.6967 10.3623C11.6716 10.2412 11.6815 10.1155 11.7253 9.99996C12.1087 8.96663 11.892 7.76663 11.0587 6.93329C10.4753 6.34996 9.70866 6.06663 8.95033 6.08329V6.86663C8.95033 7.24163 8.50033 7.42496 8.24199 7.15829L6.88366 5.81663C6.71699 5.64996 6.71699 5.39163 6.88366 5.22496L8.23366 3.87496C8.2919 3.81786 8.36561 3.77911 8.44567 3.76351C8.52572 3.7479 8.6086 3.75614 8.68401 3.7872C8.75943 3.81825 8.82407 3.87076 8.86993 3.9382C8.91579 4.00565 8.94085 4.08507 8.94199 4.16663V4.84163C10.0253 4.82496 11.117 5.21663 11.942 6.04996C12.5078 6.61715 12.8983 7.33529 13.0668 8.11853C13.2352 8.90177 13.1746 9.71696 12.892 10.4666C12.7337 10.9 12.1837 11.0083 11.867 10.6833Z"
+                                      fill="#3CBA54"/>
+                            </svg>
+
+                        </a>
+                    </div>
+                </div>
+                <div class="complect__slider-wrapper-item active" data-tab="1">
+                    <div class="h3 complect__slider-wrapper-item-title">Комплект оборудования
+                        <h1><?= $arResult['NAME'] ?></h1></div>
+                    <? if (!empty($arResult["DISPLAY_PROPERTIES"]["CO_CHARACTERISTICS_REF"]["LINK_ELEMENT_VALUE"])): ?>
+                        <ul class="complect__slider-wrapper-item-about-top">
+                            <? $i = 0; ?>
+                            <? foreach ($arResult["DISPLAY_PROPERTIES"]["CO_CHARACTERISTICS_REF"]["LINK_ELEMENT_VALUE"] as $k => $val): ?>
+                                <? if ($i > 1) {
+                                    break;
+                                } ?>
+                                <li>
+                                    <picture>
+                                        <source srcset="<?= $val['PREVIEW_PICTURE']['SRC'] ?>">
+                                        <img src="<?= $val['PREVIEW_PICTURE']['SRC'] ?>" alt="fire">
+                                    </picture>
+                                    <p><?= $val['NAME'] ?></p>
+                                </li>
+                                <? $i++; ?>
+                            <? endforeach; ?>
+                        </ul>
+                        <ul class="complect__slider-wrapper-item-about-bottom">
+                            <? $i = 0; ?>
+                            <? foreach ($arResult["DISPLAY_PROPERTIES"]["CO_CHARACTERISTICS_REF"]["LINK_ELEMENT_VALUE"] as $k => $val): ?>
+                                <? if ($i < 2) {
+                                    $i++;
+                                    continue;
+                                } elseif ($i > 3) {
+                                    break;
+                                } ?>
+                                <li>
+                                    <picture>
+                                        <source srcset="<?= $val['PREVIEW_PICTURE']['SRC'] ?>">
+                                        <img src="<?= $val['PREVIEW_PICTURE']['SRC'] ?>" alt="fire">
+                                    </picture>
+                                    <p><?= $val['NAME'] ?></p>
+                                </li>
+                                <? $i++; ?>
+                            <? endforeach; ?>
+                        </ul>
+                    <? endif; ?>
+                    <div class="complect__slider-wrapper-item-price">
+                        <div class="solutions__bottom_right">
+                            <div class="solutions__bottom_column">
+                                <div class="solutions__bottom_column-title">
+                                    Всего
+                                </div>
+                                <? if ((int)($arResult["PRICES"]["BASE"]["PRINT_DISCOUNT_VALUE"]) != (int)($arResult["PRICES"]["BASE"]["PRINT_VALUE"])): ?>
+                                    <div class="solutions__bottom_column-oldprice">
+                                        <?= $arResult["PRICES"]["BASE"]["PRINT_VALUE"] ?>
+                                    </div>
+                                    <div class="solutions__bottom_column-newprice">
+                                        <?= $arResult["PRICES"]["BASE"]["PRINT_DISCOUNT_VALUE"] ?>
+                                    </div>
+                                <? else: ?>
+                                    <div class="solutions__bottom_column-newprice">
+                                        <?= $arResult["PRICES"]["BASE"]["PRINT_VALUE"] ?>
+                                    </div>
+                                <? endif; ?>
+
+                            </div>
+                            <div class="solutions__bottom_column">
+                                <div class="solutions__bottom_column-title">
+                                    Рассрочка без процентов
+                                </div>
+                                <div class="solutions__bottom_column-interest">
+                                    <p>все проценты<br>
+                                        за вас платит <span class="blue-vinco">vincko:</span>
+                                    </p>
+                                </div>
+                                <div class="solutions__bottom_column-monthprice">
+                                    <div class="solutions__bottom_column-select">
+                                        12 мес.
+                                    </div>
+                                    <p>по</p>
+                                    <div class="solutions__bottom_column-price">
+                                        1 000 ₽
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="complect__slider-wrapper-item" data-tab="2">
+                    <h3 class="complect__slider-wrapper-item-title">Комплект оборудования <br>
+                        <span>AJAX StarterKit Cam</span>
+                    </h3>
+                    <ul class="complect__slider-wrapper-item-about-top">
+                        <li>
+
+                            <picture>
+                                <source srcset="<?= SITE_TEMPLATE_PATH ?>/img/cartochka/fire.svg">
+                                <img src="<?= SITE_TEMPLATE_PATH ?>/img/cartochka/fire.svg" alt="fire">
+                            </picture>
+                            <p>Сообщает о появлении дыма и резких скачках температуры</p>
+                        </li>
+                        <li>
+                            <picture>
+                                <source srcset="<?= SITE_TEMPLATE_PATH ?>/img/cartochka/flooding-house.svg">
+                                <img src="<?= SITE_TEMPLATE_PATH ?>/img/cartochka/flooding-house.svg"
+                                     alt="flooding-house">
+                            </picture>
+                            <p>Определяет за миллисекунды первые признаки затопления</p>
+                        </li>
+                    </ul>
+                    <ul class="complect__slider-wrapper-item-about-bottom">
+                        <li>
+                            <picture>
+                                <source srcset="<?= SITE_TEMPLATE_PATH ?>/img/cartochka/gallery.svg">
+                                <img src="<?= SITE_TEMPLATE_PATH ?>/img/cartochka/gallery.svg" alt="gallery">
+                            </picture>
+                            <p>Присылает анимированную серию фотографий</p>
+                        </li>
+                        <li>
+                            <picture>
+                                <source srcset="<?= SITE_TEMPLATE_PATH ?>/img/cartochka/phone.svg">
+                                <img src="<?= SITE_TEMPLATE_PATH ?>/img/cartochka/phone.svg" alt="phone">
+                            </picture>
+                            <p>Передает тревоги на смартфон владельца и пульт охраны</p>
+                        </li>
+                    </ul>
+                    <div class="complect__slider-wrapper-item-price">
+                        <p>Всего <br> <span>12 000 ₽</span> <br> <span class="opas">или можно в рассрочку</span></p>
+                    </div>
+                </div>
+                <div class="complect__slider-wrapper-item" data-tab="3">
+                    <h3 class="complect__slider-wrapper-item-title">Комплект оборудования <br>
+                        <span>AJAX StarterKit Cam</span>
+                    </h3>
+                    <ul class="complect__slider-wrapper-item-about-top">
+                        <li>
+
+                            <picture>
+                                <source srcset="<?= SITE_TEMPLATE_PATH ?>/img/cartochka/fire.svg">
+                                <img src="<?= SITE_TEMPLATE_PATH ?>/img/cartochka/fire.svg" alt="fire">
+                            </picture>
+                            <p>Сообщает о появлении дыма и резких скачках температуры</p>
+                        </li>
+                        <li>
+                            <picture>
+                                <source srcset="<?= SITE_TEMPLATE_PATH ?>/img/cartochka/flooding-house.svg">
+                                <img src="<?= SITE_TEMPLATE_PATH ?>/img/cartochka/flooding-house.svg"
+                                     alt="flooding-house">
+                            </picture>
+                            <p>Определяет за миллисекунды первые признаки затопления</p>
+                        </li>
+                    </ul>
+                    <ul class="complect__slider-wrapper-item-about-bottom">
+                        <li>
+
+                            <picture>
+                                <source srcset="<?= SITE_TEMPLATE_PATH ?>/img/cartochka/gallery.svg">
+                                <img src="<?= SITE_TEMPLATE_PATH ?>/img/cartochka/gallery.svg" alt="gallery">
+                            </picture>
+                            <p>Присылает анимированную серию фотографий</p>
+                        </li>
+                        <li>
+                            <picture>
+                                <source srcset="<?= SITE_TEMPLATE_PATH ?>/img/cartochka/phone.svg">
+                                <img src="<?= SITE_TEMPLATE_PATH ?>/img/cartochka/phone.svg" alt="phone">
+                            </picture>
+                            <p>Передает тревоги на смартфон владельца и пульт охраны</p>
+                        </li>
+                    </ul>
+                    <div class="complect__slider-wrapper-item-price">
+                        <p>Всего <br> <span>12 000 ₽</span> <br> <span class="opas">или можно в рассрочку</span></p>
+                    </div>
                 </div>
             </div>
-            <section class="complect__slider">
-                <div class="complect__slider-wrapper">
-                    <div class="solutions-card__circles">
-                        <? foreach ($arResult['PACKAGES_CLASSES'] as $key => $class): ?>
-                            <div onclick="location.href='/equipment-kits/<?= $arResult['FIRST_LIST_COMPLECTS_SLUGS'][$key]['SLUG'] ?>/'"
-                                 class="solutions-card__circles_item <?= $arResult['CURRENT_PACKAGE_CLASS'] == $key ? 'show' : 'hide' ?>">
-                                <div class="solutions-card__circles_item-icon">
-                                    <img src="<?= $class['ICON']['src'] ?>" alt="<?= $class['NAME'] ?>">
-                                </div>
-                                <div class="solutions-card__circles_item-text">
-                                    <?= $class['NAME'] ?>
-                                </div>
-                            </div>
-                        <? endforeach; ?>
-                        <div class="solutions__subscribe">
-                            <a href="#subscribe">
-                                Подписка
-                                <svg width="18" height="18" viewBox="0 0 18 18" fill="none"
-                                     xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M9.00033 0.666626C4.40033 0.666626 0.666992 4.39996 0.666992 8.99996C0.666992 13.6 4.40033 17.3333 9.00033 17.3333C13.6003 17.3333 17.3337 13.6 17.3337 8.99996C17.3337 4.39996 13.6003 0.666626 9.00033 0.666626ZM9.75866 14.125C9.70042 14.1821 9.62671 14.2208 9.54665 14.2364C9.4666 14.252 9.38372 14.2438 9.30831 14.2127C9.23289 14.1817 9.16824 14.1292 9.12239 14.0617C9.07653 13.9943 9.05147 13.9148 9.05033 13.8333V13.1666H9.00033C7.93366 13.1666 6.86699 12.7583 6.05033 11.95C5.48452 11.3828 5.09403 10.6646 4.92556 9.88139C4.75709 9.09815 4.81776 8.28296 5.10033 7.53329C5.25866 7.10829 5.81699 6.99996 6.13366 7.32496C6.31699 7.50829 6.35866 7.77496 6.27533 8.00829C5.89199 9.04163 6.10866 10.2416 6.94199 11.075C7.52533 11.6583 8.29199 11.9333 9.05866 11.9166V11.1333C9.05866 10.7583 9.50866 10.575 9.76699 10.8416L11.117 12.1916C11.2837 12.3583 11.2837 12.6166 11.117 12.7833L9.75866 14.125ZM11.867 10.6833C11.7809 10.5946 11.7218 10.4833 11.6967 10.3623C11.6716 10.2412 11.6815 10.1155 11.7253 9.99996C12.1087 8.96663 11.892 7.76663 11.0587 6.93329C10.4753 6.34996 9.70866 6.06663 8.95033 6.08329V6.86663C8.95033 7.24163 8.50033 7.42496 8.24199 7.15829L6.88366 5.81663C6.71699 5.64996 6.71699 5.39163 6.88366 5.22496L8.23366 3.87496C8.2919 3.81786 8.36561 3.77911 8.44567 3.76351C8.52572 3.7479 8.6086 3.75614 8.68401 3.7872C8.75943 3.81825 8.82407 3.87076 8.86993 3.9382C8.91579 4.00565 8.94085 4.08507 8.94199 4.16663V4.84163C10.0253 4.82496 11.117 5.21663 11.942 6.04996C12.5078 6.61715 12.8983 7.33529 13.0668 8.11853C13.2352 8.90177 13.1746 9.71696 12.892 10.4666C12.7337 10.9 12.1837 11.0083 11.867 10.6833Z"
-                                          fill="#3CBA54"/>
-                                </svg>
+        </section>
+    </div>
+    <div id="gotovoe__reshenie-main" class="gotovoe__reshenie-main">
+        <div class="container">
+            <section class="gotovoe__reshenie">
+                <p class="gotovoe__reshenie-text">
+                    Комплект можно купить в рамках Готового решения <br>
+                    <span><?= $arResult['PACKAGE_GROUP']['NAME'] ?></span>
+                </p>
 
-                            </a>
-                        </div>
+                <a class="gotovoe__reshenie-button c-button"
+                   href="/packages/<?= $arResult['COMPLECT_PARENT_PACKAGE']['CODE'] ?>/">
+                    <span>К готовому решению</span>
+                </a>
+            </section>
+        </div>
+    </div>
+    <div class="complect__slider-datchiki-main">
+        <div class="container">
+            <section class="complect__slider-datchiki">
+                <div class="complect__slider-datchiki-color">
+                    <div class="complect__slider-datchiki-color-choice">
+
+                        <div class="color black active"></div>
+                        <div class="color white"></div>
                     </div>
-                    <div class="complect__slider-wrapper-item active" data-tab="1">
-                        <div class="h3 complect__slider-wrapper-item-title">Комплект оборудования
-                            <h1><?= $arResult['NAME'] ?></h1></div>
-                        <? if (!empty($arResult["DISPLAY_PROPERTIES"]["CO_CHARACTERISTICS_REF"]["LINK_ELEMENT_VALUE"])): ?>
-                            <ul class="complect__slider-wrapper-item-about-top">
-                                <? $i = 0; ?>
-                                <? foreach ($arResult["DISPLAY_PROPERTIES"]["CO_CHARACTERISTICS_REF"]["LINK_ELEMENT_VALUE"] as $k => $val): ?>
-                                    <? if ($i > 1) {
-                                        break;
-                                    } ?>
-                                    <li>
-                                        <picture>
-                                            <source srcset="<?= $val['PREVIEW_PICTURE']['SRC'] ?>">
-                                            <img src="<?= $val['PREVIEW_PICTURE']['SRC'] ?>" alt="fire">
-                                        </picture>
-                                        <p><?= $val['NAME'] ?></p>
-                                    </li>
-                                    <? $i++; ?>
-                                <? endforeach; ?>
-                            </ul>
-                            <ul class="complect__slider-wrapper-item-about-bottom">
-                                <? $i = 0; ?>
-                                <? foreach ($arResult["DISPLAY_PROPERTIES"]["CO_CHARACTERISTICS_REF"]["LINK_ELEMENT_VALUE"] as $k => $val): ?>
-                                    <? if ($i < 2) {
-                                        $i++;
-                                        continue;
-                                    } elseif ($i > 3) {
-                                        break;
-                                    } ?>
-                                    <li>
-                                        <picture>
-                                            <source srcset="<?= $val['PREVIEW_PICTURE']['SRC'] ?>">
-                                            <img src="<?= $val['PREVIEW_PICTURE']['SRC'] ?>" alt="fire">
-                                        </picture>
-                                        <p><?= $val['NAME'] ?></p>
-                                    </li>
-                                    <? $i++; ?>
-                                <? endforeach; ?>
-                            </ul>
-                        <? endif; ?>
-                        <div class="complect__slider-wrapper-item-price">
-                            <div class="solutions__bottom_right">
-                                <div class="solutions__bottom_column">
-                                    <div class="solutions__bottom_column-title">
-                                        Всего
-                                    </div>
-                                    <? if ((int)($arResult["PRICES"]["BASE"]["PRINT_DISCOUNT_VALUE"]) != (int)($arResult["PRICES"]["BASE"]["PRINT_VALUE"])): ?>
-                                        <div class="solutions__bottom_column-oldprice">
-                                            <?= $arResult["PRICES"]["BASE"]["PRINT_VALUE"] ?>
-                                        </div>
-                                        <div class="solutions__bottom_column-newprice">
-                                            <?= $arResult["PRICES"]["BASE"]["PRINT_DISCOUNT_VALUE"] ?>
-                                        </div>
-                                    <? else: ?>
-                                        <div class="solutions__bottom_column-newprice">
-                                            <?= $arResult["PRICES"]["BASE"]["PRINT_VALUE"] ?>
-                                        </div>
-                                    <? endif; ?>
-
+                    <p class="complect__slider-datchiki-color-text">
+                        Цветовое решение <br>
+                        <span>Черное</span>
+                    </p>
+                </div>
+                <div class="h5 complect__slider-datchiki-title">Датчики, входящие в комплект:</div>
+                <div class="slick-slider-datchiki">
+                    <? foreach ($arResult["EQUIP_COMPLECT"] as $key => $ec): ?>
+                        <div class="slide">
+                            <div class="slide-box">
+                                <div class="modal-btn" data-key="<?= $key ?>">
+                                    <picture>
+                                        <source srcset="<?= SITE_TEMPLATE_PATH ?>/img/cartochka/slide-modal.svg">
+                                        <img src="<?= SITE_TEMPLATE_PATH ?>/img/cartochka/slide-modal.svg"
+                                             alt="slide-modal">
+                                    </picture>
                                 </div>
-                                <div class="solutions__bottom_column">
-                                    <div class="solutions__bottom_column-title">
-                                        Рассрочка без процентов
-                                    </div>
-                                    <div class="solutions__bottom_column-interest">
-                                        <p>все проценты<br>
-                                            за вас платит <span class="blue-vinco">vincko:</span>
-                                        </p>
-                                    </div>
-                                    <div class="solutions__bottom_column-monthprice">
-                                        <div class="solutions__bottom_column-select">
-                                            12 мес.
-                                        </div>
-                                        <p>по</p>
-                                        <div class="solutions__bottom_column-price">
-                                            1 000 ₽
-                                        </div>
-                                    </div>
+                                <div class="slide-box-title"><?= $ec["NAME"] ?></div>
+                                <div class="slide-box-slider">
+                                    <div class="slide-box-slider-item">
 
+                                        <? // additional photos
+                                        if (count($ec["EQUIPMENT_PICTURES"]) > 0):?>
+                                            <? foreach ($ec['EQUIPMENT_PICTURES'] as $PHOTO): ?>
+                                                <div class="image">
+                                                    <picture>
+                                                        <source srcset="<?= $PHOTO["SRC"] ?>">
+                                                        <img src="<?= $PHOTO["SRC"] ?>" alt="<?= $ec["NAME"] ?>">
+                                                    </picture>
+                                                </div>
+                                            <? endforeach ?>
+                                        <? endif ?>
+
+                                    </div>
                                 </div>
+                                <ul class="slide-box-about">
+                                    <? foreach ($ec['CHARACTERISTICS'] as $ch): ?>
+                                        <li><?= $arResult["EQUIP_ITEM_CHARACTERISTICS"][$ch]['NAME'] ?></li>
+                                    <? endforeach ?>
+                                </ul>
                             </div>
                         </div>
-                    </div>
-                    <div class="complect__slider-wrapper-item" data-tab="2">
-                        <h3 class="complect__slider-wrapper-item-title">Комплект оборудования <br> <span>AJAX StarterKit Cam</span>
-                        </h3>
-                        <ul class="complect__slider-wrapper-item-about-top">
-                            <li>
+                    <? endforeach; ?>
+                </div>
+                <div class="slider__under">
 
-                                <picture>
-                                    <source srcset="<?= SITE_TEMPLATE_PATH ?>/img/cartochka/fire.svg">
-                                    <img src="<?= SITE_TEMPLATE_PATH ?>/img/cartochka/fire.svg" alt="fire">
-                                </picture>
-                                <p>Сообщает о появлении дыма и резких скачках температуры</p>
-                            </li>
-                            <li>
-                                <picture>
-                                    <source srcset="<?= SITE_TEMPLATE_PATH ?>/img/cartochka/flooding-house.svg">
-                                    <img src="<?= SITE_TEMPLATE_PATH ?>/img/cartochka/flooding-house.svg"
-                                         alt="flooding-house">
-                                </picture>
-                                <p>Определяет за миллисекунды первые признаки затопления</p>
-                            </li>
-                        </ul>
-                        <ul class="complect__slider-wrapper-item-about-bottom">
-                            <li>
-                                <picture>
-                                    <source srcset="<?= SITE_TEMPLATE_PATH ?>/img/cartochka/gallery.svg">
-                                    <img src="<?= SITE_TEMPLATE_PATH ?>/img/cartochka/gallery.svg" alt="gallery">
-                                </picture>
-                                <p>Присылает анимированную серию фотографий</p>
-                            </li>
-                            <li>
-                                <picture>
-                                    <source srcset="<?= SITE_TEMPLATE_PATH ?>/img/cartochka/phone.svg">
-                                    <img src="<?= SITE_TEMPLATE_PATH ?>/img/cartochka/phone.svg" alt="phone">
-                                </picture>
-                                <p>Передает тревоги на смартфон владельца и пульт охраны</p>
-                            </li>
-                        </ul>
-                        <div class="complect__slider-wrapper-item-price">
-                            <p>Всего <br> <span>12 000 ₽</span> <br> <span class="opas">или можно в рассрочку</span></p>
+                    <div class="slider__under-block-1 close">
+                        <div class="slider__under-block-1-first">
+                            <div class="title">Преимущества датчика</div>
+                            <div class="line"></div>
+                            <? foreach ($arResult["EQUIP_COMPLECT"] as $key => $ec): ?>
+                                <div class="info <?= $key == 0 ? 'vis' : '' ?>" data-slider-info="<?= $key ?>">
+                                    <?= $ec['SENSOR_ADVANTAGES']['TEXT'] ?>
+                                </div>
+                            <? endforeach; ?>
                         </div>
-                    </div>
-                    <div class="complect__slider-wrapper-item" data-tab="3">
-                        <h3 class="complect__slider-wrapper-item-title">Комплект оборудования <br> <span>AJAX StarterKit Cam</span>
-                        </h3>
-                        <ul class="complect__slider-wrapper-item-about-top">
-                            <li>
-
-                                <picture>
-                                    <source srcset="<?= SITE_TEMPLATE_PATH ?>/img/cartochka/fire.svg">
-                                    <img src="<?= SITE_TEMPLATE_PATH ?>/img/cartochka/fire.svg" alt="fire">
-                                </picture>
-                                <p>Сообщает о появлении дыма и резких скачках температуры</p>
-                            </li>
-                            <li>
-                                <picture>
-                                    <source srcset="<?= SITE_TEMPLATE_PATH ?>/img/cartochka/flooding-house.svg">
-                                    <img src="<?= SITE_TEMPLATE_PATH ?>/img/cartochka/flooding-house.svg"
-                                         alt="flooding-house">
-                                </picture>
-                                <p>Определяет за миллисекунды первые признаки затопления</p>
-                            </li>
-                        </ul>
-                        <ul class="complect__slider-wrapper-item-about-bottom">
-                            <li>
-
-                                <picture>
-                                    <source srcset="<?= SITE_TEMPLATE_PATH ?>/img/cartochka/gallery.svg">
-                                    <img src="<?= SITE_TEMPLATE_PATH ?>/img/cartochka/gallery.svg" alt="gallery">
-                                </picture>
-                                <p>Присылает анимированную серию фотографий</p>
-                            </li>
-                            <li>
-                                <picture>
-                                    <source srcset="<?= SITE_TEMPLATE_PATH ?>/img/cartochka/phone.svg">
-                                    <img src="<?= SITE_TEMPLATE_PATH ?>/img/cartochka/phone.svg" alt="phone">
-                                </picture>
-                                <p>Передает тревоги на смартфон владельца и пульт охраны</p>
-                            </li>
-                        </ul>
-                        <div class="complect__slider-wrapper-item-price">
-                            <p>Всего <br> <span>12 000 ₽</span> <br> <span class="opas">или можно в рассрочку</span></p>
+                        <div class="slider__under-block-1-second">
+                            <div class="title">Принцип работы</div>
+                            <div class="line"></div>
+                            <? foreach ($arResult["EQUIP_COMPLECT"] as $key => $ec): ?>
+                                <div class="info <?= $key == 0 ? 'vis' : '' ?>" data-slider-info="<?= $key ?>">
+                                    <?= $ec['PRINCIPLE_OF_OPERATION']['TEXT'] ?>
+                                </div>
+                            <? endforeach; ?>
                         </div>
+                        <div class="slider__under-block-1-three">
+                            <div class="title">Особенности</div>
+                            <div class="line"></div>
+                            <? foreach ($arResult["EQUIP_COMPLECT"] as $key => $ec): ?>
+                                <div class="info <?= $key == 0 ? 'vis' : '' ?>" data-slider-info="<?= $key ?>">
+                                    <?= $ec['FEATURES_OF_THE']['TEXT'] ?>
+                                </div>
+                            <? endforeach; ?>
+                        </div>
+                        <div class="close-btn">Развернуть</div>
+                    </div>
+                    <div class="slider__under-block-2 close" id="tech">
+                        <div class="title">Технические характеристики датчика</div>
+                        <ul>
+                            <li><span class="slider__under-2-title">Классификация</span>
+                                <? foreach ($arResult["EQUIP_COMPLECT"] as $key => $ec): ?>
+                                    <span class="info <?= $key == 0 ? 'vis' : '' ?>" data-slider-info="<?= $key ?>">
+                                        <?= $ec['CLASSIFICATION'] ?>
+                                    </span>
+                                <? endforeach; ?>
+                            </li>
+                            <li><span class="slider__under-2-title">Тип установки</span>
+                                <? foreach ($arResult["EQUIP_COMPLECT"] as $key => $ec): ?>
+                                    <span class="info <?= $key == 0 ? 'vis' : '' ?>" data-slider-info="<?= $key ?>">
+                                        <?= $ec['TYPE_OF_INSTALLATION'] ?>
+                                    </span>
+                                <? endforeach; ?>
+                            </li>
+                            <li><span class="slider__under-2-title">Подключаемых устройств</span>
+                                <? foreach ($arResult["EQUIP_COMPLECT"] as $key => $ec): ?>
+                                    <span class="info <?= $key == 0 ? 'vis' : '' ?>" data-slider-info="<?= $key ?>">
+                                        <?= $ec['CONNECTED_DEVICES'] ?>
+                                    </span>
+                                <? endforeach; ?>
+                            </li>
+                            <li><span class="slider__under-2-title">Видеонаблюдение</span>
+                                <? foreach ($arResult["EQUIP_COMPLECT"] as $key => $ec): ?>
+                                    <span class="info <?= $key == 0 ? 'vis' : '' ?>" data-slider-info="<?= $key ?>">
+                                        <?= $ec['CCTV'] ?>
+                                    </span>
+                                <? endforeach; ?>
+                            </li>
+                        </ul>
+                        <div class="close-btn-2">Развернуть</div>
                     </div>
                 </div>
             </section>
+
         </div>
-        <div id="gotovoe__reshenie-main" class="gotovoe__reshenie-main">
-            <div class="container">
-                <section class="gotovoe__reshenie">
-                    <p class="gotovoe__reshenie-text">
-                        Комплект можно купить в рамках Готового решения <br>
-                        <span><?= $arResult['PACKAGE_GROUP']['NAME'] ?></span>
-                    </p>
-
-                    <a class="gotovoe__reshenie-button c-button"
-                       href="/packages/<?= $arResult['PACKAGE_GROUP']['CODE'] ?>">
-                        <span>К готовому решению</span>
-                    </a>
-                </section>
-            </div>
-        </div>
-        <div class="complect__slider-datchiki-main">
-            <div class="container">
-                <section class="complect__slider-datchiki">
-                    <div class="complect__slider-datchiki-color">
-                        <div class="complect__slider-datchiki-color-choice">
-
-                            <div class="color black active"></div>
-                            <div class="color white"></div>
-                        </div>
-                        <p class="complect__slider-datchiki-color-text">
-                            Цветовое решение <br>
-                            <span>Черное</span>
-                        </p>
-                    </div>
-                    <div class="h5 complect__slider-datchiki-title">Датчики, входящие в комплект:</div>
-                    <div class="slick-slider-datchiki">
-                        <? foreach ($arResult["EQUIP_COMPLECT"] as $key => $ec): ?>
-                            <div class="slide">
-                                <div class="slide-box">
-                                    <div class="modal-btn" data-key="<?= $key ?>">
-                                        <picture>
-                                            <source srcset="<?= SITE_TEMPLATE_PATH ?>/img/cartochka/slide-modal.svg">
-                                            <img src="<?= SITE_TEMPLATE_PATH ?>/img/cartochka/slide-modal.svg"
-                                                 alt="slide-modal">
-                                        </picture>
-                                    </div>
-                                    <div class="slide-box-title"><?= $ec["NAME"] ?></div>
-                                    <div class="slide-box-slider">
-                                        <div class="slide-box-slider-item">
-
-                                            <? // additional photos
-                                            if (count($ec["EQUIPMENT_PICTURES"]) > 0):?>
-                                                <? foreach ($ec['EQUIPMENT_PICTURES'] as $PHOTO): ?>
-                                                    <div class="image">
-                                                        <picture>
-                                                            <source srcset="<?= $PHOTO["SRC"] ?>">
-                                                            <img src="<?= $PHOTO["SRC"] ?>" alt="<?= $ec["NAME"] ?>">
-                                                        </picture>
-                                                    </div>
-                                                <? endforeach ?>
-                                            <? endif ?>
-
-                                        </div>
-                                    </div>
-                                    <ul class="slide-box-about">
-                                        <? foreach ($ec['CHARACTERISTICS'] as $ch): ?>
-                                            <li><?= $arResult["EQUIP_ITEM_CHARACTERISTICS"][$ch]['NAME'] ?></li>
-                                        <? endforeach ?>
-                                    </ul>
-                                </div>
-                            </div>
-                        <? endforeach; ?>
-                    </div>
-                    <div class="slider__under">
-
-                        <div class="slider__under-block-1 close">
-                            <div class="slider__under-block-1-first">
-                                <div class="title">Преимущества датчика</div>
-                                <div class="line"></div>
-                                <? foreach ($arResult["EQUIP_COMPLECT"] as $key => $ec): ?>
-                                    <div class="info <?= $key == 0 ? 'vis' : '' ?>" data-slider-info="<?= $key ?>">
-                                        <?= $ec['SENSOR_ADVANTAGES']['TEXT'] ?>
-                                    </div>
-                                <? endforeach; ?>
-                            </div>
-                            <div class="slider__under-block-1-second">
-                                <div class="title">Принцип работы</div>
-                                <div class="line"></div>
-                                <? foreach ($arResult["EQUIP_COMPLECT"] as $key => $ec): ?>
-                                    <div class="info <?= $key == 0 ? 'vis' : '' ?>" data-slider-info="<?= $key ?>">
-                                        <?= $ec['PRINCIPLE_OF_OPERATION']['TEXT'] ?>
-                                    </div>
-                                <? endforeach; ?>
-                            </div>
-                            <div class="slider__under-block-1-three">
-                                <div class="title">Особенности</div>
-                                <div class="line"></div>
-                                <? foreach ($arResult["EQUIP_COMPLECT"] as $key => $ec): ?>
-                                    <div class="info <?= $key == 0 ? 'vis' : '' ?>" data-slider-info="<?= $key ?>">
-                                        <?= $ec['FEATURES_OF_THE']['TEXT'] ?>
-                                    </div>
-                                <? endforeach; ?>
-                            </div>
-                            <div class="close-btn">Развернуть</div>
-                        </div>
-                        <div class="slider__under-block-2 close" id="tech">
-                            <div class="title">Технические характеристики датчика</div>
-                            <ul>
-                                <li><span class="slider__under-2-title">Классификация</span>
-                                    <? foreach ($arResult["EQUIP_COMPLECT"] as $key => $ec): ?>
-                                        <span class="info <?= $key == 0 ? 'vis' : '' ?>" data-slider-info="<?= $key ?>">
-                                        <?= $ec['CLASSIFICATION'] ?>
-                                    </span>
-                                    <? endforeach; ?>
-                                </li>
-                                <li><span class="slider__under-2-title">Тип установки</span>
-                                    <? foreach ($arResult["EQUIP_COMPLECT"] as $key => $ec): ?>
-                                        <span class="info <?= $key == 0 ? 'vis' : '' ?>" data-slider-info="<?= $key ?>">
-                                        <?= $ec['TYPE_OF_INSTALLATION'] ?>
-                                    </span>
-                                    <? endforeach; ?>
-                                </li>
-                                <li><span class="slider__under-2-title">Подключаемых устройств</span>
-                                    <? foreach ($arResult["EQUIP_COMPLECT"] as $key => $ec): ?>
-                                        <span class="info <?= $key == 0 ? 'vis' : '' ?>" data-slider-info="<?= $key ?>">
-                                        <?= $ec['CONNECTED_DEVICES'] ?>
-                                    </span>
-                                    <? endforeach; ?>
-                                </li>
-                                <li><span class="slider__under-2-title">Видеонаблюдение</span>
-                                    <? foreach ($arResult["EQUIP_COMPLECT"] as $key => $ec): ?>
-                                        <span class="info <?= $key == 0 ? 'vis' : '' ?>" data-slider-info="<?= $key ?>">
-                                        <?= $ec['CCTV'] ?>
-                                    </span>
-                                    <? endforeach; ?>
-                                </li>
-                            </ul>
-                            <div class="close-btn-2">Развернуть</div>
-                        </div>
-                    </div>
-                </section>
-
-            </div>
-            <?if(!$arResult['HIDE_BASKET_BLOCK']):?>
+        <? if (!$arResult['HIDE_BASKET_BLOCK']): ?>
             <div id="solutions__center" class="solutions__center">
                 <div class="container rating-center">
                     <div class="solutions__center_title">
@@ -509,7 +511,7 @@ if (!empty($arParams['LABEL_PROP_POSITION'])) {
                     <div class="solutions__center_wrapper">
                         <!--no-subscribe no-circles  -->
                         <div class="solutions-card card-one no-subscribe ">
-                            <div class="solutions-card__icon-plus">
+                            <div id="eq-plus" class="solutions-card__icon-plus">
                                 <img src="<?= SITE_TEMPLATE_PATH ?>/img/solutions/solutions-card__icon-plus.svg"
                                      alt="img">
                                 <p>Оборудование</p>
@@ -519,7 +521,7 @@ if (!empty($arParams['LABEL_PROP_POSITION'])) {
                                     <div class="solutions-card__substrate_top-title">
                                         Оборудование
                                     </div>
-                                    <div class="closed-card">
+                                    <div id="closed-card-eq" class="closed-card">
 
                                         <div class="closed-card__icon">
                                             <img src="<?= SITE_TEMPLATE_PATH ?>/img/solutions/closed-icon.svg"
@@ -593,7 +595,7 @@ if (!empty($arParams['LABEL_PROP_POSITION'])) {
                                                                             <span onclick="location.href='/equipment-kits/<?= $item['CODE'] ?>/#solutions__center'"
                                                                                   class="policy-title">Комплект“<span
                                                                                         class="p"><?= $item['NAME'] ?></span>”</span>
-                                                                            <span class="opacity"><?= $item['FINAL_PRICE'] ?> руб</span>
+                                                                            <span class="opacity"><?= $item['PRICES_INFO']['RESULT_PRICE']['DISCOUNT_PRICE'] ?> руб</span>
                                                                         </div>
                                                                     </div>
                                                                 <? endforeach; ?>
@@ -706,7 +708,11 @@ if (!empty($arParams['LABEL_PROP_POSITION'])) {
                                 <p class="solutions-card__substrate_bottom-text">
                                     Всего <span>32 000 ₽</span>
                                 </p>
-                                <div class="solutions-card__substrate_bottom-price">
+                                <div id="eq-price"
+                                     data-eq-price="<?= $arResult["PRICES"]["BASE"]["VALUE"] ?>"
+                                     data-eq-disc-price="<?= $arResult["PRICES"]["BASE"]["DISCOUNT_VALUE"] ?>"
+                                     data-eq-id="<?= $arResult["ID"] ?>"
+                                     class="solutions-card__substrate_bottom-price">
                                     <?= $arResult["PRICES"]["BASE"]["PRINT_DISCOUNT_VALUE"] ?>
                                 </div>
                                 <div class="solutions-card__substrate_bottom-icon">
@@ -716,10 +722,10 @@ if (!empty($arParams['LABEL_PROP_POSITION'])) {
                         </div>
                     </div>
                     <?
-                    $currentSecureCompanyIndex = isset($_COOKIE['selected_company_id']) && array_key_exists($_COOKIE['selected_company_id'],$arResult['ALL_LIST_COMPANY_CITY']) ? $_COOKIE['selected_company_id'] : array_key_first($arResult['ALL_LIST_COMPANY_CITY']);
+                    $currentSecureCompanyIndex = isset($_COOKIE['selected_company_id']) && array_key_exists($_COOKIE['selected_company_id'], $arResult['ALL_LIST_COMPANY_CITY']) ? $_COOKIE['selected_company_id'] : array_key_first($arResult['ALL_LIST_COMPANY_CITY']);
                     ?>
                     <div class="solutions-card card-two">
-                        <div class="solutions-card__icon-plus">
+                        <div id="subscription-fee-plus" class="solutions-card__icon-plus">
                             <img src="<?= SITE_TEMPLATE_PATH ?>/img/solutions/solutions-card__icon-plus.svg"
                                  alt="img">
                             <p>Охранные услуги</p>
@@ -729,7 +735,7 @@ if (!empty($arParams['LABEL_PROP_POSITION'])) {
                                 <div class="solutions-card__substrate_top-title">
                                     Охранные услуги
                                 </div>
-                                <div class="closed-card">
+                                <div id="closed-card-company" class="closed-card">
 
                                     <div class="closed-card__icon">
                                         <img src="<?= SITE_TEMPLATE_PATH ?>/img/solutions/closed-icon.svg"
@@ -836,98 +842,106 @@ if (!empty($arParams['LABEL_PROP_POSITION'])) {
                                     <div class="solutions-card__contract_title">
                                         Заключаем договор
                                     </div>
+                                    <? $currentSubcriptionFeeIndex = isset($_COOKIE['selected_subscription_fee_id']) && array_key_exists($_COOKIE['selected_subscription_fee_id'], $arResult['ALL_LIST_COMPANY_CITY'][$currentSecureCompanyIndex]['SUBSCRIPTION_FEE']) ? $_COOKIE['selected_subscription_fee_id'] : array_key_last($arResult['ALL_LIST_COMPANY_CITY'][$currentSecureCompanyIndex]['SUBSCRIPTION_FEE']); ?>
                                     <div class="solutions-card__contract_wrapper">
                                         <? foreach ($arResult['ALL_LIST_COMPANY_CITY'][$currentSecureCompanyIndex]['SUBSCRIPTION_FEE'] as $key => $item): ?>
-                                            <div class="contract__item <?= intval($item['PROPERTY_APTP_MESYAC_VALUE'])===12 ? 'active' : 'no-active' ?>">
+                                            <div onclick="BX.setCookie('selected_subscription_fee_id',<?= $item['ID'] ?>, {expires: 86400, path: '/'});location.reload();"
+                                                 class="contract__item <?= isset($_COOKIE['selected_subscription_fee_id']) && array_key_exists($_COOKIE['selected_subscription_fee_id'], $arResult['ALL_LIST_COMPANY_CITY'][$currentSecureCompanyIndex]['SUBSCRIPTION_FEE']) ? (intval($item['ID']) === intval($_COOKIE['selected_subscription_fee_id']) ? 'active' : 'no-active') : (intval($item['PROPERTY_APTP_MESYAC_VALUE']) === 12 ? 'active' : 'no-active') ?>">
                                                 <div class="contract__item_top">
                                                     <div class="contract__item_title">
                                                         На <?= $item['PROPERTY_APTP_MESYAC_VALUE'] ?>
                                                         месяц<?= in_array($item['PROPERTY_APTP_MESYAC_VALUE'], array(3, 4)) ? 'а' : 'ев' ?>
                                                     </div>
                                                     <div class="contract__item_img">
-                                                        <?if(in_array($item['PROPERTY_APTP_MESYAC_VALUE'], array(3, 4))):?>
-                                                        <svg width="200" height="92" viewBox="0 0 200 92" fill="none"
-                                                             xmlns="http://www.w3.org/2000/svg">
-                                                            <g filter="url(#filter0_d)">
-                                                                <path d="M170 25C170 22.2386 167.761 20 165 20H30V52H170V25Z"
-                                                                      fill="#F4F4F4"/>
-                                                            </g>
-                                                            <path d="M170 52L153 52V74L170 52Z" fill="#DADADA"/>
-                                                            <defs>
-                                                                <filter id="filter0_d" x="0" y="0" width="200"
-                                                                        height="92" filterUnits="userSpaceOnUse"
-                                                                        color-interpolation-filters="sRGB">
-                                                                    <feFlood flood-opacity="0"
-                                                                             result="BackgroundImageFix"/>
-                                                                    <feColorMatrix in="SourceAlpha" type="matrix"
-                                                                                   values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/>
-                                                                    <feOffset dy="10"/>
-                                                                    <feGaussianBlur stdDeviation="15"/>
-                                                                    <feColorMatrix type="matrix"
-                                                                                   values="0 0 0 0 0 0 0 0 0 0.219333 0 0 0 0 0.783333 0 0 0 0.1 0"/>
-                                                                    <feBlend mode="normal" in2="BackgroundImageFix"
-                                                                             result="effect1_dropShadow"/>
-                                                                    <feBlend mode="normal" in="SourceGraphic"
-                                                                             in2="effect1_dropShadow" result="shape"/>
-                                                                </filter>
-                                                            </defs>
-                                                        </svg>
-                                                        <?elseif(in_array($item['PROPERTY_APTP_MESYAC_VALUE'], array(6, 8))):?>
-                                                        <svg width="200" height="92" viewBox="0 0 200 92" fill="none"
-                                                             xmlns="http://www.w3.org/2000/svg">
-                                                            <g filter="url(#filter0_d)">
-                                                                <path d="M170 25C170 22.2386 167.761 20 165 20H30V52H170V25Z"
-                                                                      fill="#DDE8FF"/>
-                                                            </g>
-                                                            <path d="M170 52L153 52V74L170 52Z" fill="#93B6FF"/>
-                                                            <defs>
-                                                                <filter id="filter0_d" x="0" y="0" width="200"
-                                                                        height="92" filterUnits="userSpaceOnUse"
-                                                                        color-interpolation-filters="sRGB">
-                                                                    <feFlood flood-opacity="0"
-                                                                             result="BackgroundImageFix"/>
-                                                                    <feColorMatrix in="SourceAlpha" type="matrix"
-                                                                                   values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/>
-                                                                    <feOffset dy="10"/>
-                                                                    <feGaussianBlur stdDeviation="15"/>
-                                                                    <feColorMatrix type="matrix"
-                                                                                   values="0 0 0 0 0 0 0 0 0 0.219333 0 0 0 0 0.783333 0 0 0 0.1 0"/>
-                                                                    <feBlend mode="normal" in2="BackgroundImageFix"
-                                                                             result="effect1_dropShadow"/>
-                                                                    <feBlend mode="normal" in="SourceGraphic"
-                                                                             in2="effect1_dropShadow" result="shape"/>
-                                                                </filter>
-                                                            </defs>
-                                                        </svg>
-                                                        <?else:?>
-                                                        <svg width="200" height="92" viewBox="0 0 200 92" fill="none"
-                                                             xmlns="http://www.w3.org/2000/svg">
-                                                            <g filter="url(#filter0_d)">
-                                                                <path d="M170 25C170 22.2386 167.761 20 165 20H30V52H170V25Z"
-                                                                      fill="#FEE74C"/>
-                                                            </g>
-                                                            <path d="M170 52L153 52V74L170 52Z" fill="#983333"/>
-                                                            <defs>
-                                                                <filter id="filter0_d" x="0" y="0" width="200"
-                                                                        height="92" filterUnits="userSpaceOnUse"
-                                                                        color-interpolation-filters="sRGB">
-                                                                    <feFlood flood-opacity="0"
-                                                                             result="BackgroundImageFix"/>
-                                                                    <feColorMatrix in="SourceAlpha" type="matrix"
-                                                                                   values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/>
-                                                                    <feOffset dy="10"/>
-                                                                    <feGaussianBlur stdDeviation="15"/>
-                                                                    <feColorMatrix type="matrix"
-                                                                                   values="0 0 0 0 0 0 0 0 0 0.219333 0 0 0 0 0.783333 0 0 0 0.1 0"/>
-                                                                    <feBlend mode="normal" in2="BackgroundImageFix"
-                                                                             result="effect1_dropShadow"/>
-                                                                    <feBlend mode="normal" in="SourceGraphic"
-                                                                             in2="effect1_dropShadow" result="shape"/>
-                                                                </filter>
-                                                            </defs>
-                                                        </svg>
-                                                        <?endif;?>
-                                                        <span><?= $item["FINAL_PRICE"] ?> ₽</span>
+                                                        <? if (in_array($item['PROPERTY_APTP_MESYAC_VALUE'], array(3, 4))): ?>
+                                                            <svg width="200" height="92" viewBox="0 0 200 92"
+                                                                 fill="none"
+                                                                 xmlns="http://www.w3.org/2000/svg">
+                                                                <g filter="url(#filter0_d)">
+                                                                    <path d="M170 25C170 22.2386 167.761 20 165 20H30V52H170V25Z"
+                                                                          fill="#F4F4F4"/>
+                                                                </g>
+                                                                <path d="M170 52L153 52V74L170 52Z" fill="#DADADA"/>
+                                                                <defs>
+                                                                    <filter id="filter0_d" x="0" y="0" width="200"
+                                                                            height="92" filterUnits="userSpaceOnUse"
+                                                                            color-interpolation-filters="sRGB">
+                                                                        <feFlood flood-opacity="0"
+                                                                                 result="BackgroundImageFix"/>
+                                                                        <feColorMatrix in="SourceAlpha" type="matrix"
+                                                                                       values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/>
+                                                                        <feOffset dy="10"/>
+                                                                        <feGaussianBlur stdDeviation="15"/>
+                                                                        <feColorMatrix type="matrix"
+                                                                                       values="0 0 0 0 0 0 0 0 0 0.219333 0 0 0 0 0.783333 0 0 0 0.1 0"/>
+                                                                        <feBlend mode="normal" in2="BackgroundImageFix"
+                                                                                 result="effect1_dropShadow"/>
+                                                                        <feBlend mode="normal" in="SourceGraphic"
+                                                                                 in2="effect1_dropShadow"
+                                                                                 result="shape"/>
+                                                                    </filter>
+                                                                </defs>
+                                                            </svg>
+                                                        <? elseif (in_array($item['PROPERTY_APTP_MESYAC_VALUE'], array(6, 8))): ?>
+                                                            <svg width="200" height="92" viewBox="0 0 200 92"
+                                                                 fill="none"
+                                                                 xmlns="http://www.w3.org/2000/svg">
+                                                                <g filter="url(#filter0_d)">
+                                                                    <path d="M170 25C170 22.2386 167.761 20 165 20H30V52H170V25Z"
+                                                                          fill="#DDE8FF"/>
+                                                                </g>
+                                                                <path d="M170 52L153 52V74L170 52Z" fill="#93B6FF"/>
+                                                                <defs>
+                                                                    <filter id="filter0_d" x="0" y="0" width="200"
+                                                                            height="92" filterUnits="userSpaceOnUse"
+                                                                            color-interpolation-filters="sRGB">
+                                                                        <feFlood flood-opacity="0"
+                                                                                 result="BackgroundImageFix"/>
+                                                                        <feColorMatrix in="SourceAlpha" type="matrix"
+                                                                                       values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/>
+                                                                        <feOffset dy="10"/>
+                                                                        <feGaussianBlur stdDeviation="15"/>
+                                                                        <feColorMatrix type="matrix"
+                                                                                       values="0 0 0 0 0 0 0 0 0 0.219333 0 0 0 0 0.783333 0 0 0 0.1 0"/>
+                                                                        <feBlend mode="normal" in2="BackgroundImageFix"
+                                                                                 result="effect1_dropShadow"/>
+                                                                        <feBlend mode="normal" in="SourceGraphic"
+                                                                                 in2="effect1_dropShadow"
+                                                                                 result="shape"/>
+                                                                    </filter>
+                                                                </defs>
+                                                            </svg>
+                                                        <? else: ?>
+                                                            <svg width="200" height="92" viewBox="0 0 200 92"
+                                                                 fill="none"
+                                                                 xmlns="http://www.w3.org/2000/svg">
+                                                                <g filter="url(#filter0_d)">
+                                                                    <path d="M170 25C170 22.2386 167.761 20 165 20H30V52H170V25Z"
+                                                                          fill="#FEE74C"/>
+                                                                </g>
+                                                                <path d="M170 52L153 52V74L170 52Z" fill="#983333"/>
+                                                                <defs>
+                                                                    <filter id="filter0_d" x="0" y="0" width="200"
+                                                                            height="92" filterUnits="userSpaceOnUse"
+                                                                            color-interpolation-filters="sRGB">
+                                                                        <feFlood flood-opacity="0"
+                                                                                 result="BackgroundImageFix"/>
+                                                                        <feColorMatrix in="SourceAlpha" type="matrix"
+                                                                                       values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/>
+                                                                        <feOffset dy="10"/>
+                                                                        <feGaussianBlur stdDeviation="15"/>
+                                                                        <feColorMatrix type="matrix"
+                                                                                       values="0 0 0 0 0 0 0 0 0 0.219333 0 0 0 0 0.783333 0 0 0 0.1 0"/>
+                                                                        <feBlend mode="normal" in2="BackgroundImageFix"
+                                                                                 result="effect1_dropShadow"/>
+                                                                        <feBlend mode="normal" in="SourceGraphic"
+                                                                                 in2="effect1_dropShadow"
+                                                                                 result="shape"/>
+                                                                    </filter>
+                                                                </defs>
+                                                            </svg>
+                                                        <? endif; ?>
+                                                        <span><?= $item['PRICES_INFO']['RESULT_PRICE']['DISCOUNT_PRICE'] ?> ₽</span>
                                                     </div>
                                                 </div>
                                                 <div class="contract__item_bottom">
@@ -948,8 +962,13 @@ if (!empty($arParams['LABEL_PROP_POSITION'])) {
                                 <p class="solutions-card__substrate_bottom-text">
                                     Всего <span>32 000 ₽</span>
                                 </p>
-                                <div class="solutions-card__substrate_bottom-price">
-                                    12 000 ₽
+                                <div id="subscription-fee-price"
+                                     data-subscription-fee-price="<?= $arResult['ALL_LIST_COMPANY_CITY'][$currentSecureCompanyIndex]['SUBSCRIPTION_FEE'][$currentSubcriptionFeeIndex]['PRICES_INFO']['RESULT_PRICE']['BASE_PRICE'] ?>"
+                                     data-subscription-fee-disc-price="<?= $arResult['ALL_LIST_COMPANY_CITY'][$currentSecureCompanyIndex]['SUBSCRIPTION_FEE'][$currentSubcriptionFeeIndex]['PRICES_INFO']['RESULT_PRICE']['DISCOUNT_PRICE'] ?>"
+                                     data-subscription-fee-id="<?= $currentSubcriptionFeeIndex ?>"
+                                     class="solutions-card__substrate_bottom-price">
+                                    <?= $arResult['ALL_LIST_COMPANY_CITY'][$currentSecureCompanyIndex]['SUBSCRIPTION_FEE'][$currentSubcriptionFeeIndex]['PRICES_INFO']['RESULT_PRICE']['DISCOUNT_PRICE'] ?>
+                                    ₽
                                 </div>
                                 <div class="solutions-card__substrate_bottom-icon">
                                     <img src="<?= SITE_TEMPLATE_PATH ?>/img/solutions/present-icon.svg" alt="img">
@@ -959,7 +978,7 @@ if (!empty($arParams['LABEL_PROP_POSITION'])) {
                     </div>
                     <? $currentPolicyIndex = isset($_COOKIE['selected_policy_id']) ? $_COOKIE['selected_policy_id'] : array_key_first($arResult['ALL_INSURANCE_LIST'][array_key_first($arResult['ALL_INSURANCE_LIST'])]['ITEMS']); ?>
                     <div class="solutions-card card-three">
-                        <div class="solutions-card__icon-plus">
+                        <div id="policy-plus" class="solutions-card__icon-plus">
                             <img src="<?= SITE_TEMPLATE_PATH ?>/img/solutions/solutions-card__icon-plus.svg"
                                  alt="img">
                             <p>Страхование</p>
@@ -969,7 +988,7 @@ if (!empty($arParams['LABEL_PROP_POSITION'])) {
                                 <div class="solutions-card__substrate_top-title">
                                     Страхование
                                 </div>
-                                <div class="closed-card">
+                                <div id="closed-card-ins" class="closed-card">
 
                                     <div class="closed-card__icon">
                                         <img src="<?= SITE_TEMPLATE_PATH ?>/img/solutions/closed-icon.svg"
@@ -981,17 +1000,18 @@ if (!empty($arParams['LABEL_PROP_POSITION'])) {
                                 <div class="solutions-card__top">
                                     <div class="solutions-card__top_img flex-centr">
                                         <? foreach ($arResult['ALL_INSURANCE_LIST'] as $key => $item): ?>
-                                                <img src="<?=$item['ITEMS'][$currentPolicyIndex]['PICTURE']['src']?>" alt="<?=$item['ITEMS'][$currentPolicyIndex]['NAME']?>">
+                                            <img src="<?= $item['ITEMS'][$currentPolicyIndex]['PICTURE']['src'] ?>"
+                                                 alt="<?= $item['ITEMS'][$currentPolicyIndex]['NAME'] ?>">
                                         <? endforeach; ?>
                                     </div>
                                     <div class="solutions-card__top_text">
                                         <div class="h4 solutions-card__top_text-title">
                                             <? foreach ($arResult['ALL_INSURANCE_LIST'] as $key => $item): ?>
                                                 <? foreach ($item['ITEMS'] as $index => $el): ?>
-                                                    <? if ($el['ID']==$currentPolicyIndex): ?>
+                                                    <? if ($el['ID'] == $currentPolicyIndex): ?>
                                                         <?= $item['NAME'] ?>
                                                     <? endif; ?>
-                                                <?endforeach;?>
+                                                <? endforeach; ?>
                                             <? endforeach; ?>
                                         </div>
                                         <div class="solutions-card__top-subtitle">
@@ -1027,7 +1047,7 @@ if (!empty($arParams['LABEL_PROP_POSITION'])) {
                                                                             class="font-weight"><?= $item['ITEMS'][$currentPolicyIndex]['NAME'] ?></span> ”
                                                                 </span>
                                                                             <span>
-                                                                    <?= $item['ITEMS'][$currentPolicyIndex]["FINAL_PRICE"]?> руб
+                                                                    <?= $item['ITEMS'][$currentPolicyIndex]['PRICES_INFO']['RESULT_PRICE']['DISCOUNT_PRICE'] ?> руб
                                                                 </span>
                                                                         </div>
                                                                         <div class="select__list-item_policy-bottom">
@@ -1038,7 +1058,7 @@ if (!empty($arParams['LABEL_PROP_POSITION'])) {
                                                                     Сумма выплаты
                                                                 </span>
                                                                             <span>
-                                                                    <?=$item['ITEMS'][$currentPolicyIndex]['PROPERTY_MAX_PRICE_VALUE']?> руб
+                                                                    <?= $item['ITEMS'][$currentPolicyIndex]['PROPERTY_MAX_PRICE_VALUE'] ?> руб
                                                                 </span>
                                                                         </div>
                                                                     </div>
@@ -1060,7 +1080,7 @@ if (!empty($arParams['LABEL_PROP_POSITION'])) {
                                                                     Полис “ <span class="p"><?= $el['NAME'] ?></span> ”
                                                                 </span>
                                                                             <span class="opacity">
-                                                                    <?= $el["FINAL_PRICE"]?> руб
+                                                                    <?= $el['PRICES_INFO']['RESULT_PRICE']['DISCOUNT_PRICE'] ?> руб
                                                                 </span>
                                                                         </div>
                                                                         <div class="select__list-item_policy-bottom">
@@ -1105,8 +1125,10 @@ if (!empty($arParams['LABEL_PROP_POSITION'])) {
                                             </div>
                                         </div>
                                     </div>
+                                    <? $currentPolicyMaxPrice = 0; ?>
                                     <? foreach ($arResult['ALL_INSURANCE_LIST'] as $key => $item): ?>
                                         <? if (!empty($item['ITEMS'][$currentPolicyIndex]['PROPERTY_MAX_PRICE_VALUE'])): ?>
+                                            <? $currentPolicyMaxPrice = $item['ITEMS'][$currentPolicyIndex]['PROPERTY_MAX_PRICE_VALUE']; ?>
                                             <div class="products__m-price"><?= $item['ITEMS'][$currentPolicyIndex]['PROPERTY_MAX_PRICE_VALUE'] ?>
                                                 руб
                                             </div>
@@ -1120,7 +1142,7 @@ if (!empty($arParams['LABEL_PROP_POSITION'])) {
                                     </div>
                                     <? foreach ($arResult['ALL_INSURANCE_LIST'] as $key => $item): ?>
                                         <? foreach ($item['ITEMS'][$currentPolicyIndex]['PROPERTY_PAYMENT_OPTIONS_VALUE'] as $index => $el): ?>
-                                            <div class="products__payment-item <?=!empty($item['ITEMS'][$currentPolicyIndex]['PROPERTY_PAYMENT_PRICE_VALUE'][$index]) ? 'products__payment-item_active' : '' ?>">
+                                            <div class="products__payment-item <?= !empty($item['ITEMS'][$currentPolicyIndex]['PROPERTY_PAYMENT_PRICE_VALUE'][$index]) ? 'products__payment-item_active' : '' ?>">
                                                 <div class="no-stroke products__payment-photo">
                                                     <?= $arResult['ALL_INSURANCE_PAYMENT_OPTIONS_LIST'][$el]['PROPERTY_ICON_VALUE']['TEXT'] ?>
                                                 </div>
@@ -1178,29 +1200,40 @@ if (!empty($arParams['LABEL_PROP_POSITION'])) {
 
                             </div>
                             <div class="solutions-card__substrate_bottom present">
-                                <p class="solutions-card__substrate_bottom-text">
-                                    Всего <span>32 000 ₽</span>
-                                </p>
-                                <div class="solutions-card__substrate_bottom-price">
-                                    В подарок
-                                </div>
+                                <? foreach ($arResult['ALL_INSURANCE_LIST'] as $key => $item): ?>
+                                    <? if (!empty($item['ITEMS'][$currentPolicyIndex]['PRICES_INFO']['RESULT_PRICE']['DISCOUNT_PRICE'])): ?>
+                                        <p class="solutions-card__substrate_bottom-text">
+                                            Всего
+                                            <span><?= $item['ITEMS'][$currentPolicyIndex]['PRICES_INFO']['RESULT_PRICE']['DISCOUNT_PRICE'] ?> ₽</span>
+                                        </p>
 
+                                        <div id="policy-price"
+                                             data-policy-price="<?= $item['ITEMS'][$currentPolicyIndex]['PRICES_INFO']['RESULT_PRICE']['BASE_PRICE'] ?>"
+                                             data-policy-disc-price="<?= $item['ITEMS'][$currentPolicyIndex]['PRICES_INFO']['RESULT_PRICE']['DISCOUNT_PRICE'] ?>"
+                                             data-policy-id="<?= $currentPolicyIndex ?>"
+                                             class="solutions-card__substrate_bottom-price">
+                                            В подарок
+                                        </div>
+                                    <? endif; ?>
+                                <? endforeach; ?>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <?else:?>
+        <? else: ?>
             <div id="solutions__center" class="solutions__center">
                 <div class="container rating-center">
                     <div class="solutions__center_title">
-                        В текущем городе данный комплект недоступен</div>
+                        В текущем городе данный комплект недоступен
+                    </div>
                 </div>
             </div>
-                    <?endif;?>
-        </div>
-<?if(!$arResult['HIDE_BASKET_BLOCK']):?>
-        <div class="solutions__bottom">
+        <? endif; ?>
+    </div>
+    <? if (!$arResult['HIDE_BASKET_BLOCK']): ?>
+        <div id="b-vincko-basket-component"></div>
+        <? /*<div class="solutions__bottom">
             <div class="container">
                 <div class="solutions__bottom_title">
                     Итого, в ваше Готовое решение входит:
@@ -1286,10 +1319,10 @@ if (!empty($arParams['LABEL_PROP_POSITION'])) {
                     </div>
                 </div>
             </div>
-        </div>
-<?endif;?>
-        </div>
-<?if(!$arResult['HIDE_BASKET_BLOCK']):?>
+        </div>*/ ?>
+    <? endif; ?>
+    </div>
+    <? if (!$arResult['HIDE_BASKET_BLOCK']): ?>
         <div class="container">
             <section class="subscribe" id="subscribe">
                 <div class="subscribe__head">
@@ -1397,70 +1430,199 @@ if (!empty($arParams['LABEL_PROP_POSITION'])) {
 
             </section>
         </div>
-<?endif;?>
-        <div class="container">
+    <? endif; ?>
+    <div class="container">
 
-            <section class="back__call complect">
-                <h2>Остались вопросы?</h2>
-                <p>Закажите обратный звонок от нашего менеджера</p>
-                <div class="back__call-form">
-                    <form>
-                        <input type="text" class="form__control" placeholder="Телефон">
-                        <input type="submit" class="form__control submit" value="отправить">
-                    </form>
+        <?$APPLICATION->IncludeComponent(
+            "bitrix:main.include",
+            "",
+            Array(
+                "AREA_FILE_SHOW" => "file",
+                "AREA_FILE_SUFFIX" => "inc",
+                "EDIT_TEMPLATE" => "",
+                "PATH" => "/include/callback.php"
+            )
+        );?>
+    </div>
+
+    <? foreach ($arResult["EQUIP_COMPLECT"] as $key => $ec): ?>
+        <div class="slide-modal" data-slider-info="<?= $key ?>">
+            <div class="modal-box">
+                <div class="title"><?= $ec["NAME"] ?></div>
+                <div class="close" data-close="<?= $key ?>">
+                    <picture>
+                        <source srcset="<?= SITE_TEMPLATE_PATH ?>/img/cartochka/close-modal.svg">
+                        <img src="<?= SITE_TEMPLATE_PATH ?>/img/cartochka/close-modal.svg" alt="close-modal">
+                    </picture>
                 </div>
-            </section>
-        </div>
-
-        <? foreach ($arResult["EQUIP_COMPLECT"] as $key => $ec): ?>
-            <div class="slide-modal" data-slider-info="<?= $key ?>">
-                <div class="modal-box">
-                    <div class="title"><?= $ec["NAME"] ?></div>
-                    <div class="close" data-close="<?= $key ?>">
-                        <picture>
-                            <source srcset="<?= SITE_TEMPLATE_PATH ?>/img/cartochka/close-modal.svg">
-                            <img src="<?= SITE_TEMPLATE_PATH ?>/img/cartochka/close-modal.svg" alt="close-modal">
-                        </picture>
-                    </div>
-                    <div class="modal-slider">
-                        <? // additional photos
-                        if (count($ec["EQUIPMENT_PICTURES"]) > 0):?>
-                            <? foreach ($ec['EQUIPMENT_PICTURES'] as $PHOTO): ?>
+                <div class="modal-slider">
+                    <? // additional photos
+                    if (count($ec["EQUIPMENT_PICTURES"]) > 0):?>
+                        <? foreach ($ec['EQUIPMENT_PICTURES'] as $PHOTO): ?>
+                            <picture>
+                                <source srcset="<?= $PHOTO["SRC"] ?>">
+                                <img src="<?= $PHOTO["SRC"] ?>" alt="modal-slide">
+                            </picture>
+                        <? endforeach ?>
+                    <? endif ?>
+                </div>
+                <div class="modal-bottom">
+                    <? if (count($ec["EQUIPMENT_PICTURES"]) > 0): ?>
+                        <? foreach ($ec['EQUIPMENT_PICTURES'] as $PHOTO): ?>
+                            <div class="item">
                                 <picture>
                                     <source srcset="<?= $PHOTO["SRC"] ?>">
-                                    <img src="<?= $PHOTO["SRC"] ?>" alt="modal-slide">
+                                    <img src="<?= $PHOTO["SRC"] ?>" alt="modal-bottom">
                                 </picture>
-                            <? endforeach ?>
-                        <? endif ?>
-                    </div>
-                    <div class="modal-bottom">
-                        <? if (count($ec["EQUIPMENT_PICTURES"]) > 0): ?>
-                            <? foreach ($ec['EQUIPMENT_PICTURES'] as $PHOTO): ?>
-                                <div class="item">
-                                    <picture>
-                                        <source srcset="<?= $PHOTO["SRC"] ?>">
-                                        <img src="<?= $PHOTO["SRC"] ?>" alt="modal-bottom">
-                                    </picture>
-                                </div>
-                            <? endforeach ?>
-                        <? endif; ?>
-                    </div>
+                            </div>
+                        <? endforeach ?>
+                    <? endif; ?>
                 </div>
             </div>
-
-        <? endforeach; ?>
-
-
-        <!--        <form id="b-order-form" action="/order/" method="POST">-->
-        <!--            <input type="hidden" value="873" name="order-id[complect_id]">-->
-        <!--            <input type="hidden" value="856" name="order-id[guard_id]">-->
-        <!--            <input type="hidden" value="781" name="order-id[insurance_id]">-->
-        <!--            <input type="submit" value="Купить">-->
-        <!--        </form>-->
-
-
-    </main>
+        </div>
+    <? endforeach; ?>
+</main>
 
 
 <?
 unset($actualItem, $itemIds, $jsParams);
+
+//расчет итоговой цены со скидкой для корзины
+$complectPrice = 0;
+$complectOldPrice = 0;
+
+$subscriptionFeePrice = 0;
+$subscriptionFeeOldPrice = 0;
+
+$policyPrice = 0;
+$policyOldPrice = 0;
+
+$complectOldPrice = $arResult["PRICES"]["BASE"]["VALUE"];
+$complectPrice = $arResult["PRICES"]["BASE"]["DISCOUNT_VALUE"];
+
+$subscriptionFeeOldPrice = $arResult['ALL_LIST_COMPANY_CITY'][$currentSecureCompanyIndex]['SUBSCRIPTION_FEE'][$currentSubcriptionFeeIndex]['PRICES_INFO']['RESULT_PRICE']['BASE_PRICE'];
+$subscriptionFeePrice = $arResult['ALL_LIST_COMPANY_CITY'][$currentSecureCompanyIndex]['SUBSCRIPTION_FEE'][$currentSubcriptionFeeIndex]['PRICES_INFO']['RESULT_PRICE']['DISCOUNT_PRICE'];
+
+foreach ($arResult['ALL_INSURANCE_LIST'] as $key => $item) {
+    if (!empty($item['ITEMS'][$currentPolicyIndex]['PRICES_INFO']['RESULT_PRICE']['BASE_PRICE'])) {
+        $policyOldPrice = $item['ITEMS'][$currentPolicyIndex]['PRICES_INFO']['RESULT_PRICE']['BASE_PRICE'];
+    }
+    if (!empty($item['ITEMS'][$currentPolicyIndex]['PRICES_INFO']['RESULT_PRICE']['DISCOUNT_PRICE'])) {
+        $policyPrice = $item['ITEMS'][$currentPolicyIndex]['PRICES_INFO']['RESULT_PRICE']['DISCOUNT_PRICE'];
+    }
+}
+
+$totalPrice = $complectPrice + $subscriptionFeePrice + $policyPrice;
+$totalDiscountPrice = $complectOldPrice + $subscriptionFeeOldPrice + $policyOldPrice;
+
+$currentSubscriptionFeeMonthsCount = $arResult['ALL_LIST_COMPANY_CITY'][$currentSecureCompanyIndex]['SUBSCRIPTION_FEE'][$currentSubcriptionFeeIndex]['PROPERTY_APTP_MESYAC_VALUE'];
+$data = [
+    'items' => [
+        0 => [
+            'id' => $arResult['ID'],
+            'title' => 'Комплект оборудования',
+            'name1' => $arResult['PACKAGES_CLASSES'][$arResult['CURRENT_PACKAGE_CLASS']]['NAME'],
+            'name2' => $arResult['NAME'],
+            'gift' => 'доставка/монтаж в подарок',
+            'active' => true,
+            'sum' => $complectPrice,
+            'old_sum' => $complectOldPrice
+        ],
+        1 => [
+            'id' => $currentSubcriptionFeeIndex,
+            'title' => 'Охранная компания',
+            'name1' => $currentSubscriptionFeeMonthsCount .
+                ' месяц' . (in_array($currentSubscriptionFeeMonthsCount, array(3, 4)) ? 'а' : 'ев') . ' обслуживания',
+            'name2' => $arResult['ALL_LIST_COMPANY_CITY'][$currentSecureCompanyIndex]['NAME'],
+            'gift' => '1 мес. в подарок',
+            'active' => true,
+            'sum' => $subscriptionFeePrice,
+            'old_sum' => $subscriptionFeeOldPrice
+        ],
+        2 => [
+            'id' => $currentPolicyIndex,
+            'title' => 'Страховая выплата',
+            'name1' => 'при наступлении страхового случая',
+            'name2' => $currentPolicyMaxPrice . ' руб',
+            'gift' => 'подарок',
+            'active' => true,
+            'sum' => $policyPrice,
+            'old_sum' => $policyOldPrice
+        ],
+    ],
+    'sum' => $totalPrice,
+    'old_sum' => $totalDiscountPrice
+];
+
+?>
+
+<script>
+    var data = JSON.parse('<?=json_encode($data)?>');
+
+    $(document).ready(function () {
+        var itd_basket = new basket({
+            target: document.getElementById('b-vincko-basket-component'),
+            props: data,
+        });
+
+        function updateBasket(data) {
+            data.sum = 0;
+            data.old_sum = 0;
+            data.items.forEach(e => {
+                if (e.active) {
+                    data.sum += e.sum;
+                    data.old_sum += e.old_sum;
+                }
+            })
+            itd_basket.$set(data);
+        }
+
+        function handleActive(id, val) {
+            data.items = data.items.map(e => {
+                if (e.id == id) {
+                    e.active = val;
+                }
+                return e;
+            });
+        }
+
+        //complect
+        $("#closed-card-eq").on('click', (e) => {
+            let id = $("#eq-price").data("eq-id");
+            handleActive(id, false);
+            updateBasket(data);
+        })
+
+        $("#eq-plus").on('click', (e) => {
+            let id = $("#eq-price").data("eq-id");
+            handleActive(id, true);
+            updateBasket(data);
+        })
+        //subscription fee
+        $("#closed-card-company").on('click', (e) => {
+            let id = $("#subscription-fee-price").data("subscription-fee-id");
+            handleActive(id, false);
+            updateBasket(data);
+        })
+
+        $("#subscription-fee-plus").on('click', (e) => {
+            let id = $("#subscription-fee-price").data("subscription-fee-id");
+            handleActive(id, true);
+            updateBasket(data);
+        })
+        //policy
+        $("#closed-card-ins").on('click', (e) => {
+            let id = $("#policy-price").data("policy-id");
+            handleActive(id, false);
+            updateBasket(data);
+        })
+
+        $("#policy-plus").on('click', (e) => {
+            let id = $("#policy-price").data("policy-id");
+            handleActive(id, true);
+            updateBasket(data);
+        })
+    });
+
+
+</script>

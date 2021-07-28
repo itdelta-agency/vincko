@@ -5,9 +5,9 @@ $APPLICATION->SetTitle("Выбор охранной организации");
 <?global $arChopFilter;
 $arChopFilter["PROPERTY_CITY_ID"] = intval($GLOBALS["GEOCITY"]["ID"]);
 $APPLICATION->IncludeComponent(
-	"vincko:news.list",
-	"choptozayavka",
-	Array(
+	"vincko:news.list", 
+	"choptozayavka", 
+	array(
 		"ACTIVE_DATE_FORMAT" => "",
 		"ADD_SECTIONS_CHAIN" => "N",
 		"AJAX_MODE" => "N",
@@ -19,7 +19,7 @@ $APPLICATION->IncludeComponent(
 		"CACHE_GROUPS" => "Y",
 		"CACHE_TIME" => "36000000",
 		"CACHE_TYPE" => "A",
-		"CHECK_DATES" => "Y",
+		"CHECK_DATES" => "N",
 		"DETAIL_URL" => "",
 		"DISPLAY_BOTTOM_PAGER" => "Y",
 		"DISPLAY_DATE" => "N",
@@ -27,7 +27,11 @@ $APPLICATION->IncludeComponent(
 		"DISPLAY_PICTURE" => "N",
 		"DISPLAY_PREVIEW_TEXT" => "Y",
 		"DISPLAY_TOP_PAGER" => "N",
-		"FIELD_CODE" => array("NAME","PREVIEW_TEXT",""),
+		"FIELD_CODE" => array(
+			0 => "NAME",
+			1 => "PREVIEW_TEXT",
+			2 => "",
+		),
 		"FILTER_NAME" => "arChopFilter",
 		"HIDE_LINK_WHEN_NO_DETAIL" => "N",
 		"IBLOCK_ID" => "9",
@@ -46,7 +50,21 @@ $APPLICATION->IncludeComponent(
 		"PARENT_SECTION" => "",
 		"PARENT_SECTION_CODE" => "",
 		"PREVIEW_TRUNCATE_LEN" => "",
-		"PROPERTY_CODE" => array("CH_SERVICES_PRICE","CH_MONTAZHPODKL","CH_SERVICES","CITY_ID","CHOP_ID","CH_RATING_SUM","CH_RATING_ZABOTA","CH_RATING_SPASENIE","CH_RATING_FINANCE","CH_RATING_DOGOVOR","CH_RATING_RECOMMEND","CH_RATING_SERVICES",""),
+		"PROPERTY_CODE" => array(
+			0 => "CH_SERVICES_PRICE",
+			1 => "CH_MONTAZHPODKL",
+			2 => "CH_RATING_SUM",
+			3 => "CH_RATING_ZABOTA",
+			4 => "CH_RATING_SPASENIE",
+			5 => "CH_RATING_FINANCE",
+			6 => "CH_RATING_DOGOVOR",
+			7 => "CH_RATING_RECOMMEND",
+			8 => "CH_RATING_SERVICES",
+			9 => "CH_SERVICES",
+			10 => "CITY_ID",
+			11 => "CHOP_ID",
+			12 => "",
+		),
 		"SET_BROWSER_TITLE" => "N",
 		"SET_LAST_MODIFIED" => "N",
 		"SET_META_DESCRIPTION" => "N",
@@ -58,7 +76,9 @@ $APPLICATION->IncludeComponent(
 		"SORT_BY2" => "TIMESTAMP_X",
 		"SORT_ORDER1" => "ASC",
 		"SORT_ORDER2" => "DESC",
-		"STRICT_SECTION_CHECK" => "N"
-	)
+		"STRICT_SECTION_CHECK" => "N",
+		"COMPONENT_TEMPLATE" => "choptozayavka"
+	),
+	false
 );?>
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>

@@ -234,6 +234,23 @@ input[type=checkbox] {
   z-index: -1;
   opacity: 0
 }
+.grey-border-button {
+  border-radius: 5px;
+  background: 0 0!important;
+  padding: 12px 0;
+  border: 1px solid #d1dbe3;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 15px;
+  text-align: center;
+  color: #000!important;
+  transition: .3s ease-in-out
+}
+.grey-border-button:hover {
+  color: #fff!important;
+  background: #0050db!important;
+  transition: .3s ease-in-out
+}
 html {
   line-height: 1.15;
   -webkit-text-size-adjust: 100%

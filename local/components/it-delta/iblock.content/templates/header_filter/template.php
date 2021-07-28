@@ -12,10 +12,6 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) die();
  * @license   GNU General Public License http://www.gnu.org/licenses/gpl-2.0.html
  */
 
-//echo '<pre>';
-//print_r($arResult);
-//echo '</pre>';
-
 ?>
 
 <div class="header__bottom">
@@ -34,7 +30,7 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) die();
                 <div class="header__bottom-form-select location">
                     <select name="selected_city" id="header__select_location-js">
                         <?php foreach ($arResult['ITEMS'] as $item):?>
-                            <option <?=$_COOKIE['selected_city']==$item['ID'] ? 'selected':'';?> value="<?=$item['ID']?>"><?=$item['NAME']?></option>
+                            <option <?=$_COOKIE['selected_city']==$item['ID'] ? 'selected':'';?> data-id="<?=$item['ID']?>" value="<?=$item['ID']?>"><?=$item['NAME']?></option>
                         <?endforeach;?>
                     </select>
                 </div>

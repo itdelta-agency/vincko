@@ -11,7 +11,7 @@ $packages = MainService::getPackagesIds($params);
 
 if(!empty($packages))
 {
-    $packagesGroups = $_POST['packagesArray'];
+    $packagesGroups = $_POST['PACKAGES_ARRAY'];
     $packagesFilter = array(
         "IBLOCK_SECTION_ID" => $packagesGroups, "ID"=>$packages
     );

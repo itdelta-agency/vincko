@@ -495,6 +495,31 @@
     display: none
   }
 }
+@media (max-width:1024px) {
+  .header__bottom-form-btn {
+    max-width: 26%
+  }
+}
+@media (max-width:768px) {
+  .header__bottom-form {
+    position: relative
+  }
+  .header__bottom-form-select {
+    margin-right: 8px
+  }
+  .header__bottom .text {
+    position: absolute;
+    top: -14px;
+    margin: 0;
+    font-size: 10px;
+    line-height: 12px;
+    color: #005dff
+  }
+  .header__bottom .text:nth-child(3) {
+    left: 277px;
+    text-transform: capitalize
+  }
+}
 @media (max-width:767px) {
   .header .container {
     padding-left: 16px;

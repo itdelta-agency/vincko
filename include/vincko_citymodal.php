@@ -12,16 +12,16 @@ $cityList = \Bitrix\Iblock\ElementTable::getList(array(
 	),
 	))->fetchAll();
 ?>
-<div id="city-modal" class="uk-flex-top" uk-modal>
-	<div class="modal__city-wrap uk-modal-dialog uk-margin-auto-vertical">
-		<div class="modal__city-close uk-modal-close"></div>
-		<div class="modal__city-title">Выберите город</div>
-		<div class="modal__city-list">
-			<?foreach ($cityList as $aCity):?>
-			<div class="modal__city-item">
-				<a data-id="<?=$aCity["ID"]?>" href="#" class="js-get-city modal__city-item-link<?if ($GLOBALS["GEOCITY"]["ID"] == $aCity["ID"]):?> selected<?endif;?>"><?=$aCity["NAME"]?></a>
-			</div>
-			<?endforeach;?>
-		</div>
-	</div>
+<div id="header__top-info" class="header__top-info--popup modal">
+    <div class="modal__content">
+        <div data-close-button class="close-button"></div>
+        <div class="modal__content-body">
+            <h4>Выберите город</h4>
+            <ul class="menu__list">
+                <?foreach ($cityList as $aCity):?>
+                <li class="<?=$GLOBALS["GEOCITY"]["ID"] == $aCity["ID"] ? 'active' : ''?>"><a data-id="<?=$aCity["ID"]?>" class="js-get-city" href="#"><?=$aCity["NAME"]?></a></li>
+                <?endforeach;?>
+            </ul>
+        </div>
+    </div>
 </div>

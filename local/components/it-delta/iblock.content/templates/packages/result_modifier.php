@@ -42,6 +42,19 @@ while ($class = $arrCharacteristicsFetch->GetNext()) {
     $arrCharacteristics[$class['ID']] = $class;
     $arrCharacteristics[$class['ID']]['PREVIEW_PICTURE'] = CFile::GetPath($class["PREVIEW_PICTURE"]);
 }
+//Подготовка компании в городе для сортировки готовых предложений
+$arrCompanyInfo = CIBlockElement::GetList(
+    false,
+    array("IBLOCK_ID" => "9", "ID" => $_POST['COMPANY']),
+    false,
+    false,
+    array("ID", "NAME", "PROPERTY_CH_PACKETS")
+)->fetch();
+
+//echo "<pre>";
+//print_r($arrCompanyInfo['PROPERTY_CH_PACKETS_VALUE']);
+//echo "</pre>";
+
 
 //получаем разделы и собираем в массив
 $dbResSect = CIBlockSection::GetList(
@@ -79,16 +92,30 @@ foreach ($arResult["ITEMS"] as $key => $arItem) {
 //собираем id комплектов из всех готовых решений
 $equipmentKitsIds = array();
 foreach ($arSections as $key => $arSection) {
+
+
     foreach ($arSection['ITEMS'] as $arItem) {
-        $item = $arItem['PROPERTIES']['P_COMPLECT']['VALUE'];
-        if (is_array($item))
-            $equipmentKitsIds = array_merge($equipmentKitsIds, $item);
-        foreach ($arItem['PROPERTIES']['P_COMPLECT']['VALUE'] as $complect):
-            $arConnect[$complect] = $arrClass[$arItem['PROPERTIES']['CO_CLASS_REF']['VALUE']];
-        endforeach;
+//        echo "<pre>";
+//        print_r($arItem['ID'].$arItem['NAME'].!in_array($arItem['ID'], $arrCompanyInfo['PROPERTY_CH_PACKETS_VALUE']));
+//        echo "</pre>";
+
+        if(in_array($arItem['ID'], $arrCompanyInfo['PROPERTY_CH_PACKETS_VALUE'])) {
+//            echo "<pre>";
+//            print_r($arItem['ID']);
+//            echo "</pre>";
+            $item = $arItem['PROPERTIES']['P_COMPLECT']['VALUE'];
+            if (is_array($item))
+                $equipmentKitsIds = array_merge($equipmentKitsIds, $item);
+            foreach ($arItem['PROPERTIES']['P_COMPLECT']['VALUE'] as $complect):
+                $arConnect[$complect] = $arrClass[$arItem['PROPERTIES']['CO_CLASS_REF']['VALUE']];
+                $arConnect[$complect]['COMPANY_NAME'] = $arrCompanyInfo['NAME'];
+            endforeach;
+        }
     }
 }
 
+empty($equipmentKitsIds) ? $equipmentKitsIds = -1: '';
+//print_r($equipmentKitsIds);
 $dbResEquipmentKits = CIBlockElement::GetList(
     array("SORT" => "ASC"),
     array("ACTIVE" => "Y", "IBLOCK_ID" => $arParams['EQUIPMENT-KITS_IBLOCK_ID'], "ID" => $equipmentKitsIds),
@@ -99,6 +126,7 @@ $dbResEquipmentKits = CIBlockElement::GetList(
 
 $arCharacteristic = array();
 while ($equipmentKitsRes = $dbResEquipmentKits->GetNext()) {
+
     $arDiscounts = CCatalogDiscount::GetDiscountByProduct(
         $equipmentKitsRes['ID'],
     );

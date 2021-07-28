@@ -49,7 +49,6 @@ $Asset = Asset::getInstance();
 	<link href="<?= SITE_TEMPLATE_PATH ?>/libs/range/component.css" rel="stylesheet">
 	<link href="<?= SITE_TEMPLATE_PATH ?>/libs/range/ion.rangeSlider.min.css" rel="stylesheet">
 	<link href="<?= SITE_TEMPLATE_PATH ?>/libs/swiper/swiper.min.css" rel="stylesheet">
-	<link rel="stylesheet" href="<?= SITE_TEMPLATE_PATH ?>/css/custom.css">
 	<link rel="stylesheet" href="<?= SITE_TEMPLATE_PATH ?>/styles/main.css">
 
 
@@ -66,6 +65,7 @@ $Asset = Asset::getInstance();
 	<script src="https://atuin.ru/demo/ui-slider/jquery-ui.min.js"></script>
 	<script src="https://atuin.ru/demo/ui-slider/jquery.ui.touch-punch.min.js"></script>
 	<script src="<?=SITE_TEMPLATE_PATH ?>/js/custom.js"></script>
+	<? $Asset->addCss(SITE_TEMPLATE_PATH . "/css/custom.css"); ?>
 
 	<?
 	$currentCity = CIBlockElement::GetList(
