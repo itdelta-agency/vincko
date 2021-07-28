@@ -11,7 +11,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 }
 body{
     background: #fff;
-    font-family: 'Gilroy';
+    font-family: 'Gilroy', sans-serif;
     line-height: 1;
 }
 ol, ul{
@@ -73,7 +73,7 @@ fieldset,img{
     z-index: 2;
 }
 h1, h2, h3, h4, h5, h6{
-    font-family: 'Gilroy';
+    font-family: 'Gilroy', sans-serif;
     font-weight: 700;
     font-style: normal;
 }
@@ -85,7 +85,7 @@ h1{
 }
 .h1-title{
     color: #020202;
-    font-family: 'Gilroy';
+    font-family: 'Gilroy', sans-serif;
     font-weight: 700;
     font-style: normal;
     font-size: 36px;
@@ -112,7 +112,7 @@ h4{
 .text p{
     font-size: 16px;
     line-height: 23px;
-    font-family: 'Gilroy';
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 400;
     color: #020202;
@@ -154,7 +154,7 @@ h4{
     margin: 0 40px 0 0;
 }
 .header__contacts-phone, .header__contacts-city{
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-size: 14px;
     padding: 3px 0 3px 23px;
@@ -199,7 +199,7 @@ h4{
     height: 15px;
 }
 .header__authlinks-item{
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
@@ -244,7 +244,7 @@ h4{
 }
 .search__menu-text{
     color: #fff;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: bold;
     font-size: 14px;
@@ -313,7 +313,7 @@ h4{
 }
 .submenu__list>li>a{
     color: #000;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
@@ -334,7 +334,7 @@ h4{
 }
 .search__form-text{
     color: #000;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
@@ -352,7 +352,7 @@ h4{
     border: 0;
     box-sizing: border-box;
     color: #000;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
@@ -413,7 +413,7 @@ h4{
     outline: 0;
     box-sizing: border-box;
     color: #fff;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: bold;
     font-size: 14px;
@@ -449,7 +449,7 @@ h4{
     justify-content: flex-start;
 }
 .breadcrumb-item>a, .breadcrumb-item>span, .breadcrumb-separator{
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
@@ -465,7 +465,7 @@ h4{
 }
 .sort__icon-arrow-bot{
     color: #005dff;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
@@ -521,7 +521,7 @@ z-index: 1;
 }
 .miniarticles__date{
     color: #020202;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: normal;
     font-size: 18px;
@@ -532,7 +532,7 @@ z-index: 1;
     background: #dde8ff;
     border-radius: 3px;
     color: #005dff;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 16px;
@@ -541,7 +541,7 @@ z-index: 1;
 }
 .miniarticles__title{
     color: #020202;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: bold;
     font-size: 18px;
@@ -570,7 +570,7 @@ z-index: 1;
     background: #ff5252;
     border-top-left-radius: 5px;
     color: #fff;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 600;
     font-size: 12px;
@@ -590,7 +590,7 @@ z-index: 1;
 }
 .packet__item-title, .packet__item-title>a{
     color: #020202;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: bold;
     font-size: 24px;
@@ -620,7 +620,7 @@ z-index: 1;
 }
 .packet__item-complect-item-title{
     color: #818181;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 16px;
@@ -631,7 +631,7 @@ z-index: 1;
 }
 .packet__item-complect-item-val{
     color: #020202;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 16px;
@@ -652,7 +652,7 @@ z-index: 1;
 }
 .packet__item-option-element-text{
     color: #020202;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 16px;
@@ -671,7 +671,7 @@ z-index: 1;
 }
 .packet__item-startprice{
     color: #000;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: bold;
     font-size: 32px;
@@ -684,7 +684,7 @@ z-index: 1;
     background: #f7fae9;
     color: #000;
     padding: 4px 5px;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 12px;
@@ -699,7 +699,7 @@ z-index: 1;
     border-radius: 5px;
     color: #fff;
     display: block;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: bold;
     font-size: 14px;
@@ -758,7 +758,7 @@ z-index: 1;
 }
 .good__item-title, .good__item-title>a{
     color: #020202;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: bold;
     font-size: 24px;
@@ -770,7 +770,7 @@ z-index: 1;
 }
 .good__item-description{
     color: #020202;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 16px;
@@ -794,7 +794,7 @@ z-index: 1;
 }
 .good__item-complect-item-title{
     color: #818181;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 15px;
@@ -805,7 +805,7 @@ z-index: 1;
 }
 .good__item-complect-item-val{
     color: #020202;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 15px;
@@ -821,7 +821,7 @@ z-index: 1;
 }
 .good__item-startprice{
     color: #000;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: bold;
     font-size: 32px;
@@ -832,7 +832,7 @@ z-index: 1;
 }
 .good__item-discount-item{
     color: #005dff;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 12px;
@@ -855,7 +855,7 @@ z-index: 1;
 }
 .good__item-gift-item{
     color: #005dff;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 12px;
@@ -881,7 +881,7 @@ z-index: 1;
     border-radius: 5px;
     color: #fff;
     display: block;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: bold;
     font-size: 14px;
@@ -927,7 +927,7 @@ z-index: 1;
 }
 .services__item-title{
     color: #020202;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: bold;
     font-size: 24px;
@@ -936,7 +936,7 @@ z-index: 1;
 .services__item-description{
     margin: 24px 0 0 0;
     color: #020202;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: normal;
     font-size: 16px;
@@ -944,7 +944,7 @@ z-index: 1;
 }
 .services__item-description p{
     color: #020202;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: normal;
     font-size: 16px;
@@ -955,7 +955,7 @@ z-index: 1;
     background: #005dff;
     border-radius: 5px;
     color: #fff;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: bold;
     font-size: 14px;
@@ -990,7 +990,7 @@ z-index: 1;
 }
 .review__item-fio{
     color: #020202;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: bold;
     font-size: 18px;
@@ -998,7 +998,7 @@ z-index: 1;
 }
 .review__item-verified{
     color: #005dff;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: bold;
     font-size: 16px;
@@ -1021,7 +1021,7 @@ z-index: 1;
 }
 .review__item-city{
     color: #90a2b0;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 16px;
@@ -1038,7 +1038,7 @@ z-index: 1;
     background: #005dff;
     border-radius: 3px;
     color: #fff;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: bold;
     font-size: 22px;
@@ -1047,7 +1047,7 @@ z-index: 1;
 }
 .review__item-rate-title{
     color: #020202;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 600;
     font-size: 16px;
@@ -1060,7 +1060,7 @@ z-index: 1;
 }
 .review__item-comment-title{
     color: #020202;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 600;
     font-size: 16px;
@@ -1069,7 +1069,7 @@ z-index: 1;
 }
 .review__item-comment-val{
     color: #020202;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: normal;
     font-size: 16px;
@@ -1083,7 +1083,7 @@ z-index: 1;
 }
 .review__item-date{
     color: #90a2b0;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
@@ -1091,7 +1091,7 @@ z-index: 1;
 }
 .review__item-useful-title{
     color: #90a2b0;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
@@ -1214,7 +1214,7 @@ z-index: 1;
     padding: 0 33px 0 0;
     height: 16px;
     color: #020202;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
@@ -1279,7 +1279,7 @@ z-index: 1;
 }
 .packet__promo-text h1{
     color: #000;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: bold;
     font-size: 36px;
@@ -1290,7 +1290,7 @@ z-index: 1;
 }
 .packet__promo-announce{
     color: #000;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 600;
     font-size: 16px;
@@ -1300,7 +1300,7 @@ z-index: 1;
 }
 .packet__config-title{
     color: #020202;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: bold;
     font-size: 24px;
@@ -1383,7 +1383,7 @@ z-index: 1;
 .packet__config-item-title-invisible{
     display: none;
     color: #020202;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 16px;
@@ -1400,7 +1400,7 @@ z-index: 1;
 }
 .packet__config-item-title{
     color: #020202;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 16px;
@@ -1408,7 +1408,7 @@ z-index: 1;
 }
 .packet__config-item-name{
     color: #020202;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 600;
     font-size: 18px;
@@ -1418,7 +1418,7 @@ z-index: 1;
 .packet__config-item-name-link{
     color: #005dff;
     display: block;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
@@ -1430,7 +1430,7 @@ z-index: 1;
 }
 .packet__config-item-mid-text{
     color: #020202;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
@@ -1442,7 +1442,7 @@ z-index: 1;
 }
 .packet__config-item-mid-text ul li{
     color: #020202;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
@@ -1455,7 +1455,7 @@ z-index: 1;
 }
 .packet__config-item-price{
     color: #000;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: bold;
     font-size: 20px;
@@ -1464,7 +1464,7 @@ z-index: 1;
 }
 .packet__config-item-price-old{
     color: #818181;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: bold;
     font-size: 16px;
@@ -1474,7 +1474,7 @@ z-index: 1;
 }
 .packet__config-item-discount{
     color: #005dff;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 12px;
@@ -1496,7 +1496,7 @@ z-index: 1;
 }
 .packet__config-item-gray{
     color: #818181;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
@@ -1505,7 +1505,7 @@ z-index: 1;
 }
 .packet__config-item-another-chop{
     color: #005dff;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 600;
     font-size: 14px;
@@ -1529,7 +1529,7 @@ z-index: 1;
 
 .packet__price-itogo{
     color: #020202;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 600;
     font-size: 16px;
@@ -1537,7 +1537,7 @@ z-index: 1;
 }
 .packet__price-value{
     color: #005dff;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: bold;
     font-size: 30px;
@@ -1546,7 +1546,7 @@ z-index: 1;
 }
 .packet__price-value-old{
     color: #818181;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: bold;
     font-size: 16px;
@@ -1556,7 +1556,7 @@ z-index: 1;
 }
 .packet__price-abonplata-info{
     color: #818181;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
@@ -1581,7 +1581,7 @@ z-index: 1;
 }
 .packet__price-auth{
     color: #020202;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 600;
     font-size: 16px;
@@ -1594,7 +1594,7 @@ z-index: 1;
     border-radius: 3px;
     color: #005dff;
     display: block;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: bold;
     font-size: 14px;
@@ -1614,7 +1614,7 @@ z-index: 1;
     border-radius: 3px;
     color: #fff;
     display: block;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: bold;
     font-size: 14px;
@@ -1627,7 +1627,7 @@ z-index: 1;
 }
 .packet__price-summary{
     color: #020202;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 600;
     font-size: 16px;
@@ -1646,7 +1646,7 @@ z-index: 1;
 }
 .packet__price-summary-title{
     color: #020202;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
@@ -1654,7 +1654,7 @@ z-index: 1;
 }
 .packet__price-summary-value{
     color: #005dff;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 600;
     font-size: 14px;
@@ -1665,7 +1665,7 @@ z-index: 1;
 .packet__label-radio{
     color: #020202;
     display: block;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 16px;
@@ -1674,7 +1674,7 @@ z-index: 1;
 }
 .packet__label-radio-gray{
     color: #818181;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 12px;
@@ -1742,7 +1742,7 @@ z-index: 1;
 }
 .vinkombo__title{
     color: #020202;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: bold;
     font-size: 50px;
@@ -1753,7 +1753,7 @@ z-index: 1;
 }
 .vinkombo__announce{
     color: #020202;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 600;
     font-size: 16px;
@@ -1781,7 +1781,7 @@ z-index: 1;
 }
 .complect-item__announce{
     color: #020202;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 600;
     font-size: 16px;
@@ -1790,7 +1790,7 @@ z-index: 1;
 }
 .complect-item__brand{
     color: #818181;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
@@ -1805,7 +1805,7 @@ z-index: 1;
     margin: 24px 0 0 0;
 }
 .complect-item__description p{
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: normal;
     font-size: 16px;
@@ -1823,7 +1823,7 @@ z-index: 1;
 }
 .complect-item__itogo{
     color: #020202;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 600;
     font-size: 16px;
@@ -1831,7 +1831,7 @@ z-index: 1;
 }
 .complect-item__data-price{
     color: #005dff;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: bold;
     font-size: 32px;
@@ -1843,7 +1843,7 @@ z-index: 1;
 }
 .complect-item__data-bonus-item{
     color: #818181;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
@@ -1869,7 +1869,7 @@ z-index: 1;
     border-radius: 5px;
     color: #fff;
     display: block;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: bold;
     font-size: 14px;
@@ -1946,7 +1946,7 @@ z-index: 1;
 }
 .complect-item__ob-item-title{
     color: #020202;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: bold;
     font-size: 24px;
@@ -1954,7 +1954,7 @@ z-index: 1;
 }
 .complect-item__ob-item-description{
     color: #020202;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: normal;
     font-size: 16px;
@@ -1971,7 +1971,7 @@ z-index: 1;
 }
 .callback__title{
     color: #020202;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: bold;
     font-size: 36px;
@@ -1980,7 +1980,7 @@ z-index: 1;
 }
 .callback__description{
     color: #020202;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 600;
     font-size: 18px;
@@ -2013,7 +2013,7 @@ z-index: 1;
     box-sizing: border-box;
     border-radius: 5px;
     color: #818181;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
@@ -2032,7 +2032,7 @@ input[type="submit"].form__submit{
     box-sizing: border-box;
     color: #fff;
     cursor: pointer;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: bold;
     font-size: 14px;
@@ -2079,7 +2079,7 @@ input[type="submit"].form__submit{
     border-radius: 5px;
     box-sizing: border-box;
     color: #000;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: bold;
     font-size: 14px;
@@ -2107,7 +2107,7 @@ input[type="submit"].form__submit{
 }
 .footer__menu-title>a{
     color: #020202;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: bold;
     font-size: 18px;
@@ -2123,7 +2123,7 @@ input[type="submit"].form__submit{
 }
 .footer__submenu-item>a{
     color: #020202;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 16px;
@@ -2148,7 +2148,7 @@ input[type="submit"].form__submit{
 }
 .copyrights__flex-left{
     color: #020202;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 16px;
@@ -2156,7 +2156,7 @@ input[type="submit"].form__submit{
 }
 .copyrights__flex-link>a{
     color: #020202;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 16px;
@@ -2191,7 +2191,7 @@ input[type="submit"].form__submit{
 }
 .filter__item-title{
     color: #020202;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 16px;
@@ -2204,7 +2204,7 @@ input[type="submit"].form__submit{
     border: 0;
     box-sizing: border-box;
     color: #000;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
@@ -2241,7 +2241,7 @@ input[type="submit"].form__submit{
     border: 0;
     color: #fff;
     cursor: pointer;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: bold;
     font-size: 14px;
@@ -2279,7 +2279,7 @@ input[type="submit"].form__submit{
 }
 .chop__tozayavka-count{
     color: #020202;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: bold;
     font-size: 18px;
@@ -2299,7 +2299,7 @@ input[type="submit"].form__submit{
     border-radius: 5px;
     color: #000;
     display: none;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: bold;
     font-size: 14px;
@@ -2320,7 +2320,7 @@ input[type="submit"].form__submit{
 }
 .chop__sort{
     color: #020202;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
@@ -2361,7 +2361,7 @@ input[type="submit"].form__submit{
     background: #dde8ff;
     border-radius: 3px;
     color: #005dff;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: bold;
     font-size: 20px;
@@ -2377,7 +2377,7 @@ input[type="submit"].form__submit{
 }
 .chop__rate-place{
     color: #818181;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 12px;
@@ -2387,7 +2387,7 @@ input[type="submit"].form__submit{
 }
 .chop__rate-how{
     color: #818181;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 12px;
@@ -2411,7 +2411,7 @@ input[type="submit"].form__submit{
 }
 .chop__title, .chop__title>a{
     color: #020202;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: bold;
     font-size: 18px;
@@ -2531,7 +2531,7 @@ input[type="submit"].form__submit{
     background: #f3f3f3;
     border-radius: 5px;
     color: #020202;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
@@ -2542,7 +2542,7 @@ input[type="submit"].form__submit{
 }
 .chop__announce{
     color: #020202;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: normal;
     font-size: 16px;
@@ -2551,7 +2551,7 @@ input[type="submit"].form__submit{
 }
 .chop__cities{
     color: #818181;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 16px;
@@ -2569,7 +2569,7 @@ input[type="submit"].form__submit{
 }
 .chop__detail-title{
     color: #818181;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 16px;
@@ -2578,7 +2578,7 @@ input[type="submit"].form__submit{
 }
 .chop__detail-value{
     color: #005dff;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: bold;
     font-size: 18px;
@@ -2592,7 +2592,7 @@ input[type="submit"].form__submit{
     border-radius: 5px;
     color: #005dff;
     display: block;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: bold;
     font-size: 14px;
@@ -2617,7 +2617,7 @@ input[type="submit"].form__submit{
     border-radius: 5px;
     color: #005dff;
     display: block;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: bold;
     font-size: 14px;
@@ -2650,7 +2650,7 @@ input[type="submit"].form__submit{
 }
 .chop-item__info h1{
     color: #020202;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: bold;
     font-size: 36px;
@@ -2660,7 +2660,7 @@ input[type="submit"].form__submit{
 }
 .chop-item__verify{
     color: #005dff;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 600;
     font-size: 14px;
@@ -2694,7 +2694,7 @@ input[type="submit"].form__submit{
 .chop-item__city>a, .chop-item__city span, .chop-item__city select{
     color: #005dff;
     font-size: 16px;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     line-height: 19px;
@@ -2714,7 +2714,7 @@ z-index: 1;
 }*/
 .chop-item__citieslist, .chop-item__reviewscount{
     color: #818181;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 16px;
@@ -2730,7 +2730,7 @@ z-index: 1;
 .chop-item__text{
     border-top: 1px solid #d1dbe3;
     color: #020202;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 16px;
@@ -2752,7 +2752,7 @@ z-index: 1;
 }
 .chop-item__data-item{
     color: #818181;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
@@ -2830,7 +2830,7 @@ z-index: 1;
 .chop-item__rate-place-name{
     box-sizing: border-box;
     color: #818181;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
@@ -2859,7 +2859,7 @@ z-index: 1;
     display: table-cell;
     text-align: center;
     vertical-align: middle;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: bold;
     font-size: 22px;
@@ -2899,7 +2899,7 @@ z-index: 1;
 }
 .chop-item__rate-row-name{
     color: #005dff;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 600;
     font-size: 14px;
@@ -2961,7 +2961,7 @@ z-index: 1;
 }
 .chop-item__rate-row-value{
     color: #005dff;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 600;
     font-size: 16px;
@@ -2973,7 +2973,7 @@ z-index: 1;
     box-sizing: border-box;
     color: #fff;
     display: block;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: bold;
     font-size: 14px;
@@ -2991,7 +2991,7 @@ z-index: 1;
     border-radius: 5px;
     color: #000;
     display: block;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: bold;
     font-size: 14px;
@@ -3013,7 +3013,7 @@ z-index: 1;
     display: block;
     border-bottom: 1px solid #d1dbe3;
     color: #020202;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: bold;
     font-size: 18px;
@@ -3066,7 +3066,7 @@ z-index: 1;
 }
 .vinkombo-promo__title{
     color: #020202;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: bold;
     font-size: 50px;
@@ -3078,7 +3078,7 @@ z-index: 1;
 }
 .vinkombo-promo__announce{
     color: #020202;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 600;
     font-size: 16px;
@@ -3088,7 +3088,7 @@ z-index: 1;
 }
 .text p{
     color: #020202;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: normal;
     font-size: 16px;
@@ -3107,7 +3107,7 @@ z-index: 1;
 }
 .page404__title{
     color: #020202;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: bold;
     font-size: 36px;
@@ -3116,7 +3116,7 @@ z-index: 1;
     text-align: center;
 }
 .page404__description{
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 16px;
@@ -3145,7 +3145,7 @@ z-index: 1;
 }
 .lk-menu>li>a{
     color: #020202;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 600;
     font-size: 16px;
@@ -3178,7 +3178,7 @@ z-index: 1;
     border-radius: 5px;
     color: #fff;
     cursor: pointer;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: bold;
     font-size: 14px;
@@ -3211,7 +3211,7 @@ z-index: 1;
 .lk-orders__tab>li>a{
     color: #020202;
     display: block;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
@@ -3251,7 +3251,7 @@ z-index: 1;
 }
 .lk-orders__number{
     color: #020202;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: bold;
     font-size: 16px;
@@ -3260,7 +3260,7 @@ z-index: 1;
 }
 .lk-orders__date{
     color: #a0a0a0;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
@@ -3272,7 +3272,7 @@ z-index: 1;
 }
 .lk-orders__packet{
     color: #020202;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 600;
     font-size: 16px;
@@ -3281,7 +3281,7 @@ z-index: 1;
 }
 .lk-orders__packet-item{
     color: #020202;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
@@ -3297,7 +3297,7 @@ z-index: 1;
 .lk-orders__button{
     border-radius: 5px;
     box-sizing: border-box;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: bold;
     font-size: 14px;
@@ -3325,7 +3325,7 @@ z-index: 1;
 }
 .lk-orders__price-value{
     color: #020202;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: bold;
     font-size: 16px;
@@ -3333,7 +3333,7 @@ z-index: 1;
     margin: 0 0 8px 0;
 }
 .lk-orders__status{
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
@@ -3364,7 +3364,7 @@ z-index: 1;
 }
 .lk-orders__back{
     color: #005dff;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
@@ -3391,7 +3391,7 @@ z-index: 1;
 }
 .lk-orders__item p{
     color: #020202;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
@@ -3415,7 +3415,7 @@ z-index: 1;
 }
 .lk-orders__item-userinfo-title{
     color: #a0a0a0;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
@@ -3426,7 +3426,7 @@ z-index: 1;
 }
 .lk-orders__item-userinfo-value{
     color: #020202;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
@@ -3435,7 +3435,7 @@ z-index: 1;
 }
 .lk-orders__item-price{
     color: #020202;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: bold;
     font-size: 14px;
@@ -3448,7 +3448,7 @@ z-index: 1;
 }
 .lk-orders__item-complect-details-title{
     color: #020202;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: bold;
     font-size: 16px;
@@ -3458,7 +3458,7 @@ z-index: 1;
     margin: 30px 0 0;
 }
 .lk-orders__item-complect-details-sostav-title{
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
@@ -3478,7 +3478,7 @@ z-index: 1;
 .lk-orders__item-complect-details-name{
     box-sizing: border-box;
     color: #020202;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
@@ -3491,7 +3491,7 @@ z-index: 1;
 }
 .lk-orders__item-complect-details-link>a{
     color: #005dff;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
@@ -3500,7 +3500,7 @@ z-index: 1;
 }
 .lk-orders__item-complect-details-price-start, .lk-orders__item-complect-details-discount{
     color: #a0a0a0;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
@@ -3508,7 +3508,7 @@ z-index: 1;
 }
 .lk-orders__item-complect-details-price-end{
     color: #020202;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
@@ -3534,7 +3534,7 @@ z-index: 1;
 }
 .lk-izayavka__data-title{
     color: #020202;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: bold;
     font-size: 14px;
@@ -3543,7 +3543,7 @@ z-index: 1;
 }
 .lk-izayavka__data-ohrana-type, .lk-izayavka__data-chop{
     color: #020202;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
@@ -3551,14 +3551,14 @@ z-index: 1;
     margin: 0 0 8px 0;
 }
 .lk-izayavka__data-date{
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
     line-height: 17px;
 }
 .lk-izayavka__status-text{
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
@@ -3602,7 +3602,7 @@ z-index: 1;
 }
 .login__form-title{
     color: #020202;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: bold;
     font-size: 24px;
@@ -3637,7 +3637,7 @@ z-index: 1;
 .login__form-repeat-sms a{
     color: #000;
     display: block;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: bold;
     font-size: 14px;
@@ -3648,7 +3648,7 @@ z-index: 1;
 .login__form-label{
     color: #020202;
     display: block;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
@@ -3661,7 +3661,7 @@ z-index: 1;
     border-radius: 5px;
     box-sizing: border-box;
     color: #818181;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
@@ -3680,7 +3680,7 @@ z-index: 1;
     color: #005dff;
     cursor: pointer;
     display: block;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: bold;
     font-size: 14px;
@@ -3698,7 +3698,7 @@ z-index: 1;
 }
 .login__form-forget-password{
     color: #005dff;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
@@ -3715,7 +3715,7 @@ z-index: 1;
 }
 .login__text-title{
     color: #020202;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: bold;
     font-size: 24px;
@@ -3738,7 +3738,7 @@ z-index: 1;
 }
 .login__text-info{
     color: #020202;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 18px;
@@ -3750,7 +3750,7 @@ z-index: 1;
     border-radius: 5px;
     color: #fff;
     display: block;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: bold;
     font-size: 14px;
@@ -3788,7 +3788,7 @@ z-index: 1;
     box-sizing: border-box;
     border-radius: 5px;
     color: #818181;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
@@ -3806,7 +3806,7 @@ z-index: 1;
     box-sizing: border-box;
     border-radius: 5px;
     color: #000;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
@@ -3830,7 +3830,7 @@ z-index: 1;
 }
 .reg__form-pp{
     color: #020202;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
@@ -3845,7 +3845,7 @@ z-index: 1;
     color: #fff;
     cursor: pointer;
     display: block;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: bold;
     font-size: 14px;
@@ -3865,7 +3865,7 @@ z-index: 1;
 }
 .reg__text-title{
     color: #020202;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: bold;
     font-size: 24px;
@@ -3878,7 +3878,7 @@ z-index: 1;
 }
 .reg__text-item{
     color: #020202;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 18px;
@@ -3903,7 +3903,7 @@ z-index: 1;
 }
 .alert-danger{
     color: #ff3232;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
@@ -3926,7 +3926,7 @@ z-index: 1;
 }
 .izayavka__title{
     color: #020202;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: bold;
     font-size: 24px;
@@ -3940,7 +3940,7 @@ z-index: 1;
 .izayavka__label{
     color: #020202;
     display: block;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 600;
     font-size: 16px;
@@ -3951,7 +3951,7 @@ z-index: 1;
     border: 1px solid #d1dbe3;
     box-sizing: border-box;
     color: #020202;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
@@ -3982,7 +3982,7 @@ z-index: 1;
     border-radius: 5px;
     box-sizing: border-box;
     color: #020202;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
@@ -4007,7 +4007,7 @@ a.izayavka__chop-link{
     border-radius: 5px;
     box-sizing: border-box;
     color: #fff;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: bold;
     font-size: 14px;
@@ -4026,7 +4026,7 @@ a.izayavka__chop-link:hover{
 }
 .izayavka__chop-count{
     color: #020202;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 600;
     font-size: 16px;
@@ -4061,7 +4061,7 @@ a.izayavka__chop-link:hover{
 }
 .izayavka__chop-item-name{
     color: #020202;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 16px;
@@ -4082,7 +4082,7 @@ a.izayavka__chop-link:hover{
     border-radius: 3px;
     box-sizing: border-box;
     color: #005dff;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: bold;
     font-size: 20px;
@@ -4096,7 +4096,7 @@ a.izayavka__chop-link:hover{
 }
 .izayavka__chop-item-rate-place{
     color: #818181;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 12px;
@@ -4105,7 +4105,7 @@ a.izayavka__chop-link:hover{
 }
 .izayavka__chop-item-delete{
     color: #ff5252;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
@@ -4154,7 +4154,7 @@ a.izayavka__submit-link:hover{
 .izayavka__ok{
     color: #020202;
     display: none;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: bold;
     font-size: 16px;
@@ -4169,7 +4169,7 @@ a.izayavka__submit-link:hover{
 }
 .modal__city-title{
     color: #000;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: bold;
     font-size: 22px;
@@ -4186,7 +4186,7 @@ a.izayavka__submit-link:hover{
 }
 .modal__city-item>a{
     color: #000;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
@@ -4241,7 +4241,7 @@ a.izayavka__submit-link:hover{
     border-radius: 100%;
     box-sizing: border-box;
     text-align: center;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 18px;
@@ -4257,7 +4257,7 @@ a.izayavka__submit-link:hover{
     right: 0;
     top: 0;
     text-align: center;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 18px;
@@ -4266,7 +4266,7 @@ a.izayavka__submit-link:hover{
     content: counter(heading);
 }
 .order__subtitle-name{
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: bold;
     font-size: 18px;
@@ -4282,7 +4282,7 @@ a.izayavka__submit-link:hover{
     box-sizing: border-box;
     color: #000;
     display: inline-block;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: bold;
     font-size: 14px;
@@ -4320,7 +4320,7 @@ a.izayavka__submit-link:hover{
 }
 .order1__sostav-row-name{
     color: #020202;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 600;
     font-size: 18px;
@@ -4328,7 +4328,7 @@ a.izayavka__submit-link:hover{
 }
 .order1__sostav-row-price{
     color: #020202;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 600;
     font-size: 18px;
@@ -4345,7 +4345,7 @@ a.izayavka__submit-link:hover{
     background: #005dff;
     border-radius: 5px;
     color: #fff;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: bold;
     font-size: 14px;
@@ -4360,7 +4360,7 @@ a.izayavka__submit-link:hover{
 }
 .order2__dostavka-title{
     color: #020202;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 600;
     font-size: 16px;
@@ -4371,7 +4371,7 @@ a.izayavka__submit-link:hover{
     color: #020202;
     display: inline-flex;
     align-items: center;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 600;
     font-size: 16px;
@@ -4407,7 +4407,7 @@ a.izayavka__submit-link:hover{
 }
 .order2__dostavka-description{
     color: #818181;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 16px;
@@ -4439,7 +4439,7 @@ a.izayavka__submit-link:hover{
 }
 .order3__transport-description{
     color: #818181;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 16px;
@@ -4448,7 +4448,7 @@ a.izayavka__submit-link:hover{
 }
 .order3__transport-datetime{
     color: #020202;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 600;
     font-size: 16px;
@@ -4463,7 +4463,7 @@ a.izayavka__submit-link:hover{
     border: 1px solid #d1dbe3;
     border-radius: 5px;
     color: #000;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: bold;
     font-size: 14px;
@@ -4488,7 +4488,7 @@ a.izayavka__submit-link:hover{
 }
 .order3__transport-price{
     color: #005dff;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 600;
     font-size: 18px;
@@ -4507,7 +4507,7 @@ a.izayavka__submit-link:hover{
     border: 1px solid #d1dbe3;
     border-radius: 5px;
     box-sizing: border-box;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
@@ -4524,7 +4524,7 @@ a.izayavka__submit-link:hover{
     border: 1px solid #d1dbe3;
     border-radius: 5px;
     box-sizing: border-box;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
@@ -4551,7 +4551,7 @@ a.izayavka__submit-link:hover{
 }
 .order__summary-row-name, .order__summary-row-value{
     color: #020202;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 600;
     font-size: 18px;
@@ -4580,7 +4580,7 @@ a.izayavka__submit-link:hover{
 }
 .r__select-title{
     color: #020202;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: bold;
     font-size: 24px;
@@ -4588,7 +4588,7 @@ a.izayavka__submit-link:hover{
 }
 .r__select-city{
     color: #020202;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 600;
     font-size: 16px;
@@ -4600,7 +4600,7 @@ a.izayavka__submit-link:hover{
 }
 .r__select-link>a{
     color: #005dff;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 600;
     font-size: 14px;
@@ -4623,7 +4623,7 @@ a.izayavka__submit-link:hover{
 }
 .r__rate-title{
     color: #000;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: bold;
     font-size: 24px;
@@ -4634,7 +4634,7 @@ a.izayavka__submit-link:hover{
 .r__rate-preview{
     box-sizing: border-box;
     color: #020202;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 600;
     font-size: 14px;
@@ -4667,7 +4667,7 @@ a.izayavka__submit-link:hover{
     color: #020202;
     padding: 16px 16px 16px 46px;
     margin: 16px 0 0 0;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
@@ -4693,7 +4693,7 @@ a.izayavka__submit-link:hover{
 }
 .r__form-label{
     color: #020202;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 600;
     font-size: 16px;
@@ -4719,7 +4719,7 @@ a.izayavka__submit-link:hover{
     border-radius: 100%;
     color: #005dff;
     cursor: pointer;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: bold;
     font-size: 14px;
@@ -4768,7 +4768,7 @@ a.izayavka__submit-link:hover{
     color: #020202;
     padding: 0 0 0 34px;
     margin: 24px 0 0 0;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
@@ -4793,7 +4793,7 @@ a.izayavka__submit-link:hover{
     box-sizing: border-box;
     color: #818181;
     font-size: 14px;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     line-height: 16px;
     margin: 32px  0 0 0;
@@ -4809,7 +4809,7 @@ a.izayavka__submit-link:hover{
     color: #fff;
     cursor: pointer;
     font-size: 14px;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: bold;
     line-height: 48px;
@@ -4838,7 +4838,7 @@ a.izayavka__submit-link:hover{
 }
 .lk-bonus__item-number, .lk-bonus__item-date{
     color: #a0a0a0;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
@@ -4850,7 +4850,7 @@ a.izayavka__submit-link:hover{
 }
 .lk-bonus__item-comment{
     color: #020202;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
@@ -4858,7 +4858,7 @@ a.izayavka__submit-link:hover{
     text-align: left;
 }
 .lk-bonus__item-count{
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
@@ -4873,7 +4873,7 @@ a.izayavka__submit-link:hover{
 }
 .lk-bonus__ballance{
     color: #a0a0a0;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
@@ -4947,7 +4947,7 @@ a.izayavka__submit-link:hover{
 }
 .bx-soa-item-td-text{
     color: #020202;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 600;
     font-size: 18px;
@@ -4961,7 +4961,7 @@ a.izayavka__submit-link:hover{
 .bx-soa-cart-total-line{
     border: 0;
     color: #020202;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 600;
     font-size: 18px;
@@ -4990,7 +4990,7 @@ a.izayavka__submit-link:hover{
 .bx-soa-pp-company-smalltitle{
     display: inline-block;
     color: #020202;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 600;
     font-size: 16px;
@@ -5012,7 +5012,7 @@ a.izayavka__submit-link:hover{
 }
 .bx-soa-pp-price{
     color: #005dff;
-    font-family: Gilroy;
+    font-family: 'Gilroy', sans-serif;
     font-style: normal;
     font-weight: 600;
     font-size: 18px;

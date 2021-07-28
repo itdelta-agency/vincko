@@ -1,3 +1,11 @@
-<svg width="70" height="99" viewBox="0 0 70 99" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect width="106" height="99"/>
+<svg width="80" height="100" viewBox="0 0 80 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0)">
+<rect x="0.5" y="0.5" width="79" height="99" rx="4.5" fill="white"/>
+<rect x="10" width="106" height="99"/>
+</g>
+<rect x="0.5" y="0.5" width="79" height="99" rx="4.5" stroke="#EBEBEB"/>
+<defs>
+<clipPath id="clip0">
+</clipPath>
+</defs>
 </svg>

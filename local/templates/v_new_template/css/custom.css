@@ -4,3 +4,37 @@
 /*    height: 100%!important;*/
 /*    border-radius: 10px;*/
 /*}*/
+
+.ready-des2__title-info .item__content-company.choose_company .choices {
+    display: inline-block;
+}
+.ready-des2__title-info .item__content-company.choose_company .choices .choices__inner {
+    padding: 0;
+    vertical-align: middle;
+    border: none;
+    min-height: unset;
+}
+.ready-des2__title-info .item__content-company.choose_company .choices .choices__inner .choices__list--single {
+    padding: 4px 0;
+}
+.ready-des2__title-info .item__content-company.choose_company .choices .choices__inner .choices__list--single .choices__item {
+    text-decoration: underline;
+}
+.ready-des2__title-info .item__content-company.choose_company .choices[data-type*='select-one']:after {
+   display: none;
+}
+.ready-des2__title-info .title-info__item .item__content p .item__content-company-not {
+    text-decoration: none;
+}
+.ready-des2__title-info .item__content-company-not .choices .choices__list {
+    width: -moz-min-content;
+    width: -webkit-min-content;
+    width: min-content;
+    padding: 4px;
+}
+/*modal city-choice window-start*/
+.header .header__top {
+    z-index: 200;
+}
+/*modal city-choice window-end*/
+

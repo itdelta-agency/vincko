@@ -90,7 +90,8 @@ $APPLICATION->SetPageProperty("NOT_SHOW_NAV_CHAIN", "Y");
             "SORT_BY2" => "SORT",
             "SORT_ORDER1" => "ASC",
             "SORT_ORDER2" => "ASC"
-        )
+        ),
+        false
     );?>
 
     <?$APPLICATION->IncludeComponent(
@@ -110,30 +111,46 @@ $APPLICATION->SetPageProperty("NOT_SHOW_NAV_CHAIN", "Y");
             "SORT_BY2" => "SORT",
             "SORT_ORDER1" => "ASC",
             "SORT_ORDER2" => "ASC"
-        )
-    );?>
-
-    <?$APPLICATION->IncludeComponent(
-        "it-delta:iblock.content", 
-        "main_kits", 
-        array(
-            "ACTIVE_DATE" => "N",
-            "ADD_CACHE_STRING" => "",
-            "CACHE_TIME" => "0",
-            "CACHE_TYPE" => "A",
-            "FILTER_NAME" => "arrFilter1",
-            "IBLOCK_ID" => "12",
-            "IBLOCK_TYPE" => "equipment",
-            "PAGE_ELEMENT_COUNT" => "10",
-            "RAND_ELEMENTS" => "N",
-            "SORT_BY1" => "SORT",
-            "SORT_BY2" => "SORT",
-            "SORT_ORDER1" => "ASC",
-            "SORT_ORDER2" => "ASC",
-            "COMPONENT_TEMPLATE" => "main_kits"
         ),
         false
     );?>
+
+    <?
+    $params = array(
+        'IBLOCK_ID'=> 9,
+        'COOKIE'=> $_COOKIE
+    );
+
+    $packages = MainService::getPackagesIds($params);
+
+    if(!empty($packages))
+    {
+        $packagesFilter = array(
+            "ID"=>$packages
+        );
+        $APPLICATION->IncludeComponent(
+            "it-delta:iblock.content", 
+            "main_kits", 
+            array(
+                "ACTIVE_DATE" => "N",
+                "ADD_CACHE_STRING" => "",
+                "CACHE_TIME" => "0",
+                "CACHE_TYPE" => "A",
+                "FILTER_NAME" => "packagesFilter",
+                "IBLOCK_ID" => "12",
+                "IBLOCK_TYPE" => "equipment",
+                "PAGE_ELEMENT_COUNT" => "0",
+                "RAND_ELEMENTS" => "N",
+                "SORT_BY1" => "SORT",
+                "SORT_BY2" => "SORT",
+                "SORT_ORDER1" => "ASC",
+                "SORT_ORDER2" => "ASC",
+                "COMPONENT_TEMPLATE" => "main_kits"
+            ),
+            false
+        );
+    }
+    ?>
 
     <?$APPLICATION->IncludeComponent(
         "it-delta:iblock.content", 
@@ -213,9 +230,9 @@ $APPLICATION->SetPageProperty("NOT_SHOW_NAV_CHAIN", "Y");
         "",
         Array(
             "AREA_FILE_SHOW" => "file",
-            "AREA_FILE_SUFFIX" => "",
+            "AREA_FILE_SUFFIX" => "inc",
             "EDIT_TEMPLATE" => "",
-            "PATH" => SITE_DIR."include/main_contacts.php"
+            "PATH" => "/include/callback.php"
         )
     );?>
 
