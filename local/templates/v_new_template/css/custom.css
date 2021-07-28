@@ -4,6 +4,7 @@
 /*    height: 100%!important;*/
 /*    border-radius: 10px;*/
 /*}*/
+
 .ready-des2__title-info .item__content-company.choose_company .choices {
     display: inline-block;
 }
@@ -31,3 +32,9 @@
     width: min-content;
     padding: 4px;
 }
+/*modal city-choice window-start*/
+.header .header__top {
+    z-index: 200;
+}
+/*modal city-choice window-end*/
+

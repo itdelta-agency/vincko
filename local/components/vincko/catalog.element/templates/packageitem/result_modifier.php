@@ -17,7 +17,8 @@ $insuranceIblockId = 14;
 $companyCityAndSubscriptionFeeIblockId = 25;
 $insurancePaymentOptionsIblockId = 35;
 $classesIblockId = 36;
-$equipmentCharacteristicsIblockId = 41;
+$complectsCharacteristicsIblockId = 37;
+$packagesCharacteristicsIblockId = 39;
 
 // получает информацию по ценам с учетом скидок
 if (!function_exists('getPricesInfoByProductId')) {
@@ -52,23 +53,30 @@ $packages = MainService::getPackagesIds($params);
 
 if(!$packages)
     $arResult['HIDE_BASKET_BLOCK'] = true;
-//получаем готовое решение, которое содержит текущий комплект в выбранном городе
-$res = CIBlockElement::GetList(
-    array("SORT" => "ASC"),
-    array("ACTIVE" => "Y", "IBLOCK_ID" => $packagesIblockId, $arParams['PACKAGES_FILTER_NAME'],"=PROPERTY_P_COMPLECT" => $arResult['ID']),
-    false,
-    false,
-    array("ID", "*", "PROPERTY_CO_CLASS_REF", "PROPERTY_P_COMPLECT", "IBLOCK_SECTION_ID")
-);
 
-while ($arFields = $res->Fetch()) {
-    $arResult['COMPLECT_PARENT_PACKAGE'] = $arFields;
-}
 //получаем группу готового решения
-$parentPackageGroupId = $arResult['COMPLECT_PARENT_PACKAGE']['IBLOCK_SECTION_ID'];
-$res = CIBlockSection::GetByID($parentPackageGroupId);
+$parentPackageGroupId = $arResult['IBLOCK_SECTION_ID'];
+$res = CIBlockSection::GetList(
+    array("SORT" => "ASC"),
+    array("ACTIVE" => "Y", "IBLOCK_ID" => $packagesIblockId, "=ID" => $parentPackageGroupId),
+    false,
+    array("UF_CHARACTERISTICS_REF"),
+    array("ID","*","PROPERTY_CO_CLASS_REF","PROPERTY_CO_CHARACTERISTICS_REF")
+);
 while ($arFields = $res->Fetch()) {
     $arResult['PACKAGE_GROUP'] = $arFields;
+}
+//получаем характеристики для группы готовых решений
+$res = \CIBlockElement::GetList(array(), array("IBLOCK_ID" => $packagesCharacteristicsIblockId ,"ID"=>$arResult['PACKAGE_GROUP']['UF_CHARACTERISTICS_REF'], "ACTIVE" => "Y"), false,
+    false, array("ID", "NAME", "PREVIEW_TEXT", "PREVIEW_PICTURE","PROPERTY_CO_CHARACTERISTICS_REF"));
+while ($arFields = $res->Fetch()) {
+    $picEnd = CFile::ResizeImageGet($arFields["PREVIEW_PICTURE"], array("width" => 90, "height" => 110), BX_RESIZE_IMAGE_PROPORTIONAL_ALT, false);
+    $arResult["PACKAGE_GROUP_CHARACTERISTICS"][$arFields["ID"]] = array(
+        "ID" => $arFields["ID"],
+        "NAME" => $arFields["NAME"],
+        "PREVIEW_TEXT" => $arFields["PREVIEW_TEXT"],
+        "PREVIEW_PICTURE" => $picEnd["src"],
+    );
 }
 //получаем все готовые решения из группы
 $res = CIBlockElement::GetList(
@@ -76,7 +84,7 @@ $res = CIBlockElement::GetList(
     array("ACTIVE" => "Y", "IBLOCK_ID" => $packagesIblockId, "=IBLOCK_SECTION_ID" => $parentPackageGroupId),
     false,
     false,
-    array("ID", "PROPERTY_CO_CLASS_REF", "PROPERTY_P_COMPLECT")
+    array("ID","*","PROPERTY_CO_CLASS_REF", "PROPERTY_P_COMPLECT")
 );
 $complectFirstIds = array();
 while ($arFields = $res->Fetch()) {
@@ -86,28 +94,37 @@ while ($arFields = $res->Fetch()) {
     }
     $arResult['PACKAGE_GROUP']['PACKAGES'][$arFields['ID']] = $arFields;
 }
-//получаем первые в списке комплекты в каждом готовом решении из группы
-$res = CIBlockElement::GetList(
-    array("SORT" => "ASC"),
-    array("ACTIVE" => "Y", "IBLOCK_ID" => $complectsIblockId, "ID" => $complectFirstIds)
-);
-while ($arFields = $res->Fetch()) {
-    $arResult['FIRST_LIST_COMPLECTS'][$arFields['ID']] = $arFields;
-}
+
 //получаем все комлекты в текущем готовом решении
+$complectsCharacteristicsIds = array();
 $res = CIBlockElement::GetList(
     array("SORT" => "ASC"),
-    array("ACTIVE" => "Y", "IBLOCK_ID" => $complectsIblockId, "ID" => $arResult['COMPLECT_PARENT_PACKAGE']['PROPERTY_P_COMPLECT_VALUE']),
+    array("ACTIVE" => "Y", "IBLOCK_ID" => $complectsIblockId, "ID" => $arResult['PROPERTIES']['P_COMPLECT']['VALUE']),
     false,
     false,
-    array('*', 'CATALOG_GROUP_1')
+    array('*', 'CATALOG_GROUP_1','PROPERTY_CO_CHARACTERISTICS_REF')
 );
 while ($arFields = $res->Fetch()) {
+    $complectsCharacteristicsIds = array_merge($complectsCharacteristicsIds,$arFields['PROPERTY_CO_CHARACTERISTICS_REF_VALUE']);
     $arResult['ALL_LIST_COMPLECTS_IN_PACKAGE'][$arFields['ID']] = $arFields;
+    $arResult['ALL_LIST_COMPLECTS_IN_PACKAGE'][$arFields['ID']]['PREVIEW_PICTURE'] = CFile::ResizeImageGet($arFields['PREVIEW_PICTURE'], array("width" => 110, "height" => 100), BX_RESIZE_IMAGE_PROPORTIONAL, false);
     $arResult['ALL_LIST_COMPLECTS_IN_PACKAGE'][$arFields['ID']]['PRICES_INFO'] = getPricesInfoByProductId($arFields['ID']);
 
 }
 
+$complectsCharacteristicsIds = array_unique($complectsCharacteristicsIds);
+//получаем характеристики для комплектов
+$res = \CIBlockElement::GetList(array(), array("IBLOCK_ID" => $complectsCharacteristicsIblockId ,"ID"=>$complectsCharacteristicsIds, "ACTIVE" => "Y"), false,
+    false, array("ID", "NAME", "PREVIEW_TEXT", "PREVIEW_PICTURE","PROPERTY_CO_CHARACTERISTICS_REF"));
+while ($arFields = $res->Fetch()) {
+    $picEnd = CFile::ResizeImageGet($arFields["PREVIEW_PICTURE"], array("width" => 90, "height" => 110), BX_RESIZE_IMAGE_PROPORTIONAL_ALT, false);
+    $arResult["COMPLECTS_CHARACTERISTICS"][$arFields["ID"]] = array(
+        "ID" => $arFields["ID"],
+        "NAME" => $arFields["NAME"],
+        "PREVIEW_TEXT" => $arFields["PREVIEW_TEXT"],
+        "PREVIEW_PICTURE" => $picEnd["src"],
+    );
+}
 
 $params = array(
     'IBLOCK_ID' => $companyCityAndSubscriptionFeeIblockId,
@@ -214,99 +231,16 @@ while ($arFields = $res->Fetch()) {
     $arResult['PACKAGES_CLASSES'][$arFields['ID']]['ICON'] = $detailPicture;
 }
 //сформируем ссылки на первые в списке комплекты в каждом классе готовых решений
+$arResult['CURRENT_PACKAGE_CLASS'] = $arResult['PROPERTIES']['CO_CLASS_REF']['VALUE'];
 foreach ($arResult['PACKAGE_GROUP']['PACKAGES'] as $package) {
 
     $classId = $package['PROPERTY_CO_CLASS_REF_VALUE'];
-    $complectId = $package['PROPERTY_P_COMPLECT_VALUE'][0];
-    $slug = $arResult['FIRST_LIST_COMPLECTS'][$complectId]['CODE'];
-    if (in_array($arResult['ID'], $package['PROPERTY_P_COMPLECT_VALUE'])) {
-        $arResult['CURRENT_PACKAGE_CLASS'] = $classId;
-        $slug = $arResult['CODE'];
-    }
-    $arResult['FIRST_LIST_COMPLECTS_SLUGS'][$classId] = array(
+    $slug = $package['CODE'];
+    $arResult['PACKAGES_SLUGS'][$classId] = array(
         "CLASS_ID" => $classId,
         "SLUG" => $slug
     );
 }
-
-/*
- * получить состав комплекта
- */
-
-$arEquipSet = CCatalogProductSet::getAllSetsByProduct($arResult["ID"], CCatalogProductSet::TYPE_SET);
-if (!empty($arEquipSet)) {
-    $arResult["EQUIP_COMPLECT"] = array();
-    $itemIds = array();
-    $equipItemsCharacteristicsIds = array();
-    foreach ($equipSet["ITEMS"] as $es) {
-        array_push($itemIds, $es["ITEM_ID"]);
-    }
-    //получаем состав комплекта - все его оборудование
-    $arSelect = array("ID", "NAME", "PREVIEW_TEXT", "PREVIEW_PICTURE",
-        "PROPERTY_EQUIPMENT_PICTURES", "PROPERTY_CO_CHARACTERISTICS_REF"
-    , "PROPERTY_SENSOR_ADVANTAGES", "PROPERTY_PRINCIPLE_OF_OPERATION", "PROPERTY_FEATURES_OF_THE", "PROPERTY_CLASSIFICATION",
-        "PROPERTY_TYPE_OF_INSTALLATION",
-        "PROPERTY_CONNECTED_DEVICES", "PROPERTY_CCTV");
-    $res = \CIBlockElement::GetList(array(), array("IBLOCK_ID" => $equipmentIblockId, "ID" => $itemIds, "ACTIVE" => "Y"), false,
-        false, $arSelect);
-    while ($arFields = $res->Fetch()) { // получаем сразу массив данных а не объект
-
-        $picEnd = CFile::ResizeImageGet($arFields["PREVIEW_PICTURE"], array("width" => 90, "height" => 110), BX_RESIZE_IMAGE_PROPORTIONAL_ALT, false);
-
-        $equipmentPictures = array();
-        foreach ($arFields["PROPERTY_EQUIPMENT_PICTURES_VALUE"] as $FILE) {
-            $FILE = CFile::GetFileArray($FILE);
-            if (is_array($FILE))
-                $equipmentPictures[] = $FILE;
-        }
-
-        $characteristicsIds = $arFields["PROPERTY_CO_CHARACTERISTICS_REF_VALUE"];
-        if (is_array($characteristicsIds)) {
-            $equipItemsCharacteristicsIds = array_merge($equipItemsCharacteristicsIds, $characteristicsIds);
-        }
-
-        $arResult["EQUIP_COMPLECT"][] = array(
-            "ID" => $arFields["ID"],
-            "NAME" => $arFields["NAME"],
-            "PREVIEW_TEXT" => $arFields["PREVIEW_TEXT"],
-            "PREVIEW_PICTURE" => $picEnd["src"],
-            "PREVIEW_PICTURE_MINI" => $picEnd["src"],
-            "EQUIPMENT_PICTURES" => $equipmentPictures,
-            "CHARACTERISTICS" => $characteristicsIds,
-            "SENSOR_ADVANTAGES" => $arFields['PROPERTY_SENSOR_ADVANTAGES_VALUE'],
-            "PRINCIPLE_OF_OPERATION" => $arFields['PROPERTY_PRINCIPLE_OF_OPERATION_VALUE'],
-            "FEATURES_OF_THE" => $arFields['PROPERTY_FEATURES_OF_THE_VALUE'],
-            "CLASSIFICATION" => $arFields['PROPERTY_CLASSIFICATION_VALUE'],
-            "TYPE_OF_INSTALLATION" => $arFields['PROPERTY_TYPE_OF_INSTALLATION_VALUE'],
-            "CONNECTED_DEVICES" => $arFields['PROPERTY_CONNECTED_DEVICES_VALUE'],
-            "CCTV" => $arFields['PROPERTY_CCTV_VALUE'],
-        );
-    }
-}
-
-//получаем характеристики для оборудования
-$res = \CIBlockElement::GetList(array(), array("IBLOCK_ID" => $equipmentCharacteristicsIblockId, "ID" => $equipItemsCharacteristicsIds, "ACTIVE" => "Y"), false,
-    false, array("ID", "NAME", "PREVIEW_TEXT", "PREVIEW_PICTURE"));
-while ($arFields = $res->Fetch()) {
-    $picEnd = CFile::ResizeImageGet($arFields["PREVIEW_PICTURE"], array("width" => 90, "height" => 110), BX_RESIZE_IMAGE_PROPORTIONAL_ALT, false);
-    $arResult["EQUIP_ITEM_CHARACTERISTICS"][$arFields["ID"]] = array(
-        "ID" => $arFields["ID"],
-        "NAME" => $arFields["NAME"],
-        "PREVIEW_TEXT" => $arFields["PREVIEW_TEXT"],
-        "PREVIEW_PICTURE" => $picEnd["src"],
-    );
-}
-//получаем все картинки для оборудования
-if (isset($arResult["DISPLAY_PROPERTIES"]["CO_CHARACTERISTICS_REF"]["LINK_ELEMENT_VALUE"])
-    && is_array($arResult["DISPLAY_PROPERTIES"]["CO_CHARACTERISTICS_REF"]["LINK_ELEMENT_VALUE"])) {
-
-    foreach ($arResult["DISPLAY_PROPERTIES"]["CO_CHARACTERISTICS_REF"]["LINK_ELEMENT_VALUE"] as $key => $item) {
-        $arResult["DISPLAY_PROPERTIES"]["CO_CHARACTERISTICS_REF"]["LINK_ELEMENT_VALUE"][$key]['PREVIEW_PICTURE'] = CFile::GetFileArray($item['PREVIEW_PICTURE']);
-    }
-}
-//изображение комплекта
-$arResult['PREVIEW_PICTURE_RESIZED'] = CFile::ResizeImageGet($arResult['PREVIEW_PICTURE'], array("width" => 360, "height" => 290), BX_RESIZE_IMAGE_PROPORTIONAL_ALT, false);
-$arResult['PREVIEW_PICTURE_RESIZED_SMALL'] = CFile::ResizeImageGet($arResult['PREVIEW_PICTURE'], array("width" => 110, "height" => 100), BX_RESIZE_IMAGE_PROPORTIONAL, false);
 
 
 

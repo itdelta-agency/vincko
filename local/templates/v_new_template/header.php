@@ -59,18 +59,11 @@ $Asset = Asset::getInstance();
     <script src="<?= SITE_TEMPLATE_PATH ?>/libs/funcy_box/jquery.fancybox.js"></script>
     <script src="<?= SITE_TEMPLATE_PATH ?>/libs/range/ion.rangeSlider.min.js"></script>
     <script src="<?= SITE_TEMPLATE_PATH ?>/libs/swiper/swiper.min.js"></script>
-    
+
     <? $Asset->addCss(SITE_TEMPLATE_PATH . "/css/custom.css"); ?>
-    <?
-    $currentCity = CIBlockElement::GetList(
-        array("SORT" => "ASC"),
-        array("ACTIVE" => "Y", "IBLOCK_ID" => '20', 'ID' => $_COOKIE['selected_city']),
-        false,
-        false,
-        array('NAME', 'ID')
-    )->GetNext()['NAME'];
-    ?>
+
     <?= $APPLICATION->ShowHead(); ?>
+
 </head>
 
 <body>
@@ -105,59 +98,28 @@ $Asset = Asset::getInstance();
                 </a>
             </div>
             <div class="header__top-info">
-                <ul>
-                    <li class="tel"><a href="tel:+7861205-01-31">
-            <span class="icon">
-                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M2.41333 5.19333C3.37333 7.08 4.92 8.62 6.80667 9.58667L8.27333 8.12C8.45333 7.94 8.72 7.88 8.95333 7.96C9.7 8.20667 10.5067 8.34 11.3333 8.34C11.7 8.34 12 8.64 12 9.00667V11.3333C12 11.7 11.7 12 11.3333 12C5.07333 12 0 6.92667 0 0.666667C0 0.3 0.3 0 0.666667 0H3C3.36667 0 3.66667 0.3 3.66667 0.666667C3.66667 1.5 3.8 2.3 4.04667 3.04667C4.12 3.28 4.06667 3.54 3.88 3.72667L2.41333 5.19333Z"
-                          fill="black"/>
-                </svg>
-            </span>
-                            <span class="text"><? $APPLICATION->IncludeComponent(
-                                    "bitrix:main.include",
-                                    "",
-                                    array(
-                                        "AREA_FILE_SHOW" => "file",
-                                        "AREA_FILE_SUFFIX" => "inc",
-                                        "EDIT_TEMPLATE" => "",
-                                        "PATH" => "/include/contact_header.php"
-                                    )
-                                ); ?></span>
-                        </a>
-                    </li>
-                    <li class="location" data-modal-target="#header__top-info">
-                        <a href="">
-            <span class="icon">
-                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M9 1.5C6.0975 1.5 3.75 3.8475 3.75 6.75C3.75 10.6875 9 16.5 9 16.5C9 16.5 14.25 10.6875 14.25 6.75C14.25 3.8475 11.9025 1.5 9 1.5ZM9 8.625C8.50272 8.625 8.02581 8.42746 7.67418 8.07583C7.32254 7.7242 7.125 7.24728 7.125 6.75C7.125 6.25272 7.32254 5.77581 7.67418 5.42418C8.02581 5.07254 8.50272 4.875 9 4.875C9.49728 4.875 9.9742 5.07254 10.3258 5.42418C10.6775 5.77581 10.875 6.25272 10.875 6.75C10.875 7.24728 10.6775 7.7242 10.3258 8.07583C9.9742 8.42746 9.49728 8.625 9 8.625Z"
-                          fill="black"/>
-                </svg>
-            </span>
-                            <span class="text"><?= $currentCity ?></span>
-                        </a>
-                    </li>
-                </ul>
-
-
+                <? $APPLICATION->IncludeComponent(
+                    "bitrix:main.include",
+                    "",
+                    array(
+                        "AREA_FILE_SHOW" => "file",
+                        "AREA_FILE_SUFFIX" => "inc",
+                        "EDIT_TEMPLATE" => "",
+                        "PATH" => "/include/contact_header.php"
+                    )
+                ); ?>
             </div>
         </div>
-        <div id="header__top-info" class="header__top-info--popup modal">
-            <div class="modal__content">
-                <div data-close-button class="close-button"></div>
-                <div class="modal__content-body">
-                    <h4>Выберите город</h4>
-                    <ul class="menu__list">
-                        <li class="active"><a href="">Москва</a></li>
-                        <li><a href="">Санкт-Петербург</a></li>
-                        <li><a href="">Екатеринбург</a></li>
-                        <li><a href="">Челябинск</a></li>
-                        <li><a href="">Краснодар</a></li>
-                        <li><a href="">Ростов-на-Дону</a></li>
-                        <li><a href="">Чита</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+        <? $APPLICATION->IncludeComponent(
+            "bitrix:main.include",
+            "",
+            array(
+                "AREA_FILE_SHOW" => "file",
+                "AREA_FILE_SUFFIX" => "inc",
+                "EDIT_TEMPLATE" => "",
+                "PATH" => "/include/vincko_citymodal.php"
+            )
+        ); ?>
 
         <? $APPLICATION->IncludeComponent(
             "bitrix:search.title",
@@ -292,10 +254,7 @@ $Asset = Asset::getInstance();
                         <path d="M6 0.5C3.0975 0.5 0.75 2.8475 0.75 5.75C0.75 9.6875 6 15.5 6 15.5C6 15.5 11.25 9.6875 11.25 5.75C11.25 2.8475 8.9025 0.5 6 0.5ZM6 7.625C5.50272 7.625 5.02581 7.42746 4.67418 7.07583C4.32254 6.7242 4.125 6.24728 4.125 5.75C4.125 5.25272 4.32254 4.77581 4.67418 4.42418C5.02581 4.07254 5.50272 3.875 6 3.875C6.49728 3.875 6.9742 4.07254 7.32583 4.42418C7.67746 4.77581 7.875 5.25272 7.875 5.75C7.875 6.24728 7.67746 6.7242 7.32583 7.07583C6.9742 7.42746 6.49728 7.625 6 7.625Z"
                               fill="#005DFF"/>
                     </svg>
-
-                    <a>
-                        <?= $currentCity ?>
-                    </a>
+                    <a data-modal-target="#header__top-info"><?= $GLOBALS["GEOCITY"]["NAME"] ?></a>
                 </div>
 
                 <div class="header__submenu-question">
@@ -304,7 +263,7 @@ $Asset = Asset::getInstance();
                         </span>
 
                     <span class="header__submenu-question-yes">Да</span>
-                    <a class="header__submenu-question-no">Нет, выбрать другой</a>
+                    <a data-modal-target="#header__top-info" class="header__submenu-question-no">Нет, выбрать другой</a>
 
                 </div>
 
