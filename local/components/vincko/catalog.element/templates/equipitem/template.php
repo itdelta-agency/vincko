@@ -466,34 +466,17 @@ if (!empty($arParams['LABEL_PROP_POSITION'])) {
                     <div class="slider__under-block-2 close" id="tech">
                         <div class="title">Технические характеристики датчика</div>
                         <ul>
-                            <li><span class="slider__under-2-title">Классификация</span>
-                                <? foreach ($arResult["EQUIP_COMPLECT"] as $key => $ec): ?>
-                                    <span class="info <?= $key == 0 ? 'vis' : '' ?>" data-slider-info="<?= $key ?>">
-                                        <?= $ec['CLASSIFICATION'] ?>
+                            <? foreach ($arResult["EQUIP_COMPLECT"] as $key => $ec): ?>
+                            <? foreach ($ec['TECH_CHARACTERISTICS'] as $index => $ch): ?>
+                            <li class="info <?= $key == 0 ? 'vis' : '' ?>" data-slider-info="<?= $key ?>">
+
+                                <span class="slider__under-2-title "><?=$arResult['EQUIP_ITEM_TECH_CHARACTERISTICS'][$ch]['TYPE_OF_CHARACTERISTIC']?></span>
+                                <span class="info <?= $key == 0 ? 'vis' : '' ?>" data-slider-info="<?= $key ?>">
+                                        <?=$arResult['EQUIP_ITEM_TECH_CHARACTERISTICS'][$ch]['PREVIEW_TEXT']?>
                                     </span>
-                                <? endforeach; ?>
                             </li>
-                            <li><span class="slider__under-2-title">Тип установки</span>
-                                <? foreach ($arResult["EQUIP_COMPLECT"] as $key => $ec): ?>
-                                    <span class="info <?= $key == 0 ? 'vis' : '' ?>" data-slider-info="<?= $key ?>">
-                                        <?= $ec['TYPE_OF_INSTALLATION'] ?>
-                                    </span>
-                                <? endforeach; ?>
-                            </li>
-                            <li><span class="slider__under-2-title">Подключаемых устройств</span>
-                                <? foreach ($arResult["EQUIP_COMPLECT"] as $key => $ec): ?>
-                                    <span class="info <?= $key == 0 ? 'vis' : '' ?>" data-slider-info="<?= $key ?>">
-                                        <?= $ec['CONNECTED_DEVICES'] ?>
-                                    </span>
-                                <? endforeach; ?>
-                            </li>
-                            <li><span class="slider__under-2-title">Видеонаблюдение</span>
-                                <? foreach ($arResult["EQUIP_COMPLECT"] as $key => $ec): ?>
-                                    <span class="info <?= $key == 0 ? 'vis' : '' ?>" data-slider-info="<?= $key ?>">
-                                        <?= $ec['CCTV'] ?>
-                                    </span>
-                                <? endforeach; ?>
-                            </li>
+                                <?endforeach;?>
+                           <?endforeach;?>
                         </ul>
                         <div class="close-btn-2">Развернуть</div>
                     </div>

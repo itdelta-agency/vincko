@@ -18,6 +18,7 @@ $companyCityAndSubscriptionFeeIblockId = 25;
 $insurancePaymentOptionsIblockId = 35;
 $classesIblockId = 36;
 $equipmentCharacteristicsIblockId = 41;
+$equipmentTechCharacteristicsIblockId = 52;
 
 // получает информацию по ценам с учетом скидок
 if (!function_exists('getPricesInfoByProductId')) {
@@ -235,16 +236,18 @@ foreach ($arResult['PACKAGE_GROUP']['PACKAGES'] as $package) {
 
 $arEquipSet = CCatalogProductSet::getAllSetsByProduct($arResult["ID"], CCatalogProductSet::TYPE_SET);
 if (!empty($arEquipSet)) {
+    $equipSet = reset($arEquipSet);
+    $equipSetID = key($arEquipSet);
     $arResult["EQUIP_COMPLECT"] = array();
     $itemIds = array();
+    $equipItemsTechCharacteristicsIds = array();
     $equipItemsCharacteristicsIds = array();
     foreach ($equipSet["ITEMS"] as $es) {
         array_push($itemIds, $es["ITEM_ID"]);
     }
     //получаем состав комплекта - все его оборудование
     $arSelect = array("ID", "NAME", "PREVIEW_TEXT", "PREVIEW_PICTURE",
-        "PROPERTY_EQUIPMENT_PICTURES", "PROPERTY_CO_CHARACTERISTICS_REF"
-    , "PROPERTY_SENSOR_ADVANTAGES", "PROPERTY_PRINCIPLE_OF_OPERATION", "PROPERTY_FEATURES_OF_THE", "PROPERTY_CLASSIFICATION",
+        "PROPERTY_EQUIPMENT_PICTURES", "PROPERTY_CO_CHARACTERISTICS_REF", "PROPERTY_SENSOR_ADVANTAGES", "PROPERTY_PRINCIPLE_OF_OPERATION", "PROPERTY_FEATURES_OF_THE","PROPERTY_CO_TECH_CHARACTERISTICS_REF", "PROPERTY_CLASSIFICATION",
         "PROPERTY_TYPE_OF_INSTALLATION",
         "PROPERTY_CONNECTED_DEVICES", "PROPERTY_CCTV");
     $res = \CIBlockElement::GetList(array(), array("IBLOCK_ID" => $equipmentIblockId, "ID" => $itemIds, "ACTIVE" => "Y"), false,
@@ -260,6 +263,11 @@ if (!empty($arEquipSet)) {
                 $equipmentPictures[] = $FILE;
         }
 
+        $techCharacteristicsIds = $arFields["PROPERTY_CO_TECH_CHARACTERISTICS_REF_VALUE"];
+        if (is_array($techCharacteristicsIds)) {
+            $equipItemsTechCharacteristicsIds = array_merge($equipItemsTechCharacteristicsIds, $techCharacteristicsIds);
+        }
+
         $characteristicsIds = $arFields["PROPERTY_CO_CHARACTERISTICS_REF_VALUE"];
         if (is_array($characteristicsIds)) {
             $equipItemsCharacteristicsIds = array_merge($equipItemsCharacteristicsIds, $characteristicsIds);
@@ -273,6 +281,7 @@ if (!empty($arEquipSet)) {
             "PREVIEW_PICTURE_MINI" => $picEnd["src"],
             "EQUIPMENT_PICTURES" => $equipmentPictures,
             "CHARACTERISTICS" => $characteristicsIds,
+            "TECH_CHARACTERISTICS" =>$techCharacteristicsIds,
             "SENSOR_ADVANTAGES" => $arFields['PROPERTY_SENSOR_ADVANTAGES_VALUE'],
             "PRINCIPLE_OF_OPERATION" => $arFields['PROPERTY_PRINCIPLE_OF_OPERATION_VALUE'],
             "FEATURES_OF_THE" => $arFields['PROPERTY_FEATURES_OF_THE_VALUE'],
@@ -284,7 +293,7 @@ if (!empty($arEquipSet)) {
     }
 }
 
-//получаем характеристики для оборудования
+//получаем Технические характеристики для оборудования
 $res = \CIBlockElement::GetList(array(), array("IBLOCK_ID" => $equipmentCharacteristicsIblockId, "ID" => $equipItemsCharacteristicsIds, "ACTIVE" => "Y"), false,
     false, array("ID", "NAME", "PREVIEW_TEXT", "PREVIEW_PICTURE"));
 while ($arFields = $res->Fetch()) {
@@ -294,6 +303,18 @@ while ($arFields = $res->Fetch()) {
         "NAME" => $arFields["NAME"],
         "PREVIEW_TEXT" => $arFields["PREVIEW_TEXT"],
         "PREVIEW_PICTURE" => $picEnd["src"],
+    );
+}
+
+//получаем характеристики для оборудования
+$res = \CIBlockElement::GetList(array(), array("IBLOCK_ID" => $equipmentTechCharacteristicsIblockId, "ID" => $equipItemsTechCharacteristicsIds, "ACTIVE" => "Y"), false,
+    false, array("ID", "NAME", "PREVIEW_TEXT", "PREVIEW_PICTURE", "PROPERTY_TYPE_OF_CH"));
+while ($arFields = $res->Fetch()) {
+    $arResult["EQUIP_ITEM_TECH_CHARACTERISTICS"][$arFields["ID"]] = array(
+        "ID" => $arFields["ID"],
+        "NAME" => $arFields["NAME"],
+        "TYPE_OF_CHARACTERISTIC" => $arFields['PROPERTY_TYPE_OF_CH_VALUE'],
+        "PREVIEW_TEXT" => $arFields["PREVIEW_TEXT"],
     );
 }
 //получаем все картинки для оборудования
@@ -307,6 +328,3 @@ if (isset($arResult["DISPLAY_PROPERTIES"]["CO_CHARACTERISTICS_REF"]["LINK_ELEMEN
 //изображение комплекта
 $arResult['PREVIEW_PICTURE_RESIZED'] = CFile::ResizeImageGet($arResult['PREVIEW_PICTURE'], array("width" => 360, "height" => 290), BX_RESIZE_IMAGE_PROPORTIONAL_ALT, false);
 $arResult['PREVIEW_PICTURE_RESIZED_SMALL'] = CFile::ResizeImageGet($arResult['PREVIEW_PICTURE'], array("width" => 110, "height" => 100), BX_RESIZE_IMAGE_PROPORTIONAL, false);
-
-
-
