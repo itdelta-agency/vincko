@@ -5,11 +5,13 @@ use Vincko\Policy;
 // получим все варианты выплаты по основным пунктам страховки
 $arAllPaymentOptions = Policy::getPaymentOptions();
 
-
+$arInsurance = [
+	"NAME"     => $arResult["NAME"],
+];
 // переберем все торговые предложения и сформируем необходимый массив
 if (!empty($arResult["OFFERS"])) {
 	foreach ($arResult["OFFERS"] as $arOffer) {
-		$arResult["POLICIES"][] = Policy::formatPolicy($arOffer, $arAllPaymentOptions);
+		$arResult["POLICIES"][] = Policy::formatPolicy($arOffer, $arAllPaymentOptions, $arInsurance);
 	}
 }
 

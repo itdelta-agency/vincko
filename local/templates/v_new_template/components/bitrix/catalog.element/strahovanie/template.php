@@ -30,7 +30,9 @@ $this->setFrameMode(true);
 						'EDIT_TEMPLATE'  => '',
 						'PATH'           => '/include/policy_template.php',
 						'POLICY'         => $arPolicy,
-					]
+					],
+					false,
+["HIDE_ICONS"=>"Y" ]
 				); ?>
 
 				<div class="products__footer">

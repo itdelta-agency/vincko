@@ -1,8 +1,25 @@
 <? require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/header.php"); ?>
 
 	<main class="main">
-		<div class="container">
 
+		<div class="container">
+			<? $APPLICATION->IncludeComponent(
+				"vincko:variable.set",
+				"benefits",
+				array(
+					"AREA_FILE_SHOW"    => "file",
+					"PATH"              => "/include/null.php",
+					"TITLE_LEFT"        => "Страхование вашей недвижимости и имущества",
+					"IMG_LEFT_TOP"      => "/local/templates/v_new_template/img/insurance/scut.svg",
+					"DESCRIPTION_LEFT"  => "Поможем выбрать охранную компанию по важным для вас критериям и готовое решение для безопасности вашего дома.",
+					"IMG_LEFT_BOTTOM"   => "/local/templates/v_new_template/img/insurance/man.png",
+					"TITLE_RIGHT"       => "Оплатите 100% стоимости полиса бонусами",
+					"DESCRIPTION_RIGHT" => "Экономьте деньги на покупке полиса и сохраните нервы, будучи застрахованным",
+					"BUTTON_RIGHT"      => "Получить бонусы",
+					"IMG_RIGHT_BOTTOM"  => "/local/templates/v_new_template/img/insurance/gift.svg",
+				),
+				false
+			); ?>
 			<? $APPLICATION->IncludeComponent(
 				"bitrix:catalog.element",
 				"strahovanie",
@@ -96,8 +113,23 @@
 				),
 				false
 			); ?>
-
-			<? $APPLICATION->ShowViewContent('document'); ?>
 		</div>
+		<? $APPLICATION->IncludeComponent(
+			"bitrix:main.include", "",
+			[
+				"AREA_FILE_SHOW" => "file",
+				"EDIT_TEMPLATE"  => "",
+				"PATH"           => "include/include-policy.php"
+			]
+		); ?>
+		<? $APPLICATION->ShowViewContent('document'); ?>
+		<? $APPLICATION->IncludeComponent(
+			"bitrix:main.include", "",
+			[
+				"AREA_FILE_SHOW" => "file",
+				"EDIT_TEMPLATE"  => "",
+				"PATH"           => "include/for-bonuses.php"
+			]
+		); ?>
 	</main>
 <? require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/footer.php"); ?>
