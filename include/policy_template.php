@@ -2,7 +2,7 @@
 	<img src="<?= $arParams["POLICY"]["IMG"] ?>" alt="<?= $arParams["POLICY"]["NAME"] ?>"/>
 </picture>
 <div class="products__name">
-	<div class="products__gray"><?= $arResult["NAME"] ?></div>
+	<div class="products__gray"><?= $arParams["POLICY"]["INSURANCE"]["NAME"] ?></div>
 	<h3 class="products__title">«<?= $arParams["POLICY"]["NAME"] ?>»</h3>
 </div>
 <? if ($arParams["POLICY"]["MAX_PRICE"] > 0): ?>

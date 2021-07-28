@@ -8,9 +8,11 @@ $arAllPaymentOptions = Policy::getPaymentOptions();
 $arInsurance = [
 	"NAME"     => $arResult["NAME"],
 ];
+
 // переберем все торговые предложения и сформируем необходимый массив
 if (!empty($arResult["OFFERS"])) {
 	foreach ($arResult["OFFERS"] as $arOffer) {
+		if(empty($arOffer["PRICES"]["BONUS"]["VALUE"])){ continue; }
 		$arResult["POLICIES"][] = Policy::formatPolicy($arOffer, $arAllPaymentOptions, $arInsurance);
 	}
 }

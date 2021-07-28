@@ -1,9 +1,24 @@
 <? require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/header.php"); ?>
 
 	<main class="main">
-		<div class="container">
 
+		<div class="container">
 			<? $APPLICATION->IncludeComponent(
+				"vincko:variable.set",
+				"benefits",
+				array(
+					"TITLE_LEFT"        => "Страхование вашей недвижимости и имущества",
+					"IMG_LEFT_TOP"      => "/local/templates/v_new_template/img/insurance/scut.svg",
+					"DESCRIPTION_LEFT"  => "Поможем выбрать охранную компанию по важным для вас критериям и готовое решение для безопасности вашего дома.",
+					"IMG_LEFT_BOTTOM"   => "/local/templates/v_new_template/img/insurance/man.png",
+					"TITLE_RIGHT"       => "Оплатите 100% стоимости полиса бонусами",
+					"DESCRIPTION_RIGHT" => "Экономьте деньги на покупке полиса и сохраните нервы, будучи застрахованным",
+					"BUTTON_RIGHT"      => "Получить бонусы",
+					"IMG_RIGHT_BOTTOM"  => "/local/templates/v_new_template/img/insurance/gift.svg",
+				),
+				false
+			); ?>
+			<?$productID = $APPLICATION->IncludeComponent(
 				"bitrix:catalog.element",
 				"strahovanie",
 				array(
@@ -54,7 +69,7 @@
 					"ACTION_VARIABLE"                 => "action",
 					"PRODUCT_ID_VARIABLE"             => "id",
 					"DISPLAY_COMPARE"                 => "N",
-					"PRICE_CODE"                      => array(),
+					"PRICE_CODE"                      => array("BASE","BONUS"),
 					"USE_PRICE_COUNT"                 => "N",
 					"SHOW_PRICE_COUNT"                => "1",
 					"PRICE_VAT_INCLUDE"               => "Y",
@@ -95,9 +110,45 @@
 					"TITLE_POLICY"                                 => "Доступные страховые полисы"
 				),
 				false
-			); ?>
-
-			<? $APPLICATION->ShowViewContent('document'); ?>
+			);
+			?>
 		</div>
+		<? $APPLICATION->IncludeComponent(
+			"bitrix:main.include", "",
+			[
+				"AREA_FILE_SHOW" => "file",
+				"EDIT_TEMPLATE"  => "",
+				"PATH"           => "include/include-policy.php"
+			]
+		); ?>
+		<? $APPLICATION->ShowViewContent('document'); ?>
+		<? $APPLICATION->IncludeComponent(
+			"bitrix:main.include", "",
+			[
+				"AREA_FILE_SHOW" => "file",
+				"EDIT_TEMPLATE"  => "",
+				"PATH"           => "include/for-bonuses.php"
+			]
+		); ?>
+		<? $APPLICATION->IncludeComponent(
+			"vincko:variable.set",
+			"calculator",
+			array(
+				"IBLOCK_ID"        => 24,
+				"PRODUCT_ID"      => $productID,
+				"TEXT1" =>"Средняя заработная плата по городу",
+				"TEXT2" =>"Москва",
+				"TEXT3" =>"Тогда, при желаемом подарке в виде",
+				"TEXT4" =>"(выберите из списка)",
+				"NUM" =>"75000",
+				"NUM_MAX" =>"200000",
+				"NUM_MIN" =>"5000",
+				"STEP" =>"5000",
+				"MEAS" =>"руб.",
+			),
+			false
+		); ?>
+		<?$APPLICATION -> IncludeFile('/include/vincko_callback.php');?>
+
 	</main>
 <? require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/footer.php"); ?>

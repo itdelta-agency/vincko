@@ -155,10 +155,8 @@ class Policy
 	 * @return array
 	 */
 	public
-	static function formatPolicy($arOffer, $arPaymentOptions, $arInsurance = [])
+	static function formatPolicy($arOffer, $arPaymentOptions = [], $arInsurance = [])
 	{
-		// цена ТП
-		$arOferPrice = \CPrice::GetBasePrice($arOffer["ID"]);
 
 		// изображение ТП
 		$arOferImg = \CFile::GetFileArray($arOffer["PROPERTIES"]["ILL"]["VALUE"]);
@@ -171,7 +169,8 @@ class Policy
 			"MAX_PRICE_TEXT"     => $arOffer["PROPERTIES"]["MAX_PRICE_TEXT"]["~VALUE"]["TEXT"],
 			"MAX_PRICE"          => CurrencyFormat($arOffer["PROPERTIES"]["MAX_PRICE"]["VALUE"], 'RUB'),
 			"MAX_PRICE_ORIGINAL" => $arOffer["PROPERTIES"]["MAX_PRICE"]["VALUE"],
-			"PRICE"              => CurrencyFormat($arOferPrice["PRICE"], 'RUB')
+			"PRICE"              => $arOffer["PRICES"]["BASE"]["PRINT_VALUE_NOVAT"],
+			"BONUS"              => number_format($arOffer["PRICES"]["BONUS"]["VALUE"], 0, ' ', ' ')
 		];
 
 		// если нужна информация о родителе
