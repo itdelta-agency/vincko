@@ -1433,16 +1433,16 @@ if (!empty($arParams['LABEL_PROP_POSITION'])) {
     <? endif; ?>
     <div class="container">
 
-        <section class="back__call complect">
-            <h2>Остались вопросы?</h2>
-            <p>Закажите обратный звонок от нашего менеджера</p>
-            <div class="back__call-form">
-                <form>
-                    <input type="text" class="form__control" placeholder="Телефон">
-                    <input type="submit" class="form__control submit" value="отправить">
-                </form>
-            </div>
-        </section>
+        <?$APPLICATION->IncludeComponent(
+            "bitrix:main.include",
+            "",
+            Array(
+                "AREA_FILE_SHOW" => "file",
+                "AREA_FILE_SUFFIX" => "inc",
+                "EDIT_TEMPLATE" => "",
+                "PATH" => "/include/callback.php"
+            )
+        );?>
     </div>
 
     <? foreach ($arResult["EQUIP_COMPLECT"] as $key => $ec): ?>

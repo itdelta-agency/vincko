@@ -19,7 +19,7 @@ if (isset($_POST['phone']) && !empty($_POST['phone'])) {
 		$mail = new PHPMailer(); 
 		$mail->From = 'noreply@vincko.ru';
 		$mail->FromName = 'Vincko - федеральный маркетплейс охраны';
-		$mail->AddAddress('info@vincko.ru', '');
+		$mail->AddAddress('prog2@it-delta.ru', '');
 		$mail->IsHTML(true);
 		$mail->Subject = $title;
 		$mail->Body = $imsg; 

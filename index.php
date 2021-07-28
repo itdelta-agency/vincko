@@ -213,9 +213,9 @@ $APPLICATION->SetPageProperty("NOT_SHOW_NAV_CHAIN", "Y");
         "",
         Array(
             "AREA_FILE_SHOW" => "file",
-            "AREA_FILE_SUFFIX" => "",
+            "AREA_FILE_SUFFIX" => "inc",
             "EDIT_TEMPLATE" => "",
-            "PATH" => SITE_DIR."include/main_contacts.php"
+            "PATH" => "/include/callback.php"
         )
     );?>
 
