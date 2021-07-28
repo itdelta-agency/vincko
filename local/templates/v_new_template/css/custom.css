@@ -4,3 +4,9 @@
 /*    height: 100%!important;*/
 /*    border-radius: 10px;*/
 /*}*/
+
+/*modal city-choice window-start*/
+.header .header__top {
+    z-index: 200;
+}
+/*modal city-choice window-end*/

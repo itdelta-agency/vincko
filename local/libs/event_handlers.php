@@ -156,11 +156,13 @@ class GeoCity
                 "NAME" => $geoData["NAME"],
                 "ID" => $geoData["ID"]
             );
+            setcookie('selected_city', $GLOBALS["GEOCITY"]['ID'] , time() + 3600 * 24 * 7, '/');
         } else {
             $GLOBALS["GEOCITY"] = array(
                 "NAME" => "Москва",
                 "ID" => 644
             );
+            setcookie('selected_city', $GLOBALS["GEOCITY"]['ID'] , time() + 3600 * 24 * 7, '/');
         }
     }
 }

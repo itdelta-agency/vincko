@@ -107,23 +107,16 @@ $Asset = Asset::getInstance();
 
             </div>
         </div>
-        <div id="header__top-info" class="header__top-info--popup modal">
-            <div class="modal__content">
-                <div data-close-button class="close-button"></div>
-                <div class="modal__content-body">
-                    <h4>Выберите город</h4>
-                    <ul class="menu__list">
-                        <li class="active"><a href="">Москва</a></li>
-                        <li><a href="">Санкт-Петербург</a></li>
-                        <li><a href="">Екатеринбург</a></li>
-                        <li><a href="">Челябинск</a></li>
-                        <li><a href="">Краснодар</a></li>
-                        <li><a href="">Ростов-на-Дону</a></li>
-                        <li><a href="">Чита</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+        <? $APPLICATION->IncludeComponent(
+            "bitrix:main.include",
+            "",
+            array(
+                "AREA_FILE_SHOW" => "file",
+                "AREA_FILE_SUFFIX" => "inc",
+                "EDIT_TEMPLATE" => "",
+                "PATH" => "/include/vincko_citymodal.php"
+            )
+        ); ?>
 
         <? $APPLICATION->IncludeComponent(
             "bitrix:search.title",
@@ -258,10 +251,7 @@ $Asset = Asset::getInstance();
                         <path d="M6 0.5C3.0975 0.5 0.75 2.8475 0.75 5.75C0.75 9.6875 6 15.5 6 15.5C6 15.5 11.25 9.6875 11.25 5.75C11.25 2.8475 8.9025 0.5 6 0.5ZM6 7.625C5.50272 7.625 5.02581 7.42746 4.67418 7.07583C4.32254 6.7242 4.125 6.24728 4.125 5.75C4.125 5.25272 4.32254 4.77581 4.67418 4.42418C5.02581 4.07254 5.50272 3.875 6 3.875C6.49728 3.875 6.9742 4.07254 7.32583 4.42418C7.67746 4.77581 7.875 5.25272 7.875 5.75C7.875 6.24728 7.67746 6.7242 7.32583 7.07583C6.9742 7.42746 6.49728 7.625 6 7.625Z"
                               fill="#005DFF"/>
                     </svg>
-
-                    <a >
-                        
-                    </a>
+                    <a data-modal-target="#header__top-info"><?=$GLOBALS["GEOCITY"]["NAME"]?></a>
                 </div>
 
                 <div class="header__submenu-question">
@@ -270,7 +260,7 @@ $Asset = Asset::getInstance();
                         </span>
 
                     <span class="header__submenu-question-yes">Да</span>
-                    <a class="header__submenu-question-no">Нет, выбрать другой</a>
+                    <a data-modal-target="#header__top-info" class="header__submenu-question-no">Нет, выбрать другой</a>
 
                 </div>
 

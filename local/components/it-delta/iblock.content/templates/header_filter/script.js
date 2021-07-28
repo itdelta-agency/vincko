@@ -7,5 +7,23 @@ var HeaderFilter = {
             let s = element.split('=');
             BX.setCookie(s[0], s[1], {expires: 86400, path: '/'});
         });
-    }
+        HeaderFilter.setGlobalCity();
+    },
+    setGlobalCity: function() {
+            $.ajax({
+                url: "/ajax/citymodal.php",
+                type: "POST",
+                data: {
+                    city: $("#header__select_location-js :selected").data("id")
+                },
+                dataType: "json",
+                success: function(d){
+                    location.reload();
+                },
+                error: function(e){
+                    location.reload();
+                }
+            });
+
+    },
 };
