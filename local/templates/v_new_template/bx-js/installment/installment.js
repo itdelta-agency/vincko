@@ -41,31 +41,31 @@ $(document).ready(function () {
       var id = "#form-3";
       var top = $(id).position().top;
       $('html').scrollTop(top);
-      $('.installment__rules').addClass("installment__rules--active");
-    });
-    $(".polzunok-1").slider({
-      min: 0,
-      max: 50,
-      step: 1,
-      range: "min",
-      animate: "slow",
-      slide: function slide(event, ui) {
-        $(".polzunok__number-1").html(ui.value);
-      }
-    });
-    $(".polzunok-2").slider({
-      min: 0,
-      max: 12,
-      step: 6,
-      range: "min",
-      animate: "slow",
-      slide: function slide(event, ui) {
-        $(".installment__calculator-sub-value-2").html(ui.value);
-      }
+      $('.installment__rules-wall').hide();
     });
   } catch (_unused) {}
 
   $(".to-short-rd").on("click", function () {
     $("#short-rd").removeClass("hidden");
+  });
+  $(".polzunok-1").slider({
+    min: 0,
+    max: 50,
+    step: 1,
+    range: "min",
+    animate: "slow",
+    slide: function slide(event, ui) {
+      $(".polzunok__number-1").html(ui.value);
+    }
+  });
+  $(".polzunok-2").slider({
+    min: 0,
+    max: 12,
+    step: 6,
+    range: "min",
+    animate: "slow",
+    slide: function slide(event, ui) {
+      $(".installment__calculator-sub-value-2").html(ui.value);
+    }
   });
 });

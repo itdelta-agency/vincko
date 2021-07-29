@@ -9,7 +9,7 @@ $aMenuLinks = Array(
 	),
 	Array(
 		"Страхование недвижимости", 
-		"", 
+		"/strahovanie/", 
 		Array(), 
 		Array(), 
 		"" 

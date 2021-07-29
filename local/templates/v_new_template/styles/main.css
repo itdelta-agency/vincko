@@ -12452,7 +12452,8 @@ html {
 }
 
 .polzunok__number {
-  margin-top: 22 px;
+  margin-top: 22
+  px;
   display: block;
   color: #93b6ff;
   width: 5ch;
@@ -23545,7 +23546,8 @@ input:checked + .ready-des2__choice-item--subscription .ready-des2__choice-title
 
   .loyality__calculator .content__items {
     grid-template-columns: 1fr 1fr;
-    grid-template-areas: "left center" "left right";
+    grid-template-areas: "left center"
+ "left right";
   }
 
   .loyality__calculator .content__items-left {
