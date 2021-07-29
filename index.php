@@ -181,7 +181,7 @@ $APPLICATION->SetPageProperty("NOT_SHOW_NAV_CHAIN", "Y");
             "AREA_FILE_SHOW" => "file",
             "AREA_FILE_SUFFIX" => "",
             "EDIT_TEMPLATE" => "",
-            "PATH" => SITE_DIR."include/main_payments.php"
+            "PATH" => "/include/main/main_payments.php"
         )
     );?>
 
@@ -230,9 +230,9 @@ $APPLICATION->SetPageProperty("NOT_SHOW_NAV_CHAIN", "Y");
         "",
         Array(
             "AREA_FILE_SHOW" => "file",
-            "AREA_FILE_SUFFIX" => "inc",
+            "AREA_FILE_SUFFIX" => "",
             "EDIT_TEMPLATE" => "",
-            "PATH" => "/include/callback.php"
+            "PATH" => "/include/questions.php"
         )
     );?>
 

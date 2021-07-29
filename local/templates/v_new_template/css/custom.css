@@ -4,6 +4,10 @@
 /*    height: 100%!important;*/
 /*    border-radius: 10px;*/
 /*}*/
+.form__content .form__section:last-child {
+    border-bottom: none;
+}
+
 
 .ready-des2__title-info .item__content-company.choose_company .choices {
     display: inline-block;
@@ -32,9 +36,27 @@
     width: min-content;
     padding: 4px;
 }
+.equipmnet-kits .ready-pack__bottom .choices .choices__list  {
+    width: 60px;
+}
 /*modal city-choice window-start*/
 .header .header__top {
     z-index: 200;
 }
 /*modal city-choice window-end*/
 
+/* Временное решение для выпадающего меню на главной странице */
+#form_installment_plan .first__page_ready-des .form__select .choices__list--single {
+    min-width: 100% !important;
+}
+
+#form_installment_plan .choices__list {
+    width: 100% !important;
+    max-width: 100% !important;
+}
+.slider__under-block-2 .b-dnone li {
+    display: none;
+}
+.slider__under .slider__under-block-2 .b-dnone li.vis {
+    display: flex!important;
+}
