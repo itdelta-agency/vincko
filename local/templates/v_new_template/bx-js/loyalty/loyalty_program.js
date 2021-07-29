@@ -15,7 +15,7 @@ jQuery(document).ready(function ($) {
         item.classList.remove("active");
       });
       this.classList.add("active");
-      tabName = this.getAttribute("data-tab-name");
+      tabName = this.getAttribute("datat-tab-name");
       selectTabContent(tabName);
     }
 
@@ -28,13 +28,17 @@ jQuery(document).ready(function ($) {
 
   tab(); // loyality__calculator
 
+  $("#calculator__range-js").on("input change", function () {
+    var $value = $(this).val();
+    $(".result-number").html($value);
+  });
   $(document).on("change", function () {
     var $selectVal = $("#calculator__select-js option:selected").val();
     var $output = $(".content__items-left--bottom .number");
     var $center = $(".content__items-center--bottom>p");
     var $right = $(".content__items-right--bottom>p");
     $output.html($selectVal);
-    var vincoTime = [{
+    var workTime = [{
       hour: 0,
       minut: 12
     }, {
@@ -50,7 +54,7 @@ jQuery(document).ready(function ($) {
       hour: 1,
       minut: 12
     }];
-    var workTime = [{
+    var vincoTime = [{
       hour: 17,
       minut: 36
     }, {
@@ -66,34 +70,10 @@ jQuery(document).ready(function ($) {
       hour: 105,
       minut: 36
     }];
-    var h = Object.values(workTime).map(function (i) {
-      return i.hour;
-    });
-    var m = Object.values(workTime).map(function (i) {
-      return i.minut;
-    });
-
-    function hour() {
-      return Object.values(this).map(function (i) {
-        return i.hour;
-      });
-    }
-
-    var r = hour.bind(workTime);
-    console.log(r());
-    $("#calculator__range-js").on("input", function rangeRes() {
-      var $value = $(this).val();
-      $(".result-number").html($value);
-    });
 
     function elNumber(el) {
-      var $rangeValue = $("#calculator__range-js").val() / 1000;
-      var vincoHour = vincoTime[el].hour * $rangeValue;
-      var vincoMinut = vincoTime[el].minut * $rangeValue;
-      var workHour = workTime[el].hour * $rangeValue;
-      var workMinut = workTime[el].minut * $rangeValue;
-      $center.html("<span>".concat(vincoHour, "<small>\u0447</small></span><span>").concat(vincoMinut, "<small>\u043C\u0438\u043D</small></span>"));
-      $right.html("<span>".concat(workHour, "<small>\u0447</small></span><span>").concat(workMinut, "<small>\u043C\u0438\u043D</small></span>"));
+      $right.html("<span>".concat(vincoTime[el].hour, "<small>\u0447</small></span><span>").concat(vincoTime[el].minut, "<small>\u043C\u0438\u043D</small></span>"));
+      $center.html("<span>".concat(workTime[el].hour, "<small>\u0447</small></span><span>").concat(workTime[el].minut, "<small>\u043C\u0438\u043D</small></span>"));
     }
 
     if ($selectVal == 1000) {

@@ -64,6 +64,7 @@ $res = CIBlockElement::GetList(
 
 while ($arFields = $res->Fetch()) {
     $arResult['COMPLECT_PARENT_PACKAGE'] = $arFields;
+    $arResult['COMPLECT_PARENT_PACKAGE']['PICTURE'] = CFile::ResizeImageGet($arFields['PREVIEW_PICTURE'], array("width" => 360, "height" => 290), BX_RESIZE_IMAGE_PROPORTIONAL_ALT, false);
 }
 //получаем группу готового решения
 $parentPackageGroupId = $arResult['COMPLECT_PARENT_PACKAGE']['IBLOCK_SECTION_ID'];
@@ -211,6 +212,8 @@ $res = CIBlockElement::GetList(
 );
 while ($arFields = $res->Fetch()) {
     $arResult['PACKAGES_CLASSES'][$arFields['ID']] = $arFields;
+    $previewPicture = CFile::ResizeImageGet($arFields["PREVIEW_PICTURE"], array("width" => 110, "height" => 100), BX_RESIZE_IMAGE_PROPORTIONAL_ALT, false);
+    $arResult['PACKAGES_CLASSES'][$arFields['ID']]['PICTURE'] = $previewPicture;
     $detailPicture = CFile::ResizeImageGet($arFields["DETAIL_PICTURE"], array("width" => 40, "height" => 40), BX_RESIZE_IMAGE_PROPORTIONAL_ALT, false);
     $arResult['PACKAGES_CLASSES'][$arFields['ID']]['ICON'] = $detailPicture;
 }
@@ -247,9 +250,9 @@ if (!empty($arEquipSet)) {
     }
     //получаем состав комплекта - все его оборудование
     $arSelect = array("ID", "NAME", "PREVIEW_TEXT", "PREVIEW_PICTURE",
-        "PROPERTY_EQUIPMENT_PICTURES", "PROPERTY_CO_CHARACTERISTICS_REF", "PROPERTY_SENSOR_ADVANTAGES", "PROPERTY_PRINCIPLE_OF_OPERATION", "PROPERTY_FEATURES_OF_THE","PROPERTY_CO_TECH_CHARACTERISTICS_REF", "PROPERTY_CLASSIFICATION",
-        "PROPERTY_TYPE_OF_INSTALLATION",
-        "PROPERTY_CONNECTED_DEVICES", "PROPERTY_CCTV");
+        "PROPERTY_EQUIPMENT_PICTURES", "PROPERTY_CO_CHARACTERISTICS_REF"
+    , "PROPERTY_SENSOR_ADVANTAGES", "PROPERTY_PRINCIPLE_OF_OPERATION", "PROPERTY_FEATURES_OF_THE", "PROPERTY_CLASSIFICATION",
+        "PROPERTY_TYPE_OF_INSTALLATION");
     $res = \CIBlockElement::GetList(array(), array("IBLOCK_ID" => $equipmentIblockId, "ID" => $itemIds, "ACTIVE" => "Y"), false,
         false, $arSelect);
     while ($arFields = $res->Fetch()) { // получаем сразу массив данных а не объект
@@ -258,7 +261,7 @@ if (!empty($arEquipSet)) {
 
         $equipmentPictures = array();
         foreach ($arFields["PROPERTY_EQUIPMENT_PICTURES_VALUE"] as $FILE) {
-            $FILE = CFile::GetFileArray($FILE);
+            $FILE = CFile::ResizeImageGet($FILE, array("width" => 170, "height" => 150), BX_RESIZE_IMAGE_PROPORTIONAL_ALT, false);
             if (is_array($FILE))
                 $equipmentPictures[] = $FILE;
         }
@@ -284,10 +287,6 @@ if (!empty($arEquipSet)) {
             "SENSOR_ADVANTAGES" => $arFields['PROPERTY_SENSOR_ADVANTAGES_VALUE'],
             "PRINCIPLE_OF_OPERATION" => $arFields['PROPERTY_PRINCIPLE_OF_OPERATION_VALUE'],
             "FEATURES_OF_THE" => $arFields['PROPERTY_FEATURES_OF_THE_VALUE'],
-            "CLASSIFICATION" => $arFields['PROPERTY_CLASSIFICATION_VALUE'],
-            "TYPE_OF_INSTALLATION" => $arFields['PROPERTY_TYPE_OF_INSTALLATION_VALUE'],
-            "CONNECTED_DEVICES" => $arFields['PROPERTY_CONNECTED_DEVICES_VALUE'],
-            "CCTV" => $arFields['PROPERTY_CCTV_VALUE'],
         );
     }
 }
@@ -307,19 +306,23 @@ while ($arFields = $res->Fetch()) {
 
 //получаем Технические характеристики для оборудования
 $res = \CIBlockElement::GetList(array(), array("IBLOCK_ID" => $equipmentTechCharacteristicsIblockId, "ACTIVE" => "Y"), false,
-    false, array("ID", "*", "PROPERTY_EQ", "PROPERTY_EQ_CHAR_TYPE", "PROPERTY_EQ_CHAR_VALUE"));
+    false, array("ID", "*", "PROPERTY_EQ", "PROPERTY_EQ_CHAR_TYPE.NAME", "PROPERTY_EQ_CHAR_VALUE"));
 while ($arFields = $res->Fetch()) {
-    $arResult["EQUIP_ITEM_TECH_CHARACTERISTICS"][$arFields["PROPERTY_EQ_VALUE"]] = $arFields;
+    $arResult["EQUIP_ITEM_TECH_CHARACTERISTICS"][$arFields["ID"]] = $arFields;
+
 }
 
 
 foreach ($arResult['EQUIP_COMPLECT'] as $ec)
 {
+    foreach ($arResult['EQUIP_ITEM_TECH_CHARACTERISTICS'] as $techChar) {
+        if($techChar['PROPERTY_EQ_VALUE'] === $ec['ID'])
+        $arResult['EQUIP_COMPLECT'][$ec['ID']]["TECH_CHARACTERISTICS"][] = array(
+            "EQ_CHAR_TYPE" => $techChar['PROPERTY_EQ_CHAR_TYPE_NAME'],
+            "EQ_CHAR_VALUE" => $techChar['PROPERTY_EQ_CHAR_VALUE_VALUE'],
+        );
+    }
 
-    $arResult['EQUIP_COMPLECT'][$ec['ID']]["TECH_CHARACTERISTICS"][] = array(
-        "EQ_CHAR_TYPE" => $arResult["EQUIP_ITEM_TECH_CHARACTERISTICS"][$ec["ID"]]['PROPERTY_EQ_CHAR_TYPE_VALUE'],
-        "EQ_CHAR_VALUE" => $arResult["EQUIP_ITEM_TECH_CHARACTERISTICS"][$ec["ID"]]['PROPERTY_EQ_CHAR_VALUE_VALUE'],
-    );
 }
 
 //получаем все картинки для оборудования

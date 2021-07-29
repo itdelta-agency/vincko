@@ -83,8 +83,12 @@ while ($equipmentKitsRes = $dbResEquipmentKits->GetNext()) {
     $arDiscounts = CCatalogDiscount::GetDiscountByProduct(
         $equipmentKitsRes['ID'],
     );
-    !empty($arDiscounts) ? $equipmentKitsRes["DISCOUNT_PRICE"] = $equipmentKitsRes['CATALOG_PRICE_1'] - ($equipmentKitsRes['CATALOG_PRICE_1'] *$arDiscounts[0]['VALUE'] / 100): '' ;
+if (!empty($arDiscounts) && $arDiscounts[0]['TYPE'] == 0) {
+    $equipmentKitsRes["DISCOUNT_PRICE"] = $equipmentKitsRes['CATALOG_PRICE_1'] - $arDiscounts[0]['VALUE'];
+} else {
+    $equipmentKitsRes["DISCOUNT_PRICE"] = $equipmentKitsRes['CATALOG_PRICE_1'] - ($equipmentKitsRes['CATALOG_PRICE_1'] * $arDiscounts[0]['VALUE'] / 100);
 
+}
     //получаем путь картинки
     $equipmentKitsRes['DETAIL_URL'] = $equipmentKitsRes['CODE'];
 

@@ -34,6 +34,7 @@ upload
 # исключаем логи
 /local/php_interface/logs/
 /local/logs/
+/local/php_interface/lib/vendor/
 
 # исключаем загружаемые файлы
 /upload/
@@ -43,6 +44,8 @@ upload
 /awstats/
 /webstat/
 .DS_Store
+
+
 .Spotlight-V100
 .Trashes
 Thumbs.db
@@ -57,7 +60,7 @@ ehthumbs.db
 
 # архивы, включая многотомные
 *.zip
-*.zip*  
+*.zip*
 *.tar
 *.tar*
 *.enc

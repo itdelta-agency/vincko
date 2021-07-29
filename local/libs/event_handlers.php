@@ -1,5 +1,5 @@
 <?php
-define('NEED_AUTH','Y');
+
 //подключение классов
 CModule::AddAutoloadClasses(
     '',
@@ -199,3 +199,5 @@ class ExtraElement
         else return false;
     }
 }
+
+//define('NEED_AUTH','Y');
