@@ -66,16 +66,6 @@ $Asset = Asset::getInstance();
 	<script src="https://atuin.ru/demo/ui-slider/jquery.ui.touch-punch.min.js"></script>
 	<script src="<?=SITE_TEMPLATE_PATH ?>/js/custom.js"></script>
 	<? $Asset->addCss(SITE_TEMPLATE_PATH . "/css/custom.css"); ?>
-
-	<?
-	$currentCity = CIBlockElement::GetList(
-		array("SORT" => "ASC"),
-		array("ACTIVE" => "Y", "IBLOCK_ID" => '20', 'ID' => $_COOKIE['selected_city']),
-		false,
-		false,
-		array('NAME', 'ID')
-	)->GetNext()['NAME'];
-	?>
 </head>
 
 <body>
@@ -123,23 +113,16 @@ $Asset = Asset::getInstance();
 
 			</div>
 		</div>
-		<div id="header__top-info" class="header__top-info--popup modal">
-			<div class="modal__content">
-				<div data-close-button class="close-button"></div>
-				<div class="modal__content-body">
-					<h4>Выберите город</h4>
-					<ul class="menu__list">
-						<li class="active"><a href="">Москва</a></li>
-						<li><a href="">Санкт-Петербург</a></li>
-						<li><a href="">Екатеринбург</a></li>
-						<li><a href="">Челябинск</a></li>
-						<li><a href="">Краснодар</a></li>
-						<li><a href="">Ростов-на-Дону</a></li>
-						<li><a href="">Чита</a></li>
-					</ul>
-				</div>
-			</div>
-		</div>
+        <? $APPLICATION->IncludeComponent(
+            "bitrix:main.include",
+            "",
+            array(
+                "AREA_FILE_SHOW" => "file",
+                "AREA_FILE_SUFFIX" => "inc",
+                "EDIT_TEMPLATE" => "",
+                "PATH" => "/include/vincko_citymodal.php"
+            )
+        ); ?>
 
 		<? $APPLICATION->IncludeComponent(
 			"bitrix:search.title",
@@ -275,9 +258,7 @@ $Asset = Asset::getInstance();
 							  fill="#005DFF"/>
 					</svg>
 
-					<a>
-						<?= $currentCity ?>
-					</a>
+                    <a data-modal-target="#header__top-info"><?=$GLOBALS["GEOCITY"]["NAME"]?></a>
 				</div>
 
 				<div class="header__submenu-question">
@@ -286,7 +267,7 @@ $Asset = Asset::getInstance();
                         </span>
 
 					<span class="header__submenu-question-yes">Да</span>
-					<a class="header__submenu-question-no">Нет, выбрать другой</a>
+					<a data-modal-target="#header__top-info" class="header__submenu-question-no">Нет, выбрать другой</a>
 
 				</div>
 
