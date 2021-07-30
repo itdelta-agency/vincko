@@ -26,7 +26,7 @@
 }
 .bonuses__condition-head_right > p {
   display: inline-block;
-  max-width: 182px;
+  max-width: 200px;
   text-align: end;
   margin-right: 15px
 }
@@ -287,37 +287,28 @@
 .bonuses__questions-content > p span {
   color: #005dff
 }
-.bonuses__questions-content .content__items-one {
+.content__items-one {
   display: inline;
-  margin-bottom: 32px
+  margin-bottom: 32px;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 68px auto;
+  grid-template-columns: 68px auto
 }
-.bonuses__questions-content .content__items-one > p {
-  position: relative;
-  margin-left: 68px;
+.content__items-one-img {
+  display: -ms-grid;
+  display: grid
+}
+.content__items-one-text {
+  -ms-grid-row-align: center;
+  align-self: center
+}
+.content__items-one-title {
+  margin-bottom: 8px;
+  font-weight: 700
+}
+.content__items-one p {
   margin-bottom: 8px
-}
-.bonuses__questions-content .content__items-one > p:first-child {
-  font-weight: 700
-}
-.bonuses__questions-content .content__items-one > p:first-child::before {
-  position: absolute;
-  top: 4px;
-  left: -68px
-}
-.bonuses__questions-content .content__items-one:first-child p:first-child {
-  font-weight: 700
-}
-.bonuses__questions-content .content__items-one:first-child p:first-child::before {
-  content: url(../img/bonuses/raiting.svg)
-}
-.bonuses__questions-content .content__items-one:nth-child(2) p:first-child::before {
-  content: url(../img/bonuses/guarantee.svg)
-}
-.bonuses__questions-content .content__items-one:last-child {
-  margin-bottom: 0
-}
-.bonuses__questions-content .content__items-one:last-child p:first-child::before {
-  content: url(../img/bonuses/platform.svg)
 }
 .bonuses__themes h2 {
   text-align: center;
@@ -336,31 +327,11 @@
 .bonuses__themes-content > p span {
   color: #005dff
 }
-.bonuses__themes-content .content__items p {
-  position: relative;
-  margin-left: 68px;
-  margin-bottom: 30px
+.bonuses__themes .content__items-one {
+  margin-bottom: 28px
 }
-.bonuses__themes-content .content__items p::before {
-  position: absolute;
-  top: 3px;
-  left: -68px;
-  margin-right: 38px
-}
-.bonuses__themes-content .content__items p:first-child::before {
-  content: url(../img/bonuses/video-camera-outline.svg)
-}
-.bonuses__themes-content .content__items p:nth-child(2)::before {
-  content: url(../img/bonuses/box.svg)
-}
-.bonuses__themes-content .content__items p:nth-child(3)::before {
-  content: url(../img/bonuses/user-shield.svg)
-}
-.bonuses__themes-content .content__items p:last-child {
+.bonuses__themes .content__items-one p {
   margin-bottom: 0
-}
-.bonuses__themes-content .content__items p:last-child::before {
-  content: url(../img/bonuses/comment.svg)
 }
 .bonuses__useful {
   padding: 40px 0

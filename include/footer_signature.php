@@ -1,4 +1,4 @@
 <div class="footer__signature">
-    <span>2021 Vincko. Все права защищены.</span>
-    <span>сделано в <a href="">Филдс</a></span>
+    <span>2021 Vincko.</span>
+    <span> Все права защищены.</span>
 </div>

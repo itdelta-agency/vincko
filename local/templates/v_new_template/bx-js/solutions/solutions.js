@@ -46,33 +46,4 @@ jQuery(document).ready(function () {
     $(this).parents('.solutions-card__top_text-subtitle').prev().siblings('p').text($(this).find('.policy').text());
     $(this).parents('.select__list').prev().siblings('.select__input').val($(this).find('.policy-title').text());
   });
-
-  if ($(".card-one .solutions-card__info").children(".solutions-card__info_item").length > 5) {
-    var el = $(".card-one .solutions-card__info").children(".solutions-card__info_item").slice(5, 100);
-    $(".solutions-card__info-switch").css("display", "grid");
-    el.addClass("hidden");
-    $(".card-one .solutions-card__info-open").on("click", function () {
-      $(".card-one .solutions-card__info").children(".solutions-card__info_item").removeClass("hidden");
-      $(".card-one .solutions-card__info-close").css("display", "flex");
-      $(".card-one .solutions-card__info-open").css("display", "none");
-    });
-    $(".card-one .solutions-card__info-close").on("click", function () {
-      el.addClass("hidden");
-      $(".card-one .solutions-card__info-close").css("display", "none");
-      $(".card-one .solutions-card__info-open").css("display", "flex");
-    });
-  }
-
-  try {
-    var element = document.querySelectorAll('.solutions__bottom_column-select');
-
-    if (element) {
-      element.forEach(function (el) {
-        var choices = new Choices(el, {
-          searchEnabled: false,
-          itemSelectText: ''
-        });
-      });
-    }
-  } catch (_unused) {}
 });

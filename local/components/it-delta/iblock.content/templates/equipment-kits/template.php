@@ -72,6 +72,11 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();
                         </div>
                         <div class="ready-pack__items">
                             <? foreach ($section['EQUIPMENT-KITS'] as $item): ?>
+<!--                            --><?//if($_SERVER['REMOTE_ADDR'] == '46.147.123.63'):?>
+<!--                            <pre>-->
+<!--                                --><?//print_r($item)?>
+<!--                            </pre>-->
+<!--                            --><?//endif;?>
                                 <div class="ready-pack__item">
                                     <div class="ready-pack__top">
                                         <picture>
@@ -148,8 +153,7 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();
                                             </div>
 
                                             <div class="ready-pack__bottom-result">
-                                                <?= empty($item['DISCOUNT_PRICE']) ? number_format($item['CATALOG_PRICE_1'], 0, ',', ' ') : number_format($item['DISCOUNT_PRICE'], 0, ',', ' ') ?> ₽
-
+                                                <span class="currently-price"><?= empty($item['DISCOUNT_PRICE']) ? number_format($item['CATALOG_PRICE_1'], 0, ',', ' ') : number_format($item['DISCOUNT_PRICE'], 0, ',', ' ') ?></span> <span>₽</span>
                                                 <span class="ready-pack__bottom-or">
                                     или
                                 </span>

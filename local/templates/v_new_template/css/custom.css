@@ -4,3 +4,59 @@
 /*    height: 100%!important;*/
 /*    border-radius: 10px;*/
 /*}*/
+.form__content .form__section:last-child {
+    border-bottom: none;
+}
+
+
+.ready-des2__title-info .item__content-company.choose_company .choices {
+    display: inline-block;
+}
+.ready-des2__title-info .item__content-company.choose_company .choices .choices__inner {
+    padding: 0;
+    vertical-align: middle;
+    border: none;
+    min-height: unset;
+}
+.ready-des2__title-info .item__content-company.choose_company .choices .choices__inner .choices__list--single {
+    padding: 4px 0;
+}
+.ready-des2__title-info .item__content-company.choose_company .choices .choices__inner .choices__list--single .choices__item {
+    text-decoration: underline;
+}
+.ready-des2__title-info .item__content-company.choose_company .choices[data-type*='select-one']:after {
+   display: none;
+}
+.ready-des2__title-info .title-info__item .item__content p .item__content-company-not {
+    text-decoration: none;
+}
+.ready-des2__title-info .item__content-company-not .choices .choices__list {
+    width: -moz-min-content;
+    width: -webkit-min-content;
+    width: min-content;
+    padding: 4px;
+}
+.equipmnet-kits .ready-pack__bottom .choices .choices__list  {
+    width: 60px;
+}
+/*modal city-choice window-start*/
+.header .header__top {
+    z-index: 200;
+}
+/*modal city-choice window-end*/
+
+/* Временное решение для выпадающего меню на главной странице */
+#form_installment_plan .first__page_ready-des .form__select .choices__list--single {
+    min-width: 100% !important;
+}
+
+#form_installment_plan .choices__list {
+    width: 100% !important;
+    max-width: 100% !important;
+}
+.slider__under-block-2 .b-dnone li {
+    display: none;
+}
+.slider__under .slider__under-block-2 .b-dnone li.vis {
+    display: flex!important;
+}

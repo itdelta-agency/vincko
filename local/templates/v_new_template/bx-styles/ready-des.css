@@ -359,9 +359,10 @@ a:hover {
   position: absolute;
   bottom: 28px;
   border: 1px solid #d1dbe3;
-  border-radius: 10px
+  border-radius: 10px;
+  transition: .3s
 }
-.predloj__present h5 {
+.predloj__present .h5 {
   font-family: Gilroy-Bold;
   font-size: 16px;
   color: #35a34a;

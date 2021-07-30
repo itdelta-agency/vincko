@@ -1,4 +1,5 @@
 <?php
+
 $arUrlRewrite = array(
     15 =>
         array(

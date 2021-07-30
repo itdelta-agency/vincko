@@ -2,6 +2,18 @@
 html {
   overflow-x: hidden
 }
+.products .products__item > * {
+  margin: 0 32px
+}
+.products__m-price {
+  color: #005dff;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 30px;
+  letter-spacing: 0;
+  margin-bottom: 24px
+}
 .no-stroke svg path {
   stroke: none!important
 }
@@ -196,7 +208,7 @@ html {
   width: 90vw;
   position: absolute;
   margin-top: -2rem;
-  margin-left: -320px;
+  margin-left: -316px;
   font-size: 12px;
   z-index: -1
 }
@@ -236,6 +248,14 @@ html {
   display: flex;
   justify-content: space-between
 }
+.products__item .products__container .products__gray {
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 17px;
+  letter-spacing: 0;
+  color: #818181
+}
 .products__item .products__offer-enough {
   color: #005dff;
   font-weight: 700;
@@ -258,9 +278,6 @@ html {
   padding: 12px 0;
   text-align: center
 }
-.products__item > * {
-  margin: 0 32px
-}
 .products__item .products__head {
   width: 100%;
   display: -ms-grid;
@@ -278,12 +295,26 @@ html {
   margin-bottom: 48px
 }
 .products__item .products__title {
+  margin-bottom: 30px;
   font-size: 24px;
-  line-height: 30px;
-  margin-bottom: 24px
+  font-style: normal;
+  font-weight: 700;
+  line-height: 16px;
+  letter-spacing: 0;
+  color: #005dff
+}
+.products__item .products__payment {
+  padding-bottom: 20px
 }
 .products__item .products__payment .products__gray {
-  padding-bottom: 8px
+  padding-bottom: 8px;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 18px;
+  letter-spacing: 0;
+  text-align: left;
+  color: #818181
 }
 .products__item .products__payment .products__info {
   -ms-grid-row-align: start;
@@ -293,13 +324,48 @@ html {
 .products__item .products__payment .products__info * {
   color: #000
 }
+.products__item .products__payment-bottom {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  right: 0;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 31px 1fr;
+  grid-template-columns: 31px 1fr;
+  padding: 0 22px 16px 32px
+}
+.products__item .products__payment-switch {
+  cursor: pointer;
+  -ms-grid-column: 2;
+  -ms-grid-column-span: 1;
+  grid-column: 2/3;
+  -ms-grid-column-align: start;
+  justify-self: start;
+  display: none
+}
+.products__item .products__payment-switch > * {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  gap: 9px;
+  color: #818181;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 14px
+}
+.products__item .products__payment-close {
+  display: none
+}
 .products__item .products__payment-item {
+  transition: .3s;
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: 10% 45% 33% 12%;
   grid-template-columns: 10% 45% 33% 12%;
   margin-top: 8px;
-  margin-bottom: 8px;
+  margin-bottom: 20px;
   color: #818181
 }
 .products__item .products__payment-item .products__payment-photo {
@@ -321,22 +387,27 @@ html {
   grid-column: 2/3
 }
 .products__item .products__payment-item .products__payment-cost {
-  font-weight: 700;
+  font-weight: 500;
   -ms-grid-column: 3;
   -ms-grid-column-span: 1;
   grid-column: 3/4;
   text-align: right;
   font-size: 14px
 }
-.products__item .products__payment-item_active {
-  color: #000
+.products__item .products__info svg path {
+  opacity: .5
 }
+.products__item .products__payment-item_active,
 .products__item .products__payment-item_active .products__payment-cost {
-  color: #005dff
+  color: #000
 }
 .products__item .products__payment-item_active .products__payment-photo svg path {
   fill: #005dff;
   stroke: #005dff
+}
+.products__item .products__payment-item_active .products__info svg path {
+  opacity: 1;
+  fill: #93b6ff
 }
 .products__item .products__cost {
   margin-top: 46px;

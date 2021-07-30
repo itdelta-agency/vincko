@@ -92,7 +92,7 @@ $cities = CIBlockElement::GetList(
                     <div class="price__main">
                         <div class="main__left">
                             <h3>Всего</h3>
-                            <h2><?= empty($item['DISCOUNT_PRICE']) ? number_format($item['CATALOG_PRICE_1'], 0, ',', ' ') : number_format($item['DISCOUNT_PRICE'], 0, ',', ' ') ?> ₽ <span>или</span></h2>
+                            <h2 class="currently-price"><?= empty($item['DISCOUNT_PRICE']) ? number_format($item['CATALOG_PRICE_1'], 0, ',', ' ') : number_format($item['DISCOUNT_PRICE'], 0, ',', ' ') ?> ₽ <span>или</span></h2>
                         </div>
                         <div class="main__rigth">
                             <p class="rigth__title">все проценты <br>
@@ -101,7 +101,7 @@ $cities = CIBlockElement::GetList(
                                 <source type="image/svg" srcset="<?=SITE_TEMPLATE_PATH?>/img/ready-des/perc.svg">
                                 <img src="<?=SITE_TEMPLATE_PATH?>/img/ready-des/perc.svg" alt="img" loading="lazy">
                             </picture>
-                            <div class="form__select">
+                            <div class="form__select" id="form_installment_plan">
                                 <form>
                                     <select class="ready__des_select-js">
                                         <option value="0">12 мес.</option>
