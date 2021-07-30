@@ -13,44 +13,44 @@
 /** @var string $componentPath */
 /** @var customOrderComponent $component */
 
-echo '<pre>';
-print_r($arResult);
-echo '</pre>';
+//echo '<pre>';
+//print_r($arResult);
+//echo '</pre>';
 ?>
-<!--<table>-->
-<!--    --><?//
-//    $counter = 1;
-//    foreach ($component->order->getBasket() as $item):
-//        /**
-//         * @var $item \Local\Sale\BasketItem
-//         */
-//        ?>
-<!--        <tr class="basket-data__tr">-->
-<!--            <td class="basket-data__td basket-data__td-number">-->
-<!--                <span class="basket-data__number">--><?//= $counter++ ?><!--</span>-->
-<!--            </td>-->
-<!--            <td class="basket-data__td basket-data__td-img">-->
-<!--            </td>-->
-<!--            <td class="basket-data__td">-->
-<!--                <span class="basket-data__product-title">--><?//= $item->getField('NAME') ?><!--</span>-->
-<!--            </td>-->
-<!--            <td class="basket-data__td">-->
-<!--				<span class="basket-data__count-products">-->
-<!--					--><?//= $item->getQuantity() ?>
-<!--                    --><?//= $item->getField('MEASURE_NAME') ?>
-<!--				</span>-->
-<!--            </td>-->
-<!--            <td class="basket-data__td">-->
-<!--				<span class="basket-data__product-price">-->
-<!--					--><?//= \SaleFormatCurrency(
-//                        $item->getQuantity() * $item->getPrice(),
-//                        $item->getCurrency()
-//                    ) ?>
-<!--				</span>-->
-<!--            </td>-->
-<!--        </tr>-->
-<!--    --><?// endforeach; ?>
-<!--</table>-->
+<table>
+    <?
+    $counter = 1;
+    foreach ($arResult['BASKET'] as $item):
+        /**
+         * @var $item \Local\Sale\BasketItem
+         */
+        ?>
+        <tr class="basket-data__tr">
+            <td class="basket-data__td basket-data__td-number">
+                <span class="basket-data__number"><?= $counter++ ?></span>
+            </td>
+            <td class="basket-data__td basket-data__td-img">
+            </td>
+            <td class="basket-data__td">
+                <span class="basket-data__product-title"><?= $item->getField('NAME') ?></span>
+            </td>
+            <td class="basket-data__td">
+				<span class="basket-data__count-products">
+					<?= $item->getQuantity() ?>
+                    <?= $item->getField('MEASURE_NAME') ?>
+				</span>
+            </td>
+            <td class="basket-data__td">
+				<span class="basket-data__product-price">
+					<?= \SaleFormatCurrency(
+                        $item->getQuantity() * $item->getPrice(),
+                        $item->getCurrency()
+                    ) ?>
+				</span>
+            </td>
+        </tr>
+    <? endforeach; ?>
+</table>
 
 Выберите службу доставки:<br>
 <?foreach ($arResult['DELIVERY'] as $obDelivery):?>

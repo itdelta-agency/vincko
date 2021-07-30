@@ -111,7 +111,31 @@ class customOrderComponent extends CBitrixComponent
             $this->errors[] = $e->getMessage();
         }
     }
+    /**
+     * @param array $propertyValues
+     * @throws Exception
+     */
+    protected function setOrderProperties(array $propertyValues)
+    {
+        foreach ($this->order->getPropertyCollection() as $prop) {
+            /**
+             * @var PropertyValue $prop
+             */
+            if ($prop->isUtil()) {
+                continue;
+            }
 
+            $value = $propertyValues[$prop->getField('CODE')] ?? null;
+
+            if (empty($value)) {
+                $value = $prop->getProperty()['DEFAULT_VALUE'];
+            }
+
+            if (!empty($value)) {
+                $prop->setValue($value);
+            }
+        }
+    }
     protected function setOrderProps()
     {
         global $USER;
@@ -201,10 +225,14 @@ class customOrderComponent extends CBitrixComponent
     {
 
         $this->createVirtualOrder();
-
+        $propertiesList = $this->request['properties'] ?? $this->arParams['DEFAULT_PROPERTIES'] ?? [];
+        if (!empty($propertiesList)) {
+            $this->setOrderProperties($propertiesList);
+        }
         if (isset($this->request['save']) && $this->request['save'] == 'Y') {
             $this->order->save();
         }
+        $this->arResult['BASKET'] = $this->order->getBasket();
         $this->arResult['DELIVERY'] = $this->getAvailableDeliveries();
         $this->arResult['PAYMENT'] = $this->getAvailablePaySystems();
         $this->includeComponentTemplate();

@@ -171,7 +171,7 @@ if (!empty($arParams['LABEL_PROP_POSITION'])) {
                 <div class="solutions-card__circles">
                     <? foreach ($arResult['PACKAGES_CLASSES'] as $key => $class): ?>
                     <?if(!empty($arResult['FIRST_LIST_COMPLECTS_SLUGS'][$key])):?>
-                        <div onclick="location.href='/equipment-kits/<?= $arResult['FIRST_LIST_COMPLECTS_SLUGS'][$key]['SLUG'] ?>/#solutions__center'"
+                        <div onclick="location.href='/equipment-kits/<?= $arResult['FIRST_LIST_COMPLECTS_SLUGS'][$key]['SLUG'] ?>/'"
                              class="solutions-card__circles_item <?= $arResult['CURRENT_PACKAGE_CLASS'] == $key ? 'show' : 'hide' ?>">
                             <div class="solutions-card__circles_item-icon">
                                 <img src="<?= $class['ICON']['src'] ?>" alt="<?= $class['NAME'] ?>">
@@ -242,7 +242,7 @@ if (!empty($arParams['LABEL_PROP_POSITION'])) {
                                 <div class="solutions__bottom_column-title">
                                     Всего
                                 </div>
-                                <? if ((int)($arResult["PRICES"]["BASE"]["PRINT_DISCOUNT_VALUE"]) != (int)($arResult["PRICES"]["BASE"]["PRINT_VALUE"])): ?>
+                                <? if (intval($arResult["PRICES"]["BASE"]["DISCOUNT_VALUE"]) != intval($arResult["PRICES"]["BASE"]["VALUE"])): ?>
                                     <div class="solutions__bottom_column-oldprice">
                                         <?= $arResult["PRICES"]["BASE"]["PRINT_VALUE"] ?>
                                     </div>
@@ -530,7 +530,7 @@ if (!empty($arParams['LABEL_PROP_POSITION'])) {
                                     <div class="solutions-card__top">
                                         <div class="solutions-card__top_img">
                                             <img src="<?= $arResult['PACKAGES_CLASSES'][$arResult['CURRENT_PACKAGE_CLASS']]['PICTURE']['src'] ?>"
-                                                 alt="img">
+                                                 alt="<?= $arResult['PACKAGES_CLASSES'][$arResult['CURRENT_PACKAGE_CLASS']]['NAME'] ?>">
                                         </div>
                                         <div class="solutions-card__top_text">
                                             <div class="h4 solutions-card__top_text-title"><?= $arResult['NAME'] ?></div>
@@ -1148,7 +1148,7 @@ if (!empty($arParams['LABEL_PROP_POSITION'])) {
 
                                                 <div class="products__payment-name"><?= $arResult['ALL_INSURANCE_PAYMENT_OPTIONS_LIST'][$el]['NAME'] ?>
                                                 </div>
-                                                <div class="products__payment-cost"><?= $item['ITEMS'][$currentPolicyIndex]['PROPERTY_PAYMENT_PRICE_VALUE'][$index] ?>
+                                                <div class="products__payment-cost"><?= $item['ITEMS'][$currentPolicyIndex]['PROPERTY_PAYMENT_PRICE_VALUE'][$index] !='-' && $item['ITEMS'][$currentPolicyIndex]['PROPERTY_PAYMENT_PRICE_VALUE'][$index]!='' ? $item['ITEMS'][$currentPolicyIndex]['PROPERTY_PAYMENT_PRICE_VALUE'][$index] : '' ?>
                                                     руб.
                                                 </div>
 
@@ -1232,93 +1232,6 @@ if (!empty($arParams['LABEL_PROP_POSITION'])) {
     </div>
     <? if (!$arResult['HIDE_BASKET_BLOCK']): ?>
         <div id="b-vincko-basket-component"></div>
-        <? /*<div class="solutions__bottom">
-            <div class="container">
-                <div class="solutions__bottom_title">
-                    Итого, в ваше Готовое решение входит:
-                </div>
-                <div class="solutions__bottom_wrapper">
-                    <div class="solutions__bottom_left">
-                        <div class="solutions__bottom_row">
-                            <p class="solutions__bottom_row-left">Комплект оборудования</p>
-                            <div class="solutions__bottom_row-center">
-                                <span>Премиум</span>
-                                <span>AJAX SmartHome</span>
-                            </div>
-                            <div class="solutions__bottom_row-right">
-                                <span>доставка/монтаж в подарок</span>
-                            </div>
-                        </div>
-                        <div class="solutions__bottom_row">
-                            <p class="solutions__bottom_row-left">Охранная компания</p>
-                            <div class="solutions__bottom_row-center">
-                            <span>
-                                12
-                                месяев обслуживания
-                            </span>
-                                <span>ООО “Зубряков Охрана Компания Ва...</span>
-                            </div>
-                            <div class="solutions__bottom_row-right">
-                                <span>1 мес. в подарок</span>
-                            </div>
-                        </div>
-                        <div class="solutions__bottom_row">
-                            <p class="solutions__bottom_row-left">Страховая выплата</p>
-                            <div class="solutions__bottom_row-center">
-                            <span>
-                                при наступлении страхового случая
-                            </span>
-                                <span>
-                                2 млн.
-                                рублей
-                            </span>
-                            </div>
-                            <div class="solutions__bottom_row-right">
-                                <span>подарок</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="solutions__bottom_right">
-                        <div class="solutions__bottom_column">
-                            <div class="solutions__bottom_column-title">
-                                Всего
-                            </div>
-                            <div class="solutions__bottom_column-oldprice">
-                                50 630 ₽
-                            </div>
-                            <div class="solutions__bottom_column-newprice">
-                                12 000 ₽
-                            </div>
-                            <button class="solutions__bottom_column-btn grey">
-                                купить
-                            </button>
-                        </div>
-                        <div class="solutions__bottom_column">
-                            <div class="solutions__bottom_column-title">
-                                Рассрочка без процентов
-                            </div>
-                            <div class="solutions__bottom_column-interest">
-                                <p>все проценты<br>
-                                    за вас платит <span>vincko:</span>
-                                </p>
-                            </div>
-                            <div class="solutions__bottom_column-monthprice">
-                                <div class="solutions__bottom_column-select">
-                                    12 мес.
-                                </div>
-                                <p>по</p>
-                                <div class="solutions__bottom_column-price">
-                                    1 000 ₽
-                                </div>
-                            </div>
-                            <button class="solutions__bottom_column-btn yellow">
-                                В рассрочку
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>*/ ?>
     <? endif; ?>
     </div>
     <? if (!$arResult['HIDE_BASKET_BLOCK']): ?>

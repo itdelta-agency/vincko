@@ -2,7 +2,37 @@
 
 use Bitrix\Main\Application;
 
+Bitrix\Main\Loader::includeModule("sale");
+Bitrix\Main\Loader::includeModule("catalog");
+
 $request = Application::getInstance()->getContext()->getRequest();
+$siteId = Bitrix\Main\Context::getCurrent()->getSite(); //для публичного раздела
+$currency = Bitrix\Currency\CurrencyManager::getBaseCurrency(); // Базовая валюта  "RUB","USD",...
+$productProviderClass = \Bitrix\Catalog\Product\Basket::getDefaultProviderName();
+
+$products = array(
+    array('PRODUCT_ID' => 873, 'CURRENCY' => $currency, 'QUANTITY' => 1,'LID' => $siteId,'PRODUCT_PROVIDER_CLASS' =>$productProviderClass),
+    array('PRODUCT_ID' => 873, 'CURRENCY' => $currency, 'QUANTITY' => 1,'LID' => $siteId,'PRODUCT_PROVIDER_CLASS' =>$productProviderClass),
+    array('PRODUCT_ID' => 873, 'CURRENCY' => $currency, 'QUANTITY' => 1,'LID' => $siteId,'PRODUCT_PROVIDER_CLASS' =>$productProviderClass)
+);
+
+$basket = \Bitrix\Sale\Basket::create($siteId);
+CSaleBasket::DeleteAll(CSaleBasket::GetBasketUserID());
+foreach ($products as $product)
+{
+    if ($item = $basket->getExistsItem('catalog', $product["PRODUCT_ID"])) {
+        $item->setField('QUANTITY', $item->getQuantity() + 1); //добавляем указанное количество к существующему товару
+
+    } else
+    {
+        $item = $basket->createItem("catalog", $product["PRODUCT_ID"]);
+        unset($product["PRODUCT_ID"]);
+        $item->setFields($product);
+    }
+
+}
+
+$basket->save(); //можно все товары добавить, а потом сохранить корзину
 
 if ($request->isPost()) {
 
