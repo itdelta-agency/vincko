@@ -56,14 +56,22 @@ $this->setFrameMode(true);
 							<div class="products__instalment-offer">
 								<?= GetMessage('T_INSURANCE_ORDER_POLICE') ?>
 							</div>
-							<div class="products__instalment-info">
+							<a class="products__instalment-info">
 								<?= GetMessage('T_INSURANCE_MORE') ?>
-							</div>
+							</a>
 						</div>
 					</div>
 				</div>
 			</div>
 		<? endforeach; ?>
+		<? $APPLICATION->IncludeComponent(
+			"bitrix:main.include", "",
+			[
+				"AREA_FILE_SHOW" => "file",
+				"EDIT_TEMPLATE"  => "",
+				"PATH"           => "/include/strahovanie-loyalty-program.php"
+			]
+		); ?>
 	</div>
 <? endif; ?>
 

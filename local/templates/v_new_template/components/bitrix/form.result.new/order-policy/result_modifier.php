@@ -35,6 +35,7 @@ foreach ($arResult["QUESTIONS"] as $FIELD_SID => $arQuestion) {
 				$arResult["QUESTIONS"][$FIELD_SID]["HTML_CODE"] = "";
 				$name = "form_radio_" . $FIELD_SID;
 				$i = 0;
+
 				foreach ($arQuestion['STRUCTURE'] as $arAnsw) {
 					$arResult["QUESTIONS"][$FIELD_SID]["HTML_CODE"] .= '<input type="radio"  id="' . $arAnsw["ID"] . '" name="' . $name . '" value="' . $arAnsw["ID"] . '" ' . ($i == 0 ? " checked" : "") . '>
 																	<label for="' . $arAnsw["ID"] . '"></label>
@@ -45,19 +46,29 @@ foreach ($arResult["QUESTIONS"] as $FIELD_SID => $arQuestion) {
 				break;
 			case "date":
 				$name = "form_date_" . $idAnsw;
-				$arResult["QUESTIONS"][$FIELD_SID]["HTML_CODE"] = '<input' . ($arResult["arrVALUES"][$name] ? ' value="' . $arResult["arrVALUES"][$name] . '"' : '') . ' class="date js-check-valid-field' . (!empty($arResult['FORM_ERRORS'][$FIELD_SID]) ? ' error' : '') . '" data-field="' . $FIELD_SID . '" type="text" name="' . $name . '" placeholder="' . $arQuestion["CAPTION"] . '" onfocus="(this.type=\'date\')" onblur="(this.type=\'text\')">';
+				$value = ($arResult["arrVALUES"][$name] ? ' value="' . $arResult["arrVALUES"][$name] . '"' : '');
+
+			$arResult["QUESTIONS"][$FIELD_SID]["HTML_CODE"] = '
+				<input' . $value . ' type="text" class="date js-check-valid-field' . (!empty($arResult['FORM_ERRORS'][$FIELD_SID]) ? ' error' : '') . '" name="' . $name . '" placeholder="' . $arQuestion["CAPTION"] . '" onclick="BX.calendar({node: this, value: \''.date('d.m.Y').'\',field: this, bTime: false});">
+				';
 				break;
 			case "email":
 				$name = "form_email_" . $idAnsw;
-				$arResult["QUESTIONS"][$FIELD_SID]["HTML_CODE"] = '<input' . ($arResult["arrVALUES"][$name] ? ' value="' . $arResult["arrVALUES"][$name] . '"' : '') . ' class="js-check-valid-field' . (!empty($arResult['FORM_ERRORS'][$FIELD_SID]) ? ' error' : '') . '" data-field="' . $FIELD_SID . '" type="text" name="' . $name . '" placeholder="' . $arQuestion["CAPTION"] . '" value="">';
+				$value = ($arResult["arrVALUES"][$name] ? ' value="' . $arResult["arrVALUES"][$name] . '"' : '');
+
+				$arResult["QUESTIONS"][$FIELD_SID]["HTML_CODE"] = '<input' . $value. ' class="js-check-valid-field' . (!empty($arResult['FORM_ERRORS'][$FIELD_SID]) ? ' error' : '') . '" data-field="' . $FIELD_SID . '" type="text" name="' . $name . '" placeholder="' . $arQuestion["CAPTION"] . '" value="">';
 				break;
 			case "text":
 				$name = "form_text_" . $idAnsw;
-				$arResult["QUESTIONS"][$FIELD_SID]["HTML_CODE"] = '<input' . ($arResult["arrVALUES"][$name] ? ' value="' . $arResult["arrVALUES"][$name] . '"' : '') . ' class="js-check-valid-field' . (!empty($arResult['FORM_ERRORS'][$FIELD_SID]) ? ' error' : '') . '" data-field="' . $FIELD_SID . '" type="text" name="' . $name . '" placeholder="' . $arQuestion["CAPTION"] . '" value="">';
+				$value = ($arResult["arrVALUES"][$name] ? ' value="' . $arResult["arrVALUES"][$name] . '"' : '');
+
+				$arResult["QUESTIONS"][$FIELD_SID]["HTML_CODE"] = '<input' . $value . ' class="js-check-valid-field' . (!empty($arResult['FORM_ERRORS'][$FIELD_SID]) ? ' error' : '') . '" data-field="' . $FIELD_SID . '" type="text" name="' . $name . '" placeholder="' . $arQuestion["CAPTION"] . '" value="">';
 				break;
 			case "checkbox":
 				$name = "form_checkbox_" . $FIELD_SID . "[]";
-				$arResult["QUESTIONS"][$FIELD_SID]["HTML_CODE"] = '<input' . ($arResult["arrVALUES"][$name] ? ' value="' . $arResult["arrVALUES"][$name] . '"' : '') . ' class="js-check-valid-field' . (!empty($arResult['FORM_ERRORS'][$FIELD_SID]) ? ' error' : '') . '" data-field="' . $FIELD_SID . '" type="checkbox" name="' . $name . '" id="' . $idAnsw . '" value="' . $idAnsw . '">
+				$value = ($arResult["arrVALUES"][$name] ? ' value="' . $arResult["arrVALUES"][$name] . '"' : '');
+
+				$arResult["QUESTIONS"][$FIELD_SID]["HTML_CODE"] = '<input' . $value . ' class="js-check-valid-field' . (!empty($arResult['FORM_ERRORS'][$FIELD_SID]) ? ' error' : '') . '" data-field="' . $FIELD_SID . '" type="checkbox" name="' . $name . '" id="' . $idAnsw . '" value="' . $idAnsw . '">
 				                                					<label for="' . $idAnsw . '">' . $arQuestion["CAPTION"] . '</label>';
 				break;
 

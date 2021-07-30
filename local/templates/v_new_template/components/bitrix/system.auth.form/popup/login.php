@@ -1,3 +1,4 @@
+<? use Bitrix\Main\Localization\Loc; ?>
 <div class="popup popup--login hidden">
 	<div class="popup__wall"></div>
 
@@ -17,7 +18,7 @@
 				<?= Loc::getMessage("AUTH_SIGN_OR_REGISTER") ?>
 			</div>
 		</div>
-		<form name="system_auth_form<?= $arResult["RND"] ?>" method="post" target="_top" action="<?= $arResult["AUTH_URL"] ?>">
+		<form name="system_auth_form<?= $arResult["RND"] ?>" class="js-auth-form" method="post" target="_top" action="<?= $arResult["AUTH_URL"] ?>">
 			<? if ($arResult["BACKURL"] <> ''): ?>
 				<input type="hidden" name="backurl" value="<?= $arResult["BACKURL"] ?>"/>
 			<? endif ?>

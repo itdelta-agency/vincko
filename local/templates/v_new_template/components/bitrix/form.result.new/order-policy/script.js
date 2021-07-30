@@ -30,6 +30,7 @@ $(document).ready(function () {
 				$.each(res.value, function (i, value) {
 					$('input[name="'+i+'"]').val(value);
 				});
+				console.log(res);
 				if (res.count > 0) {
 					$('html').scrollTop(top1);
 					$error.show();
@@ -38,8 +39,8 @@ $(document).ready(function () {
 					});
 				} else {
 					$error.hide();
-					closeOpenBlockNext(forms[0], forms[1], btns[0]);
-					$('html').scrollTop($("#form-2").position().top);
+					$("#form-2").removeClass("def-close");
+					$('html').scrollTop($("#form-2").offset().top-15);
 					$('.installment__rules').addClass("installment__rules--active");
 				}
 			},

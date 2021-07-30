@@ -80,7 +80,7 @@ if (!CModule::IncludeModule("sale")) {
 						if (name.indexOf("text")!=-1) {
 							$(this).val($(this).attr("placeholder"));
 						} else if (name.indexOf("date")!=-1) {
-							$(this).val("2020-07-21");
+							$(this).val("21.07.2021");
 						} else if (name.indexOf("email")!=-1) {
 							$(this).val("test@test.ru");
 						}
@@ -186,7 +186,7 @@ if (!CModule::IncludeModule("sale")) {
 					</div>
 				</div>
 				<div class="form def-close" id="form-2">
-					<h4><?= Loc::getMessage("FORM_POLICY_STEP_PAY") ?></h4>
+					<div class="h4"><?= Loc::getMessage("FORM_POLICY_STEP_PAY") ?></div>
 					<div class="close-btn close-btn_hide"><?= Loc::getMessage("FORM_POLICY_EXPAND") ?></div>
 
 					<div class="form__content">

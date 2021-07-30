@@ -53,18 +53,25 @@ $Asset = Asset::getInstance();
 
 
 
-	<script src="<?= SITE_TEMPLATE_PATH ?>/libs/jquery.js"></script>
-	<script src="<?= SITE_TEMPLATE_PATH ?>/libs/slick/slick.js"></script>
-	<script src="<?= SITE_TEMPLATE_PATH ?>/libs/select/scripts/choices.js"></script>
-	<script src="<?= SITE_TEMPLATE_PATH ?>/libs/funcy_box/jquery.fancybox.js"></script>
-	<script src="<?= SITE_TEMPLATE_PATH ?>/libs/range/ion.rangeSlider.min.js"></script>
-	<script src="<?= SITE_TEMPLATE_PATH ?>/libs/swiper/swiper.min.js"></script>
+	<? $Asset->addJs(SITE_TEMPLATE_PATH."/libs/jquery.js");?>
+	<? $Asset->addJs(SITE_TEMPLATE_PATH."/libs/slick/slick.js");?>
+	<? $Asset->addJs(SITE_TEMPLATE_PATH."/libs/select/scripts/choices.js");?>
+	<? $Asset->addJs(SITE_TEMPLATE_PATH."/libs/funcy_box/jquery.fancybox.js");?>
+	<? $Asset->addJs(SITE_TEMPLATE_PATH."/libs/range/ion.rangeSlider.min.js");?>
+	<? $Asset->addJs(SITE_TEMPLATE_PATH."/libs/swiper/swiper.min.js");?>
 
-	<script src="<?= SITE_TEMPLATE_PATH ?>/libs/jquery_maskedinput/jquery.maskedinput.min.js"></script>
-	<script src="<?= SITE_TEMPLATE_PATH ?>/libs/Inputmask/jquery.inputmask.min.js"></script>
-	<script src="https://atuin.ru/demo/ui-slider/jquery-ui.min.js"></script>
-	<script src="https://atuin.ru/demo/ui-slider/jquery.ui.touch-punch.min.js"></script>
-	<script src="<?=SITE_TEMPLATE_PATH ?>/js/custom.js"></script>
+	<? $Asset->addJs(SITE_TEMPLATE_PATH."/libs/jquery_maskedinput/jquery.maskedinput.min.js");?>
+	<? $Asset->addJs(SITE_TEMPLATE_PATH."/libs/Inputmask/jquery.inputmask.min.js");?>
+	<? $Asset->addJs("https://atuin.ru/demo/ui-slider/jquery-ui.min.js");?>
+	<? $Asset->addJs("https://atuin.ru/demo/ui-slider/jquery.ui.touch-punch.min.js");?>
+	<? $Asset->addJs(SITE_TEMPLATE_PATH."/libs/Inputmask/jquery.inputmask.min.js");?>
+
+	<? $Asset->addJs(SITE_TEMPLATE_PATH."/js/site.js");?>
+	<? $Asset->addJs(SITE_TEMPLATE_PATH."/js/main.js");?>
+	<? $Asset->addJs(SITE_TEMPLATE_PATH."/js/custom.js");?>
+	<? $Asset->addJs(SITE_TEMPLATE_PATH."/js/vinco.custom.js");?>
+
+	<? $Asset->addJs(SITE_TEMPLATE_PATH."/site.js?v=14");?>
 	<? $Asset->addCss(SITE_TEMPLATE_PATH . "/css/custom.css"); ?>
 
 	<?
