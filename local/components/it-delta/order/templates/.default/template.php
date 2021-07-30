@@ -13,9 +13,10 @@
 /** @var string $componentPath */
 /** @var customOrderComponent $component */
 
-//echo '<pre>';
-//print_r($arResult);
-//echo '</pre>';
+echo '<pre>';
+print_r($arResult['BASKET']);
+echo '</pre>';
+die();
 ?>
 <table>
     <?

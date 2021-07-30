@@ -59,7 +59,7 @@ class customOrderComponent extends CBitrixComponent
                 ->getOrderableItems();
 
             if (count($basketItems) == 0) {
-                LocalRedirect(PATH_TO_BASKET);
+                LocalRedirect("/");
             }
 
             $this->order = \Bitrix\Sale\Order::create($siteId, $USER->GetID());
