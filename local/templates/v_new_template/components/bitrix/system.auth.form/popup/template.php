@@ -4,7 +4,7 @@ use Bitrix\Main\Application;
 use Bitrix\Main\Localization\Loc;
 $request = Application::getInstance()->getContext()->getRequest();
 
-if ($request->isAjaxRequest() || $_REQUEST[]>0) {
+if ($request->isAjaxRequest()) {
 	include(Bitrix\Main\Application::getDocumentRoot() . $templateFolder . '/ajax.php');
 }
 

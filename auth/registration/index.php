@@ -1,12 +1,9 @@
 <?
-require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
-$APPLICATION->SetTitle("Регистрация");
-?>
-<? $APPLICATION->IncludeComponent("bitrix:system.auth.form","popup",Array(
-		"REGISTER_URL" => "register.php",
-		"FORGOT_PASSWORD_URL" => "",
-		"PROFILE_URL" => "profile.php",
-		"SHOW_ERRORS" => "Y",
-		"AJAX_MODE" => "Y"
-	)
+require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");?>
+<?
+dump( $APPLICATION->arAuthResult);
+$APPLICATION->IncludeComponent(
+	"bitrix:system.auth.registration",
+	"popup",
+	array('AUTH_RESULT' => $APPLICATION->arAuthResult)
 ); ?><?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>

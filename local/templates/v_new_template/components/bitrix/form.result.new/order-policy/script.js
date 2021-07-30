@@ -8,6 +8,8 @@ $(document).ready(function () {
 		closeOpenBlockBtn(btns[i], forms[i]);
 	}
 
+
+
 	var value = $('input[name="radio"]:checked').val();
 
 	$(".js-check-form-valid").click(function (e) {
@@ -20,7 +22,6 @@ $(document).ready(function () {
 			class_name = "error";
 
 		$('.js-check-valid-field').removeClass(class_name);
-
 		$.ajax({
 			url: '/ajax/form-valid-order-policy.php',
 			method: 'GET',
@@ -48,7 +49,10 @@ $(document).ready(function () {
 				console.log(e);
 			}
 		});
+	});
 
+	$("[name='PAYMENT']").change(function(){
+		$(this).parents('form').find("[name='web_form_apply']").removeAttr("disabled");
 	});
 
 	$(".to-short-rd").on("click", function () {

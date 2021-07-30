@@ -156,20 +156,23 @@ $(document).ready(function () {
 	});
 
 	$('.js-auth-form').submit(function () {
-		console.log($(this).attr('action'));
-		console.log($(this).serialize());
+
+		var $form = $(this);
+
 		$.ajax({
-			type: "POST",
-			url: $(this).attr('action'),
+			url: '/',
+			method: 'GET',
 			data: $(this).serialize(),
-			dataType: "json",
-			success: function (data) {
-				if (data.type == 'error') {
-					alert(data.message);
-				} else {
-					alert('Вы авторизовались!');
+			dataType: 'json',
+			success: function (res) {
+				if(res.status == true){
+					//alert(res.status);
+				}else{
+					$(".error").remove();
+					$form.find( ".popup__form-title" ).after( "<p class='error' style='grid-column: 1/3; color: red'>"+res.error+"</p>" );
 				}
-			}
+				console.log(res);
+			},
 		});
 		return false;
 	});
