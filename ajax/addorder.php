@@ -1,40 +1,107 @@
 <?php require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/main/include/prolog_before.php");
 
-use Bitrix\Sale;
+use Bitrix\Main\Context,
+    Bitrix\Currency\CurrencyManager,
+    Bitrix\Sale\Order,
+    Bitrix\Sale\Basket,
+    Bitrix\Sale\Delivery,
+    Bitrix\Sale\PaySystem;
+
+global $USER;
 
 Bitrix\Main\Loader::includeModule("sale");
 Bitrix\Main\Loader::includeModule("catalog");
 
-
-//корзину получить для текущего юзера
-
-$dbRes = \Bitrix\Sale\Basket::getList([
-    'select' => ['NAME', 'QUANTITY'],
-    'filter' => [
-        '=FUSER_ID' => \Bitrix\Sale\Fuser::getId(),
-        '=ORDER_ID' => null,
-        '=LID' => \Bitrix\Main\Context::getCurrent()->getSite(),
-        '=CAN_BUY' => 'Y',
-    ]
-]);
-
-echo 111;
-
-while ($item = $dbRes->fetch())
-{
-    echo 111;
-    var_dump($item);
+function getPropertyByCode($propertyCollection, $code)  {
+    foreach ($propertyCollection as $property)
+    {
+        if($property->getField('CODE') == $code)
+            return $property;
+    }
 }
-$basket = Sale\Basket::loadItemsForFUser(Sale\Fuser::getId(), Bitrix\Main\Context::getCurrent()->getSite());
-$basketItems = $basket->getBasketItems();
 
-if ($_SERVER['REMOTE_ADDR'] == '46.147.123.63') {
-    echo '<pre>';
-    print_r($basketItems);
-    echo '</pre>';
+$request = Context::getCurrent()->getRequest();
 
-    foreach ($basket as $basketItem) {
-        echo $basketItem->getField('NAME') . ' - ' . $basketItem->getQuantity() . '<br />';
+if ($request->isPost()) {
+
+    if ($_SERVER['REMOTE_ADDR'] == '46.147.123.63') {
+        echo '<pre>';
+        print_r($request['orderProps']);
+        echo '</pre>';
     }
 
+    $siteId = Context::getCurrent()->getSite();
+    $currencyCode = CurrencyManager::getBaseCurrency();
+    $productProviderClass = \Bitrix\Catalog\Product\Basket::getDefaultProviderName();
+
+    // Создаёт новый заказ
+    $order = Order::create($siteId, $USER->isAuthorized() ? $USER->GetID() : 539);
+    $order->setPersonTypeId(3);
+    $order->setField('CURRENCY', $currencyCode);
+    if (3 > 2) {
+        $order->setField('USER_DESCRIPTION', '$comment'); // Устанавливаем поля комментария покупателя
+    }
+
+    $arProductsIds = $request['orderItemsIds'];
+    $products = [];
+    foreach ($arProductsIds as $arProductsId)
+    {
+         array_push($products, array('PRODUCT_ID' => $arProductsId, 'CURRENCY' => $currencyCode, 'QUANTITY' => 1, 'LID' => $siteId, 'PRODUCT_PROVIDER_CLASS' => $productProviderClass));
+    }
+
+
+    $basket = Basket::create($siteId);
+
+    foreach ($products as $product) {
+        if ($item = $basket->getExistsItem('catalog', $product["PRODUCT_ID"])) {
+            $item->setField('QUANTITY', $item->getQuantity() + 1); //добавляем указанное количество к существующему товару
+
+        } else {
+            $item = $basket->createItem("catalog", $product["PRODUCT_ID"]);
+            unset($product["PRODUCT_ID"]);
+            $item->setFields($product);
+        }
+    }
+
+    $order->setBasket($basket);
+
+    $shipmentCollection = $order->getShipmentCollection();
+    $shipment = $shipmentCollection->createItem(
+        Bitrix\Sale\Delivery\Services\Manager::getObjectById(1)
+    );
+
+    $shipmentItemCollection = $shipment->getShipmentItemCollection();
+
+    /** @var Sale\BasketItem $basketItem */
+
+    foreach ($basket as $basketItem)
+    {
+        $item = $shipmentItemCollection->createItem($basketItem);
+        $item->setQuantity($basketItem->getQuantity());
+    }
+
+    $paymentId = $request['payment_id'];
+    $paymentCollection = $order->getPaymentCollection();
+    $payment = $paymentCollection->createItem(
+        Bitrix\Sale\PaySystem\Manager::getObjectById($paymentId)
+    );
+    $payment->setField("SUM", $order->getPrice());
+    $payment->setField("CURRENCY", $order->getCurrency());
+
+    // Устанавливаем свойства
+    $propertyCollection = $order->getPropertyCollection();
+    $arProps = $request['orderProps'];
+    foreach ($arProps as $code => $value)
+    {
+        $arProperty = getPropertyByCode($propertyCollection, $code);
+        $arProperty->setValue($value);
+    }
+    // Сохраняем
+    $order->doFinalAction(true);
+    $result = $order->save();
+    $orderId = $order->getId();
+    if ($result->isSuccess())
+    {
+        LocalRedirect("/order/" . "?ORDER_ID=" . $orderId);
+    }
 }

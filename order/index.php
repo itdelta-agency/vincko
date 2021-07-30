@@ -1,182 +1,179 @@
 <?
 require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/header.php");
 $APPLICATION->SetTitle("Оформление заказа");
-?>
 
+use \Vincko\Order;
+
+$session = \Bitrix\Main\Application::getInstance()->getSession();
+$orderItems = $session->get('orderItems');
+
+//if(empty($orderItems))
+//    LocalRedirect("/");
+
+$complectObj = $orderItems[0];
+$subscriptionFeeObj = $orderItems[1];
+$policyObj = $orderItems[2];
+
+
+$arResult["PAYMENT"] = Order::getPaymentSystem();
+
+?>
+<div <?=$_GET['ORDER_ID'] ?? 'hidden'?>><?$APPLICATION->IncludeComponent(
+        "vincko:sale.order.ajax",
+        "vincko",
+        array(
+            "ACTION_VARIABLE" => "soa-action",
+            "ADDITIONAL_PICT_PROP_10" => "-",
+            "ADDITIONAL_PICT_PROP_11" => "-",
+            "ADDITIONAL_PICT_PROP_12" => "-",
+            "ADDITIONAL_PICT_PROP_13" => "-",
+            "ADDITIONAL_PICT_PROP_14" => "-",
+            "ADDITIONAL_PICT_PROP_15" => "-",
+            "ADDITIONAL_PICT_PROP_24" => "-",
+            "ALLOW_APPEND_ORDER" => "Y",
+            "ALLOW_AUTO_REGISTER" => "Y",
+            "ALLOW_NEW_PROFILE" => "N",
+            "ALLOW_USER_PROFILES" => "N",
+            "BASKET_IMAGES_SCALING" => "adaptive",
+            "BASKET_POSITION" => "before",
+            "COMPATIBLE_MODE" => "N",
+            "DELIVERIES_PER_PAGE" => "9",
+            "DELIVERY_FADE_EXTRA_SERVICES" => "N",
+            "DELIVERY_NO_AJAX" => "N",
+            "DELIVERY_NO_SESSION" => "Y",
+            "DELIVERY_TO_PAYSYSTEM" => "p2d",
+            "DISABLE_BASKET_REDIRECT" => "N",
+            "EMPTY_BASKET_HINT_PATH" => "/",
+            "HIDE_ORDER_DESCRIPTION" => "N",
+            "MESS_ADDITIONAL_PROPS" => "Дополнительные свойства",
+            "MESS_AUTH_BLOCK_NAME" => "Авторизация",
+            "MESS_AUTH_REFERENCE_1" => "Символом \"звездочка\" (*) отмечены обязательные для заполнения поля.",
+            "MESS_AUTH_REFERENCE_2" => "После регистрации вы получите информационное письмо.",
+            "MESS_AUTH_REFERENCE_3" => "Личные сведения, полученные в распоряжение интернет-магазина при регистрации или каким-либо иным образом, не будут без разрешения пользователей передаваться третьим организациям и лицам за исключением ситуаций, когда этого требует закон или судебное решение.",
+            "MESS_BACK" => "Назад",
+            "MESS_BASKET_BLOCK_NAME" => "Состав заказа",
+            "MESS_BUYER_BLOCK_NAME" => "Контакты покупателя",
+            "MESS_COUPON" => "Купон",
+            "MESS_DELIVERY_BLOCK_NAME" => "Вид доставки",
+            "MESS_DELIVERY_CALC_ERROR_TEXT" => "Вы можете продолжить оформление заказа, а чуть позже менеджер магазина свяжется с вами и уточнит информацию по доставке.",
+            "MESS_DELIVERY_CALC_ERROR_TITLE" => "Не удалось рассчитать стоимость доставки.",
+            "MESS_ECONOMY" => "Экономия",
+            "MESS_EDIT" => "изменить",
+            "MESS_FAIL_PRELOAD_TEXT" => "Вы заказывали в нашем интернет-магазине, поэтому мы заполнили все данные автоматически.<br />Обратите внимание на развернутый блок с информацией о заказе. Здесь вы можете внести необходимые изменения или оставить как есть и нажать кнопку \"#ORDER_BUTTON#\".",
+            "MESS_FURTHER" => "Продолжить",
+            "MESS_INNER_PS_BALANCE" => "На вашем пользовательском счете:",
+            "MESS_NAV_BACK" => "Назад",
+            "MESS_NAV_FORWARD" => "Вперед",
+            "MESS_NEAREST_PICKUP_LIST" => "Ближайшие пункты:",
+            "MESS_ORDER" => "Оформить заказ",
+            "MESS_ORDER_DESC" => "Комментарии к заказу:",
+            "MESS_PAYMENT_BLOCK_NAME" => "Оплата",
+            "MESS_PAY_SYSTEM_PAYABLE_ERROR" => "Вы сможете оплатить заказ после того, как менеджер проверит наличие полного комплекта товаров на складе. Сразу после проверки вы получите письмо с инструкциями по оплате. Оплатить заказ можно будет в персональном разделе сайта.",
+            "MESS_PERIOD" => "Срок доставки",
+            "MESS_PERSON_TYPE" => "Тип плательщика",
+            "MESS_PICKUP_LIST" => "Пункты самовывоза:",
+            "MESS_PRICE" => "Стоимость",
+            "MESS_PRICE_FREE" => "бесплатно",
+            "MESS_REGION_BLOCK_NAME" => "Регион доставки",
+            "MESS_REGION_REFERENCE" => "Выберите свой город в списке. Если вы не нашли свой город, выберите \"другое местоположение\", а город впишите в поле \"Город\"",
+            "MESS_REGISTRATION_REFERENCE" => "Если вы впервые на сайте, и хотите, чтобы мы вас помнили и все ваши заказы сохранялись, заполните регистрационную форму.",
+            "MESS_REG_BLOCK_NAME" => "Регистрация",
+            "MESS_SELECT_PICKUP" => "Выбрать",
+            "MESS_SELECT_PROFILE" => "Выберите профиль",
+            "MESS_SUCCESS_PRELOAD_TEXT" => "Вы заказывали в нашем интернет-магазине, поэтому мы заполнили все данные автоматически.<br />Если все заполнено верно, нажмите кнопку \"#ORDER_BUTTON#\".",
+            "MESS_USE_COUPON" => "Применить купон",
+            "ONLY_FULL_PAY_FROM_ACCOUNT" => "N",
+            "PATH_TO_AUTH" => "/reg/",
+            "PATH_TO_BASKET" => "",
+            "PATH_TO_PAYMENT" => "payment.php",
+            "PATH_TO_PERSONAL" => "index.php",
+            "PAY_FROM_ACCOUNT" => "Y",
+            "PAY_SYSTEMS_PER_PAGE" => "9",
+            "PICKUPS_PER_PAGE" => "5",
+            "PICKUP_MAP_TYPE" => "yandex",
+            "PRODUCT_COLUMNS_HIDDEN" => array(
+            ),
+            "PRODUCT_COLUMNS_VISIBLE" => array(
+                0 => "DISCOUNT_PRICE_PERCENT_FORMATED",
+                1 => "PRICE_FORMATED",
+            ),
+            "PROPS_FADE_LIST_3" => array(
+                0 => "20",
+                1 => "21",
+                2 => "22",
+            ),
+            "SEND_NEW_USER_NOTIFY" => "N",
+            "SERVICES_IMAGES_SCALING" => "adaptive",
+            "SET_TITLE" => "Y",
+            "SHOW_BASKET_HEADERS" => "N",
+            "SHOW_COUPONS" => "N",
+            "SHOW_COUPONS_BASKET" => "Y",
+            "SHOW_COUPONS_DELIVERY" => "Y",
+            "SHOW_COUPONS_PAY_SYSTEM" => "Y",
+            "SHOW_DELIVERY_INFO_NAME" => "Y",
+            "SHOW_DELIVERY_LIST_NAMES" => "Y",
+            "SHOW_DELIVERY_PARENT_NAMES" => "Y",
+            "SHOW_MAP_IN_PROPS" => "Y",
+            "SHOW_NEAREST_PICKUP" => "Y",
+            "SHOW_NOT_CALCULATED_DELIVERIES" => "N",
+            "SHOW_ORDER_BUTTON" => "final_step",
+            "SHOW_PAY_SYSTEM_INFO_NAME" => "Y",
+            "SHOW_PAY_SYSTEM_LIST_NAMES" => "Y",
+            "SHOW_PICKUP_MAP" => "Y",
+            "SHOW_STORES_IMAGES" => "Y",
+            "SHOW_TOTAL_ORDER_BUTTON" => "N",
+            "SHOW_VAT_PRICE" => "N",
+            "SKIP_USELESS_BLOCK" => "N",
+            "SPOT_LOCATION_BY_GEOIP" => "Y",
+            "TEMPLATE_LOCATION" => "popup",
+            "TEMPLATE_THEME" => "site",
+            "USER_CONSENT" => "Y",
+            "USER_CONSENT_ID" => "1",
+            "USER_CONSENT_IS_CHECKED" => "Y",
+            "USER_CONSENT_IS_LOADED" => "N",
+            "USE_CUSTOM_ADDITIONAL_MESSAGES" => "Y",
+            "USE_CUSTOM_ERROR_MESSAGES" => "Y",
+            "USE_CUSTOM_MAIN_MESSAGES" => "Y",
+            "USE_ENHANCED_ECOMMERCE" => "N",
+            "USE_PHONE_NORMALIZATION" => "Y",
+            "USE_PRELOAD" => "N",
+            "USE_PREPAYMENT" => "N",
+            "USE_YM_GOALS" => "N",
+            "COMPONENT_TEMPLATE" => "vincko",
+            "SHOW_MAP_FOR_DELIVERIES" => array(
+                0 => "7",
+                1 => "9",
+            )
+        ),
+        false
+    );?></div>
 
 <main class="container main">
+    <form method="post" action="/ajax/addorder.php">
     <div class="installment">
+
         <div class="installment__left-column">
             <h2 class="installment__page-title">Оформление заказа</h2>
 
-            <h3 class="installment__title">
-                <span class="installment__title-lvl1">Готовое решение “Спокойствие”</span>
-                <span class="installment__title-lvl2">Вариант Комфорт</span>
-            </h3>
-            (\/\/при оформления страховки добавляется блок внизу\/\/)
-            <a href="#short-rd" class="to-short-rd">Подробнее</a>
-            <div class="installment__calculator">
-                <div class="section-result__price-bonuses-container">
-                    <div class="installment__bonuses-title">Список компонентов заказа, к которому можно применить оплату
-                        бонусами
-                    </div>
-                    <div class="section-result__price-title">
-                        <div class="section-result__price-title-item">Наименование,<br>
-                            стоимость
-                        </div>
-                        <div class="section-result__price-title-item">Будет оплачено <br>
-                            бонусами
-                        </div>
-                        <div class="section-result__price-title-item">Остаток <br>
-                            к оплате, руб
-                        </div>
-                        <div class="section-result__price-title-item">Курс <br>
-                            руб/бонус
-                        </div>
-
-                    </div>
-
-                    <div class="section-result__price-item">
-                        <div class="section-result__price-item-name">
-                            <div class="section-result__price-item-name-name">Датчик такой-то для того Датчик такой-то
-                                для того
-                            </div>
-                            <div class="section-result__price-item-name-cost">1 200 руб / 1400 бонусов</div>
-                        </div>
-                        <div class="section-result__price-item-bonus-cost">1 199 бонусов</div>
-                        <div class="section-result__price-item-rub-cost">1 руб</div>
-                        <div class="section-result__price-item-rate">1 / 1,4</div>
-                    </div>
-                    <div class="section-result__price-item">
-                        <div class="section-result__price-item-name">
-                            <div class="section-result__price-item-name-name">Датчик такой-то для того Датчик такой-то
-                                для того
-                            </div>
-                            <div class="section-result__price-item-name-cost">1 200 руб / 1400 бонусов</div>
-                        </div>
-                        <div class="section-result__price-item-bonus-cost">1 199 бонусов</div>
-                        <div class="section-result__price-item-rub-cost">1 руб</div>
-                        <div class="section-result__price-item-rate">1 / 1,4</div>
-                    </div>
-
-
-                </div>
-
-                <div class="installment__calculator-left vis">
-                    <div class="installment__calculator-first-pay">
-                        <div class="installment__calculator-sub-head">
-                            <span class="installment__calculator-sub-title">Первый взнос</span> <span
-                                    class="installment__calculator-sub-value installment__calculator-sub-value-1">135 руб</span>
-                        </div>
-                        <div class="polzunok-container-2">
-                            <div class="polzunok-1"><span tabindex="0"
-                                                          class="ui-slider-handle ui-corner-all ui-state-default"><span
-                                            class="polzunok__number polzunok__number-1">0</span> </span></div>
-                        </div>
-                        <div class="installment__calculator-footer">
-                            50%
-                        </div>
-                    </div>
-
-                    <div class="installment__calculator-time">
-                        <div class="installment__calculator-sub-head">
-                            <span class="installment__calculator-sub-title">Срок кредитования</span> <span
-                                    class="installment__calculator-sub-value installment__calculator-sub-value-2">0</span>
-                        </div>
-                        <div class="polzunok-container-2">
-                            <div class="polzunok-2"><span tabindex="0"
-                                                          class="ui-slider-handle ui-corner-all ui-state-default"> </span>
-                            </div>
-                            <div class="installment__calculator-footer">
-                                12 мес
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="installment__calculator-info">
-                        <h4>Ежемесячный платеж</h4>
-                        <div class="installment__calculator-info-month">1 456 руб</div>
-
-                    </div>
-
-
-                </div>
-
-                <div class="installment__calculator-right">
-                    <div class="section-result__right">
-
-                        <div class="price__bonuses">
-                            <h3>Сколько оплатить бонусами?
-
-                            </h3>
-                            <div class="price__bonuses-cost">
-                                <div class="blue">3 000</div>
-                                <div class="price__bonuses-info vis">
-                                    <div>
-                                        <svg width="30" height="30" viewBox="0 0 30 30" fill="none"
-                                             xmlns="http://www.w3.org/2000/svg">
-                                            <rect width="30" height="30" rx="4" fill="#93B6FF"/>
-                                            <path d="M15 9C13.8133 9 12.6533 9.35189 11.6666 10.0112C10.6799 10.6705 9.91085 11.6075 9.45673 12.7039C9.0026 13.8003 8.88378 15.0067 9.11529 16.1705C9.3468 17.3344 9.91825 18.4035 10.7574 19.2426C11.5965 20.0818 12.6656 20.6532 13.8295 20.8847C14.9933 21.1162 16.1997 20.9974 17.2961 20.5433C18.3925 20.0891 19.3295 19.3201 19.9888 18.3334C20.6481 17.3467 21 16.1867 21 15C21 14.2121 20.8448 13.4319 20.5433 12.7039C20.2417 11.9759 19.7998 11.3145 19.2426 10.7574C18.6855 10.2002 18.0241 9.75825 17.2961 9.45672C16.5681 9.15519 15.7879 9 15 9ZM15 18.6C14.8813 18.6 14.7653 18.5648 14.6667 18.4989C14.568 18.433 14.4911 18.3392 14.4457 18.2296C14.4003 18.12 14.3884 17.9993 14.4115 17.8829C14.4347 17.7666 14.4918 17.6596 14.5757 17.5757C14.6596 17.4918 14.7666 17.4347 14.8829 17.4115C14.9993 17.3884 15.12 17.4003 15.2296 17.4457C15.3392 17.4911 15.433 17.568 15.4989 17.6667C15.5648 17.7653 15.6 17.8813 15.6 18C15.6 18.1591 15.5368 18.3117 15.4243 18.4243C15.3117 18.5368 15.1591 18.6 15 18.6ZM15.6 15.504V16.2C15.6 16.3591 15.5368 16.5117 15.4243 16.6243C15.3117 16.7368 15.1591 16.8 15 16.8C14.8409 16.8 14.6883 16.7368 14.5757 16.6243C14.4632 16.5117 14.4 16.3591 14.4 16.2V15C14.4 14.8409 14.4632 14.6883 14.5757 14.5757C14.6883 14.4632 14.8409 14.4 15 14.4C15.178 14.4 15.352 14.3472 15.5 14.2483C15.648 14.1494 15.7634 14.0089 15.8315 13.8444C15.8996 13.68 15.9174 13.499 15.8827 13.3244C15.848 13.1498 15.7623 12.9895 15.6364 12.8636C15.5105 12.7377 15.3502 12.652 15.1756 12.6173C15.001 12.5826 14.82 12.6004 14.6556 12.6685C14.4911 12.7366 14.3506 12.852 14.2517 13C14.1528 13.148 14.1 13.322 14.1 13.5C14.1 13.6591 14.0368 13.8117 13.9243 13.9243C13.8117 14.0368 13.6591 14.1 13.5 14.1C13.3409 14.1 13.1883 14.0368 13.0757 13.9243C12.9632 13.8117 12.9 13.6591 12.9 13.5C12.8984 13.1102 13.0054 12.7276 13.2089 12.3951C13.4124 12.0627 13.7045 11.7934 14.0524 11.6175C14.4002 11.4416 14.7902 11.366 15.1786 11.3992C15.567 11.4323 15.9386 11.5729 16.2516 11.8053C16.5646 12.0376 16.8068 12.3525 16.951 12.7146C17.0952 13.0768 17.1358 13.472 17.0681 13.8559C17.0005 14.2398 16.8274 14.5973 16.5681 14.8884C16.3088 15.1795 15.9736 15.3926 15.6 15.504Z"
-                                                  fill="white"/>
-                                        </svg>
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="price__bonuses-desc">
-                                На счету 5 000 бонусов
-                            </div>
-                            <div class="price__bonuses-close">
-                                <div>
-                                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none"
-                                         xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M6.88173 5.9864L11.8557 1.0257C11.954 0.911231 12.0054 0.76398 11.9996 0.613378C11.9937 0.462776 11.9311 0.319916 11.8243 0.213345C11.7174 0.106774 11.5742 0.0443419 11.4232 0.0385248C11.2722 0.0327077 11.1245 0.0839342 11.0097 0.181967L6.03573 5.14266L1.06173 0.175983C0.948744 0.063303 0.795507 0 0.635726 0C0.475945 0 0.322708 0.063303 0.209726 0.175983C0.0967439 0.288663 0.0332711 0.44149 0.0332711 0.600844C0.0332711 0.760197 0.0967439 0.913024 0.209726 1.0257L5.18973 5.9864L0.209726 10.9471C0.146917 11.0007 0.0959048 11.0668 0.0598909 11.141C0.0238769 11.2152 0.00363881 11.2961 0.000447115 11.3785C-0.00274458 11.4609 0.0111787 11.5431 0.0413434 11.6199C0.0715082 11.6967 0.117263 11.7664 0.175736 11.8247C0.234209 11.8831 0.304137 11.9287 0.381132 11.9588C0.458127 11.9889 0.540527 12.0027 0.623158 11.9996C0.70579 11.9964 0.786869 11.9762 0.861308 11.9403C0.935747 11.9044 1.00194 11.8535 1.05573 11.7908L6.03573 6.83014L11.0097 11.7908C11.1245 11.8889 11.2722 11.9401 11.4232 11.9343C11.5742 11.9285 11.7174 11.866 11.8243 11.7595C11.9311 11.6529 11.9937 11.51 11.9996 11.3594C12.0054 11.2088 11.954 11.0616 11.8557 10.9471L6.88173 5.9864Z"
-                                              fill="#005DFF"/>
-                                    </svg>
-
-                                </div>
-                            </div>
-                            <div class="price__result vis">
-                                <h4>Итоговая сумма рассрочки</h4>
-                                <div class="price__result-num">11 456 руб</div>
-                            </div>
-                            <div class="price__bonuses-info-m">
-                                Платформа автоматически определяет товары для оплаты бонусами.
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-            </div>
-            <div class="installment__calculator-info-footer">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M19.4026 2.29279L20.0816 6.39009L23.9889 8.29014L22.0186 12.0053L24 15.7205L20.0594 17.6205L19.3803 21.7178L15.0501 21.0703L11.9666 24L8.87198 21.0279L4.57514 21.7072L3.88497 17.5781L0 15.6886L1.98145 11.9735L0.0111317 8.29014L3.91837 6.36886L4.5974 2.30341L8.90538 2.98275L12 0L15.0835 2.94029L19.4026 2.29279ZM9.21707 6.69792C8.77422 6.69792 8.34951 6.86567 8.03637 7.16427C7.72323 7.46287 7.54731 7.86786 7.54731 8.29014C7.54731 8.71242 7.72323 9.11741 8.03637 9.41601C8.34951 9.7146 8.77422 9.88235 9.21707 9.88235C9.65991 9.88235 10.0846 9.7146 10.3978 9.41601C10.7109 9.11741 10.8868 8.71242 10.8868 8.29014C10.8868 7.86786 10.7109 7.46287 10.3978 7.16427C10.0846 6.86567 9.65991 6.69792 9.21707 6.69792ZM14.7829 14.1283C14.3401 14.1283 13.9154 14.296 13.6022 14.5946C13.2891 14.8932 13.1132 15.2982 13.1132 15.7205C13.1132 16.1428 13.2891 16.5477 13.6022 16.8463C13.9154 17.1449 14.3401 17.3127 14.7829 17.3127C15.2258 17.3127 15.6505 17.1449 15.9636 16.8463C16.2768 16.5477 16.4527 16.1428 16.4527 15.7205C16.4527 15.2982 16.2768 14.8932 15.9636 14.5946C15.6505 14.296 15.2258 14.1283 14.7829 14.1283ZM8.00371 17.3127L17.5659 8.1946L15.9963 6.69792L6.43414 15.816L8.00371 17.3127Z"
-                          fill="#FF5252"/>
-                </svg>
-                <span>все проценты за вас платит <span class="blue">vincko:</span></span>
-            </div>
-            (/\/\здесь заканчивается/\/\)
             <div class="forms">
                 <div class="form" id="form-1">
                     <h4>Шаг 1. Регион доставки</h4>
                     <div class="close-btn close-btn_hide">Развернуть</div>
 
                     <div class="form__content">
-                        <form>
+
                             <div class="form__section">
 
                                 <h4>Адрес доставки</h4>
                                 <div class="form__section__content address-registration">
-                                    <input type="text" name="city" placeholder="Город/населенный пункт">
+                                    <input type="text" name="orderProps[CITY]" placeholder="Город/населенный пункт">
                                     <input type="text" name="street" placeholder="Улица"><br>
                                     <input type="text" name="house" placeholder="Дом">
                                     <input type="text" name="housing" placeholder="Корпус">
                                     <input type="text" name="flat" placeholder="Квартира">
-                                    <input type="text" name="index" placeholder="Индекс"><br>
+                                    <input type="text" name="orderProps[ZIP]" placeholder="Индекс"><br>
                                 </div>
-                                (\/\/при оформления страховки добавляются 2 блока внизу\/\/)
+
                                 <div class="form__section">
                                     <h4>Паспортные данные</h4>
 
@@ -256,20 +253,19 @@ $APPLICATION->SetTitle("Оформление заказа");
                                         </div>
                                     </div>
                                 </div>
-                                (/\/\здесь заканчивается/\/\)
+
                             </div>
 
 
-                        </form>
+
                     </div>
                 </div>
-
                 <div class="form" id="form-2">
                     <h4>Шаг 2. Контактная информация</h4>
                     <div class="close-btn close-btn_hide">Развернуть</div>
 
                     <div class="form__content">
-                        <form>
+
                             <div class="form__section">
                                 <h4>Ваши персональные данные для связи</h4>
                                 <div class="form__section__content name">
@@ -283,14 +279,13 @@ $APPLICATION->SetTitle("Оформление заказа");
                                         SMS-код.</p>
                                 </div>
                             </div>
-                        </form>
+
                     </div>
                 </div>
                 <div class="form" id="form-3">
                     <h4>Шаг 3. Оформление</h4>
                     <div class="close-btn close-btn_hide">Развернуть</div>
                     <div class="form__content">
-                        <form>
                             <div class="form__section">
                                 <h4>Доставка</h4>
                                 <div class="form__section__content education">
@@ -305,49 +300,41 @@ $APPLICATION->SetTitle("Оформление заказа");
                                     </div>
                                 </div>
                             </div>
-                        </form>
+
                     </div>
                     <div class="form__content">
-                        <form>
                             <div class="form__section">
                                 <h4>Оплата</h4>
                                 <div class="form__section__content">
-                                    <div class="select">
-                                        <input id='sale-1' type="radio" name="sale" selected>
-                                        <label for="sale-1">Наличные</label>
-                                        <input id='sale-2' type="radio" name="sale">
-                                        <label for="sale-2">Карта</label>
-                                        <input id='sale-3' type="radio" name="sale">
-                                        <label for="sale-3">Сбербонусы</label>
-                                    </div>
 
                                     <div class="select-wrapper">
-                                        <select required>
+                                        <select name="payment_id" required>
                                             <option value="" disabled selected hidden>Тип оплаты
                                             </option>
-                                            <option value="1">Наличные</option>
-                                            <option value="2">Карта</option>
-                                            <option value="3">Сбербонусы</option>
+                                            <?foreach ($arResult['PAYMENT'] as $key => $arPaySystem):?>
+                                            <option value="<?=$arPaySystem['ID']?>"><?=$arPaySystem['NAME']?></option>
+                                            <?endforeach;?>
                                         </select>
                                     </div>
                                 </div>
                             </div>
-                        </form>
+
                     </div>
                 </div>
             </div>
+
         </div>
         <div class="installment__right-column">
             <div class="short-rd ">
                 <div id="short-rd" class="short-rd__item hidden">
                     <div class="short-rd__head">
                         <picture class="short-rd__head-pic">
-                            <img src="/upload/installment/short-rd-main-pic.png" alt="main-pic">
+                            <img src="<?=$complectObj->package_info->picture_src?>" alt="main-pic">
                         </picture>
 
                         <div class="short-rd__title">
-                            <div class="short-rd__title-up">Спокойствие</div>
-                            <div class="short-rd__title-down">Комфорт</div>
+                            <div class="short-rd__title-up"><?=$complectObj->package_info->name?></div>
+                            <div class="short-rd__title-down"><?=$complectObj->name1?></div>
                         </div>
                     </div>
                     <div class="short-rd__body">
@@ -355,6 +342,7 @@ $APPLICATION->SetTitle("Оформление заказа");
                             Вариант решения включает:
                         </div>
                         <div class="short-rd__body-items">
+                            <?if($complectObj->active):?>
                             <div class="short-rd__body-item">
                                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                                      xmlns="http://www.w3.org/2000/svg">
@@ -366,10 +354,11 @@ $APPLICATION->SetTitle("Оформление заказа");
                                     <div class="short-rd__body-li-title">
                                         Оборудование
                                     </div>
-                                    <div class="short-rd__body-li-product">Livi Smart Security PLUS
-                                    </div>
+                                    <div class="short-rd__body-li-product"><?=$complectObj->name2?></div>
                                 </div>
                             </div>
+                            <?endif;?>
+                            <?if($subscriptionFeeObj->active):?>
                             <div class="short-rd__body-item">
                                 <svg width="14" height="18" viewBox="0 0 14 18" fill="none"
                                      xmlns="http://www.w3.org/2000/svg">
@@ -382,11 +371,12 @@ $APPLICATION->SetTitle("Оформление заказа");
                                     <div class="short-rd__body-li-title">
                                         Договор с охранной компанией
                                     </div>
-                                    <div class="short-rd__body-li-product">ООО “Максимилиан”
-                                    </div>
-                                    <div class="short-rd__body-li-desc">6 месяцев (с 06.05.2021)</div>
+                                    <div class="short-rd__body-li-product"><?=$subscriptionFeeObj->name2?></div>
+                                    <div class="short-rd__body-li-desc"><?=$subscriptionFeeObj->name1?> (с 06.05.2021)</div>
                                 </div>
                             </div>
+                            <?endif;?>
+                            <?if($policyObj->active):?>
                             <div class="short-rd__body-item">
                                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                                      xmlns="http://www.w3.org/2000/svg">
@@ -400,14 +390,14 @@ $APPLICATION->SetTitle("Оформление заказа");
                                     <div class="short-rd__body-li-title">
                                         Страхование недвижимости
                                     </div>
-                                    <div class="short-rd__body-li-product">Страховой дом “ВСК”
-                                    </div>
+                                    <div class="short-rd__body-li-product"><?=$policyObj->company_name?></div>
                                     <div class="short-rd__body-li-desc">
                                         Полис на 12 месяцев (с 06.05.2021)<br>
-                                        Выплата 2 100 000 рублей
+                                        Выплата <?=$policyObj->name2?>
                                     </div>
                                 </div>
                             </div>
+                            <?endif;?>
                         </div>
 
                     </div>
@@ -463,10 +453,17 @@ $APPLICATION->SetTitle("Оформление заказа");
                 <label for="agreement" class="installment__rules-agreement">
                     Я даю согласие и подтверждаю достоверность указанных данных
                 </label>
-                <button href="" class="button yellow-button">Оформить заказ</button>
+                <?foreach ($orderItems as $orderItem):?>
+                <?if($orderItem->active):?>
+                <input type="hidden" name="orderItemsIds[]" value="<?=$orderItem->id?>">
+                <?endif;?>
+                <?endforeach;?>
+                <input type="submit"  class="button yellow-button" value="Оформить заказ">
             </div>
         </div>
+
     </div>
+    </form>
 
 </main>
 <!---->

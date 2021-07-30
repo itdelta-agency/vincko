@@ -1430,6 +1430,16 @@ $totalPrice = $complectPrice + $subscriptionFeePrice + $policyPrice;
 $totalDiscountPrice = $complectOldPrice + $subscriptionFeeOldPrice + $policyOldPrice;
 
 $currentSubscriptionFeeMonthsCount = $arResult['ALL_LIST_COMPANY_CITY'][$currentSecureCompanyIndex]['SUBSCRIPTION_FEE'][$currentSubcriptionFeeIndex]['PROPERTY_APTP_MESYAC_VALUE'];
+
+foreach ($arResult['ALL_INSURANCE_LIST'] as $key => $company)
+{
+    if($key==$company['ITEMS'][$currentPolicyIndex]['PARENT_ID'])
+    {
+        $secure_company_name = $company['NAME'];
+        break;
+    }
+}
+
 $data = [
     'items' => [
         0 => [
@@ -1440,7 +1450,8 @@ $data = [
             'gift' => 'доставка/монтаж в подарок',
             'active' => true,
             'sum' => $complectPrice,
-            'old_sum' => $complectOldPrice
+            'old_sum' => $complectOldPrice,
+            'package_info' => ['name'=>$arResult['PACKAGE_GROUP']['NAME'],'picture_src'=> $arResult['PACKAGES_CLASSES'][$arResult['CURRENT_PACKAGE_CLASS']]['PICTURE']['src']]
         ],
         1 => [
             'id' => $currentSubcriptionFeeIndex,
@@ -1458,6 +1469,7 @@ $data = [
             'title' => 'Страховая выплата',
             'name1' => 'при наступлении страхового случая',
             'name2' => $currentPolicyMaxPrice . ' руб',
+            'company_name' => $secure_company_name,
             'gift' => 'подарок',
             'active' => true,
             'sum' => $policyPrice,
