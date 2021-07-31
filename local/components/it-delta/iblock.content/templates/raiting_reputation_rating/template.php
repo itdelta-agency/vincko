@@ -11,15 +11,6 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();
  * @copyright 2015 - 2016 webgsite.ru
  * @license   GNU General Public License http://www.gnu.org/licenses/gpl-2.0.html
  */
-
-// Получаем активные разделы из инфоблока городов, они будут являтся городами
-$cities = CIBlockElement::GetList(
-    array("SORT" => "ASC"),
-    array("IBLOCK_ID" => 20, "ACTIVE" => "Y"),
-    false,
-    false,
-    array("ID", "NAME")
-);
 ?>
 
 <div class="container rating-block">
@@ -133,6 +124,7 @@ $cities = CIBlockElement::GetList(
         </div>
 
         <div class="rating-center__search">
+
             <div class="rating-center__search_item item-one">
                 <div class="rating-center__search_item-title">
                     Город
@@ -140,22 +132,21 @@ $cities = CIBlockElement::GetList(
                 <div class="rating-center__search_form">
                     <form action="#">
                         <button class="rating-center__search_form-btn">
-                            <img src="/upload/rating/rating-center__search_select-icon.svg" alt="img">
+                            <img src="/upload//rating/rating-center__search_select-icon.svg" alt="img">
                         </button>
                         <div class="rating-center__search_form-select">
-                            <input type="text" placeholder="Петропавловск-Камчатский>">
+                            <input type="text" placeholder="Петропавловск-Камчатс...">
                         </div>
                         <div class="searchForm__modal">
                             <div class="searchForm__modal_closed">
-                                <img src="/upload/rating/closed-icon.svg" alt="img">
+                                <img src="/upload//rating/closed-icon.svg" alt="img">
                             </div>
                             <div class="searchForm__modal_input">
                                 <input type="text" id="filterCity" placeholder="Поиск по названию">
                                 <button>
-                                    <img src="/upload/rating/search-icon.svg" alt="img">
+                                    <img src="/upload//rating/search-icon.svg" alt="img">
                                 </button>
                             </div>
-
                             <div class="searchForm__modal_wrapper">
                                 <div class="searchForm__modal_topChek active">
                                     <div class="searchForm__modal_item topChekItem">
@@ -163,19 +154,56 @@ $cities = CIBlockElement::GetList(
                                         <span class="itemText">Санкт-Петербург</span>
                                     </div>
                                 </div>
+                                <div class="searchForm__modal_centerChek">
+                                    <div class="searchForm__modal_item">
+                                        <input type="checkbox" class="checkbox">
+                                        <span class="itemText">Санкт-Петербург</span>
+                                    </div>
+                                </div>
                                 <div class="searchForm__modal_bottomChek">
-                                    <? while ($city = $cities->GetNext()): ?>
-                                        <div class="searchForm__modal_item bottomChekItem">
-                                            <input type="checkbox" class="checkbox">
-                                            <span class="itemText"><?= $city["NAME"] ?></span>
-                                        </div>
-                                    <? endwhile ?>
+                                    <div class="searchForm__modal_item bottomChekItem">
+                                        <input type="checkbox" class="checkbox">
+                                        <span class="itemText">Абинск</span>
+                                    </div>
+                                    <div class="searchForm__modal_item bottomChekItem">
+                                        <input type="checkbox" class="checkbox">
+                                        <span class="itemText">Владивосток</span>
+                                    </div>
+                                    <div class="searchForm__modal_item bottomChekItem">
+                                        <input type="checkbox" class="checkbox">
+                                        <span class="itemText">Воронеж</span>
+                                    </div>
+                                    <div class="searchForm__modal_item bottomChekItem">
+                                        <input type="checkbox" class="checkbox">
+                                        <span class="itemText">Сочи</span>
+                                    </div>
+                                    <div class="searchForm__modal_item bottomChekItem">
+                                        <input type="checkbox" class="checkbox">
+                                        <span class="itemText">Симферополь</span>
+                                    </div>
+                                    <div class="searchForm__modal_item bottomChekItem">
+                                        <input type="checkbox" class="checkbox">
+                                        <span class="itemText">Сиверс</span>
+                                    </div>
+                                    <div class="searchForm__modal_item bottomChekItem">
+                                        <input type="checkbox" class="checkbox">
+                                        <span class="itemText">Москва</span>
+                                    </div>
+                                    <div class="searchForm__modal_item bottomChekItem">
+                                        <input type="checkbox" class="checkbox">
+                                        <span class="itemText">Санкт-Петербург</span>
+                                    </div>
+                                    <div class="searchForm__modal_item bottomChekItem">
+                                        <input type="checkbox" class="checkbox">
+                                        <span class="itemText">Санкт-Петербург</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </form>
                 </div>
             </div>
+
             <div class="rating-center__search_item item-two">
                 <div class="rating-center__search_item-title">
                     Найдите компании по названию
@@ -191,6 +219,7 @@ $cities = CIBlockElement::GetList(
                     </form>
                 </div>
             </div>
+
         </div>
         <div class="rating-center__items">
             <div class="rating-center__items_top">

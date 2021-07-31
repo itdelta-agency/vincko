@@ -42,7 +42,9 @@ $Asset = Asset::getInstance();
 
 	<script src="https://atuin.ru/demo/ui-slider/jquery-ui.min.js"></script>
 	<script src="https://atuin.ru/demo/ui-slider/jquery.ui.touch-punch.min.js"></script>
+
     <?= $APPLICATION->ShowHead(); ?>
+
 </head>
 
 <body>

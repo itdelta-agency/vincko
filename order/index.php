@@ -13,7 +13,7 @@ $APPLICATION->SetTitle("Оформление заказа");
                 <span class="installment__title-lvl1">Готовое решение “Спокойствие”</span>
                 <span class="installment__title-lvl2">Вариант Комфорт</span>
             </h3>
-            (\/\/при оформления страховки добавляется блок внизу\/\/)
+            (\/\/при оформления рассрочки добавляется блок внизу\/\/)
             <a href="#short-rd" class="to-short-rd">Подробнее</a>
             <div class="installment__calculator">
                 <div class="section-result__price-bonuses-container">
@@ -294,14 +294,17 @@ $APPLICATION->SetTitle("Оформление заказа");
                             <div class="form__section">
                                 <h4>Доставка</h4>
                                 <div class="form__section__content education">
-                                    <div class="select-wrapper">
-                                        <select required>
-                                            <option value="" disabled selected hidden>Тип доставки
-                                            </option>
-                                            <option value="1">Самовывоз</option>
-                                            <option value="2">СДЭК</option>
-                                            <option value="3">ПЭК</option>
-                                        </select>
+                                    <div class="select">
+                                        <input id='trans-1' type="radio" name="trans" selected>
+                                        <label for="trans-1"><span class="selected-radio-btn">Самовывоз</span></label>
+                                    </div>
+                                    <div class="select">
+                                        <input id='trans-2' type="radio" name="trans">
+                                        <label for="trans-2"><span class="selected-radio-btn">СДЭК</span></label>
+                                    </div>
+                                    <div class="select">
+                                        <input id='trans-3' type="radio" name="trans">
+                                        <label for="trans-3"><span class="selected-radio-btn">ПЭК</span></label>
                                     </div>
                                 </div>
                             </div>
@@ -314,21 +317,15 @@ $APPLICATION->SetTitle("Оформление заказа");
                                 <div class="form__section__content">
                                     <div class="select">
                                         <input id='sale-1' type="radio" name="sale" selected>
-                                        <label for="sale-1">Наличные</label>
-                                        <input id='sale-2' type="radio" name="sale">
-                                        <label for="sale-2">Карта</label>
-                                        <input id='sale-3' type="radio" name="sale">
-                                        <label for="sale-3">Сбербонусы</label>
+                                        <label for="sale-1"><span class="selected-radio-btn">Наличные</span></label>
                                     </div>
-
-                                    <div class="select-wrapper">
-                                        <select required>
-                                            <option value="" disabled selected hidden>Тип оплаты
-                                            </option>
-                                            <option value="1">Наличные</option>
-                                            <option value="2">Карта</option>
-                                            <option value="3">Сбербонусы</option>
-                                        </select>
+                                    <div class="select">
+                                        <input id='sale-2' type="radio" name="sale">
+                                        <label for="sale-2"><span class="selected-radio-btn">Карта</span></label>
+                                    </div>
+                                    <div class="select">
+                                        <input id='sale-3' type="radio" name="sale">
+                                        <label for="sale-3"><span class="selected-radio-btn">Сбербонусы</span></label>
                                     </div>
                                 </div>
                             </div>
@@ -387,6 +384,7 @@ $APPLICATION->SetTitle("Оформление заказа");
                                     <div class="short-rd__body-li-desc">6 месяцев (с 06.05.2021)</div>
                                 </div>
                             </div>
+                            (\/\/при оформления рассрочки добавляется блок внизу\/\/)
                             <div class="short-rd__body-item">
                                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                                      xmlns="http://www.w3.org/2000/svg">
@@ -407,7 +405,9 @@ $APPLICATION->SetTitle("Оформление заказа");
                                         Выплата 2 100 000 рублей
                                     </div>
                                 </div>
+
                             </div>
+                            (/\/\здесь заканчивается/\/\)
                         </div>
 
                     </div>
