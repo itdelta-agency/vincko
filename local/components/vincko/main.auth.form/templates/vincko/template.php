@@ -17,11 +17,11 @@ if ($arResult['AUTHORIZED'])
 	return;
 }
 ?>
-
+<div class="test">
+	<h1>TEST</h1>
+</div>
 <div class="login">
-	<div class="test">
-		<h1>TEST</h1>
-	</div>
+	
 	<div class="login__flex">
 		<div class="login__form">
 
