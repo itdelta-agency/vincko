@@ -21,7 +21,7 @@ if ($arResult['AUTHORIZED'])
 	<h1>TEST</h1>
 </div>
 <div class="login">
-	
+
 	<div class="login__flex">
 		<div class="login__form">
 
@@ -95,7 +95,7 @@ if ($arResult['AUTHORIZED'])
 			<?endif;?>
 		</div>
 		<div class="login__text">
-			<div class="login__text-title">Регистрация нового пользователя</div>
+			<div class="login__text-title">Регистрация офигенно нового пользователя</div>
 			<div class="login__text-info">Регистрация на нашем сайте дает возможность оценивать охранные организации и заказывать пакеты услуг.</div>
 			<noindex>
 			<?if (!empty($_REQUEST["backurl"])){?>
