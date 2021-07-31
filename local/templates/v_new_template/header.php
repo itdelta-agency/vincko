@@ -64,7 +64,6 @@ $Asset = Asset::getInstance();
 	<script src="<?= SITE_TEMPLATE_PATH ?>/libs/Inputmask/jquery.inputmask.min.js"></script>
 	<script src="https://atuin.ru/demo/ui-slider/jquery-ui.min.js"></script>
 	<script src="https://atuin.ru/demo/ui-slider/jquery.ui.touch-punch.min.js"></script>
-	<script src="<?=SITE_TEMPLATE_PATH ?>/js/custom.js"></script>
 	<? $Asset->addCss(SITE_TEMPLATE_PATH . "/css/custom.css"); ?>
 
 	<?

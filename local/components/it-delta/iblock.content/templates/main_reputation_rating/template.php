@@ -52,11 +52,9 @@ $cities = CIBlockElement::GetList(
                 </form>
             </div>
             <div class="reputation__rating_center-items">
-                <?$i = 0?>
-                <? foreach($arResult["ITEMS"] as $item): ?>
+                <? foreach($arResult["ITEMS"] as $element => $item): ?>
                 <? if($_COOKIE['selected_city'] == $item["PROPERTIES"]["CITY_ID"]["VALUE"]): ?>
-                <?++$i?>
-                <div class="reputation__rating_center-item <?=($i > 5) ? "hide" : ""?>">
+                <div class="reputation__rating_center-item <?=(++$element > 5) ? "hide" : ""?>">
                     <div class="info__block">
                         <div class="item_left">
                             <span class="icon">
@@ -77,7 +75,7 @@ $cities = CIBlockElement::GetList(
                             <span class="text"><?=$item["PROPERTIES"]["CH_RATING_SUM"]["VALUE"]?></span>
                         </div>
                         <div class="item_center">
-                            <span class="item_center-company_numder"><?=$i?></span>
+                            <span class="item_center-company_numder"><?=$element?></span>
                             <span class="item_center-company_name"><?=$item["NAME"]?></span>
                             <? if($item["PROPERTIES"]["STATUS"]["VALUE"] == "odobreno"): ?>
                             <span class="icon">
