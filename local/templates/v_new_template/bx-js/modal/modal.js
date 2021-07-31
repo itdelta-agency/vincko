@@ -8,6 +8,9 @@ var _loop = function _loop(i) {
   btns_modals[i].addEventListener("click", function () {
     win_modals[i].classList.add("vis");
   });
+  win_modals[i].addEventListener("click", function () {
+    win_modals[i].classList.remove("vis");
+  });
   close_modals[i].addEventListener("click", function () {
     win_modals[i].classList.remove("vis");
   });

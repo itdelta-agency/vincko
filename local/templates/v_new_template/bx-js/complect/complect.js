@@ -87,14 +87,13 @@ if (!document.querySelector('.complect__slider')) {} else {
     if (+document.querySelector('.slick-slide.slick-center').getAttribute('data-slick-index') + 1 == item.getAttribute('data-slick-index')) {
       item.classList.add('prev-next-slide');
     }
+    /*infoBlocks.forEach(item => {
+        item.classList.remove('show');
+        if (activeSlide.getAttribute('data-slider-info') == item.getAttribute('data-slider-info')) {
+            item.classList.add('show')
+        }
+    })*/
 
-    infoBlocks.forEach(function (item) {
-      item.classList.remove('show');
-
-      if (activeSlide.getAttribute('data-slider-info') == item.getAttribute('data-slider-info')) {
-        item.classList.add('show');
-      }
-    });
   });
   document.querySelectorAll('.slick-arrow').forEach(function (arrow) {
     arrow.addEventListener('click', function () {
@@ -108,14 +107,13 @@ if (!document.querySelector('.complect__slider')) {} else {
         if (+document.querySelector('.slick-slide.slick-center').getAttribute('data-slick-index') + 1 == item.getAttribute('data-slick-index')) {
           item.classList.add('prev-next-slide');
         }
+        /*infoBlocks.forEach(item => {
+            item.classList.remove('show');
+            if (activeSlide.getAttribute('data-slider-info') == item.getAttribute('data-slider-info')) {
+                item.classList.add('show')
+            }
+        })*/
 
-        infoBlocks.forEach(function (item) {
-          item.classList.remove('show');
-
-          if (activeSlide.getAttribute('data-slider-info') == item.getAttribute('data-slider-info')) {
-            item.classList.add('show');
-          }
-        });
       });
     });
   });
@@ -192,5 +190,23 @@ if (!document.querySelector('.complect__slider')) {} else {
         });
       }
     });
+  });
+  $('.slick-slider-datchiki').on('beforeChange', function (event, slick, currentSlide, nextSlide) {
+    $('.info').removeClass("vis");
+    $('[data-slider-info="' + nextSlide + '"]').addClass('vis');
+    console.log(nextSlide);
+  });
+  $(".complect .subscribe .blue-button").on("click", function () {
+    $(".subscribe").addClass("subscribe-ordered");
+    $('.card-one').removeClass("no-subscribe");
+  });
+  $(".complect .subscribe .button-ordered").on("click", function () {
+    $(".subscribe").removeClass("subscribe-ordered");
+    $('.card-one').addClass("no-subscribe");
+  });
+  $(".to-card-btn").on("click", function () {
+    $([document.documentElement, document.body]).animate({
+      scrollTop: $("#solutions__center").offset().top
+    }, 300);
   });
 }
