@@ -266,6 +266,11 @@ if (!empty($arEquipSet)) {
                 $equipmentPictures[] = $FILE;
         }
 
+        $techCharacteristicsIds = $arFields["PROPERTY_CO_TECH_CHARACTERISTICS_REF_VALUE"];
+        if (is_array($techCharacteristicsIds)) {
+            $equipItemsTechCharacteristicsIds = array_merge($equipItemsTechCharacteristicsIds, $techCharacteristicsIds);
+        }
+
         $characteristicsIds = $arFields["PROPERTY_CO_CHARACTERISTICS_REF_VALUE"];
         if (is_array($characteristicsIds)) {
             $equipItemsCharacteristicsIds = array_merge($equipItemsCharacteristicsIds, $characteristicsIds);
@@ -304,6 +309,7 @@ $res = \CIBlockElement::GetList(array(), array("IBLOCK_ID" => $equipmentTechChar
     false, array("ID", "*", "PROPERTY_EQ", "PROPERTY_EQ_CHAR_TYPE.NAME", "PROPERTY_EQ_CHAR_VALUE"));
 while ($arFields = $res->Fetch()) {
     $arResult["EQUIP_ITEM_TECH_CHARACTERISTICS"][$arFields["ID"]] = $arFields;
+
 }
 
 
@@ -316,6 +322,7 @@ foreach ($arResult['EQUIP_COMPLECT'] as $ec)
             "EQ_CHAR_VALUE" => $techChar['PROPERTY_EQ_CHAR_VALUE_VALUE'],
         );
     }
+
 }
 
 //получаем все картинки для оборудования
@@ -329,6 +336,3 @@ if (isset($arResult["DISPLAY_PROPERTIES"]["CO_CHARACTERISTICS_REF"]["LINK_ELEMEN
 //изображение комплекта
 $arResult['PREVIEW_PICTURE_RESIZED'] = CFile::ResizeImageGet($arResult['PREVIEW_PICTURE'], array("width" => 360, "height" => 290), BX_RESIZE_IMAGE_PROPORTIONAL_ALT, false);
 $arResult['PREVIEW_PICTURE_RESIZED_SMALL'] = CFile::ResizeImageGet($arResult['PREVIEW_PICTURE'], array("width" => 110, "height" => 100), BX_RESIZE_IMAGE_PROPORTIONAL, false);
-
-
-

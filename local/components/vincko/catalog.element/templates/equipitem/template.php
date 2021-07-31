@@ -1140,6 +1140,7 @@ if (!empty($arParams['LABEL_PROP_POSITION'])) {
                                     </div>
                                     <? foreach ($arResult['ALL_INSURANCE_LIST'] as $key => $item): ?>
                                         <? foreach ($item['ITEMS'][$currentPolicyIndex]['PROPERTY_PAYMENT_OPTIONS_VALUE'] as $index => $el): ?>
+
                                             <div class="products__payment-item <?= !empty($item['ITEMS'][$currentPolicyIndex]['PROPERTY_PAYMENT_PRICE_VALUE'][$index]) && $item['ITEMS'][$currentPolicyIndex]['PROPERTY_PAYMENT_PRICE_VALUE'][$index]!='-' ? 'products__payment-item_active' : '' ?>">
                                                 <div class="no-stroke products__payment-photo">
                                                     <?= $arResult['ALL_INSURANCE_PAYMENT_OPTIONS_LIST'][$el]['PROPERTY_ICON_VALUE']['TEXT'] ?>
