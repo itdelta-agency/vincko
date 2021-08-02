@@ -598,15 +598,17 @@ if (!empty($arParams['LABEL_PROP_POSITION'])) {
                                                                 <? endforeach; ?>
 
                                                             </div>
+                                                        </div>
                                                     </form>
                                                 </div>
-                                            </div>
+
 
                                             <? endif; ?>
+                                            </div>
                                         </div>
 
 
-                                    </div>
+
                                 </div>
                                 <div class="solutions-card__subtitle">
                                     Выберите Вариант
@@ -773,41 +775,19 @@ if (!empty($arParams['LABEL_PROP_POSITION'])) {
                                                 <form action="#">
                                                     <input class="select__input" type="hidden"
                                                            name="solutions-card__top-select">
+                                                    <?if(count($arResult['ALL_LIST_COMPANY_CITY'])>1):?>
                                                     <div class="select__head">Выбрать другую компанию</div>
                                                     <div class="select__list" style="display: none;">
-                                                        <div class="select__input-search">
-                                                            <div class="select__input-search_icon">
-                                                                <img src="<?= SITE_TEMPLATE_PATH ?>/img/solutions/search-icon.svg"
-                                                                     alt="img">
-                                                            </div>
-                                                            <input type="text" placeholder="Поиск" name="search">
-                                                        </div>
                                                         <div class="select__list-item">
-                                                            <!-- Топ-3 -->
-                                                            <div class="select__list-item_title">Топ-3</div>
-                                                            <div class="select__item">
-                                                                <div class="select__item_text color-black">
-                                                                    ООО “Беркут Дефенд Ко...
+                                                            <!-- Выбрано -->
+                                                            <div class="select__list-item_title">Выбрано</div>
+                                                            <div class="select__list-item_policy">
+                                                                <div class="select__list-item_policy-top">
+                                                                <span class="font-weight policy-title">
+                                                                    Компания “ <span
+                                                                            class="font-weight"><?= $arResult['ALL_LIST_COMPANY_CITY'][$currentSecureCompanyIndex]['NAME'] ?></span> ”
+                                                                </span>
                                                                 </div>
-                                                                <div class="select__item_num">1</div>
-                                                                <span class="select__item_bg"
-                                                                      style="width: 100%;"></span>
-                                                            </div>
-                                                            <div class="select__item">
-                                                                <div class="select__item_text">
-                                                                    Сальса Чача Классно
-                                                                </div>
-                                                                <div class="select__item_num">2</div>
-                                                                <span class="select__item_bg"
-                                                                      style="width: 90%;"></span>
-                                                            </div>
-                                                            <div class="select__item">
-                                                                <div class="select__item_text">
-                                                                    ООО “Семиголов”
-                                                                </div>
-                                                                <div class="select__item_num">2</div>
-                                                                <span class="select__item_bg"
-                                                                      style="width: 80%;"></span>
                                                             </div>
 
 
@@ -816,21 +796,19 @@ if (!empty($arParams['LABEL_PROP_POSITION'])) {
                                                                 компании
                                                             </div>
                                                             <? foreach ($arResult['ALL_LIST_COMPANY_CITY'] as $key => $item): ?>
-                                                                <div id="selected_company"
-                                                                     onclick="BX.setCookie('selected_company_id',<?= $item['ID'] ?>, {expires: 86400, path: '/'});location.reload();"
-                                                                     class="select__item">
-                                                                    <div class="select__item_text">
-                                                                        <?= $item['NAME'] ?>
+                                                                <div class="select__list-item_policy">
+                                                                    <div class="select__list-item_policy-top">
+                                                                            <span id="selected_company"
+                                                                                  onclick="BX.setCookie('selected_company_id',<?= $item['ID'] ?>, {expires: 86400, path: '/'});location.reload();"
+                                                                                  class="policy-title">Компания“<span
+                                                                                        class="p"><?= $item['NAME'] ?></span>”</span>
                                                                     </div>
-                                                                    <div class="select__item_num">4</div>
-                                                                    <span class="select__item_bg"
-                                                                          style="width: 70%;"></span>
                                                                 </div>
                                                             <? endforeach; ?>
 
                                                         </div>
-                                                        <div class="box-shadow"></div>
                                                     </div>
+                                                    <?endif;?>
                                                 </form>
                                             </div>
                                         </div>
