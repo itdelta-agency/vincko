@@ -830,7 +830,6 @@ $currentCity = CIBlockElement::GetList(
                                                     <a href="#">Читать все <span>32</span> отзыва</a>
                                                     <span class="closed-card">Закрыть карточку</span>
                                                 </div>
-                                            <? endif ?>
                                         <? endif ?>
                                         <div class="itemRating-open__left_bottom">
                                             <div class="itemRating-open__left_bottom-mobilLinks">
