@@ -38,18 +38,6 @@ $("#ajax_form_callback_btn").on('click',function(){
 
 	})
 
-	$(document).click( function(e){
-		if (!$('.rating-help-window[style="display: block;"]').is(e.target) &&
-			$('.rating-help-window[style="display: block;"]').has(e.target).length === 0) {
-			$('.rating-help-window[style="display: block;"]').fadeOut();
-		}
-	});
-	$('.icon-open-info-block').on('click', function () {
-		$('.rating-help-window').fadeIn();
-	})
-	$('.rating-help-window-close').on('click', function () {
-		$(this.parentNode).fadeOut();
-	})
 	$(".header__top-cabinet .js-modal").click(function () {
 		var thisModal = $(this).attr("data-modal-class");
 		$(thisModal).removeClass("hidden");
