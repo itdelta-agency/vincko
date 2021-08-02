@@ -41,7 +41,14 @@
   content: url(../img/installment/checkbox-active.png)
 }
 .form input[type=checkbox]:checked + label + .no-checked {
-  display: none
+  z-index: 1;
+  opacity: 0;
+  height: 0
+}
+.form input[type=checkbox]:checked + label + .no-checked > * {
+  transition: .3s ease-in-out;
+  max-height: 0;
+  padding: 0
 }
 .form input[type=radio] {
   display: none
@@ -149,6 +156,11 @@
 .form__section__content.sex input[type=radio] + label:nth-child(3n) {
   margin: 0 5px 0 10px
 }
+.form__section__content .address-registration {
+  transition: .3s ease-in-out;
+  opacity: 1;
+  height: 280px
+}
 .form__section__content .address-registration input:first-child,
 .form__section__content.address-registration input:first-child {
   margin-top: 16px
@@ -168,10 +180,14 @@
   max-width: 216px
 }
 .form__section__content.address-installment .address-installment-other {
-  display: none
+  transition: .3s ease-in-out;
+  opacity: 0;
+  height: 0
 }
 .form__section__content.address-installment #other:checked ~ .address-installment-other {
-  display: block
+  transition: .3s ease-in-out;
+  opacity: 1;
+  height: 280px
 }
 .form__section__content.name input:nth-child(1),
 .form__section__content.name input:nth-child(2),

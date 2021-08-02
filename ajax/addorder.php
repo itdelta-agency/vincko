@@ -1,139 +1,129 @@
 <?php require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/main/include/prolog_before.php");
 
-use Bitrix\Main\Application;
+use Bitrix\Main\Context,
+    Bitrix\Currency\CurrencyManager,
+    Bitrix\Sale\Order,
+    Bitrix\Sale\Basket,
+    Bitrix\Sale\Delivery,
+    Bitrix\Sale\PaySystem;
 
-$request = Application::getInstance()->getContext()->getRequest();
+global $USER;
 
+Bitrix\Main\Loader::includeModule("sale");
+Bitrix\Main\Loader::includeModule("catalog");
+
+function getPropertyByCode($propertyCollection, $code)  {
+    foreach ($propertyCollection as $property)
+    {
+        if($property->getField('CODE') == $code)
+            return $property;
+    }
+}
+
+$request = Context::getCurrent()->getRequest();
 
 if ($request->isPost()) {
 
-    $items = json_decode($request->getPost('items'));
-    //получаем id товаров
-    $complect_id = $items[0]->active == true ? $items[0]->id : null;
-    $subscription_fee_id = $items[1]->active == true ? $items[1]->id : null;
-    $policy_id = $items[2]->active == true ? $items[2]->id : null;
-    //если товаров нет
-    if($complect_id==null && $subscription_fee_id==null && $policy_id==null)
-    {
-        $response = ['message' => 'order error', 'success' => false];
-        $response = new \Bitrix\Main\Engine\Response\Json($response);
-        $response->send();
-    }
-    //если в заказе на Готовое решение есть: Страховка, Комплект оборудования, Услуги охранной компании:
-    if($complect_id && $subscription_fee_id && $policy_id)
-    {
-        //заполнение формы для страхового полиса в макете, логика работы в ТЗ
-        //оформление доставки описание здесь в макете
-        //оплата/рассрочка
-    }
-    //если в заказе на Готовое решение есть: Страховка, Услуги охранной компании
-    if($complect_id==null && $subscription_fee_id && $policy_id)
-    {
-        //заполнение формы для страхового полиса
-        //оплата/рассрочка
-    }
-    //если в заказе на Готовое решение есть: Комплект оборудования, Услуги охранной компании
-    if($complect_id && $subscription_fee_id && $policy_id==null)
-    {
-        //оформление доставки
-        //оплата/рассрочка
-    }
-    //если в заказе на Готовое решение есть: Страховка, Комплект оборудования
-    if($complect_id && $subscription_fee_id==null && $policy_id)
-    {
-        //заполнение формы для страхового полиса
-        //оформление доставки
-        //оплата/рассрочка
-    }
-    //если в заказе на Готовое решение есть только Страховка (или страховка приобретается как самостоятельный продукт)
-    if($complect_id==null && $subscription_fee_id==null && $policy_id) {
-        // заполнение формы для страхового полиса
-        //оплата/рассрочка
-
-    }
-    //если в заказе на Готовое решение есть только Комплект оборудования
-    if($complect_id && $subscription_fee_id==null && $policy_id==null)
-    {
-        //оформление доставки
-        //оплата/рассрочка
-    }
-    //если в заказе на Готовое решение есть только Услуги охранной компании
-    if($complect_id=null && $subscription_fee_id && $policy_id=null)
-    {
-        //оплата/рассрочка
+    if ($_SERVER['REMOTE_ADDR'] == '46.147.123.63') {
+        echo '<pre>';
+        print_r($request);
+        echo '</pre>';
     }
 
-    /*
-     * Оформление заказа
-     */
-    Bitrix\Main\Loader::includeModule('sale');
-    Bitrix\Main\Loader::includeModule('catalog');
+    $siteId = Context::getCurrent()->getSite();
+    $currencyCode = CurrencyManager::getBaseCurrency();
+    $productProviderClass = \Bitrix\Catalog\Product\Basket::getDefaultProviderName();
 
-    $products = array(
-        array(
-            'PRODUCT_ID' => $complect_id,
-            'QUANTITY' => 1,
-            'PRODUCT_PROVIDER_CLASS' => \Bitrix\Catalog\Product\Basket::getDefaultProviderName()
-        ),
-        array(
-            'PRODUCT_ID' => $subscription_fee_id,
-            'QUANTITY' => 1,
-            'PRODUCT_PROVIDER_CLASS' => \Bitrix\Catalog\Product\Basket::getDefaultProviderName()
-        ),
-        array(
-            'PRODUCT_ID' => $policy_id,
-            'QUANTITY' => 1,
-            'PRODUCT_PROVIDER_CLASS' => \Bitrix\Catalog\Product\Basket::getDefaultProviderName()
-        ),
-    );
-    global $USER;
-    $registeredUserID = $USER->GetID();
-    $siteId = \Bitrix\Main\Context::getCurrent()->getSite();
-    $basket = Bitrix\Sale\Basket::create($siteId);
-    //создаем объект корзины и наполняем ее товарами
+    // Создаёт новый заказ
+    $order = Order::create($siteId, $USER->isAuthorized() ? $USER->GetID() : 539);
+    $order->setPersonTypeId(3);
+    $order->setField('CURRENCY', $currencyCode);
+
+    $arProductsIds = $request['orderItemsIds'];
+    $products = [];
+    foreach ($arProductsIds as $arProductsId)
+    {
+         array_push($products, array('PRODUCT_ID' => $arProductsId, 'CURRENCY' => $currencyCode, 'QUANTITY' => 1, 'LID' => $siteId, 'PRODUCT_PROVIDER_CLASS' => $productProviderClass));
+    }
+
+
+    $basket = Basket::create($siteId);
+
     foreach ($products as $product) {
-        if($product["PRODUCT_ID"] != null) {
+        if ($item = $basket->getExistsItem('catalog', $product["PRODUCT_ID"])) {
+            $item->setField('QUANTITY', $item->getQuantity() + 1); //добавляем указанное количество к существующему товару
+
+        } else {
             $item = $basket->createItem("catalog", $product["PRODUCT_ID"]);
             unset($product["PRODUCT_ID"]);
             $item->setFields($product);
         }
     }
-    //создадим заказ
-    $order = Bitrix\Sale\Order::create($siteId, $registeredUserID);
-    $order->setPersonTypeId(1);
+
     $order->setBasket($basket);
-    //создадим отгрузку
+
     $shipmentCollection = $order->getShipmentCollection();
     $shipment = $shipmentCollection->createItem(
         Bitrix\Sale\Delivery\Services\Manager::getObjectById(1)
     );
-    //наполним отгрузку товарами
+
     $shipmentItemCollection = $shipment->getShipmentItemCollection();
 
-    foreach ($basket as $basketItem) {
+    /** @var Sale\BasketItem $basketItem */
+
+    foreach ($basket as $basketItem)
+    {
         $item = $shipmentItemCollection->createItem($basketItem);
         $item->setQuantity($basketItem->getQuantity());
     }
-    //создадим оплату
+
+    $paymentId = $request['payment_id'];
     $paymentCollection = $order->getPaymentCollection();
     $payment = $paymentCollection->createItem(
-        Bitrix\Sale\PaySystem\Manager::getObjectById(10)
+        Bitrix\Sale\PaySystem\Manager::getObjectById($paymentId)
     );
-    //настройка свойств оплаты
     $payment->setField("SUM", $order->getPrice());
     $payment->setField("CURRENCY", $order->getCurrency());
-    //сохраним заказ
+
+    // Устанавливаем свойства
+    $propertyCollection = $order->getPropertyCollection();
+    $arProps = $request['orderProps'];
+    foreach ($arProps as $code => $value)
+    {
+        $arProperty = getPropertyByCode($propertyCollection, $code);
+        $arProperty->setValue($value);
+    }
+    $arPropertyAddress = $request['street'] .', '. $request['house'] . ', '. $request['housing'] . ', ' . $request['flat'];
+    $arProperty = getPropertyByCode($propertyCollection, 'ADDRESS');
+    $arProperty->setValue($arPropertyAddress);
+
+    $arPropertyFIO = $request['surname'] .' '. $request['name'] . ' '. $request['patronomic'];
+    $arProperty = getPropertyByCode($propertyCollection, 'FIO');
+    $arProperty->setValue($arPropertyFIO);
+
+    $passportData = 'Паспортные данные: Серия и номер паспорта: ' . $request['number'] . ' Дата выдачи: ' . $request['date'] . ' Кем выдан '.
+        $request['whom'] . ' Код подразделения: '. $request['code']. ' Дата рождения: '. $request['birthday'] . ' Место рождения'
+        .$request['place'];
+
+    $registrationAddress = 'Адрес регистрации: Город/населенный пункт: ' . $request['city1'] . ' Улица: ' . $request['street1'] . ' Дом '.
+     $request['house1'] . ' Корпус: '. $request['housing1']. ' Квартира: '. $request['flat1'] . ' Дата регистрации'
+        .$request['date1'] . 'Индекс' .$request['index1'];
+
+    $residenseAddress = ' Адрес фактического проживания: Город/населенный пункт: ' . $request['city2'] . ' Улица: ' . $request['street2'] . ' Дом '.
+        $request['house2'] . ' Корпус: '. $request['housing2']. ' Квартира: '. $request['flat2'] . ' Дата регистрации'
+        .$request['date2'] . ' Индекс' .$request['index2'];
+
+    $comment = $passportData . $registrationAddress . $residenseAddress;
+    $order->setField('USER_DESCRIPTION', $comment); // Устанавливаем поля комментария покупателя
+
+    // Сохраняем
+    $order->doFinalAction(true);
     $result = $order->save();
-    if ($result->isSuccess()) {
-        $orderId = $result->getId();
-        $response = ['orderId' => $orderId, 'success' => true];
-        $response = new \Bitrix\Main\Engine\Response\Json($response);
-        $response->send();
-    } else {
-        $response = ['message' => 'order error', 'success' => false];
-        $response = new \Bitrix\Main\Engine\Response\Json($response);
-        $response->send();
+    $orderId = $order->getId();
+    if ($result->isSuccess())
+    {
+//        $session = \Bitrix\Main\Application::getInstance()->getSession();
+//        $orderItems = $session->remove('orderItems');
+        LocalRedirect("/order/" . "?ORDER_ID=" . $orderId);
     }
 }
-?>
-

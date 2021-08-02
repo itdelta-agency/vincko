@@ -325,7 +325,7 @@ else
 	$hideDelivery = empty($arResult['DELIVERY']);
 	$hidePaySystem = empty($arResult['PAY_SYSTEM']);
 	?>
-
+    <main class="container">
 	<form action="<?=POST_FORM_ACTION_URI?>" method="POST" name="ORDER_FORM" id="bx-soa-order-form" enctype="multipart/form-data">
 		<?
 		echo bitrix_sessid_post();
@@ -335,6 +335,7 @@ else
 			echo $arResult['PREPAY_ADIT_FIELDS'];
 		}
 		?>
+
 		<input type="hidden" name="<?=$arParams['ACTION_VARIABLE']?>" value="saveOrderAjax">
 		<input type="hidden" name="location_type" value="code">
 		<input type="hidden" name="BUYER_STORE" id="BUYER_STORE" value="<?=$arResult['BUYER_STORE']?>">
@@ -645,6 +646,7 @@ else
 			)
 		))?>);
 	</script>
+
 	<?
 	if ($arParams['SHOW_PICKUP_MAP'] === 'Y' || $arParams['SHOW_MAP_IN_PROPS'] === 'Y')
 	{
@@ -703,4 +705,5 @@ else
 		</script>
 		<?
 	}
-}
+}?>
+    </main>
