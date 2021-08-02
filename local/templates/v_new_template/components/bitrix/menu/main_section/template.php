@@ -2,9 +2,9 @@
 
 <? if (!empty($arResult)): ?>
     <div class="header__submenu-item header__submenu-item--up">
-        <h3>
+        <div class="h3">
             Основные разделы
-        </h3>
+        </div>
         <ul>
             <?
             foreach ($arResult as $arItem):

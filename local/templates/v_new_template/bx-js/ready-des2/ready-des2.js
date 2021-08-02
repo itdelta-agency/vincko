@@ -193,7 +193,7 @@ $(document).ready(function () {
 
     if (element) {
       var choices = new Choices(element, {
-        searchEnabled: false,
+        searchEnabled: true,
         itemSelectText: ''
       });
     }

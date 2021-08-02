@@ -2,7 +2,7 @@
 $aMenuLinks = Array(
 	Array(
 		"Индивидуальная заявка", 
-		"", 
+		"/norating/", 
 		Array(), 
 		Array(), 
 		"" 

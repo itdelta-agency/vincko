@@ -35,8 +35,6 @@ $(document).ready(function () {
       var id = "#form-2";
       var top = $(id).position().top;
       $('html').scrollTop(top);
-      alert();
-      return false;
     });
     btnns[1].addEventListener("click", function () {
       closeOpenBlockNext(forms[1], forms[2], btns[1]);

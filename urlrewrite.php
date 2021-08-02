@@ -1,4 +1,5 @@
 <?php
+
 $arUrlRewrite = array(
     15 =>
         array(
@@ -153,4 +154,4 @@ $arUrlRewrite = array(
             'SORT' => 100,
         ),
 );
-?>
+>>>>>>> stage
