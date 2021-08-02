@@ -39,6 +39,7 @@
 .t-c-gray {
     color: #818181!important;
 }
+
 .how__useful .open__for-items .content-block-useful  .content-list .content-list-item a {
     color: #005DFF;
     font-weight: 500;
@@ -95,7 +96,7 @@
     justify-content: center;
     align-items: center;
 }
-.rating-block .rating-center__subtitle_top .icon-open-info-block {
+.rating-block .icon-open-info-block {
     margin-left: 8px;
     cursor: pointer;
 }
@@ -148,7 +149,9 @@
     line-height: 16px;
     color: #818181;
 }
-
+.rating-block .rating-help-window .block-rating-help-item .content-top-block-rating-help-item span {
+    display: inline;
+}
 .rating-block .link-item {
     color: #005DFF;
     position: relative;
