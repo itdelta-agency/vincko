@@ -74,77 +74,22 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();
                 <div class="guarantee__blockSlider_icon">
                     <img src="/upload/rating/guarantee-arrow.svg" alt="img">
                 </div>
-                <div class="guarantee__blockSlider_text">
-                    Предположим, покупатель оплатил услуги выбранной им охранной компании на платформе
-                    <span>vincko:</span>
-                    на период:
-                </div>
-                <div class="guarantee__blockSlider_slider">
-                    <div class="guarantee__blockSlider_slider-text">
-                        <span>Покупатель оплатил</span><span>месяц</span>
-                    </div>
-                    <div class="extra-controls">
-                        <input type="text" class="js-input" value="0"/>
-                    </div>
-                    <div class="range-slider">
-                        <input type="text" class="js-range-slider" value=""/>
-                    </div>
+                <div class="guarantee__text_center">
+                    Покупатель сообщает нам о готовности сменить компанию
                 </div>
             </div>
             <div class="guarantee__blockSlider">
                 <div class="guarantee__blockSlider_icon">
                     <img src="/upload/rating/guarantee-arrow.svg" alt="img">
                 </div>
-                <div class="guarantee__blockSlider_text">
-                    Если покупатель по какой-то причине решил, что хочет сменить компанию, но со дня оплаты прошло
-                    время.
-                </div>
-                <div class="guarantee__blockSlider_slider">
-                    <div class="guarantee__blockSlider_slider-text">
-                        <span>Со дня оплаты прошло</span><span>месяц</span>
-                    </div>
-                    <div class="extra-controls">
-                        <input type="text" class="js-input2" value="0"/>
-                    </div>
-                    <div class="range-slider">
-                        <input type="text" class="js-range-slider2" value=""/>
-                    </div>
+                <div class="guarantee__text_center">
+                    По истечении <span>1 рабочего дня</span> он будет иметь следующий результат:
                 </div>
             </div>
             <div class="guarantee__blockInfo">
-                <div class="guarantee__blockInfo_title">
-                    Покупатель сообщает нам о готовности сменить компанию
-                </div>
-                <div class="guarantee__blockInfo_subtitle">
-                    По истечении <span>1 рабочего дня</span> он будет иметь следующий результат:
-                </div>
-                <div class="guarantee__blockInfo_items">
-                    <div class="guarantee__blockInfo_item">
-                        <div>
-                            <span>2 месяца</span>
-                        </div>
-                        <div>
-                            оплаченного обслуживания<br>
-                            в новой компании
-                        </div>
-                    </div>
-                    <div class="guarantee__blockInfo_item">
-                        <div>
-                            <span class="red">1 месяц в подарок</span>
-                        </div>
-                        <div>
-                            потому что мы заботимся<br>
-                            о наших клиентах
-                        </div>
-                    </div>
-                </div>
-                <div class="guarantee__blockInfo_bottomText">
-                    <div>
-                        <span>оперативно расторгнутый договор с прежней охранной компанией.</span>
-                    </div>
-                    <div>
-                        <span>оперативно заключенный договор с новой охранной организацией.</span>
-                    </div>
+                <div class="guarantee__text_center">
+                    Оперативно заключенный договор
+                    с новой охранной организацией.
                 </div>
             </div>
         </div>

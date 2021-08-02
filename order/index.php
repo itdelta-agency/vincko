@@ -7,8 +7,12 @@ use \Vincko\Order;
 $session = \Bitrix\Main\Application::getInstance()->getSession();
 $orderItems = $session->get('orderItems');
 
+
 //if(empty($orderItems))
 //    LocalRedirect("/");
+
+
+
 
 $complectObj = $orderItems[0];
 $subscriptionFeeObj = $orderItems[1];
@@ -174,13 +178,163 @@ $arResult["PAYMENT"] = Order::getPaymentSystem();
     })
 </script>
 <?// УБРАТЬ БЛОК ПРИ ПЕРЕНОСЕ НА БОЙ?>
+
+
 <main class="container main">
     <form method="post" action="/ajax/addorder.php">
     <div class="installment">
 
         <div class="installment__left-column">
             <h2 class="installment__page-title">Оформление заказа</h2>
+            <h3 class="installment__title">
+                <span class="installment__title-lvl1">Готовое решение “Спокойствие”</span>
+                <span class="installment__title-lvl2">Вариант Комфорт</span>
+            </h3>
+            (\/\/при оформления рассрочки добавляется блок внизу\/\/)
+            <a href="#short-rd" class="to-short-rd">Подробнее</a>
+            <div class="installment__calculator">
+                <div class="section-result__price-bonuses-container">
+                    <div class="installment__bonuses-title">Список компонентов заказа, к которому можно применить оплату
+                        бонусами
+                    </div>
+                    <div class="section-result__price-title">
+                        <div class="section-result__price-title-item">Наименование,<br>
+                            стоимость
+                        </div>
+                        <div class="section-result__price-title-item">Будет оплачено <br>
+                            бонусами
+                        </div>
+                        <div class="section-result__price-title-item">Остаток <br>
+                            к оплате, руб
+                        </div>
+                        <div class="section-result__price-title-item">Курс <br>
+                            руб/бонус
+                        </div>
 
+                    </div>
+
+                    <div class="section-result__price-item">
+                        <div class="section-result__price-item-name">
+                            <div class="section-result__price-item-name-name">Датчик такой-то для того Датчик такой-то
+                                для того
+                            </div>
+                            <div class="section-result__price-item-name-cost">1 200 руб / 1400 бонусов</div>
+                        </div>
+                        <div class="section-result__price-item-bonus-cost">1 199 бонусов</div>
+                        <div class="section-result__price-item-rub-cost">1 руб</div>
+                        <div class="section-result__price-item-rate">1 / 1,4</div>
+                    </div>
+                    <div class="section-result__price-item">
+                        <div class="section-result__price-item-name">
+                            <div class="section-result__price-item-name-name">Датчик такой-то для того Датчик такой-то
+                                для того
+                            </div>
+                            <div class="section-result__price-item-name-cost">1 200 руб / 1400 бонусов</div>
+                        </div>
+                        <div class="section-result__price-item-bonus-cost">1 199 бонусов</div>
+                        <div class="section-result__price-item-rub-cost">1 руб</div>
+                        <div class="section-result__price-item-rate">1 / 1,4</div>
+                    </div>
+
+
+                </div>
+
+                <div class="installment__calculator-left vis">
+                    <div class="installment__calculator-first-pay">
+                        <div class="installment__calculator-sub-head">
+                            <span class="installment__calculator-sub-title">Первый взнос</span> <span
+                                class="installment__calculator-sub-value installment__calculator-sub-value-1">135 руб</span>
+                        </div>
+                        <div class="polzunok-container-2">
+                            <div class="polzunok-1"><span tabindex="0"
+                                                          class="ui-slider-handle ui-corner-all ui-state-default"><span
+                                        class="polzunok__number polzunok__number-1">0</span> </span></div>
+                        </div>
+                        <div class="installment__calculator-footer">
+                            50%
+                        </div>
+                    </div>
+
+                    <div class="installment__calculator-time">
+                        <div class="installment__calculator-sub-head">
+                            <span class="installment__calculator-sub-title">Срок кредитования</span> <span
+                                class="installment__calculator-sub-value installment__calculator-sub-value-2">0</span>
+                        </div>
+                        <div class="polzunok-container-2">
+                            <div class="polzunok-2"><span tabindex="0"
+                                                          class="ui-slider-handle ui-corner-all ui-state-default"> </span>
+                            </div>
+                            <div class="installment__calculator-footer">
+                                12 мес
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="installment__calculator-info">
+                        <h4>Ежемесячный платеж</h4>
+                        <div class="installment__calculator-info-month">1 456 руб</div>
+
+                    </div>
+
+
+                </div>
+
+                <div class="installment__calculator-right">
+                    <div class="section-result__right">
+
+                        <div class="price__bonuses">
+                            <h3>Сколько оплатить бонусами?
+
+                            </h3>
+                            <div class="price__bonuses-cost">
+                                <div class="blue">3 000</div>
+                                <div class="price__bonuses-info vis">
+                                    <div>
+                                        <svg width="30" height="30" viewBox="0 0 30 30" fill="none"
+                                             xmlns="http://www.w3.org/2000/svg">
+                                            <rect width="30" height="30" rx="4" fill="#93B6FF"/>
+                                            <path d="M15 9C13.8133 9 12.6533 9.35189 11.6666 10.0112C10.6799 10.6705 9.91085 11.6075 9.45673 12.7039C9.0026 13.8003 8.88378 15.0067 9.11529 16.1705C9.3468 17.3344 9.91825 18.4035 10.7574 19.2426C11.5965 20.0818 12.6656 20.6532 13.8295 20.8847C14.9933 21.1162 16.1997 20.9974 17.2961 20.5433C18.3925 20.0891 19.3295 19.3201 19.9888 18.3334C20.6481 17.3467 21 16.1867 21 15C21 14.2121 20.8448 13.4319 20.5433 12.7039C20.2417 11.9759 19.7998 11.3145 19.2426 10.7574C18.6855 10.2002 18.0241 9.75825 17.2961 9.45672C16.5681 9.15519 15.7879 9 15 9ZM15 18.6C14.8813 18.6 14.7653 18.5648 14.6667 18.4989C14.568 18.433 14.4911 18.3392 14.4457 18.2296C14.4003 18.12 14.3884 17.9993 14.4115 17.8829C14.4347 17.7666 14.4918 17.6596 14.5757 17.5757C14.6596 17.4918 14.7666 17.4347 14.8829 17.4115C14.9993 17.3884 15.12 17.4003 15.2296 17.4457C15.3392 17.4911 15.433 17.568 15.4989 17.6667C15.5648 17.7653 15.6 17.8813 15.6 18C15.6 18.1591 15.5368 18.3117 15.4243 18.4243C15.3117 18.5368 15.1591 18.6 15 18.6ZM15.6 15.504V16.2C15.6 16.3591 15.5368 16.5117 15.4243 16.6243C15.3117 16.7368 15.1591 16.8 15 16.8C14.8409 16.8 14.6883 16.7368 14.5757 16.6243C14.4632 16.5117 14.4 16.3591 14.4 16.2V15C14.4 14.8409 14.4632 14.6883 14.5757 14.5757C14.6883 14.4632 14.8409 14.4 15 14.4C15.178 14.4 15.352 14.3472 15.5 14.2483C15.648 14.1494 15.7634 14.0089 15.8315 13.8444C15.8996 13.68 15.9174 13.499 15.8827 13.3244C15.848 13.1498 15.7623 12.9895 15.6364 12.8636C15.5105 12.7377 15.3502 12.652 15.1756 12.6173C15.001 12.5826 14.82 12.6004 14.6556 12.6685C14.4911 12.7366 14.3506 12.852 14.2517 13C14.1528 13.148 14.1 13.322 14.1 13.5C14.1 13.6591 14.0368 13.8117 13.9243 13.9243C13.8117 14.0368 13.6591 14.1 13.5 14.1C13.3409 14.1 13.1883 14.0368 13.0757 13.9243C12.9632 13.8117 12.9 13.6591 12.9 13.5C12.8984 13.1102 13.0054 12.7276 13.2089 12.3951C13.4124 12.0627 13.7045 11.7934 14.0524 11.6175C14.4002 11.4416 14.7902 11.366 15.1786 11.3992C15.567 11.4323 15.9386 11.5729 16.2516 11.8053C16.5646 12.0376 16.8068 12.3525 16.951 12.7146C17.0952 13.0768 17.1358 13.472 17.0681 13.8559C17.0005 14.2398 16.8274 14.5973 16.5681 14.8884C16.3088 15.1795 15.9736 15.3926 15.6 15.504Z"
+                                                  fill="white"/>
+                                        </svg>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="price__bonuses-desc">
+                                На счету 5 000 бонусов
+                            </div>
+                            <div class="price__bonuses-close">
+                                <div>
+                                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                                         xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M6.88173 5.9864L11.8557 1.0257C11.954 0.911231 12.0054 0.76398 11.9996 0.613378C11.9937 0.462776 11.9311 0.319916 11.8243 0.213345C11.7174 0.106774 11.5742 0.0443419 11.4232 0.0385248C11.2722 0.0327077 11.1245 0.0839342 11.0097 0.181967L6.03573 5.14266L1.06173 0.175983C0.948744 0.063303 0.795507 0 0.635726 0C0.475945 0 0.322708 0.063303 0.209726 0.175983C0.0967439 0.288663 0.0332711 0.44149 0.0332711 0.600844C0.0332711 0.760197 0.0967439 0.913024 0.209726 1.0257L5.18973 5.9864L0.209726 10.9471C0.146917 11.0007 0.0959048 11.0668 0.0598909 11.141C0.0238769 11.2152 0.00363881 11.2961 0.000447115 11.3785C-0.00274458 11.4609 0.0111787 11.5431 0.0413434 11.6199C0.0715082 11.6967 0.117263 11.7664 0.175736 11.8247C0.234209 11.8831 0.304137 11.9287 0.381132 11.9588C0.458127 11.9889 0.540527 12.0027 0.623158 11.9996C0.70579 11.9964 0.786869 11.9762 0.861308 11.9403C0.935747 11.9044 1.00194 11.8535 1.05573 11.7908L6.03573 6.83014L11.0097 11.7908C11.1245 11.8889 11.2722 11.9401 11.4232 11.9343C11.5742 11.9285 11.7174 11.866 11.8243 11.7595C11.9311 11.6529 11.9937 11.51 11.9996 11.3594C12.0054 11.2088 11.954 11.0616 11.8557 10.9471L6.88173 5.9864Z"
+                                              fill="#005DFF"/>
+                                    </svg>
+
+                                </div>
+                            </div>
+                            <div class="price__result vis">
+                                <h4>Итоговая сумма рассрочки</h4>
+                                <div class="price__result-num">11 456 руб</div>
+                            </div>
+                            <div class="price__bonuses-info-m">
+                                Платформа автоматически определяет товары для оплаты бонусами.
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+            <div class="installment__calculator-info-footer">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M19.4026 2.29279L20.0816 6.39009L23.9889 8.29014L22.0186 12.0053L24 15.7205L20.0594 17.6205L19.3803 21.7178L15.0501 21.0703L11.9666 24L8.87198 21.0279L4.57514 21.7072L3.88497 17.5781L0 15.6886L1.98145 11.9735L0.0111317 8.29014L3.91837 6.36886L4.5974 2.30341L8.90538 2.98275L12 0L15.0835 2.94029L19.4026 2.29279ZM9.21707 6.69792C8.77422 6.69792 8.34951 6.86567 8.03637 7.16427C7.72323 7.46287 7.54731 7.86786 7.54731 8.29014C7.54731 8.71242 7.72323 9.11741 8.03637 9.41601C8.34951 9.7146 8.77422 9.88235 9.21707 9.88235C9.65991 9.88235 10.0846 9.7146 10.3978 9.41601C10.7109 9.11741 10.8868 8.71242 10.8868 8.29014C10.8868 7.86786 10.7109 7.46287 10.3978 7.16427C10.0846 6.86567 9.65991 6.69792 9.21707 6.69792ZM14.7829 14.1283C14.3401 14.1283 13.9154 14.296 13.6022 14.5946C13.2891 14.8932 13.1132 15.2982 13.1132 15.7205C13.1132 16.1428 13.2891 16.5477 13.6022 16.8463C13.9154 17.1449 14.3401 17.3127 14.7829 17.3127C15.2258 17.3127 15.6505 17.1449 15.9636 16.8463C16.2768 16.5477 16.4527 16.1428 16.4527 15.7205C16.4527 15.2982 16.2768 14.8932 15.9636 14.5946C15.6505 14.296 15.2258 14.1283 14.7829 14.1283ZM8.00371 17.3127L17.5659 8.1946L15.9963 6.69792L6.43414 15.816L8.00371 17.3127Z"
+                          fill="#FF5252"/>
+                </svg>
+                <span>все проценты за вас платит <span class="blue">vincko:</span></span>
+            </div>
+            (/\/\здесь заканчивается/\/\)
             <div class="forms">
                 <div class="form" id="form-1">
                     <h4>Шаг 1. Регион доставки</h4>
@@ -329,6 +483,7 @@ $arResult["PAYMENT"] = Order::getPaymentSystem();
 <!---->
 <!--                    </div>-->
                     <div class="form__content">
+
                             <div class="form__section">
                                 <h4>Оплата</h4>
                                 <div class="form__section__content">
@@ -401,8 +556,12 @@ $arResult["PAYMENT"] = Order::getPaymentSystem();
                                     <div class="short-rd__body-li-desc"><?=$subscriptionFeeObj->name1?> (с 06.05.2021)</div>
                                 </div>
                             </div>
+
                             <?endif;?>
                             <?if($policyObj->active):?>
+
+                            (\/\/при оформления рассрочки добавляется блок внизу\/\/)
+
                             <div class="short-rd__body-item">
                                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                                      xmlns="http://www.w3.org/2000/svg">
@@ -422,8 +581,13 @@ $arResult["PAYMENT"] = Order::getPaymentSystem();
                                         Выплата <?=$policyObj->name2?>
                                     </div>
                                 </div>
+
                             </div>
+
                             <?endif;?>
+
+                            (/\/\здесь заканчивается/\/\)
+
                         </div>
 
                     </div>
