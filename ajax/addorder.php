@@ -26,7 +26,7 @@ if ($request->isPost()) {
 
     if ($_SERVER['REMOTE_ADDR'] == '46.147.123.63') {
         echo '<pre>';
-        print_r($request['orderProps']);
+        print_r($request);
         echo '</pre>';
     }
 
@@ -38,9 +38,6 @@ if ($request->isPost()) {
     $order = Order::create($siteId, $USER->isAuthorized() ? $USER->GetID() : 539);
     $order->setPersonTypeId(3);
     $order->setField('CURRENCY', $currencyCode);
-    if (3 > 2) {
-        $order->setField('USER_DESCRIPTION', '$comment'); // Устанавливаем поля комментария покупателя
-    }
 
     $arProductsIds = $request['orderItemsIds'];
     $products = [];
@@ -96,12 +93,37 @@ if ($request->isPost()) {
         $arProperty = getPropertyByCode($propertyCollection, $code);
         $arProperty->setValue($value);
     }
+    $arPropertyAddress = $request['street'] .', '. $request['house'] . ', '. $request['housing'] . ', ' . $request['flat'];
+    $arProperty = getPropertyByCode($propertyCollection, 'ADDRESS');
+    $arProperty->setValue($arPropertyAddress);
+
+    $arPropertyFIO = $request['surname'] .' '. $request['name'] . ' '. $request['patronomic'];
+    $arProperty = getPropertyByCode($propertyCollection, 'FIO');
+    $arProperty->setValue($arPropertyFIO);
+
+    $passportData = 'Паспортные данные: Серия и номер паспорта: ' . $request['number'] . ' Дата выдачи: ' . $request['date'] . ' Кем выдан '.
+        $request['whom'] . ' Код подразделения: '. $request['code']. ' Дата рождения: '. $request['birthday'] . ' Место рождения'
+        .$request['place'];
+
+    $registrationAddress = 'Адрес регистрации: Город/населенный пункт: ' . $request['city1'] . ' Улица: ' . $request['street1'] . ' Дом '.
+     $request['house1'] . ' Корпус: '. $request['housing1']. ' Квартира: '. $request['flat1'] . ' Дата регистрации'
+        .$request['date1'] . 'Индекс' .$request['index1'];
+
+    $residenseAddress = ' Адрес фактического проживания: Город/населенный пункт: ' . $request['city2'] . ' Улица: ' . $request['street2'] . ' Дом '.
+        $request['house2'] . ' Корпус: '. $request['housing2']. ' Квартира: '. $request['flat2'] . ' Дата регистрации'
+        .$request['date2'] . ' Индекс' .$request['index2'];
+
+    $comment = $passportData . $registrationAddress . $residenseAddress;
+    $order->setField('USER_DESCRIPTION', $comment); // Устанавливаем поля комментария покупателя
+
     // Сохраняем
     $order->doFinalAction(true);
     $result = $order->save();
     $orderId = $order->getId();
     if ($result->isSuccess())
     {
+//        $session = \Bitrix\Main\Application::getInstance()->getSession();
+//        $orderItems = $session->remove('orderItems');
         LocalRedirect("/order/" . "?ORDER_ID=" . $orderId);
     }
 }

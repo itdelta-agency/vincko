@@ -18,7 +18,8 @@ $policyObj = $orderItems[2];
 $arResult["PAYMENT"] = Order::getPaymentSystem();
 
 ?>
-<div <?=$_GET['ORDER_ID'] ?? 'hidden'?>><?$APPLICATION->IncludeComponent(
+<?if(isset($_GET['ORDER_ID'])):?>
+<?$APPLICATION->IncludeComponent(
         "vincko:sale.order.ajax",
         "vincko",
         array(
@@ -146,8 +147,33 @@ $arResult["PAYMENT"] = Order::getPaymentSystem();
             )
         ),
         false
-    );?></div>
+    );?>
+<?endif;?>
+<? // УБРАТЬ БЛОК ПРИ ПЕРЕНОСЕ НА БОЙ ?>
+<div id="test" style="cursor:pointer">Заполнить тестовыми данными</div>
+<script>
+    $(document).ready(function () {
+        $("#test").click(function (){
+            $("input").each(function(index){
+                console.log( index + ": " + $(this).attr("name") );
+                var name = $(this).attr("name");
+                if(name!== undefined && $(this).attr("type")!="hidden") {
+                    if ($(this).attr("text")!=-1) {
+                        $(this).val($(this).attr("placeholder"));
+                    }
+                        if ($(this).attr("name")=="date") {
+                        $(this).val("2020-07-21");
+                    }
+                        if ($(this).attr("name")=="orderProps[EMAIL]") {
+                        $(this).val("test@test.ru");
+                    }
+                }
+            });
+        });
 
+    })
+</script>
+<?// УБРАТЬ БЛОК ПРИ ПЕРЕНОСЕ НА БОЙ?>
 <main class="container main">
     <form method="post" action="/ajax/addorder.php">
     <div class="installment">
@@ -194,30 +220,30 @@ $arResult["PAYMENT"] = Order::getPaymentSystem();
                                 <div class="form__section">
                                     <h4>Адрес регистрации</h4>
                                     <div class="form__section__content address-registration">
-                                        <input type="text" name="city" placeholder="Город/населенный пункт">
-                                        <input type="text" name="street" placeholder="Улица"><br>
-                                        <input type="text" name="house" placeholder="Дом">
-                                        <input type="text" name="housing" placeholder="Корпус">
-                                        <input type="text" name="flat" placeholder="Квартира"><br>
-                                        <input class="date" type="text" name="date" placeholder="Дата регистрации"
+                                        <input type="text" name="city1" placeholder="Город/населенный пункт">
+                                        <input type="text" name="street1" placeholder="Улица"><br>
+                                        <input type="text" name="house1" placeholder="Дом">
+                                        <input type="text" name="housing1" placeholder="Корпус">
+                                        <input type="text" name="flat1" placeholder="Квартира"><br>
+                                        <input class="date" type="text" name="date1" placeholder="Дата регистрации"
                                                onfocus="(this.type='date')"
                                                onblur="(this.type='text')" onmouseover="(this.type='date')"
                                                onmouseout="(this.type='text')">
-                                        <input type="text" name="index" placeholder="Индекс">
+                                        <input type="text" name="index1" placeholder="Индекс">
                                     </div>
                                     <h4>Адрес фактического проживания</h4>
                                     <div class="form__section__content address-residense">
                                         <input type="checkbox" name="same" id="same" checked>
                                         <label for="same">Совпадает с адресом постоянной регистрации</label>
                                         <div class="no-checked address-registration">
-                                            <input type="text" name="city" placeholder="Город/населенный пункт">
-                                            <input type="text" name="street" placeholder="Улица"><br>
-                                            <input type="text" name="house" placeholder="Дом">
-                                            <input type="text" name="housing" placeholder="Корпус">
-                                            <input type="text" name="flat" placeholder="Квартира"><br>
-                                            <input class="date" type="text" name="date" placeholder="Дата регистрации"
+                                            <input type="text" name="city2" placeholder="Город/населенный пункт">
+                                            <input type="text" name="street2" placeholder="Улица"><br>
+                                            <input type="text" name="house2" placeholder="Дом">
+                                            <input type="text" name="housing2" placeholder="Корпус">
+                                            <input type="text" name="flat2" placeholder="Квартира"><br>
+                                            <input class="date" type="text" name="date2" placeholder="Дата регистрации"
                                                    onfocus="(this.type='date')" onblur="(this.type='text')">
-                                            <input type="text" name="index" placeholder="Индекс">
+                                            <input type="text" name="index2" placeholder="Индекс">
                                         </div>
                                         <p>Если адрес фактического проживания не совпадает с адресом регистрации -
                                             снимите
@@ -272,8 +298,8 @@ $arResult["PAYMENT"] = Order::getPaymentSystem();
                                     <input type="text" name="surname" placeholder="Фамилия">
                                     <input type="text" name="name" placeholder="Имя">
                                     <input type="text" name="patronomic" placeholder="Отчество">
-                                    <input type="text" name="mail" placeholder="E-mail"><br>
-                                    <input type="text" name="phone" placeholder="Телефон">
+                                    <input type="text" name="orderProps[EMAIL]" placeholder="E-mail"><br>
+                                    <input type="text" name="orderProps[PHONE]" placeholder="Телефон">
                                     <button class="button blue-border-button">Отправить sms</button>
                                     <p>Для продолжения оформления на указанный номер телефона будет отправлен
                                         SMS-код.</p>
@@ -285,23 +311,23 @@ $arResult["PAYMENT"] = Order::getPaymentSystem();
                 <div class="form" id="form-3">
                     <h4>Шаг 3. Оформление</h4>
                     <div class="close-btn close-btn_hide">Развернуть</div>
-                    <div class="form__content">
-                            <div class="form__section">
-                                <h4>Доставка</h4>
-                                <div class="form__section__content education">
-                                    <div class="select-wrapper">
-                                        <select required>
-                                            <option value="" disabled selected hidden>Тип доставки
-                                            </option>
-                                            <option value="1">Самовывоз</option>
-                                            <option value="2">СДЭК</option>
-                                            <option value="3">ПЭК</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-
-                    </div>
+<!--                    <div class="form__content">-->
+<!--                            <div class="form__section">-->
+<!--                                <h4>Доставка</h4>-->
+<!--                                <div class="form__section__content education">-->
+<!--                                    <div class="select-wrapper">-->
+<!--                                        <select required>-->
+<!--                                            <option value="" disabled selected hidden>Тип доставки-->
+<!--                                            </option>-->
+<!--                                            <option value="1">Самовывоз</option>-->
+<!--                                            <option value="2">СДЭК</option>-->
+<!--                                            <option value="3">ПЭК</option>-->
+<!--                                        </select>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!---->
+<!--                    </div>-->
                     <div class="form__content">
                             <div class="form__section">
                                 <h4>Оплата</h4>
