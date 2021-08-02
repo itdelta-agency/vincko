@@ -2,9 +2,24 @@
 
 jQuery(document).ready(function ($) {
   // header burger
-  $(".burger-js").on("click", function () {
-    $(this).toggleClass('active');
-    $(".submenu-js").toggleClass("active");
+  $(".header__top-menu").on("click", function () {
+    $('.header__top').addClass("header__top--open");
+    $('.header__submenu').addClass("header__submenu--open");
+    $(".header__wall").css({
+      'display': 'block'
+    });
+  });
+  $(".header__submenu-close, .header__wall, .header__top-menu--open").on("click", function () {
+    $('.header__top').removeClass("header__top--open");
+    $('.header__submenu').removeClass("header__submenu--open");
+    $(".header__wall").css({
+      'display': 'none'
+    });
+  });
+  $(".header__submenu-question-yes").on("click", function () {
+    $(".header__submenu-question").css({
+      'opacity': '0'
+    });
   }); // modal
 
   function modal() {

@@ -50,7 +50,7 @@ if (document.querySelector('.review') === null) {} else {
 
   var stepTwoItems = document.querySelectorAll('.review__bottom-item');
   stepTwoItems.forEach(function (item) {
-    var input = item.querySelector('#pseudo__range-review'),
+    var input = item.querySelector('.smile-input'),
         li = item.querySelectorAll('.review-item-step-2'),
         span = item.querySelector('.number-wrapper > span'),
         svg = item.querySelector('svg'),
@@ -63,48 +63,66 @@ if (document.querySelector('.review') === null) {} else {
         if (input.value < 18000) {
           li[0].classList.add('active');
           span.innerHTML = '?';
+          svg.style.display = 'none';
+          numberWrapper.style.border = '1px solid #D1DBE3';
         } else if (input.value > 18000 && input.value < 28000) {
           li[1].classList.add('active');
           span.innerHTML = '0';
+          numberWrapper.style.border = '1px solid #D1DBE3';
           svg.style.display = 'none';
         } else if (input.value > 28000 && input.value < 38000) {
           li[2].classList.add('active');
           span.innerHTML = '1';
           svg.style.display = 'block';
+          numberWrapper.style.border = '1px solid #D1DBE3';
           circle.style.strokeDashoffset = '130.5';
         } else if (input.value > 38000 && input.value < 48000) {
           li[3].classList.add('active');
           span.innerHTML = '2';
+          svg.style.display = 'block';
+          numberWrapper.style.border = '1px solid #D1DBE3';
           circle.style.strokeDashoffset = '116';
         } else if (input.value > 48000 && input.value < 58000) {
           li[4].classList.add('active');
           span.innerHTML = '3';
+          svg.style.display = 'block';
+          numberWrapper.style.border = '1px solid #D1DBE3';
           circle.style.strokeDashoffset = '101.5';
         } else if (input.value > 58000 && input.value < 68000) {
           li[5].classList.add('active');
           span.innerHTML = '4';
+          svg.style.display = 'block';
+          numberWrapper.style.border = '1px solid #D1DBE3';
           circle.style.strokeDashoffset = '87';
         } else if (input.value > 68000 && input.value < 78000) {
           li[6].classList.add('active');
           span.innerHTML = '5';
+          svg.style.display = 'block';
+          numberWrapper.style.border = '1px solid #D1DBE3';
           circle.style.strokeDashoffset = '72.5';
         } else if (input.value > 78000 && input.value < 88000) {
           li[7].classList.add('active');
           span.innerHTML = '6';
+          svg.style.display = 'block';
+          numberWrapper.style.border = '1px solid #D1DBE3';
           circle.style.strokeDashoffset = '58';
         } else if (input.value > 88000 && input.value < 98000) {
           li[8].classList.add('active');
           span.innerHTML = '7';
+          svg.style.display = 'block';
+          numberWrapper.style.border = '1px solid #D1DBE3';
           circle.style.strokeDashoffset = '43.5';
         } else if (input.value > 98000 && input.value < 108000) {
           li[9].classList.add('active');
           span.innerHTML = '8';
+          svg.style.display = 'block';
+          numberWrapper.style.border = '1px solid #D1DBE3';
           circle.style.strokeDashoffset = '29';
         } else if (input.value > 108000 && input.value < 118000) {
           li[10].classList.add('active');
           span.innerHTML = '9';
-          circle.style.strokeDashoffset = '14.5';
           svg.style.display = 'block';
+          circle.style.strokeDashoffset = '14.5';
           numberWrapper.style.border = '1px solid #D1DBE3';
         } else if (input.value > 118000) {
           li[11].classList.add('active');
@@ -121,7 +139,7 @@ if (document.querySelector('.review') === null) {} else {
     var notBefore = 0;
     var q = item.querySelectorAll('.q');
     q.forEach(function (elem, i) {
-      var input = elem.querySelector('#pseudo__range-review'),
+      var input = elem.querySelector('.smile-input'),
           li = elem.querySelectorAll('.review-item-step-3'),
           span = elem.querySelector('span'),
           btn = elem.querySelector('.next-btn'),

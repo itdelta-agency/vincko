@@ -32,6 +32,29 @@
 );?>
 
 <?$APPLICATION->IncludeComponent(
+	"it-delta:iblock.content", 
+	"rating_how_useful", 
+	array(
+		"ACTIVE_DATE" => "N",
+		"ADD_CACHE_STRING" => "",
+		"CACHE_TIME" => "0",
+		"CACHE_TYPE" => "A",
+		"FILTER_NAME" => "",
+		"IBLOCK_ID" => "54",
+		"IBLOCK_TYPE" => "Articles",
+		"PAGE_ELEMENT_COUNT" => "3",
+		"RAND_ELEMENTS" => "N",
+		"SORT_BY1" => "SORT",
+		"SORT_BY2" => "SORT",
+		"SORT_ORDER1" => "ASC",
+		"SORT_ORDER2" => "ASC",
+		"COMPONENT_TEMPLATE" => "rating_how_useful"
+	),
+	false
+);?>
+
+
+<?$APPLICATION->IncludeComponent(
     "it-delta:iblock.content",
     "rating_forming",
     Array(

@@ -1,6 +1,8 @@
 "use strict";
 
 $(document).ready(function () {
+  var regNumber = 0;
+
   function timer(parent) {
     parent.find(".popup__wait-time").css("display", "block");
     parent.find(".popup__wait").css("display", "block");
@@ -26,15 +28,10 @@ $(document).ready(function () {
 
   function showBtn(selector, parent, switcher) {
     if (selector.inputmask("isComplete")) {
-      /* $(".popup__form--phone .grey-border-button").css("display", "none");
-       $(".popup__form--phone .popup__code").css("display", "block");
-         */
       parent.find(".popup__form--" + switcher + " .grey-border-button--unactive").removeClass("grey-border-button--unactive");
       parent.find(".popup__form--" + switcher + " .grey-border-button").addClass("grey-border-button--active");
-      parent.find(".popup__form--" + switcher + " .grey-border-button--active").on("click", function () {
-        parent.find(".popup__form--" + switcher + " .grey-border-button").css("display", "none");
-        parent.find(".popup__form--" + switcher + " .popup__code").css("display", "block");
-        timer(parent);
+      parent.find(".popup__form-mod--" + switcher + " .send-message-btn").on("click", function () {
+        sendCodeFunc(parent, switcher);
       });
     } else {
       parent.find(".popup__form--" + switcher + " .grey-border-button").addClass("grey-border-button--unactive");
@@ -42,12 +39,45 @@ $(document).ready(function () {
     }
   }
 
+  function sendCodeFunc(parent, switcher) {
+    parent.find(".popup__form--" + switcher + " .grey-border-button").css("display", "none");
+    parent.find(".popup__form--" + switcher + " .popup__code").css("display", "block");
+    var parent1 = parent.find(".popup__form--" + switcher);
+    var input1 = parent1.find("." + switcher + "-input");
+    input1.attr("readonly", "readonly");
+    timer(parent1);
+  }
+
+  function regShowBtn() {
+    var parent = $(".popup--registration");
+    console.log(parent.find(".text-field").inputmask("isComplete"));
+    console.log(regNumber);
+    console.log($("#agree")[0].checked);
+    var texts = 1;
+    parent.find(".text-field").each(function (index) {
+      if (!$(this).inputmask("isComplete")) {
+        texts = 0;
+      }
+    });
+
+    if (texts == 1 && regNumber == 1 && $("#agree")[0].checked) {
+      parent.find(".btn-registration").removeClass("btn-registration--unactive");
+    } else {
+      parent.find(".btn-registration").addClass("btn-registration--unactive");
+    }
+  }
+
   var selector = document.getElementsByClassName("phone-input");
   var popupers = $(".popup");
   popupers.each(function (index) {
+    $("input").keyup(function () {
+      if (parent.hasClass("popup--registration")) {
+        regShowBtn();
+      }
+    });
     var parent = $(this);
     var phone = parent.find(".phone-input");
-    var email = parent.find(".email-input");
+    var email = parent.find(".mail-input");
     phone.inputmask("+7(999) 999-9999");
     showBtn(phone, parent, "phone");
     phone.keyup(function () {
@@ -63,18 +93,48 @@ $(document).ready(function () {
       parent.find(".popup__wait-time").css("display", "block");
       timer(parent);
     });
-    parent.find(".popup__code").mask("9999", {
+    var parent1 = parent.find(".popup__form--phone");
+    var parent2 = parent.find(".popup__form--mail");
+    parent1.find(".popup__code").mask("999999", {
       completed: function completed() {
-        parent.find(".popup__send-code").css("display", "grid");
+        parent1.find(".popup__send-code").css("display", "grid");
       }
     });
-    parent.find(".popup__send-code").on("click", function () {
-      parent.find(".popup__send-code, .popup__code,  .popup__wait-repeat").css("display", "none");
-      parent.find(".popup__wait-time").css("opacity", "0");
-      parent.find(".popup__wait-time").css("display", "block");
-      parent.find(".popup__success").css("display", "flex");
-      parent.find(".popup--forget .popup__bottom .blue-button").removeClass("blue-button--unactive");
-      parent.find(".popup--forget .popup__bottom .blue-button").addClass("blue-button--active");
+    parent1.find(".popup__code").mask("999999", {
+      completed: function completed() {
+        parent1.find(".popup__send-code").css("display", "grid");
+      }
+    });
+    parent2.find(".popup__code").mask("999999", {
+      completed: function completed() {
+        parent2.find(".popup__send-code").css("display", "grid");
+      }
+    });
+    parent1.find(".popup__send-code").on("click", function () {
+      if (parent.hasClass("popup--registration")) {
+        regNumber = 1;
+        regShowBtn();
+      }
+
+      parent1.find(".popup__send-code, .popup__code,  .popup__wait-repeat").css("display", "none");
+      parent1.find(".popup__wait").css("opacity", "0");
+      parent1.find(".popup__wait-time").css("display", "block");
+      parent1.find(".popup__success").css("display", "flex");
+      parent1.find(".popup--forget .popup__bottom .blue-button").removeClass("blue-button--unactive");
+      parent1.find(".popup--forget .popup__bottom .blue-button").addClass("blue-button--active");
+    });
+    parent2.find(".popup__send-code").on("click", function () {
+      if (parent.hasClass("popup--registration")) {
+        regNumber = 1;
+        regShowBtn();
+      }
+
+      parent2.find(".popup__send-code, .popup__code,  .popup__wait-repeat").css("display", "none");
+      parent2.find(".popup__wait").css("opacity", "0");
+      parent2.find(".popup__wait-time").css("display", "block");
+      parent2.find(".popup__success").css("display", "flex");
+      parent2.find(".popup--forget .popup__bottom .blue-button").removeClass("blue-button--unactive");
+      parent2.find(".popup--forget .popup__bottom .blue-button").addClass("blue-button--active");
     });
   });
   var popups = $(".popup");
@@ -149,5 +209,20 @@ $(document).ready(function () {
   $(".forget-pass").on("click", function () {
     $(".popup").addClass("hidden");
     $(".popup--forget").removeClass("hidden");
+  });
+  $("#agree").on("click", function () {
+    regShowBtn();
+  });
+  $(".pass-input").inputmask({
+    regex: "[1-9A-Za-z!@$%^&*()_+-]{8,}",
+    showMaskOnHover: false
+  });
+  /*  $(".pass-input").inputmask("+7(999) 999-9999");*/
+
+  $(".btn-registration").on("click", function () {
+    if (!$(".btn-registration").hasClass("btn-registration--unactive")) {
+      $(".popup").addClass("hidden");
+      $(".popup--login").removeClass("hidden");
+    }
   });
 });

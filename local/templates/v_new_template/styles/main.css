@@ -9714,7 +9714,7 @@ html {
   border: 1px solid #d1dbe3;
   box-shadow: 0 10px 30px rgba(0, 37, 131, 0.1);
   border-radius: 10px;
-  padding: 0;
+  padding: 0 32px;
 }
 
 .insurance-policy .installment__right-column .short-ins__item .products__head img {
@@ -12453,7 +12453,7 @@ html {
 
 .polzunok__number {
   margin-top: 22
-  px;
+ px;
   display: block;
   color: #93b6ff;
   width: 5ch;
@@ -12992,7 +12992,15 @@ html {
 }
 
 .form input[type=checkbox]:checked + label + .no-checked {
-  display: none;
+  z-index: 1;
+  opacity: 0;
+  height: 0;
+}
+
+.form input[type=checkbox]:checked + label + .no-checked > * {
+  transition: all 0.3s ease-in-out;
+  max-height: 0;
+  padding: 0;
 }
 
 .form input[type=radio] {
@@ -13121,6 +13129,12 @@ html {
   margin: 0 5px 0 10px;
 }
 
+.form__section__content .address-registration {
+  transition: all 0.3s ease-in-out;
+  opacity: 1;
+  height: 280px;
+}
+
 .form__section__content.address-registration input:first-child,
 .form__section__content .address-registration input:first-child {
   margin-top: 16px;
@@ -13143,11 +13157,15 @@ html {
 }
 
 .form__section__content.address-installment .address-installment-other {
-  display: none;
+  transition: all 0.3s ease-in-out;
+  opacity: 0;
+  height: 0;
 }
 
 .form__section__content.address-installment #other:checked ~ .address-installment-other {
-  display: block;
+  transition: all 0.3s ease-in-out;
+  opacity: 1;
+  height: 280px;
 }
 
 .form__section__content.name input:nth-child(1),
@@ -19990,11 +20008,20 @@ input:checked + .ready-des2__choice-item--subscription .ready-des2__choice-title
   position: relative;
 }
 
-.popup .unknown .info-popup {
+.popup .unknown .info-popup--unknown {
   display: block;
 }
 
 .popup .unknown input {
+  color: #ff5252;
+  border: 1px solid #ff5252;
+}
+
+.popup .known .info-popup--known {
+  display: block;
+}
+
+.popup .known input {
   color: #ff5252;
   border: 1px solid #ff5252;
 }
@@ -20041,7 +20068,7 @@ input:checked + .ready-des2__choice-item--subscription .ready-des2__choice-title
 }
 
 .popup .info-popup__text::after {
-  content: url("../img/autorisation/polygon.svg");
+  content: url("../img/autorisation/Polygon.svg");
   top: -20px;
   left: 46.3%;
   position: absolute;
@@ -20086,7 +20113,7 @@ input:checked + .ready-des2__choice-item--subscription .ready-des2__choice-title
 }
 
 .popup .info-popup-2__text::after {
-  content: url("../img/autorisation/polygon.svg");
+  content: url("../img/autorisation/Polygon.svg");
   top: -20px;
   left: 10px;
   position: absolute;
