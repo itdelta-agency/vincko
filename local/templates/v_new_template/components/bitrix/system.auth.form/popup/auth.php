@@ -1,5 +1,7 @@
-<? use Bitrix\Main\Localization\Loc; ?>
-<div class="popup popup--login hidden">
+<? if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();
+use Bitrix\Main\Localization\Loc;
+?>
+<div class="popup popup--login">
 	<div class="popup__wall"></div>
 
 	<div class="popup__content">
@@ -44,7 +46,7 @@
 						</div>
 					</div>
 
-					<div class="forget-pass">
+					<div class="forget-pass js-modal" data-modal-class=".popup--forget" data-modal="<?=$arParams["FORGOT_URL"]?>">
 						<?= Loc::getMessage("AUTH_FORGET")  ?>
 					</div>
 					<? if ($arResult["STORE_PASSWORD"] == "Y"): ?>
@@ -69,7 +71,7 @@
 					<?= GetMessage("AUTH_LOGIN_BUTTON") ?>
 				</button>
 
-				<div class="text-button to-registration">
+				<div class="text-button js-modal" data-modal-class=".popup--registration" data-modal="<?=$arParams["REGISTER_URL"]?>">
 					<?= GetMessage("AUTH_REGISTER") ?>
 				</div>
 			</div>

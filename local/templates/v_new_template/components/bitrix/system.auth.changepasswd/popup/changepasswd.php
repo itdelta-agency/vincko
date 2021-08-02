@@ -1,4 +1,10 @@
-<div class="popup popup--new-pass hidden">
+<? if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();
+
+use Bitrix\Main\Localization\Loc;
+
+?>
+
+<div class="popup popup--new-pass">
 	<div class="popup__wall"></div>
 
 	<div class="popup__content">
@@ -11,25 +17,36 @@
 				</svg>
 			</div>
 			<div class="popup__title">
-				Восстановление пароля
+				<?= Loc::getMessage("CHANGE_TITLE") ?>
 			</div>
 
 			<div class="popup__subtitle">
-				Здравствуйте, Александр!
+				<?= ($GLOBALS["USER"]->GetFullName() ?
+					str_replace("#NAME#", ", " . $GLOBALS["USER"]->GetFullName(), Loc::getMessage("CHANGE_TITLE"))
+					:
+					Loc::getMessage("CHANGE_TITLE")
+				) ?>
 			</div>
 
 			<div class="popup__text">
-				Придумайте новый, надежный пароль состоящий минимум из 8 символов.
+				<?=Loc::getMessage("CHANGE_TEXT") ?>
 			</div>
 		</div>
 		<div class="popup__main">
-			<form class="popup__form">
+			<form method="post" action="<?= $arResult["AUTH_URL"] ?>" name="bform" class="popup__form">
+				<? if ($arResult["BACKURL"] <> ''): ?>
+					<input type="hidden" name="backurl" value="<?= $arResult["BACKURL"] ?>"/>
+				<? endif ?>
+				<input type="hidden" name="AUTH_FORM" value="Y">
+				<input type="hidden" name="TYPE" value="CHANGE_PWD">
+				<input type="hidden" name="USER_LOGIN" value="<?= $arResult["LAST_LOGIN"] ?>"/>
 				<div class="popup__form-title">
-					Новый пароль
+					<?=Loc::getMessage("CHANGE_NEW") ?>
 				</div>
 
 				<div class="pass-wrapper">
-					<input placeholder="Пароль" type="password" class="pass-input">
+					<input type="password" placeholder="<?=Loc::getMessage("CHANGE_PASW") ?>" name="USER_PASSWORD" maxlength="255"
+						   value="<?= $arResult["USER_PASSWORD"] ?>" class="pass-input" autocomplete="new-password"/>
 					<div class="pass__eye">
 						<svg width="16" height="12" viewBox="0 0 16 12" fill="none" xmlns="http://www.w3.org/2000/svg">
 							<path d="M16 6C16 6 13 0.5 8 0.5C3 0.5 0 6 0 6C0 6 3 11.5 8 11.5C13 11.5 16 6 16 6ZM1.173 6C1.65651 5.26512 2.21264 4.58069 2.833 3.957C4.12 2.668 5.88 1.5 8 1.5C10.12 1.5 11.879 2.668 13.168 3.957C13.7884 4.58069 14.3445 5.26512 14.828 6C14.77 6.087 14.706 6.183 14.633 6.288C14.298 6.768 13.803 7.408 13.168 8.043C11.879 9.332 10.119 10.5 8 10.5C5.88 10.5 4.121 9.332 2.832 8.043C2.21165 7.41931 1.65552 6.73487 1.172 6H1.173Z"
@@ -41,7 +58,8 @@
 				</div>
 
 				<div class="pass-wrapper">
-					<input placeholder="Повторите пароль" type="password" class="pass-input">
+					<input type="password" name="USER_CONFIRM_PASSWORD" placeholder="<?=Loc::getMessage("CHANGE_PASW_CONFIRM") ?>"
+						   value="<?= $arResult["USER_CONFIRM_PASSWORD"] ?>" class="pass-input"/>
 					<div class="pass__eye">
 						<svg width="16" height="12" viewBox="0 0 16 12" fill="none" xmlns="http://www.w3.org/2000/svg">
 							<path d="M16 6C16 6 13 0.5 8 0.5C3 0.5 0 6 0 6C0 6 3 11.5 8 11.5C13 11.5 16 6 16 6ZM1.173 6C1.65651 5.26512 2.21264 4.58069 2.833 3.957C4.12 2.668 5.88 1.5 8 1.5C10.12 1.5 11.879 2.668 13.168 3.957C13.7884 4.58069 14.3445 5.26512 14.828 6C14.77 6.087 14.706 6.183 14.633 6.288C14.298 6.768 13.803 7.408 13.168 8.043C11.879 9.332 10.119 10.5 8 10.5C5.88 10.5 4.121 9.332 2.832 8.043C2.21165 7.41931 1.65552 6.73487 1.172 6H1.173Z"
@@ -51,26 +69,12 @@
 						</svg>
 					</div>
 				</div>
-
-				<input type="checkbox" id="remember-me-2">
-				<label class="remember-me" for="remember-me-2">
-                        <span class="box">
-                            <svg width="16" height="12" viewBox="0 0 16 12" fill="none"
-								 xmlns="http://www.w3.org/2000/svg">
-                                <path d="M5.64816 8.64652L2.35516 5.35352L0.941162 6.76752L5.64816 11.4745L15.3552 1.76752L13.9412 0.353516L5.64816 8.64652Z"
-									  fill="#005DFF"/>
-                            </svg>
-
-                        </span>
-					Запомнить меня
-				</label>
-
 			</form>
 		</div>
 
 		<div class="popup__bottom">
-			<div class="blue-button to-login">
-				сохранить и войти
+			<div class="blue-button">
+				<?=Loc::getMessage("CHANGE_SAVE") ?>
 			</div>
 
 		</div>
