@@ -47,7 +47,12 @@
 .t-c-gray {
     color: #818181 !important;
 }
-
+.t-c-green {
+    color: #35A34A!important;
+}
+.t-c-yellow-d {
+    color: #E3B201!important;
+}
 .how__useful .open__for-items .content-block-useful .content-list .content-list-item a {
     color: #005DFF;
     font-weight: 500;
