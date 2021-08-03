@@ -12,16 +12,15 @@
 );?>
 
 <?
-// print_r($_GET["city"]);
-$chops = CIBlockElement::GetList(
+$dbchops = CIBlockElement::GetList(
     array(),
-    array("IBLOCK_ID" => 9, "ACTIVE" => "Y", "PROPERTY_CITY_ID" => $_COOKIE["selected_city"], "NAME" => $_GET["city"] ? : ''),
+    array("IBLOCK_ID" => 9, "ACTIVE" => "Y", "PROPERTY_CITY_ID" => $_COOKIE["selected_city"], "NAME" => $_POST["city"] ? : ""),
     false,
     false,
     array("ID")
 );
 
-while($chop = $chops->GetNext()){
+while($chop = $dbchops->GetNext()){
     $chopList[] = $chop["ID"];
 }
 
