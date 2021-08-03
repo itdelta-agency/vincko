@@ -1,14 +1,191 @@
 <?
 require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/header.php");
 $APPLICATION->SetTitle("Оформление заказа");
+
+use \Vincko\Order;
+
+$session = \Bitrix\Main\Application::getInstance()->getSession();
+$orderItems = $session->get('orderItems');
+
+
+//if(empty($orderItems))
+//    LocalRedirect("/");
+
+
+
+
+$complectObj = $orderItems[0];
+$subscriptionFeeObj = $orderItems[1];
+$policyObj = $orderItems[2];
+
+
+$arResult["PAYMENT"] = Order::getPaymentSystem();
+
 ?>
+<?if(isset($_GET['ORDER_ID'])):?>
+<?$APPLICATION->IncludeComponent(
+        "vincko:sale.order.ajax",
+        "vincko",
+        array(
+            "ACTION_VARIABLE" => "soa-action",
+            "ADDITIONAL_PICT_PROP_10" => "-",
+            "ADDITIONAL_PICT_PROP_11" => "-",
+            "ADDITIONAL_PICT_PROP_12" => "-",
+            "ADDITIONAL_PICT_PROP_13" => "-",
+            "ADDITIONAL_PICT_PROP_14" => "-",
+            "ADDITIONAL_PICT_PROP_15" => "-",
+            "ADDITIONAL_PICT_PROP_24" => "-",
+            "ALLOW_APPEND_ORDER" => "Y",
+            "ALLOW_AUTO_REGISTER" => "Y",
+            "ALLOW_NEW_PROFILE" => "N",
+            "ALLOW_USER_PROFILES" => "N",
+            "BASKET_IMAGES_SCALING" => "adaptive",
+            "BASKET_POSITION" => "before",
+            "COMPATIBLE_MODE" => "N",
+            "DELIVERIES_PER_PAGE" => "9",
+            "DELIVERY_FADE_EXTRA_SERVICES" => "N",
+            "DELIVERY_NO_AJAX" => "N",
+            "DELIVERY_NO_SESSION" => "Y",
+            "DELIVERY_TO_PAYSYSTEM" => "p2d",
+            "DISABLE_BASKET_REDIRECT" => "N",
+            "EMPTY_BASKET_HINT_PATH" => "/",
+            "HIDE_ORDER_DESCRIPTION" => "N",
+            "MESS_ADDITIONAL_PROPS" => "Дополнительные свойства",
+            "MESS_AUTH_BLOCK_NAME" => "Авторизация",
+            "MESS_AUTH_REFERENCE_1" => "Символом \"звездочка\" (*) отмечены обязательные для заполнения поля.",
+            "MESS_AUTH_REFERENCE_2" => "После регистрации вы получите информационное письмо.",
+            "MESS_AUTH_REFERENCE_3" => "Личные сведения, полученные в распоряжение интернет-магазина при регистрации или каким-либо иным образом, не будут без разрешения пользователей передаваться третьим организациям и лицам за исключением ситуаций, когда этого требует закон или судебное решение.",
+            "MESS_BACK" => "Назад",
+            "MESS_BASKET_BLOCK_NAME" => "Состав заказа",
+            "MESS_BUYER_BLOCK_NAME" => "Контакты покупателя",
+            "MESS_COUPON" => "Купон",
+            "MESS_DELIVERY_BLOCK_NAME" => "Вид доставки",
+            "MESS_DELIVERY_CALC_ERROR_TEXT" => "Вы можете продолжить оформление заказа, а чуть позже менеджер магазина свяжется с вами и уточнит информацию по доставке.",
+            "MESS_DELIVERY_CALC_ERROR_TITLE" => "Не удалось рассчитать стоимость доставки.",
+            "MESS_ECONOMY" => "Экономия",
+            "MESS_EDIT" => "изменить",
+            "MESS_FAIL_PRELOAD_TEXT" => "Вы заказывали в нашем интернет-магазине, поэтому мы заполнили все данные автоматически.<br />Обратите внимание на развернутый блок с информацией о заказе. Здесь вы можете внести необходимые изменения или оставить как есть и нажать кнопку \"#ORDER_BUTTON#\".",
+            "MESS_FURTHER" => "Продолжить",
+            "MESS_INNER_PS_BALANCE" => "На вашем пользовательском счете:",
+            "MESS_NAV_BACK" => "Назад",
+            "MESS_NAV_FORWARD" => "Вперед",
+            "MESS_NEAREST_PICKUP_LIST" => "Ближайшие пункты:",
+            "MESS_ORDER" => "Оформить заказ",
+            "MESS_ORDER_DESC" => "Комментарии к заказу:",
+            "MESS_PAYMENT_BLOCK_NAME" => "Оплата",
+            "MESS_PAY_SYSTEM_PAYABLE_ERROR" => "Вы сможете оплатить заказ после того, как менеджер проверит наличие полного комплекта товаров на складе. Сразу после проверки вы получите письмо с инструкциями по оплате. Оплатить заказ можно будет в персональном разделе сайта.",
+            "MESS_PERIOD" => "Срок доставки",
+            "MESS_PERSON_TYPE" => "Тип плательщика",
+            "MESS_PICKUP_LIST" => "Пункты самовывоза:",
+            "MESS_PRICE" => "Стоимость",
+            "MESS_PRICE_FREE" => "бесплатно",
+            "MESS_REGION_BLOCK_NAME" => "Регион доставки",
+            "MESS_REGION_REFERENCE" => "Выберите свой город в списке. Если вы не нашли свой город, выберите \"другое местоположение\", а город впишите в поле \"Город\"",
+            "MESS_REGISTRATION_REFERENCE" => "Если вы впервые на сайте, и хотите, чтобы мы вас помнили и все ваши заказы сохранялись, заполните регистрационную форму.",
+            "MESS_REG_BLOCK_NAME" => "Регистрация",
+            "MESS_SELECT_PICKUP" => "Выбрать",
+            "MESS_SELECT_PROFILE" => "Выберите профиль",
+            "MESS_SUCCESS_PRELOAD_TEXT" => "Вы заказывали в нашем интернет-магазине, поэтому мы заполнили все данные автоматически.<br />Если все заполнено верно, нажмите кнопку \"#ORDER_BUTTON#\".",
+            "MESS_USE_COUPON" => "Применить купон",
+            "ONLY_FULL_PAY_FROM_ACCOUNT" => "N",
+            "PATH_TO_AUTH" => "/reg/",
+            "PATH_TO_BASKET" => "",
+            "PATH_TO_PAYMENT" => "payment.php",
+            "PATH_TO_PERSONAL" => "index.php",
+            "PAY_FROM_ACCOUNT" => "Y",
+            "PAY_SYSTEMS_PER_PAGE" => "9",
+            "PICKUPS_PER_PAGE" => "5",
+            "PICKUP_MAP_TYPE" => "yandex",
+            "PRODUCT_COLUMNS_HIDDEN" => array(
+            ),
+            "PRODUCT_COLUMNS_VISIBLE" => array(
+                0 => "DISCOUNT_PRICE_PERCENT_FORMATED",
+                1 => "PRICE_FORMATED",
+            ),
+            "PROPS_FADE_LIST_3" => array(
+                0 => "20",
+                1 => "21",
+                2 => "22",
+            ),
+            "SEND_NEW_USER_NOTIFY" => "N",
+            "SERVICES_IMAGES_SCALING" => "adaptive",
+            "SET_TITLE" => "Y",
+            "SHOW_BASKET_HEADERS" => "N",
+            "SHOW_COUPONS" => "N",
+            "SHOW_COUPONS_BASKET" => "Y",
+            "SHOW_COUPONS_DELIVERY" => "Y",
+            "SHOW_COUPONS_PAY_SYSTEM" => "Y",
+            "SHOW_DELIVERY_INFO_NAME" => "Y",
+            "SHOW_DELIVERY_LIST_NAMES" => "Y",
+            "SHOW_DELIVERY_PARENT_NAMES" => "Y",
+            "SHOW_MAP_IN_PROPS" => "Y",
+            "SHOW_NEAREST_PICKUP" => "Y",
+            "SHOW_NOT_CALCULATED_DELIVERIES" => "N",
+            "SHOW_ORDER_BUTTON" => "final_step",
+            "SHOW_PAY_SYSTEM_INFO_NAME" => "Y",
+            "SHOW_PAY_SYSTEM_LIST_NAMES" => "Y",
+            "SHOW_PICKUP_MAP" => "Y",
+            "SHOW_STORES_IMAGES" => "Y",
+            "SHOW_TOTAL_ORDER_BUTTON" => "N",
+            "SHOW_VAT_PRICE" => "N",
+            "SKIP_USELESS_BLOCK" => "N",
+            "SPOT_LOCATION_BY_GEOIP" => "Y",
+            "TEMPLATE_LOCATION" => "popup",
+            "TEMPLATE_THEME" => "site",
+            "USER_CONSENT" => "Y",
+            "USER_CONSENT_ID" => "1",
+            "USER_CONSENT_IS_CHECKED" => "Y",
+            "USER_CONSENT_IS_LOADED" => "N",
+            "USE_CUSTOM_ADDITIONAL_MESSAGES" => "Y",
+            "USE_CUSTOM_ERROR_MESSAGES" => "Y",
+            "USE_CUSTOM_MAIN_MESSAGES" => "Y",
+            "USE_ENHANCED_ECOMMERCE" => "N",
+            "USE_PHONE_NORMALIZATION" => "Y",
+            "USE_PRELOAD" => "N",
+            "USE_PREPAYMENT" => "N",
+            "USE_YM_GOALS" => "N",
+            "COMPONENT_TEMPLATE" => "vincko",
+            "SHOW_MAP_FOR_DELIVERIES" => array(
+                0 => "7",
+                1 => "9",
+            )
+        ),
+        false
+    );?>
+<?endif;?>
+<? // УБРАТЬ БЛОК ПРИ ПЕРЕНОСЕ НА БОЙ ?>
+<div id="test" style="cursor:pointer">Заполнить тестовыми данными</div>
+<script>
+    $(document).ready(function () {
+        $("#test").click(function (){
+            $("input").each(function(index){
+                console.log( index + ": " + $(this).attr("name") );
+                var name = $(this).attr("name");
+                if(name!== undefined && $(this).attr("type")!="hidden") {
+                    if ($(this).attr("text")!=-1) {
+                        $(this).val($(this).attr("placeholder"));
+                    }
+                        if ($(this).attr("name")=="date") {
+                        $(this).val("2020-07-21");
+                    }
+                        if ($(this).attr("name")=="orderProps[EMAIL]") {
+                        $(this).val("test@test.ru");
+                    }
+                }
+            });
+        });
+
+    })
+</script>
+<?// УБРАТЬ БЛОК ПРИ ПЕРЕНОСЕ НА БОЙ?>
 
 
 <main class="container main">
+    <form method="post" action="/ajax/addorder.php">
     <div class="installment">
+
         <div class="installment__left-column">
             <h2 class="installment__page-title">Оформление заказа</h2>
-
             <h3 class="installment__title">
                 <span class="installment__title-lvl1">Готовое решение “Спокойствие”</span>
                 <span class="installment__title-lvl2">Вариант Комфорт</span>
@@ -66,12 +243,12 @@ $APPLICATION->SetTitle("Оформление заказа");
                     <div class="installment__calculator-first-pay">
                         <div class="installment__calculator-sub-head">
                             <span class="installment__calculator-sub-title">Первый взнос</span> <span
-                                    class="installment__calculator-sub-value installment__calculator-sub-value-1">135 руб</span>
+                                class="installment__calculator-sub-value installment__calculator-sub-value-1">135 руб</span>
                         </div>
                         <div class="polzunok-container-2">
                             <div class="polzunok-1"><span tabindex="0"
                                                           class="ui-slider-handle ui-corner-all ui-state-default"><span
-                                            class="polzunok__number polzunok__number-1">0</span> </span></div>
+                                        class="polzunok__number polzunok__number-1">0</span> </span></div>
                         </div>
                         <div class="installment__calculator-footer">
                             50%
@@ -81,7 +258,7 @@ $APPLICATION->SetTitle("Оформление заказа");
                     <div class="installment__calculator-time">
                         <div class="installment__calculator-sub-head">
                             <span class="installment__calculator-sub-title">Срок кредитования</span> <span
-                                    class="installment__calculator-sub-value installment__calculator-sub-value-2">0</span>
+                                class="installment__calculator-sub-value installment__calculator-sub-value-2">0</span>
                         </div>
                         <div class="polzunok-container-2">
                             <div class="polzunok-2"><span tabindex="0"
@@ -164,19 +341,19 @@ $APPLICATION->SetTitle("Оформление заказа");
                     <div class="close-btn close-btn_hide">Развернуть</div>
 
                     <div class="form__content">
-                        <form>
+
                             <div class="form__section">
 
                                 <h4>Адрес доставки</h4>
                                 <div class="form__section__content address-registration">
-                                    <input type="text" name="city" placeholder="Город/населенный пункт">
+                                    <input type="text" name="orderProps[CITY]" placeholder="Город/населенный пункт">
                                     <input type="text" name="street" placeholder="Улица"><br>
                                     <input type="text" name="house" placeholder="Дом">
                                     <input type="text" name="housing" placeholder="Корпус">
                                     <input type="text" name="flat" placeholder="Квартира">
-                                    <input type="text" name="index" placeholder="Индекс"><br>
+                                    <input type="text" name="orderProps[ZIP]" placeholder="Индекс"><br>
                                 </div>
-                                (\/\/при оформления страховки добавляются 2 блока внизу\/\/)
+
                                 <div class="form__section">
                                     <h4>Паспортные данные</h4>
 
@@ -197,30 +374,30 @@ $APPLICATION->SetTitle("Оформление заказа");
                                 <div class="form__section">
                                     <h4>Адрес регистрации</h4>
                                     <div class="form__section__content address-registration">
-                                        <input type="text" name="city" placeholder="Город/населенный пункт">
-                                        <input type="text" name="street" placeholder="Улица"><br>
-                                        <input type="text" name="house" placeholder="Дом">
-                                        <input type="text" name="housing" placeholder="Корпус">
-                                        <input type="text" name="flat" placeholder="Квартира"><br>
-                                        <input class="date" type="text" name="date" placeholder="Дата регистрации"
+                                        <input type="text" name="city1" placeholder="Город/населенный пункт">
+                                        <input type="text" name="street1" placeholder="Улица"><br>
+                                        <input type="text" name="house1" placeholder="Дом">
+                                        <input type="text" name="housing1" placeholder="Корпус">
+                                        <input type="text" name="flat1" placeholder="Квартира"><br>
+                                        <input class="date" type="text" name="date1" placeholder="Дата регистрации"
                                                onfocus="(this.type='date')"
                                                onblur="(this.type='text')" onmouseover="(this.type='date')"
                                                onmouseout="(this.type='text')">
-                                        <input type="text" name="index" placeholder="Индекс">
+                                        <input type="text" name="index1" placeholder="Индекс">
                                     </div>
                                     <h4>Адрес фактического проживания</h4>
                                     <div class="form__section__content address-residense">
                                         <input type="checkbox" name="same" id="same" checked>
                                         <label for="same">Совпадает с адресом постоянной регистрации</label>
                                         <div class="no-checked address-registration">
-                                            <input type="text" name="city" placeholder="Город/населенный пункт">
-                                            <input type="text" name="street" placeholder="Улица"><br>
-                                            <input type="text" name="house" placeholder="Дом">
-                                            <input type="text" name="housing" placeholder="Корпус">
-                                            <input type="text" name="flat" placeholder="Квартира"><br>
-                                            <input class="date" type="text" name="date" placeholder="Дата регистрации"
+                                            <input type="text" name="city2" placeholder="Город/населенный пункт">
+                                            <input type="text" name="street2" placeholder="Улица"><br>
+                                            <input type="text" name="house2" placeholder="Дом">
+                                            <input type="text" name="housing2" placeholder="Корпус">
+                                            <input type="text" name="flat2" placeholder="Квартира"><br>
+                                            <input class="date" type="text" name="date2" placeholder="Дата регистрации"
                                                    onfocus="(this.type='date')" onblur="(this.type='text')">
-                                            <input type="text" name="index" placeholder="Индекс">
+                                            <input type="text" name="index2" placeholder="Индекс">
                                         </div>
                                         <p>Если адрес фактического проживания не совпадает с адресом регистрации -
                                             снимите
@@ -256,95 +433,89 @@ $APPLICATION->SetTitle("Оформление заказа");
                                         </div>
                                     </div>
                                 </div>
-                                (/\/\здесь заканчивается/\/\)
+
                             </div>
 
 
-                        </form>
+
                     </div>
                 </div>
-
                 <div class="form" id="form-2">
                     <h4>Шаг 2. Контактная информация</h4>
                     <div class="close-btn close-btn_hide">Развернуть</div>
 
                     <div class="form__content">
-                        <form>
+
                             <div class="form__section">
                                 <h4>Ваши персональные данные для связи</h4>
                                 <div class="form__section__content name">
                                     <input type="text" name="surname" placeholder="Фамилия">
                                     <input type="text" name="name" placeholder="Имя">
                                     <input type="text" name="patronomic" placeholder="Отчество">
-                                    <input type="text" name="mail" placeholder="E-mail"><br>
-                                    <input type="text" name="phone" placeholder="Телефон">
+                                    <input type="text" name="orderProps[EMAIL]" placeholder="E-mail"><br>
+                                    <input type="text" name="orderProps[PHONE]" placeholder="Телефон">
                                     <button class="button blue-border-button">Отправить sms</button>
                                     <p>Для продолжения оформления на указанный номер телефона будет отправлен
                                         SMS-код.</p>
                                 </div>
                             </div>
-                        </form>
+
                     </div>
                 </div>
                 <div class="form" id="form-3">
                     <h4>Шаг 3. Оформление</h4>
                     <div class="close-btn close-btn_hide">Развернуть</div>
+<!--                    <div class="form__content">-->
+<!--                            <div class="form__section">-->
+<!--                                <h4>Доставка</h4>-->
+<!--                                <div class="form__section__content education">-->
+<!--                                    <div class="select-wrapper">-->
+<!--                                        <select required>-->
+<!--                                            <option value="" disabled selected hidden>Тип доставки-->
+<!--                                            </option>-->
+<!--                                            <option value="1">Самовывоз</option>-->
+<!--                                            <option value="2">СДЭК</option>-->
+<!--                                            <option value="3">ПЭК</option>-->
+<!--                                        </select>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!---->
+<!--                    </div>-->
                     <div class="form__content">
-                        <form>
-                            <div class="form__section">
-                                <h4>Доставка</h4>
-                                <div class="form__section__content education">
-                                    <div class="select">
-                                        <input id='trans-1' type="radio" name="trans" selected>
-                                        <label for="trans-1"><span class="selected-radio-btn">Самовывоз</span></label>
-                                    </div>
-                                    <div class="select">
-                                        <input id='trans-2' type="radio" name="trans">
-                                        <label for="trans-2"><span class="selected-radio-btn">СДЭК</span></label>
-                                    </div>
-                                    <div class="select">
-                                        <input id='trans-3' type="radio" name="trans">
-                                        <label for="trans-3"><span class="selected-radio-btn">ПЭК</span></label>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="form__content">
-                        <form>
+
                             <div class="form__section">
                                 <h4>Оплата</h4>
                                 <div class="form__section__content">
-                                    <div class="select">
-                                        <input id='sale-1' type="radio" name="sale" selected>
-                                        <label for="sale-1"><span class="selected-radio-btn">Наличные</span></label>
-                                    </div>
-                                    <div class="select">
-                                        <input id='sale-2' type="radio" name="sale">
-                                        <label for="sale-2"><span class="selected-radio-btn">Карта</span></label>
-                                    </div>
-                                    <div class="select">
-                                        <input id='sale-3' type="radio" name="sale">
-                                        <label for="sale-3"><span class="selected-radio-btn">Сбербонусы</span></label>
+
+                                    <div class="select-wrapper">
+                                        <select name="payment_id" required>
+                                            <option value="" disabled selected hidden>Тип оплаты
+                                            </option>
+                                            <?foreach ($arResult['PAYMENT'] as $key => $arPaySystem):?>
+                                            <option value="<?=$arPaySystem['ID']?>"><?=$arPaySystem['NAME']?></option>
+                                            <?endforeach;?>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
-                        </form>
+
                     </div>
                 </div>
             </div>
+
         </div>
         <div class="installment__right-column">
             <div class="short-rd ">
                 <div id="short-rd" class="short-rd__item hidden">
                     <div class="short-rd__head">
                         <picture class="short-rd__head-pic">
-                            <img src="/upload/installment/short-rd-main-pic.png" alt="main-pic">
+                            <img src="<?=$complectObj->package_info->picture_src?>" alt="main-pic">
                         </picture>
 
                         <div class="short-rd__title">
-                            <div class="short-rd__title-up">Спокойствие</div>
-                            <div class="short-rd__title-down">Комфорт</div>
+                            <div class="short-rd__title-up"><?=$complectObj->package_info->name?></div>
+                            <div class="short-rd__title-down"><?=$complectObj->name1?></div>
                         </div>
                     </div>
                     <div class="short-rd__body">
@@ -352,6 +523,7 @@ $APPLICATION->SetTitle("Оформление заказа");
                             Вариант решения включает:
                         </div>
                         <div class="short-rd__body-items">
+                            <?if($complectObj->active):?>
                             <div class="short-rd__body-item">
                                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                                      xmlns="http://www.w3.org/2000/svg">
@@ -363,10 +535,11 @@ $APPLICATION->SetTitle("Оформление заказа");
                                     <div class="short-rd__body-li-title">
                                         Оборудование
                                     </div>
-                                    <div class="short-rd__body-li-product">Livi Smart Security PLUS
-                                    </div>
+                                    <div class="short-rd__body-li-product"><?=$complectObj->name2?></div>
                                 </div>
                             </div>
+                            <?endif;?>
+                            <?if($subscriptionFeeObj->active):?>
                             <div class="short-rd__body-item">
                                 <svg width="14" height="18" viewBox="0 0 14 18" fill="none"
                                      xmlns="http://www.w3.org/2000/svg">
@@ -379,12 +552,16 @@ $APPLICATION->SetTitle("Оформление заказа");
                                     <div class="short-rd__body-li-title">
                                         Договор с охранной компанией
                                     </div>
-                                    <div class="short-rd__body-li-product">ООО “Максимилиан”
-                                    </div>
-                                    <div class="short-rd__body-li-desc">6 месяцев (с 06.05.2021)</div>
+                                    <div class="short-rd__body-li-product"><?=$subscriptionFeeObj->name2?></div>
+                                    <div class="short-rd__body-li-desc"><?=$subscriptionFeeObj->name1?> (с 06.05.2021)</div>
                                 </div>
                             </div>
+
+                            <?endif;?>
+                            <?if($policyObj->active):?>
+
                             (\/\/при оформления рассрочки добавляется блок внизу\/\/)
+
                             <div class="short-rd__body-item">
                                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                                      xmlns="http://www.w3.org/2000/svg">
@@ -398,16 +575,19 @@ $APPLICATION->SetTitle("Оформление заказа");
                                     <div class="short-rd__body-li-title">
                                         Страхование недвижимости
                                     </div>
-                                    <div class="short-rd__body-li-product">Страховой дом “ВСК”
-                                    </div>
+                                    <div class="short-rd__body-li-product"><?=$policyObj->company_name?></div>
                                     <div class="short-rd__body-li-desc">
                                         Полис на 12 месяцев (с 06.05.2021)<br>
-                                        Выплата 2 100 000 рублей
+                                        Выплата <?=$policyObj->name2?>
                                     </div>
                                 </div>
 
                             </div>
+
+                            <?endif;?>
+
                             (/\/\здесь заканчивается/\/\)
+
                         </div>
 
                     </div>
@@ -463,10 +643,17 @@ $APPLICATION->SetTitle("Оформление заказа");
                 <label for="agreement" class="installment__rules-agreement">
                     Я даю согласие и подтверждаю достоверность указанных данных
                 </label>
-                <button href="" class="button yellow-button">Оформить заказ</button>
+                <?foreach ($orderItems as $orderItem):?>
+                <?if($orderItem->active):?>
+                <input type="hidden" name="orderItemsIds[]" value="<?=$orderItem->id?>">
+                <?endif;?>
+                <?endforeach;?>
+                <input type="submit"  class="button yellow-button" value="Оформить заказ">
             </div>
         </div>
+
     </div>
+    </form>
 
 </main>
 <!---->

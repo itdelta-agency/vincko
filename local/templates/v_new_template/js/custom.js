@@ -39,7 +39,6 @@ $("#ajax_form_callback_btn").on('click',function(){
 
 	})
 
-
 	$(".header__top-cabinet .js-modal").click(function () {
 		var thisModal = $(this).attr("data-modal-class");
 		$(thisModal).removeClass("hidden");
@@ -195,23 +194,6 @@ $("#ajax_form_callback_btn").on('click',function(){
 		$(".popup").addClass("hidden");
 		$(".popup--forget").removeClass("hidden");
 	});
-
-	$('form').submit(function(){
-		$.ajax({
-			type: "POST",
-			url: $(this).attr('action'),
-			data: $(this).serialize()+'&ajax_key=Y',
-			dataType: "json",
-			success: function(data)
-			{
-				if (data.type == 'error') {
-					alert(data.message);
-				} else {
-					alert('Вы авторизовались!');
-				}
-			}
-		});
-
-	});
+	
 })
 

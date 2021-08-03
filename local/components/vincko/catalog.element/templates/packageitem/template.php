@@ -167,7 +167,7 @@ if (!empty($arParams['LABEL_PROP_POSITION'])) {
                         <h2><?= $arResult['PACKAGE_GROUP']['NAME'] ?></h2>
                     </div>
                     <div class="solutions__top_left-items">
-                        <? if (!empty($arResult["PACKAGE_GROUP_CHARACTERISTICS"])): ?>
+                        <? if (isset($arResult["PACKAGE_GROUP_CHARACTERISTICS"])): ?>
                         <?foreach ($arResult['PACKAGE_GROUP_CHARACTERISTICS'] as $ch):?>
                         <div class="solutions__top_left-item">
                             <div class="solutions__top_left-item_icon">
@@ -215,8 +215,8 @@ if (!empty($arParams['LABEL_PROP_POSITION'])) {
                                 <div class="solutions-card__center ">
                                     <div class="solutions-card__top">
                                         <div class="solutions-card__top_img">
-                                            <img src="<?= $arResult['ALL_LIST_COMPLECTS_IN_PACKAGE'][$currentComplectIndex]['PREVIEW_PICTURE']['src'] ?>"
-                                                 alt="img">
+                                            <img src="<?= $arResult['PACKAGES_CLASSES'][$arResult['CURRENT_PACKAGE_CLASS']]['PICTURE']['src'] ?>"
+                                                 alt="<?= $arResult['PACKAGES_CLASSES'][$arResult['CURRENT_PACKAGE_CLASS']]['NAME'] ?>">
                                         </div>
                                         <div class="solutions-card__top_text">
                                             <div class="h4 solutions-card__top_text-title"><?= $arResult['ALL_LIST_COMPLECTS_IN_PACKAGE'][$currentComplectIndex]['NAME'] ?></div>
@@ -336,7 +336,7 @@ if (!empty($arParams['LABEL_PROP_POSITION'])) {
                                 </div>
                                 <div class="solutions-card__circles">
                                     <? foreach ($arResult['PACKAGES_CLASSES'] as $key => $class): ?>
-
+                                    <?if(!empty($arResult['PACKAGES_SLUGS'][$key])):?>
                                         <div onclick="location.href='/packages/<?= $arResult['PACKAGES_SLUGS'][$key]['SLUG'] ?>/#solutions__center'"
                                              class="solutions-card__circles_item <?= $arResult['CURRENT_PACKAGE_CLASS'] == $key ? 'show' : 'hide' ?>">
                                             <div class="solutions-card__circles_item-icon">
@@ -346,6 +346,7 @@ if (!empty($arParams['LABEL_PROP_POSITION'])) {
                                                 <?= $class['NAME'] ?>
                                             </div>
                                         </div>
+                                    <?endif;?>
                                     <? endforeach; ?>
                                 </div>
                                 <div class="solutions-card__info">
@@ -833,7 +834,7 @@ if (!empty($arParams['LABEL_PROP_POSITION'])) {
 
                                                 <div class="products__payment-name"><?= $arResult['ALL_INSURANCE_PAYMENT_OPTIONS_LIST'][$el]['NAME'] ?>
                                                 </div>
-                                                <div class="products__payment-cost"><?= $item['ITEMS'][$currentPolicyIndex]['PROPERTY_PAYMENT_PRICE_VALUE'][$index] ?>
+                                                <div class="products__payment-cost"><?= $item['ITEMS'][$currentPolicyIndex]['PROPERTY_PAYMENT_PRICE_VALUE'][$index] !='-' && $item['ITEMS'][$currentPolicyIndex]['PROPERTY_PAYMENT_PRICE_VALUE'][$index]!='' ? $item['ITEMS'][$currentPolicyIndex]['PROPERTY_PAYMENT_PRICE_VALUE'][$index] : '' ?>
                                                     руб.
                                                 </div>
 
@@ -1030,16 +1031,16 @@ if (!empty($arParams['LABEL_PROP_POSITION'])) {
     <? endif; ?>
     <div class="container">
 
-        <section class="back__call complect">
-            <h2>Остались вопросы?</h2>
-            <p>Закажите обратный звонок от нашего менеджера</p>
-            <div class="back__call-form">
-                <form>
-                    <input type="text" class="form__control" placeholder="Телефон">
-                    <input type="submit" class="form__control submit" value="отправить">
-                </form>
-            </div>
-        </section>
+        <?$APPLICATION->IncludeComponent(
+            "bitrix:main.include",
+            "",
+            Array(
+                "AREA_FILE_SHOW" => "file",
+                "AREA_FILE_SUFFIX" => "inc",
+                "EDIT_TEMPLATE" => "",
+                "PATH" => "/include/callback.php"
+            )
+        );?>
     </div>
 </main>
 

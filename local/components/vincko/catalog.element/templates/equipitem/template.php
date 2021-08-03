@@ -171,7 +171,7 @@ if (!empty($arParams['LABEL_PROP_POSITION'])) {
                 <div class="solutions-card__circles">
                     <? foreach ($arResult['PACKAGES_CLASSES'] as $key => $class): ?>
                     <?if(!empty($arResult['FIRST_LIST_COMPLECTS_SLUGS'][$key])):?>
-                        <div onclick="location.href='/equipment-kits/<?= $arResult['FIRST_LIST_COMPLECTS_SLUGS'][$key]['SLUG'] ?>/#solutions__center'"
+                        <div onclick="location.href='/equipment-kits/<?= $arResult['FIRST_LIST_COMPLECTS_SLUGS'][$key]['SLUG'] ?>/'"
                              class="solutions-card__circles_item <?= $arResult['CURRENT_PACKAGE_CLASS'] == $key ? 'show' : 'hide' ?>">
                             <div class="solutions-card__circles_item-icon">
                                 <img src="<?= $class['ICON']['src'] ?>" alt="<?= $class['NAME'] ?>">
@@ -242,7 +242,7 @@ if (!empty($arParams['LABEL_PROP_POSITION'])) {
                                 <div class="solutions__bottom_column-title">
                                     Всего
                                 </div>
-                                <? if ((int)($arResult["PRICES"]["BASE"]["PRINT_DISCOUNT_VALUE"]) != (int)($arResult["PRICES"]["BASE"]["PRINT_VALUE"])): ?>
+                                <? if (intval($arResult["PRICES"]["BASE"]["DISCOUNT_VALUE"]) != intval($arResult["PRICES"]["BASE"]["VALUE"])): ?>
                                     <div class="solutions__bottom_column-oldprice">
                                         <?= $arResult["PRICES"]["BASE"]["PRINT_VALUE"] ?>
                                     </div>
@@ -530,7 +530,7 @@ if (!empty($arParams['LABEL_PROP_POSITION'])) {
                                     <div class="solutions-card__top">
                                         <div class="solutions-card__top_img">
                                             <img src="<?= $arResult['PACKAGES_CLASSES'][$arResult['CURRENT_PACKAGE_CLASS']]['PICTURE']['src'] ?>"
-                                                 alt="img">
+                                                 alt="<?= $arResult['PACKAGES_CLASSES'][$arResult['CURRENT_PACKAGE_CLASS']]['NAME'] ?>">
                                         </div>
                                         <div class="solutions-card__top_text">
                                             <div class="h4 solutions-card__top_text-title"><?= $arResult['NAME'] ?></div>
@@ -598,15 +598,17 @@ if (!empty($arParams['LABEL_PROP_POSITION'])) {
                                                                 <? endforeach; ?>
 
                                                             </div>
+                                                        </div>
                                                     </form>
                                                 </div>
-                                            </div>
+
 
                                             <? endif; ?>
+                                            </div>
                                         </div>
 
 
-                                    </div>
+
                                 </div>
                                 <div class="solutions-card__subtitle">
                                     Выберите Вариант
@@ -773,41 +775,19 @@ if (!empty($arParams['LABEL_PROP_POSITION'])) {
                                                 <form action="#">
                                                     <input class="select__input" type="hidden"
                                                            name="solutions-card__top-select">
+                                                    <?if(count($arResult['ALL_LIST_COMPANY_CITY'])>1):?>
                                                     <div class="select__head">Выбрать другую компанию</div>
                                                     <div class="select__list" style="display: none;">
-                                                        <div class="select__input-search">
-                                                            <div class="select__input-search_icon">
-                                                                <img src="<?= SITE_TEMPLATE_PATH ?>/img/solutions/search-icon.svg"
-                                                                     alt="img">
-                                                            </div>
-                                                            <input type="text" placeholder="Поиск" name="search">
-                                                        </div>
                                                         <div class="select__list-item">
-                                                            <!-- Топ-3 -->
-                                                            <div class="select__list-item_title">Топ-3</div>
-                                                            <div class="select__item">
-                                                                <div class="select__item_text color-black">
-                                                                    ООО “Беркут Дефенд Ко...
+                                                            <!-- Выбрано -->
+                                                            <div class="select__list-item_title">Выбрано</div>
+                                                            <div class="select__list-item_policy">
+                                                                <div class="select__list-item_policy-top">
+                                                                <span class="font-weight policy-title">
+                                                                    Компания “ <span
+                                                                            class="font-weight"><?= $arResult['ALL_LIST_COMPANY_CITY'][$currentSecureCompanyIndex]['NAME'] ?></span> ”
+                                                                </span>
                                                                 </div>
-                                                                <div class="select__item_num">1</div>
-                                                                <span class="select__item_bg"
-                                                                      style="width: 100%;"></span>
-                                                            </div>
-                                                            <div class="select__item">
-                                                                <div class="select__item_text">
-                                                                    Сальса Чача Классно
-                                                                </div>
-                                                                <div class="select__item_num">2</div>
-                                                                <span class="select__item_bg"
-                                                                      style="width: 90%;"></span>
-                                                            </div>
-                                                            <div class="select__item">
-                                                                <div class="select__item_text">
-                                                                    ООО “Семиголов”
-                                                                </div>
-                                                                <div class="select__item_num">2</div>
-                                                                <span class="select__item_bg"
-                                                                      style="width: 80%;"></span>
                                                             </div>
 
 
@@ -816,21 +796,19 @@ if (!empty($arParams['LABEL_PROP_POSITION'])) {
                                                                 компании
                                                             </div>
                                                             <? foreach ($arResult['ALL_LIST_COMPANY_CITY'] as $key => $item): ?>
-                                                                <div id="selected_company"
-                                                                     onclick="BX.setCookie('selected_company_id',<?= $item['ID'] ?>, {expires: 86400, path: '/'});location.reload();"
-                                                                     class="select__item">
-                                                                    <div class="select__item_text">
-                                                                        <?= $item['NAME'] ?>
+                                                                <div class="select__list-item_policy">
+                                                                    <div class="select__list-item_policy-top">
+                                                                            <span id="selected_company"
+                                                                                  onclick="BX.setCookie('selected_company_id',<?= $item['ID'] ?>, {expires: 86400, path: '/'});location.reload();"
+                                                                                  class="policy-title">Компания“<span
+                                                                                        class="p"><?= $item['NAME'] ?></span>”</span>
                                                                     </div>
-                                                                    <div class="select__item_num">4</div>
-                                                                    <span class="select__item_bg"
-                                                                          style="width: 70%;"></span>
                                                                 </div>
                                                             <? endforeach; ?>
 
                                                         </div>
-                                                        <div class="box-shadow"></div>
                                                     </div>
+                                                    <?endif;?>
                                                 </form>
                                             </div>
                                         </div>
@@ -1148,7 +1126,7 @@ if (!empty($arParams['LABEL_PROP_POSITION'])) {
 
                                                 <div class="products__payment-name"><?= $arResult['ALL_INSURANCE_PAYMENT_OPTIONS_LIST'][$el]['NAME'] ?>
                                                 </div>
-                                                <div class="products__payment-cost"><?= $item['ITEMS'][$currentPolicyIndex]['PROPERTY_PAYMENT_PRICE_VALUE'][$index] ?>
+                                                <div class="products__payment-cost"><?= $item['ITEMS'][$currentPolicyIndex]['PROPERTY_PAYMENT_PRICE_VALUE'][$index] !='-' && $item['ITEMS'][$currentPolicyIndex]['PROPERTY_PAYMENT_PRICE_VALUE'][$index]!='' ? $item['ITEMS'][$currentPolicyIndex]['PROPERTY_PAYMENT_PRICE_VALUE'][$index] : '' ?>
                                                     руб.
                                                 </div>
 
@@ -1232,93 +1210,6 @@ if (!empty($arParams['LABEL_PROP_POSITION'])) {
     </div>
     <? if (!$arResult['HIDE_BASKET_BLOCK']): ?>
         <div id="b-vincko-basket-component"></div>
-        <? /*<div class="solutions__bottom">
-            <div class="container">
-                <div class="solutions__bottom_title">
-                    Итого, в ваше Готовое решение входит:
-                </div>
-                <div class="solutions__bottom_wrapper">
-                    <div class="solutions__bottom_left">
-                        <div class="solutions__bottom_row">
-                            <p class="solutions__bottom_row-left">Комплект оборудования</p>
-                            <div class="solutions__bottom_row-center">
-                                <span>Премиум</span>
-                                <span>AJAX SmartHome</span>
-                            </div>
-                            <div class="solutions__bottom_row-right">
-                                <span>доставка/монтаж в подарок</span>
-                            </div>
-                        </div>
-                        <div class="solutions__bottom_row">
-                            <p class="solutions__bottom_row-left">Охранная компания</p>
-                            <div class="solutions__bottom_row-center">
-                            <span>
-                                12
-                                месяев обслуживания
-                            </span>
-                                <span>ООО “Зубряков Охрана Компания Ва...</span>
-                            </div>
-                            <div class="solutions__bottom_row-right">
-                                <span>1 мес. в подарок</span>
-                            </div>
-                        </div>
-                        <div class="solutions__bottom_row">
-                            <p class="solutions__bottom_row-left">Страховая выплата</p>
-                            <div class="solutions__bottom_row-center">
-                            <span>
-                                при наступлении страхового случая
-                            </span>
-                                <span>
-                                2 млн.
-                                рублей
-                            </span>
-                            </div>
-                            <div class="solutions__bottom_row-right">
-                                <span>подарок</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="solutions__bottom_right">
-                        <div class="solutions__bottom_column">
-                            <div class="solutions__bottom_column-title">
-                                Всего
-                            </div>
-                            <div class="solutions__bottom_column-oldprice">
-                                50 630 ₽
-                            </div>
-                            <div class="solutions__bottom_column-newprice">
-                                12 000 ₽
-                            </div>
-                            <button class="solutions__bottom_column-btn grey">
-                                купить
-                            </button>
-                        </div>
-                        <div class="solutions__bottom_column">
-                            <div class="solutions__bottom_column-title">
-                                Рассрочка без процентов
-                            </div>
-                            <div class="solutions__bottom_column-interest">
-                                <p>все проценты<br>
-                                    за вас платит <span>vincko:</span>
-                                </p>
-                            </div>
-                            <div class="solutions__bottom_column-monthprice">
-                                <div class="solutions__bottom_column-select">
-                                    12 мес.
-                                </div>
-                                <p>по</p>
-                                <div class="solutions__bottom_column-price">
-                                    1 000 ₽
-                                </div>
-                            </div>
-                            <button class="solutions__bottom_column-btn yellow">
-                                В рассрочку
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>*/ ?>
     <? endif; ?>
     </div>
     <? if (!$arResult['HIDE_BASKET_BLOCK']): ?>
@@ -1517,6 +1408,16 @@ $totalPrice = $complectPrice + $subscriptionFeePrice + $policyPrice;
 $totalDiscountPrice = $complectOldPrice + $subscriptionFeeOldPrice + $policyOldPrice;
 
 $currentSubscriptionFeeMonthsCount = $arResult['ALL_LIST_COMPANY_CITY'][$currentSecureCompanyIndex]['SUBSCRIPTION_FEE'][$currentSubcriptionFeeIndex]['PROPERTY_APTP_MESYAC_VALUE'];
+
+foreach ($arResult['ALL_INSURANCE_LIST'] as $key => $company)
+{
+    if($key==$company['ITEMS'][$currentPolicyIndex]['PARENT_ID'])
+    {
+        $secure_company_name = $company['NAME'];
+        break;
+    }
+}
+
 $data = [
     'items' => [
         0 => [
@@ -1527,7 +1428,8 @@ $data = [
             'gift' => 'доставка/монтаж в подарок',
             'active' => true,
             'sum' => $complectPrice,
-            'old_sum' => $complectOldPrice
+            'old_sum' => $complectOldPrice,
+            'package_info' => ['name'=>$arResult['PACKAGE_GROUP']['NAME'],'picture_src'=> $arResult['PACKAGES_CLASSES'][$arResult['CURRENT_PACKAGE_CLASS']]['PICTURE']['src']]
         ],
         1 => [
             'id' => $currentSubcriptionFeeIndex,
@@ -1545,6 +1447,7 @@ $data = [
             'title' => 'Страховая выплата',
             'name1' => 'при наступлении страхового случая',
             'name2' => $currentPolicyMaxPrice . ' руб',
+            'company_name' => $secure_company_name,
             'gift' => 'подарок',
             'active' => true,
             'sum' => $policyPrice,
