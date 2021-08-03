@@ -716,7 +716,7 @@ input[type="checkbox"] {
   display: grid;
   grid-template-columns: 2fr 1fr 1fr;
   align-items: center;
-  padding-top: 12px;
+  padding-top: 0;
   padding-bottom: 12px;
 }
 
@@ -12508,7 +12508,7 @@ html {
 
 .polzunok__number {
   margin-top: 22
- px;
+  px;
   display: block;
   color: #93b6ff;
   width: 5ch;
