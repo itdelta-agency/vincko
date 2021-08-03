@@ -34,7 +34,10 @@ $(document).ready(function () {
         });
     });
     $('.searchForm__modal').on('click', '.bottomChekItem', function() {
-        $(this).closest('.rating-center__search_form').find('.rating-center__search_form-select input[type=text]').attr('placeholder',$(this).find('.itemText').html());
+        var companyName = $(this).closest('.rating-center__search_form').find('.rating-center__search_form-select input[type=text]').attr('placeholder',$(this).find('.itemText').html());
         $(this).closest('.searchForm__modal').find('.searchForm__modal_topChek').html($(this).clone());
+        // $.get('index.php', {city: companyName.attr('placeholder')}, function(data) {
+        // })
+        window.location.href += "?city=" + companyName.attr('placeholder');
     } )
 })
