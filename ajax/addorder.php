@@ -21,15 +21,28 @@ function getPropertyByCode($propertyCollection, $code)  {
             return $property;
     }
 }
+function clean($value = "") {
+    $value = trim($value);
+    $value = stripslashes($value);
+    $value = strip_tags($value);
+    $value = htmlspecialchars($value);
+
+    return $value;
+}
+
 
 $request = Context::getCurrent()->getRequest();
 
 if ($request->isPost()) {
 
+    $errorsValidate = [];
+
+
     if ($_SERVER['REMOTE_ADDR'] == '46.147.123.63') {
         echo '<pre>';
         print_r($request);
         echo '</pre>';
+        die();
     }
 
     $siteId = Context::getCurrent()->getSite();
@@ -79,7 +92,7 @@ if ($request->isPost()) {
         $item->setQuantity($basketItem->getQuantity());
     }
 
-    $paymentId = $request['payment_id'];
+    $paymentId = $request['payment-method'];
     $paymentCollection = $order->getPaymentCollection();
     $payment = $paymentCollection->createItem(
         Bitrix\Sale\PaySystem\Manager::getObjectById($paymentId)
