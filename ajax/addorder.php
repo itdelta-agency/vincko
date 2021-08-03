@@ -7,6 +7,8 @@ use Bitrix\Main\Context,
     Bitrix\Sale\Delivery,
     Bitrix\Sale\PaySystem;
 
+define('LOG_FILENAME', $_SERVER["DOCUMENT_ROOT"]. "/log.txt");
+
 global $USER;
 
 Bitrix\Main\Loader::includeModule("sale");
@@ -35,7 +37,7 @@ if ($request->isPost()) {
     $productProviderClass = \Bitrix\Catalog\Product\Basket::getDefaultProviderName();
 
     // Создаёт новый заказ
-    $order = Order::create($siteId, $USER->isAuthorized() ? $USER->GetID() : 539);
+    $order = Order::create($siteId, $USER->isAuthorized() ? $USER->GetID() : 1);
     $order->setPersonTypeId(3);
     $order->setField('CURRENCY', $currencyCode);
 
@@ -115,7 +117,7 @@ if ($request->isPost()) {
 
     $comment = $passportData . $registrationAddress . $residenseAddress;
     $order->setField('USER_DESCRIPTION', $comment); // Устанавливаем поля комментария покупателя
-
+    AddMessage2Log(123,'comment');
     // Сохраняем
     $order->doFinalAction(true);
     $result = $order->save();
@@ -124,6 +126,6 @@ if ($request->isPost()) {
     {
 //        $session = \Bitrix\Main\Application::getInstance()->getSession();
 //        $orderItems = $session->remove('orderItems');
-        LocalRedirect("/order/" . "?ORDER_ID=" . $orderId);
+        LocalRedirect("/order/?ORDER_ID=" . $orderId);
     }
 }
