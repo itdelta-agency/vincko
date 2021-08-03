@@ -66,18 +66,22 @@ $res = CIBlockSection::GetList(
 while ($arFields = $res->Fetch()) {
     $arResult['PACKAGE_GROUP'] = $arFields;
 }
-//получаем характеристики для группы готовых решений
-$res = \CIBlockElement::GetList(array(), array("IBLOCK_ID" => $packagesCharacteristicsIblockId ,"ID"=>$arResult['PACKAGE_GROUP']['UF_CHARACTERISTICS_REF'], "ACTIVE" => "Y"), false,
-    false, array("ID", "NAME", "PREVIEW_TEXT", "PREVIEW_PICTURE","PROPERTY_CO_CHARACTERISTICS_REF"));
-while ($arFields = $res->Fetch()) {
-    $picEnd = CFile::ResizeImageGet($arFields["PREVIEW_PICTURE"], array("width" => 90, "height" => 110), BX_RESIZE_IMAGE_PROPORTIONAL_ALT, false);
-    $arResult["PACKAGE_GROUP_CHARACTERISTICS"][$arFields["ID"]] = array(
-        "ID" => $arFields["ID"],
-        "NAME" => $arFields["NAME"],
-        "PREVIEW_TEXT" => $arFields["PREVIEW_TEXT"],
-        "PREVIEW_PICTURE" => $picEnd["src"],
-    );
+if(!empty($arResult['PACKAGE_GROUP']['UF_CHARACTERISTICS_REF']))
+{
+    //получаем характеристики для группы готовых решений
+    $res = \CIBlockElement::GetList(array(), array("IBLOCK_ID" => $packagesCharacteristicsIblockId ,"ID"=>$arResult['PACKAGE_GROUP']['UF_CHARACTERISTICS_REF'], "ACTIVE" => "Y"), false,
+        false, array("ID", "NAME", "PREVIEW_TEXT", "PREVIEW_PICTURE","PROPERTY_CO_CHARACTERISTICS_REF"));
+    while ($arFields = $res->Fetch()) {
+        $picEnd = CFile::ResizeImageGet($arFields["PREVIEW_PICTURE"], array("width" => 90, "height" => 110), BX_RESIZE_IMAGE_PROPORTIONAL_ALT, false);
+        $arResult["PACKAGE_GROUP_CHARACTERISTICS"][$arFields["ID"]] = array(
+            "ID" => $arFields["ID"],
+            "NAME" => $arFields["NAME"],
+            "PREVIEW_TEXT" => $arFields["PREVIEW_TEXT"],
+            "PREVIEW_PICTURE" => $picEnd["src"],
+        );
+    }
 }
+
 //получаем все готовые решения из группы
 $res = CIBlockElement::GetList(
     array("SORT" => "ASC"),
@@ -227,6 +231,8 @@ $res = CIBlockElement::GetList(
 );
 while ($arFields = $res->Fetch()) {
     $arResult['PACKAGES_CLASSES'][$arFields['ID']] = $arFields;
+    $previewPicture = CFile::ResizeImageGet($arFields["PREVIEW_PICTURE"], array("width" => 110, "height" => 100), BX_RESIZE_IMAGE_PROPORTIONAL_ALT, false);
+    $arResult['PACKAGES_CLASSES'][$arFields['ID']]['PICTURE'] = $previewPicture;
     $detailPicture = CFile::ResizeImageGet($arFields["DETAIL_PICTURE"], array("width" => 40, "height" => 40), BX_RESIZE_IMAGE_PROPORTIONAL_ALT, false);
     $arResult['PACKAGES_CLASSES'][$arFields['ID']]['ICON'] = $detailPicture;
 }
