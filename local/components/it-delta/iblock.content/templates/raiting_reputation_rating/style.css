@@ -10,6 +10,14 @@
     display: flex;
     margin-bottom: 8px;
 }
+.rating-center__items_top .rating-center__items_top-right-help {
+    display: flex;
+    justify-content: space-between;
+    width: 754px;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+}
 .rating-center__items_top .rating-center__items_top-name span {
     display: flex;
     align-items: center;
@@ -194,10 +202,53 @@
     pointer-events: none;
     cursor: pointer;
 }
+.rating-center__search_form .rating-center__search_form-select input[type=text]::-webkit-input-placeholder{
+    color: #818181;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+    cursor: pointer;
+}
+.rating-center__search_form .rating-center__search_form-select input[type=text]::-moz-placeholder{
+    color: #818181;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+    cursor: pointer;
+}
+.rating-center__search_form .rating-center__search_form-select input[type=text]:-moz-placeholder {
+    color: #818181;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+    cursor: pointer;
+}
+.rating-center__search_form .rating-center__search_form-select input[type=text]:-ms-input-placeholder {
+    color: #818181;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+    cursor: pointer;
+}
 .rating-center__search_form-input input::-webkit-input-placeholder {color: #005DFF!important;}/* webkit */
 .rating-center__search_form-input input::-moz-placeholder          {color: #005DFF!important;}/* Firefox 19+ */
 .rating-center__search_form-input input:-moz-placeholder           {color: #005DFF!important;}/* Firefox 18- */
 .rating-center__search_form-input input:-ms-input-placeholder      {color: #005DFF!important;}/* IE */
+.rating-center__subtitle_text a:last-child {
+    text-decoration: none;
+}
+.rating-center__items_top-left .rating-center__items_top-btns .rating-center__items_top-btns-item:first-child label {
+    border-left: 2px solid #DDE8FF;
+    border-bottom: 2px solid #DDE8FF;
+    border-top: 2px solid #DDE8FF;
+    border-right: 0;
+    border-radius: 50px 50px 0 50px;
+}
+.rating-center__items_top-left .rating-center__items_top-btns .rating-center__items_top-btns-item:first-child input:checked + label{
+    border-left: 2px solid #005DFF;
+    border-bottom: 2px solid #005DFF;
+    border-top: 2px solid #005DFF;
+}
 @media (max-width: 1100px) {
 .rating-center__items_top {
     flex-wrap: wrap;

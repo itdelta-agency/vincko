@@ -127,7 +127,11 @@
     font-size: 14px;
     line-height: 17px;
 }
-
+.rating-block .rating-help-window .link-item {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+}
 .rating-block .rating-help-window {
     margin-top: 25px;
     display: none;
