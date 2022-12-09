@@ -80,7 +80,7 @@ if (!CModule::IncludeModule("sale")) {
 						if (name.indexOf("text")!=-1) {
 							$(this).val($(this).attr("placeholder"));
 						} else if (name.indexOf("date")!=-1) {
-							$(this).val("2020-07-21");
+							$(this).val("21.07.2021");
 						} else if (name.indexOf("email")!=-1) {
 							$(this).val("test@test.ru");
 						}
@@ -186,17 +186,14 @@ if (!CModule::IncludeModule("sale")) {
 					</div>
 				</div>
 				<div class="form def-close" id="form-2">
-					<h4><?= Loc::getMessage("FORM_POLICY_STEP_PAY") ?></h4>
+					<div class="h4"><?= Loc::getMessage("FORM_POLICY_STEP_PAY") ?></div>
 					<div class="close-btn close-btn_hide"><?= Loc::getMessage("FORM_POLICY_EXPAND") ?></div>
 
 					<div class="form__content">
 						<div class="form__section">
-							<h4><?= Loc::getMessage("FORM_POLICY_PAY") ?></h4>
+							<div class="h4"><?= Loc::getMessage("FORM_POLICY_PAY") ?> * :</div>
 							<div class="form__section__content">
 								<div class="products__payment">
-									<div class="products__gray">
-										Выберите вариант оплаты:
-									</div>
 									<? foreach ($arResult["PAYMENT"] as $arPayment): ?>
 										<div class="products__payment-item">
 											<input type="radio" id="<?= $arPayment["ID"] ?>" name="PAYMENT"
@@ -257,7 +254,7 @@ if (!CModule::IncludeModule("sale")) {
 				<? $APPLICATION->IncludeFile('/include/order_policy_agreement.php'); ?>
 				<?= $arResult["QUESTIONS"]["AGREEMENT"]["HTML_CODE"] ?>
 				<button type="submit" class="button yellow-button" name="web_form_apply"
-						value="1"><?= $arResult["arForm"]["BUTTON"] ?></button>
+						value="1" disabled><?= $arResult["arForm"]["BUTTON"] ?></button>
 
 			</div>
 		</div>

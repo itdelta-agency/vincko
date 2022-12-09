@@ -27,22 +27,30 @@ $Asset = Asset::getInstance();
 	<link href="<?= SITE_TEMPLATE_PATH ?>/libs/range/component.css" rel="stylesheet">
 	<link href="<?= SITE_TEMPLATE_PATH ?>/libs/range/ion.rangeSlider.min.css" rel="stylesheet">
 	<link href="<?= SITE_TEMPLATE_PATH ?>/libs/swiper/swiper.min.css" rel="stylesheet">
-	<link href="<?= SITE_TEMPLATE_PATH ?>/styles/main.css" rel="stylesheet" >
-    <link href="<?= SITE_TEMPLATE_PATH ?>/css/polina.css" rel="stylesheet">
-    <link href="<?= SITE_TEMPLATE_PATH ?>/css/custom.css" rel="stylesheet">
+	<link rel="stylesheet" href="<?= SITE_TEMPLATE_PATH ?>/styles/main.css">
 
-	<script src="<?= SITE_TEMPLATE_PATH ?>/libs/jquery.min.js"></script>
-    <script src="<?= SITE_TEMPLATE_PATH ?>/libs/funcy_box/jquery.fancybox.min.js"></script>
-    <script src="<?= SITE_TEMPLATE_PATH ?>/libs/Inputmask/inputmask.min.js"></script>
-    <script src="<?= SITE_TEMPLATE_PATH ?>/libs/Inputmask/jquery.inputmask.min.js"></script>
-    <script src="<?= SITE_TEMPLATE_PATH ?>/libs/jquery_maskedinput/jquery.maskedinput.min.js"></script>
-    <script src="<?= SITE_TEMPLATE_PATH ?>/libs/range/ion.rangeSlider.min.js"></script>
-    <script src="<?= SITE_TEMPLATE_PATH ?>/libs/select/scripts/choices.min.js"></script>
-    <script src="<?= SITE_TEMPLATE_PATH ?>/libs/slick/slick.js"></script>
-    <script src="<?= SITE_TEMPLATE_PATH ?>/libs/swiper/swiper.min.js"></script>
 
-	<script src="https://atuin.ru/demo/ui-slider/jquery-ui.min.js"></script>
-	<script src="https://atuin.ru/demo/ui-slider/jquery.ui.touch-punch.min.js"></script>
+
+	<? $Asset->addJs(SITE_TEMPLATE_PATH."/libs/jquery.js");?>
+	<? $Asset->addJs(SITE_TEMPLATE_PATH."/libs/slick/slick.js");?>
+	<? $Asset->addJs(SITE_TEMPLATE_PATH."/libs/select/scripts/choices.js");?>
+	<? $Asset->addJs(SITE_TEMPLATE_PATH."/libs/funcy_box/jquery.fancybox.js");?>
+	<? $Asset->addJs(SITE_TEMPLATE_PATH."/libs/range/ion.rangeSlider.min.js");?>
+	<? $Asset->addJs(SITE_TEMPLATE_PATH."/libs/swiper/swiper.min.js");?>
+
+	<? $Asset->addJs(SITE_TEMPLATE_PATH."/libs/jquery_maskedinput/jquery.maskedinput.min.js");?>
+	<? $Asset->addJs(SITE_TEMPLATE_PATH."/libs/Inputmask/jquery.inputmask.min.js");?>
+	<? $Asset->addJs("https://atuin.ru/demo/ui-slider/jquery-ui.min.js");?>
+	<? $Asset->addJs("https://atuin.ru/demo/ui-slider/jquery.ui.touch-punch.min.js");?>
+	<? $Asset->addJs(SITE_TEMPLATE_PATH."/libs/Inputmask/jquery.inputmask.min.js");?>
+
+	<? $Asset->addJs(SITE_TEMPLATE_PATH."/js/site.js");?>
+	<? $Asset->addJs(SITE_TEMPLATE_PATH."/js/main.js");?>
+	<? $Asset->addJs(SITE_TEMPLATE_PATH."/js/custom.js");?>
+
+	<? $Asset->addJs(SITE_TEMPLATE_PATH."/site.js?v=14");?>
+	<? $Asset->addJs(SITE_TEMPLATE_PATH."/js/auth.js");?>
+	<? $Asset->addCss(SITE_TEMPLATE_PATH . "/css/custom.css"); ?>
 
     <?= $APPLICATION->ShowHead(); ?>
 
@@ -134,8 +142,8 @@ $Asset = Asset::getInstance();
 			"vincko:main.auth.form",
 			"vincko",
 			array(
-				"AUTH_FORGOT_PASSWORD_URL" => "/personal/recovery/",
-				"AUTH_REGISTER_URL"        => "/personal/private/",
+				"AUTH_FORGOT_PASSWORD_URL" => "/auth/forgot/",
+				"AUTH_REGISTER_URL"        => "/auth/",
 				"AUTH_SUCCESS_URL"         => "/personal/"
 			)
 		); ?>

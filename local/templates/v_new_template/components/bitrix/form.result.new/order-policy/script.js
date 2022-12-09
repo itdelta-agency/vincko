@@ -8,6 +8,8 @@ $(document).ready(function () {
 		closeOpenBlockBtn(btns[i], forms[i]);
 	}
 
+
+
 	var value = $('input[name="radio"]:checked').val();
 
 	$(".js-check-form-valid").click(function (e) {
@@ -20,7 +22,6 @@ $(document).ready(function () {
 			class_name = "error";
 
 		$('.js-check-valid-field').removeClass(class_name);
-
 		$.ajax({
 			url: '/ajax/form-valid-order-policy.php',
 			method: 'GET',
@@ -30,6 +31,7 @@ $(document).ready(function () {
 				$.each(res.value, function (i, value) {
 					$('input[name="'+i+'"]').val(value);
 				});
+				console.log(res);
 				if (res.count > 0) {
 					$('html').scrollTop(top1);
 					$error.show();
@@ -38,8 +40,8 @@ $(document).ready(function () {
 					});
 				} else {
 					$error.hide();
-					closeOpenBlockNext(forms[0], forms[1], btns[0]);
-					$('html').scrollTop($("#form-2").position().top);
+					$("#form-2").removeClass("def-close");
+					$('html').scrollTop($("#form-2").offset().top-15);
 					$('.installment__rules').addClass("installment__rules--active");
 				}
 			},
@@ -47,7 +49,10 @@ $(document).ready(function () {
 				console.log(e);
 			}
 		});
+	});
 
+	$("[name='PAYMENT']").change(function(){
+		$(this).parents('form').find("[name='web_form_apply']").removeAttr("disabled");
 	});
 
 	$(".to-short-rd").on("click", function () {
